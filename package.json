@@ -1,0 +1,16 @@
+{
+  "name": "zmw-chachamucaishang",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@types/node": "latest",
+    "nuxt": "latest"
+  }
+}
