@@ -38,9 +38,15 @@ nuxtApp.hook("page:finish", () => {
     <h1 class="text-5xl md:text-6xl text-center font-extrabold tracking-widest top-title">查查木材商</h1>
     <p class="text-sm sm:text-base md:text-xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap">助力检索木材交易隐患，降低木材交易风险</p>
     <div class="relative inline-flex justify-center w-full md:w-96 text-base">
-      <input class="w-4/5 p-4 px-2 md:pl-10 text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" />
-      <div class="absolute left-3 hidden md:inline-block w-5 h-full bg-contain bg-no-repeat bg-center search-icon"></div>
-      <button class="w-1/5 search-button">查一下</button>
+      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" />
+      <div class="absolute left-3 hidden md:inline-block w-5 h-14 bg-contain bg-no-repeat bg-center search-icon"></div>
+      <div class="absolute top-14 left-0 inline-flex w-4/5 max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area">
+        <div class="inline-flex flex-col justify-center items-center w-full h-full p-10 has-no-login-and-empty-search">
+          <p class="text-xs whitespace-nowrap">立即登录获取更精准的关键词匹配结果</p>
+          <button class="px-5 py-2 text-white goto-login-button">登录试试</button>
+        </div>
+      </div>
+      <button class="w-1/5 h-14 search-button">查一下</button>
     </div>
     <div class="hidden md:inline-flex justify-between w-11/12 lg:w-4/5 xl:w-2/3 mt-14 p-4 bottom-bg bottom-bg-pc">
       <div class="inline-flex flex-col items-center justify-center w-1/5">
@@ -96,10 +102,16 @@ nuxtApp.hook("page:finish", () => {
 .search-text {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  transition: all 0s 150ms;
 }
 
 .search-icon {
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image6e46e4258d5997b8e7fd28cccf599a63.png");
+}
+
+.goto-login-button {
+  background: rgb(134, 79, 40);
+  border-radius: 5px;
 }
 
 .search-button {
@@ -111,6 +123,23 @@ nuxtApp.hook("page:finish", () => {
 .search-button:focus-visible,
 .search-text:focus-visible {
   outline: unset;
+}
+
+.search-text:focus-visible,
+.search-text:has(~ .search-tips-area:hover) {
+  border-bottom-left-radius: 0px;
+  transition: all 0s 0ms;
+}
+
+.search-tips-area {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  z-index: 1;
+}
+
+.search-text:focus-visible ~ .search-tips-area,
+.search-tips-area:hover {
+  max-height: 100vh;
 }
 
 .goto-rank-list-button {
