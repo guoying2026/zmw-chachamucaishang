@@ -9,7 +9,7 @@ setPageLayout('mobile-only')
 
 const nuxtApp = useNuxtApp()
 
-nuxtApp.hook("page:finish", () => {
+function makeViewVerticalCenter() {
   // 如果为pc端，则计算页面内容高度和屏幕高度，使页面内容垂直居中
   if (window.screen.width < 768) return;
   let screenHeight = window.screen.height;
@@ -30,6 +30,13 @@ nuxtApp.hook("page:finish", () => {
   }
   if (elTotalHeight > screenHeight) return;
   document.querySelector('.top-title')?.setAttribute('style', 'margin-top: ' + ((screenHeight - elTotalHeight) / 2) + 'px;');
+}
+
+nuxtApp.hook("page:finish", () => {
+  makeViewVerticalCenter();
+  window.onresize = () => {
+    makeViewVerticalCenter();
+  };
 })
 </script>
 
