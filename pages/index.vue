@@ -1,14 +1,27 @@
 <script setup lang="ts">
+import { useSearchInputHistoryStore } from '~/pinia/searchInputHistory'
+
+import { useSearchHistoryStore } from '~/pinia/searchHistory'
+
 const route = useRoute()
-
-useHead({
-  title: '查查木材商',
-})
-
-setPageLayout('mobile-only')
 
 const nuxtApp = useNuxtApp()
 
+const searchInputHistoryStore = useSearchInputHistoryStore()
+
+const searchHistoryStore = useSearchHistoryStore()
+
+const searchInputText = ref<string>('')
+
+const isShowSearchInputHistoryListDelete = ref<boolean>(false)
+
+const isShowSearchHistoryListDelete = ref<boolean>(false)
+
+const searchTextRef = ref()
+
+/**
+ * 使pc端的界面能够在屏幕上垂直居中
+ */
 function makeViewVerticalCenter() {
   // 如果为pc端，则计算页面内容高度和屏幕高度，使页面内容垂直居中
   if (window.screen.width < 768) return;
@@ -18,7 +31,6 @@ function makeViewVerticalCenter() {
   if (!leng || typeof leng !== 'number' || leng === 0) return;
   let i = -1;
   while (++i < leng) {
-    console.log(i, document.querySelector('.main')?.children[i]);
     let computedStyle = window.getComputedStyle(document.querySelector('.main')?.children[i]??new Element());
     let elHeight = document.querySelector('.main')?.children[i].clientHeight??0;
     if (computedStyle) {
@@ -26,14 +38,96 @@ function makeViewVerticalCenter() {
       if (i + 1 !== leng) elTotalHeight += Number(computedStyle['marginBottom'].replaceAll('px', ''));
     }
     elTotalHeight += elHeight;
-    // i++;
   }
   if (elTotalHeight > screenHeight) return;
   document.querySelector('.top-title')?.setAttribute('style', 'margin-top: ' + ((screenHeight - elTotalHeight) / 2) + 'px;');
 }
 
+/**
+ * 使搜索框的“猜你想搜”的区域在滚轮上下滑动时，对应区域能够左右滑动
+ */
+function scrollGenerateSearchInputWordBox() {
+  let box = document.querySelector('.generate-search-input-word-list');
+  if (!box) return;
+  box.addEventListener('wheel', (e: Event) => {
+    let wheelEvent = e as WheelEvent;
+    wheelEvent.preventDefault();
+    if (!box) return;
+    box.scrollLeft += wheelEvent.deltaX + wheelEvent.deltaY;
+  });
+}
+
+/**
+ * “查一下”按钮的点击处理事件
+ */
+function searchButtonHandle() {
+  if (searchInputText.value.trim() === '') return;
+  searchInputHistoryStore.add(searchInputText.value.trim());
+}
+
+/**
+ * 显示搜索输入历史记录的删除按钮
+ */
+function showSearchInputHistoryListDelete() {
+  isShowSearchInputHistoryListDelete.value = true;
+}
+
+/**
+ * 隐藏搜索输入历史记录的删除按钮
+ */
+function hideSearchInputHistoryListDelete() {
+  isShowSearchInputHistoryListDelete.value = false;
+}
+
+/**
+ * 删除所有的搜索输入历史记录
+ */
+function clearAllSearchInputHistory() {
+  searchInputHistoryStore.clearAll();
+  hideSearchInputHistoryListDelete();
+}
+
+/**
+ * 删除指定的搜索输入历史记录
+ * @param {string} item 
+ */
+function clearSearchInputHistoryItem(item: string) {
+  searchInputHistoryStore.remove(item);
+}
+
+/**
+ * 清除搜索输入框的输入内容，并且使输入框获取焦点
+ */
+function clearSearchInputText() {
+  searchInputText.value = '';
+  searchTextRef.value.focus();
+}
+
+function showSearchHistoryListDelete() {
+  isShowSearchHistoryListDelete.value = true;
+}
+
+function hideSearchHistoryListDelete() {
+  isShowSearchHistoryListDelete.value = false;
+}
+
+function clearAllSearchHistory() {
+  searchHistoryStore.clearAll();
+}
+
+function clearSearchHistoryItem(id: number) {
+  searchHistoryStore.remove(id);
+}
+
+useHead({
+  title: '查查木材商',
+})
+
+setPageLayout('mobile-only')
+
 nuxtApp.hook("page:finish", () => {
   makeViewVerticalCenter();
+  scrollGenerateSearchInputWordBox();
   window.onresize = () => {
     makeViewVerticalCenter();
   };
@@ -42,18 +136,102 @@ nuxtApp.hook("page:finish", () => {
 
 <template>
   <div class="flex flex-col items-center w-11/12 min-h-screen m-auto bg-black text-white main">
-    <h1 class="text-5xl md:text-6xl text-center font-extrabold tracking-widest top-title">查查木材商</h1>
-    <p class="text-sm sm:text-base md:text-xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap">助力检索木材交易隐患，降低木材交易风险</p>
-    <div class="relative inline-flex justify-center w-full md:w-96 text-base">
-      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" />
-      <div class="absolute left-3 hidden md:inline-block w-5 h-14 bg-contain bg-no-repeat bg-center search-icon"></div>
+    <h1 class="text-5xl md:text-6xl 2xl:text-8xl text-center font-extrabold tracking-widest top-title">查查木材商</h1>
+    <p class="text-sm sm:text-base md:text-xl 2xl:text-3xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap">助力检索木材交易隐患，降低木材交易风险</p>
+    <!-- 搜索框 -->
+    <div class="relative inline-flex justify-center w-full md:w-96 2xl:w-1/3 text-base">
+      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-4 text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" />
+      <!-- 搜索图标 -->
+      <svg class="absolute left-3 hidden md:inline-block w-5 h-14 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
+      <!-- 叉叉图标 -->
+      <svg v-if="searchInputText.length > 0" @click="clearSearchInputText" class="absolute hidden w-5 h-14 clear-icon" style="left: 74%;color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
       <div class="absolute top-14 left-0 inline-flex w-4/5 max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area">
-        <div class="inline-flex flex-col justify-center items-center w-full h-full p-10 has-no-login-and-empty-search">
-          <p class="text-xs whitespace-nowrap">立即登录获取更精准的关键词匹配结果</p>
-          <button class="px-5 py-2 text-white goto-login-button">登录试试</button>
+        <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
+        <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-full px-10 py-4">
+          <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
+          <p class="text-xs whitespace-nowrap mt-1 goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
+          <button class="text-sm px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
+        </div>
+        <!-- 未输入任何搜索内容、有搜索历史记录 -->
+        <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length > 0" class="inline-flex flex-col w-full h-full px-2 py-1">
+          <!-- 输入历史记录 -->
+          <div class="inline-flex flex-row items-center justify-between w-full">
+            <ul class="inline-flex flex-row text-xs list-none overflow-x-scroll search-input-history-list">
+              <li class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
+                <span>{{ item }}</span>
+                <button v-if="isShowSearchInputHistoryListDelete" @click="clearSearchInputHistoryItem(item)" class="absolute top-0 right-0 w-3 h-3 p-0.5 clear-search-input-history-item-button">
+                  <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
+                </button>
+              </li>
+            </ul>
+            <template v-if="isShowSearchInputHistoryListDelete">
+              <div class="inline-flex">
+                <button @click="clearAllSearchInputHistory" class="text-sm whitespace-nowrap pl-1 clear-all-search-input-history-button">删除全部</button>
+                <button @click="hideSearchInputHistoryListDelete" class="text-sm whitespace-nowrap pl-1 finish-clear-search-input-history-button">完成</button>
+              </div>
+            </template>
+            <template v-else>
+              <button @click="showSearchInputHistoryListDelete" class="inline-flex flex-row justify-center items-center w-4 h-4 pl-1">
+                <svg class="w-4 clear-search-input-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
+              </button>
+            </template>
+          </div>
+          <!-- 搜索历史记录 -->
+          <div class="inline-flex flex-col p-2 mt-2 search-history-box">
+            <h1 class="text-sm pb-2 search-history-box-title">历史记录</h1>
+            <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
+              <li class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in searchHistoryStore.getList()">
+                <img class="w-8 h-8 object-cover search-history-list-item-logo" src="" />
+                <span class="text-sm pl-1 search-history-list-item-name">杭州木材有限公司</span>
+                <button @click="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
+                  <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <template v-if="isShowSearchHistoryListDelete">
+            <div class="inline-flex flex-row justify-start items-center">
+              <button @click="clearAllSearchHistory" class="text-sm whitespace-nowrap pl-0 clear-all-search-history-button">删除全部</button>
+              <button @click="hideSearchHistoryListDelete" class="text-sm whitespace-nowrap pl-1 finish-clear-search-history-button">完成</button>
+            </div>
+          </template>
+          <template v-else>
+            <button @click="showSearchHistoryListDelete" class="inline-flex flex-row justify-center items-center w-20">
+              <svg class="w-4 clear-search-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
+              <span class="text-sm clear-search-history-button-text">删除历史</span>
+            </button>
+          </template>
+        </div>
+        <!-- 已输入任何搜索内容 -->
+        <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-full h-full px-2 py-1 pb-2">
+          <!-- 猜你想搜 -->
+          <div class="inline-flex flex-row items-center justify-between w-full">
+            <h1 class="text-xs pr-2 whitespace-nowrap guess-what-you-want-to-search-tips">猜你想搜</h1>
+            <ul class="inline-flex flex-row text-xs list-none overflow-x-scroll search-input-history-list generate-search-input-word-list">
+              <li class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="n in 5">建筑木材</li>
+            </ul>
+            <button class="inline-flex flex-row justify-center items-center w-4 pl-1">
+              <svg class="w-4 regenerate-search-input-word-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12 23q-2.8 0-5.15-1.275T3 18.325V21H1v-6h6v2H4.525q1.2 1.8 3.163 2.9T12 21q1.875 0 3.513-.713t2.85-1.924q1.212-1.213 1.925-2.85T21 12h2q0 2.275-.863 4.275t-2.362 3.5q-1.5 1.5-3.5 2.363T12 23ZM1 12q0-2.275.863-4.275t2.362-3.5q1.5-1.5 3.5-2.362T12 1q2.8 0 5.15 1.275t3.85 3.4V3h2v6h-6V7h2.475q-1.2-1.8-3.163-2.9T12 3q-1.875 0-3.513.713t-2.85 1.924Q4.426 6.85 3.714 8.488T3 12H1Z"/></svg>
+            </button>
+          </div>
+          <!-- 相关企业 -->
+          <div class="inline-flex flex-col p-2 related-enterprises-box">
+            <h1 class="text-sm pb-2 related-enterprises-box-title">相关企业</h1>
+            <ul class="inline-flex flex-col list-none overflow-y-scroll related-enterprises-list">
+              <li class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="n in 5">
+                <img class="w-8 h-8 object-cover related-enterprises-list-item-logo" src="" alt="" />
+                <span class="text-sm pl-1 related-enterprises-list-item-name">杭州木材有限公司</span>
+              </li>
+            </ul>
+          </div>
+          <!-- 登录提示 -->
+          <div class="text-xs text-center mt-1">
+            <button class="goto-login-button1">立即登录</button>
+            <span>获取更精准的关键词匹配结果</span>
+          </div>
         </div>
       </div>
-      <button class="w-1/5 h-14 search-button">查一下</button>
+      <button class="w-1/5 h-14 search-button" @click="searchButtonHandle">查一下</button>
     </div>
     <div class="hidden md:inline-flex justify-between w-11/12 lg:w-4/5 xl:w-2/3 mt-14 p-4 bottom-bg bottom-bg-pc">
       <div class="inline-flex flex-col items-center justify-center w-1/5">
@@ -113,12 +291,105 @@ nuxtApp.hook("page:finish", () => {
 }
 
 .search-icon {
-  background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image6e46e4258d5997b8e7fd28cccf599a63.png");
+  color: rgb(153,153,153);
+}
+
+.goto-login-and-get-detail-search-result-tips {
+  color: rgb(153,153,153);
 }
 
 .goto-login-button {
-  background: rgb(134, 79, 40);
+  background: rgb(143, 75, 29);
   border-radius: 5px;
+}
+
+.search-history-box {
+  max-height: 25vh;
+}
+
+.related-enterprises-box {
+  max-height: 30vh;
+}
+
+.search-history-box,
+.related-enterprises-box {
+  background: rgb(246,246,254);
+}
+
+.clear-search-input-history-button-icon,
+.clear-search-history-button-icon {
+  color: rgb(160,160,160);
+}
+
+.clear-all-search-input-history-button,
+.clear-all-search-history-button {
+  color: rgb(255,43,60);
+}
+
+.finish-clear-search-input-history-button,
+.finish-clear-search-history-button {
+  color: rgb(255,150,26);
+}
+
+.search-history-list {
+  max-height: 25vh;
+}
+
+.related-enterprises-list {
+  max-height: 30vh;
+}
+
+.search-input-history-list,
+.search-history-list,
+.related-enterprises-list {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.search-input-history-list::-webkit-scrollbar,
+.search-history-list::-webkit-scrollbar,
+.related-enterprises-list::-webkit-scrollbar {
+  display: none;
+}
+
+.clear-search-input-history-item-button {
+  background: rgb(215,215,215);
+  border-radius: 2px;
+}
+
+.clear-search-input-history-item-button svg {
+  color: rgb(89,89,89);
+}
+
+.search-history-box-title,
+.related-enterprises-box-title,
+.search-input-history-list-item,
+.clear-search-history-button-text,
+.guess-what-you-want-to-search-tips,
+.regenerate-search-input-word-button-icon {
+  color: rgb(153,153,153);
+}
+
+.search-input-history-list-item {
+  background: rgb(238,238,238);
+}
+
+.search-history-list-item-logo,
+.related-enterprises-list-item-logo {
+  border-radius: 5px;
+}
+
+.search-history-list-item-name,
+.related-enterprises-list-item-name {
+  color: rgb(51,51,51);
+}
+
+.clear-search-history-item-button {
+  top: 0.625rem;
+}
+
+.goto-login-button1 {
+  color: rgb(143,75,29);
 }
 
 .search-button {
@@ -136,6 +407,15 @@ nuxtApp.hook("page:finish", () => {
 .search-text:has(~ .search-tips-area:hover) {
   border-bottom-left-radius: 0px;
   transition: all 0s 0ms;
+}
+.search-text:hover ~ .clear-icon {
+  z-index: 999;
+}
+
+.search-text:focus-visible ~ .clear-icon,
+.search-text:hover ~ .clear-icon,
+.clear-icon:hover {
+  display: inline-block;
 }
 
 .search-tips-area {
