@@ -5,13 +5,20 @@ import { useSessionStorage } from "@vueuse/core";
  * 数据格式：
  * ```ts
  * [
- *    {},
+ *    {
+ *      id: number,
+ *      name: string,
+ *      logo: string,
+ *    },
+ *    ...
  * ]
  * ```
  */
 export const useSearchHistoryStore = defineStore('searchHistoryStore', () => {
   type listItem = {
     id: number,
+    name: string,
+    logo: string,
   };
   const list = useSessionStorage('search-history', [] as listItem[]);
 

@@ -44,6 +44,34 @@ function makeViewVerticalCenter() {
 }
 
 /**
+ * 使登录界面在屏幕中间
+ */
+function makeLoginPopUpInScreenCenter() {
+  let screenWidth = window.screen.width;
+  let screenHeight = window.screen.height;
+  let loginPopUpEl = document.querySelector('.login-pop-up');
+  if (!loginPopUpEl) return;
+  let loginPopUpElWidth = loginPopUpEl.clientWidth;
+  let loginPopUpElHeight = loginPopUpEl.clientHeight;
+  let computedStyle = window.getComputedStyle(loginPopUpEl);
+  loginPopUpElWidth += Number(computedStyle['marginLeft'].replace('px', ''));
+  loginPopUpElWidth += Number(computedStyle['marginRight'].replace('px', ''));
+  loginPopUpElHeight += Number(computedStyle['marginTop'].replace('px', ''));
+  loginPopUpElHeight += Number(computedStyle['marginBottom'].replace('px', ''));
+  let left = (screenWidth - loginPopUpElWidth) / 2;
+  let top = (screenHeight - loginPopUpElHeight) / 2;
+  console.log('screenWidth', screenWidth);
+  console.log('screenHeight', screenHeight);
+  console.log('loginPopUpElWidth', loginPopUpElWidth);
+  console.log('loginPopUpElHeight', loginPopUpElHeight);
+  console.log(Number(computedStyle['marginLeft'].replace('px', '')));
+  console.log(Number(computedStyle['marginRight'].replace('px', '')));
+  console.log(Number(computedStyle['marginTop'].replace('px', '')));
+  console.log(Number(computedStyle['marginBottom'].replace('px', '')));
+  loginPopUpEl.setAttribute('style', 'left: ' + left + 'px;top: ' + top + 'px;');
+}
+
+/**
  * 使搜索框的“猜你想搜”的区域在滚轮上下滑动时，对应区域能够左右滑动
  */
 function scrollGenerateSearchInputWordBox() {
@@ -63,6 +91,7 @@ function scrollGenerateSearchInputWordBox() {
 function searchButtonHandle() {
   if (searchInputText.value.trim() === '') return;
   searchInputHistoryStore.add(searchInputText.value.trim());
+  gotoSearch();
 }
 
 /**
@@ -103,21 +132,53 @@ function clearSearchInputText() {
   searchTextRef.value.focus();
 }
 
+/**
+ * 显示搜索历史记录的删除按钮
+ */
 function showSearchHistoryListDelete() {
   isShowSearchHistoryListDelete.value = true;
 }
 
+/**
+ * 隐藏搜索历史记录的删除按钮
+ */
 function hideSearchHistoryListDelete() {
   isShowSearchHistoryListDelete.value = false;
 }
 
+/**
+ * 清除所有的搜索历史记录
+ */
 function clearAllSearchHistory() {
   searchHistoryStore.clearAll();
 }
 
+/**
+ * 删除指定的搜索历史记录
+ * @param {number} id 
+ */
 function clearSearchHistoryItem(id: number) {
   searchHistoryStore.remove(id);
 }
+
+/**
+ * 搜索输入历史记录项的点击处理事件
+ */
+function searchInputHistoryListItemClickHandle(str: string) {
+  if (str.trim() === '') return;
+  searchInputText.value = str;
+  gotoSearch();
+}
+
+/**
+ * 前往登录，打开登录弹窗
+ */
+function gotoLogin() {}
+
+/**
+ * 前往搜索，调用搜索api
+ */
+function gotoSearch() {}
 
 useHead({
   title: '查查木材商',
@@ -127,9 +188,11 @@ setPageLayout('mobile-only')
 
 nuxtApp.hook("page:finish", () => {
   makeViewVerticalCenter();
+  makeLoginPopUpInScreenCenter();
   scrollGenerateSearchInputWordBox();
   window.onresize = () => {
     makeViewVerticalCenter();
+    makeLoginPopUpInScreenCenter();
   };
 })
 </script>
@@ -140,24 +203,25 @@ nuxtApp.hook("page:finish", () => {
     <p class="text-sm sm:text-base md:text-xl 2xl:text-3xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap">助力检索木材交易隐患，降低木材交易风险</p>
     <!-- 搜索框 -->
     <div class="relative inline-flex justify-center w-full md:w-96 2xl:w-1/3 text-base">
-      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-4 text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" />
+      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-4 text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
       <!-- 搜索图标 -->
       <svg class="absolute left-3 hidden md:inline-block w-5 h-14 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
       <!-- 叉叉图标 -->
       <svg v-if="searchInputText.length > 0" @click="clearSearchInputText" class="absolute hidden w-5 h-14 clear-icon" style="left: 74%;color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+      <!-- 输入框下方的弹出框 -->
       <div class="absolute top-14 left-0 inline-flex w-4/5 max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area">
         <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
         <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-full px-10 py-4">
           <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
           <p class="text-xs whitespace-nowrap mt-1 goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
-          <button class="text-sm px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
+          <button @click="gotoLogin" class="text-sm px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
         </div>
         <!-- 未输入任何搜索内容、有搜索历史记录 -->
         <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length > 0" class="inline-flex flex-col w-full h-full px-2 py-1">
           <!-- 输入历史记录 -->
           <div class="inline-flex flex-row items-center justify-between w-full">
             <ul class="inline-flex flex-row text-xs list-none overflow-x-scroll search-input-history-list">
-              <li class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
+              <li @click="searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
                 <span>{{ item }}</span>
                 <button v-if="isShowSearchInputHistoryListDelete" @click="clearSearchInputHistoryItem(item)" class="absolute top-0 right-0 w-3 h-3 p-0.5 clear-search-input-history-item-button">
                   <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
@@ -177,29 +241,31 @@ nuxtApp.hook("page:finish", () => {
             </template>
           </div>
           <!-- 搜索历史记录 -->
-          <div class="inline-flex flex-col p-2 mt-2 search-history-box">
+          <div v-if="searchHistoryStore.getList().length > 0" class="inline-flex flex-col p-2 mt-2 search-history-box">
             <h1 class="text-sm pb-2 search-history-box-title">历史记录</h1>
             <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
               <li class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in searchHistoryStore.getList()">
-                <img class="w-8 h-8 object-cover search-history-list-item-logo" src="" />
-                <span class="text-sm pl-1 search-history-list-item-name">杭州木材有限公司</span>
+                <img class="w-8 h-8 object-cover search-history-list-item-logo" src="{{ item.logo }}" />
+                <span class="text-sm pl-1 search-history-list-item-name">{{ item.name }}</span>
                 <button @click="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
                   <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
                 </button>
               </li>
             </ul>
           </div>
-          <template v-if="isShowSearchHistoryListDelete">
-            <div class="inline-flex flex-row justify-start items-center">
-              <button @click="clearAllSearchHistory" class="text-sm whitespace-nowrap pl-0 clear-all-search-history-button">删除全部</button>
-              <button @click="hideSearchHistoryListDelete" class="text-sm whitespace-nowrap pl-1 finish-clear-search-history-button">完成</button>
-            </div>
-          </template>
-          <template v-else>
-            <button @click="showSearchHistoryListDelete" class="inline-flex flex-row justify-center items-center w-20">
-              <svg class="w-4 clear-search-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
-              <span class="text-sm clear-search-history-button-text">删除历史</span>
-            </button>
+          <template v-if="searchHistoryStore.getList().length > 0">
+            <template v-if="isShowSearchHistoryListDelete">
+              <div class="inline-flex flex-row justify-start items-center">
+                <button @click="clearAllSearchHistory" class="text-sm whitespace-nowrap pl-0 clear-all-search-history-button">删除全部</button>
+                <button @click="hideSearchHistoryListDelete" class="text-sm whitespace-nowrap pl-1 finish-clear-search-history-button">完成</button>
+              </div>
+            </template>
+            <template v-else>
+              <button @click="showSearchHistoryListDelete" class="inline-flex flex-row justify-center items-center w-20">
+                <svg class="w-4 clear-search-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
+                <span class="text-sm clear-search-history-button-text">删除历史</span>
+              </button>
+            </template>
           </template>
         </div>
         <!-- 已输入任何搜索内容 -->
@@ -226,7 +292,7 @@ nuxtApp.hook("page:finish", () => {
           </div>
           <!-- 登录提示 -->
           <div class="text-xs text-center mt-1">
-            <button class="goto-login-button1">立即登录</button>
+            <button @click="gotoLogin" class="goto-login-button1">立即登录</button>
             <span>获取更精准的关键词匹配结果</span>
           </div>
         </div>
@@ -268,6 +334,29 @@ nuxtApp.hook("page:finish", () => {
             <p>投诉</p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <!-- 手机号登录弹窗 -->
+  <div class="fixed top-0 left-0 w-screen h-screen login-pop-up-cover">
+    <div class="fixed w-1/2 bg-black px-10 py-8 login-pop-up">
+      <div class="relative text-center mb-2">
+        <span class="text-sm">助力检索木材交易隐患，降低木材交易风险</span>
+        <button class="absolute right-0 top-1">
+          <svg class="absolute w-5 h-5" style="left: 74%;color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+        </button>
+      </div>
+      <div class="inline-flex flex-col items-center w-full h-full bg-white text-black px-2 py-8 overflow-hidden login-pop-up-main">
+        <h1 class="text-xl font-extrabold tracking-widest">手机号登录</h1>
+        <input class="w-10/12 h-16 px-2 py-1 login-pop-up-main-input-item" placeholder="请输入您的手机号" />
+        <div class="w-10/12 h-16 mt-8 login-pop-up-main-input-item">
+          <input class="w-3/5 px-2 py-1" placeholder="请输入验证码" />
+          <button class="w-2/5 h-full login-pop-up-main-input-item-button">立即发送</button>
+        </div>
+        <button class="w-10/12 text-white text-2xl font-normal py-5 mt-10 login-pop-up-main-login-button">注册/登录</button>
+        <span class="w-10/12 text-sm text-center mt-7">未注册手机验证后自动注册并登录</span>
+        <hr class=" w-screen mt-11" />
+        <div class="w-10/12 text-sm text-center mt-8">登录即同意<button>《用户协议》</button>和<button>《隐私政策》</button></div>
       </div>
     </div>
   </div>
@@ -372,6 +461,7 @@ nuxtApp.hook("page:finish", () => {
 
 .search-input-history-list-item {
   background: rgb(238,238,238);
+  cursor: pointer;
 }
 
 .search-history-list-item-logo,
@@ -398,8 +488,7 @@ nuxtApp.hook("page:finish", () => {
   border-bottom-right-radius: 5px;
 }
 
-.search-button:focus-visible,
-.search-text:focus-visible {
+*:focus-visible {
   outline: unset;
 }
 
@@ -493,5 +582,30 @@ nuxtApp.hook("page:finish", () => {
 
 .help-list img {
   width: 2rem;
+}
+
+.login-pop-up-cover {
+  background: rgba(0,0,0,0.8);
+}
+
+.login-pop-up,
+.login-pop-up-main {
+  border-radius: 16px;
+}
+
+.login-pop-up-main-input-item {
+  border: 2px solid rgba(192,204,218,0.44);
+  border-radius: 8px;
+}
+
+.login-pop-up-main-input-item-button {
+  color: #999999;
+  background: #F9FAFC;
+  border-left: 2px solid rgba(192,204,218,0.44);
+}
+
+.login-pop-up-main-login-button {
+  background: #FF834E;
+  border-radius: 33px;
 }
 </style>
