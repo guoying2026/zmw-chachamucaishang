@@ -1,23 +1,37 @@
 <script setup lang="ts">
+// 导入登录弹窗组件
+import LoginPopup from '~/components/LoginPopup.vue'
+
+// 导入搜索输入历史记录存储
 import { useSearchInputHistoryStore } from '~/pinia/searchInputHistory'
 
+// 导入搜索历史记录存储
 import { useSearchHistoryStore } from '~/pinia/searchHistory'
 
 const route = useRoute()
 
 const nuxtApp = useNuxtApp()
 
+// 实例化搜索输入历史记录存储
 const searchInputHistoryStore = useSearchInputHistoryStore()
 
+// 实例化搜索历史记录存储
 const searchHistoryStore = useSearchHistoryStore()
 
+// 搜索框输入内容
 const searchInputText = ref<string>('')
 
+// 是否显示搜索输入历史记录的删除按钮
 const isShowSearchInputHistoryListDelete = ref<boolean>(false)
 
+// 是否显示搜索历史记录的删除按钮
 const isShowSearchHistoryListDelete = ref<boolean>(false)
 
+// 搜索输入框对象
 const searchTextRef = ref()
+
+// 是否显示登录弹窗
+const isShowLogin = ref<boolean>(false)
 
 /**
  * 使pc端的界面能够在屏幕上垂直居中
@@ -41,34 +55,6 @@ function makeViewVerticalCenter() {
   }
   if (elTotalHeight > screenHeight) return;
   document.querySelector('.top-title')?.setAttribute('style', 'margin-top: ' + ((screenHeight - elTotalHeight) / 2) + 'px;');
-}
-
-/**
- * 使登录界面在屏幕中间
- */
-function makeLoginPopUpInScreenCenter() {
-  let screenWidth = window.screen.width;
-  let screenHeight = window.screen.height;
-  let loginPopUpEl = document.querySelector('.login-pop-up');
-  if (!loginPopUpEl) return;
-  let loginPopUpElWidth = loginPopUpEl.clientWidth;
-  let loginPopUpElHeight = loginPopUpEl.clientHeight;
-  let computedStyle = window.getComputedStyle(loginPopUpEl);
-  loginPopUpElWidth += Number(computedStyle['marginLeft'].replace('px', ''));
-  loginPopUpElWidth += Number(computedStyle['marginRight'].replace('px', ''));
-  loginPopUpElHeight += Number(computedStyle['marginTop'].replace('px', ''));
-  loginPopUpElHeight += Number(computedStyle['marginBottom'].replace('px', ''));
-  let left = (screenWidth - loginPopUpElWidth) / 2;
-  let top = (screenHeight - loginPopUpElHeight) / 2;
-  console.log('screenWidth', screenWidth);
-  console.log('screenHeight', screenHeight);
-  console.log('loginPopUpElWidth', loginPopUpElWidth);
-  console.log('loginPopUpElHeight', loginPopUpElHeight);
-  console.log(Number(computedStyle['marginLeft'].replace('px', '')));
-  console.log(Number(computedStyle['marginRight'].replace('px', '')));
-  console.log(Number(computedStyle['marginTop'].replace('px', '')));
-  console.log(Number(computedStyle['marginBottom'].replace('px', '')));
-  loginPopUpEl.setAttribute('style', 'left: ' + left + 'px;top: ' + top + 'px;');
 }
 
 /**
@@ -171,14 +157,32 @@ function searchInputHistoryListItemClickHandle(str: string) {
 }
 
 /**
+ * 显示登录弹窗
+ */
+function showLoginPopup() {
+  isShowLogin.value = true;
+}
+
+/**
+ * 隐藏登录弹窗
+ */
+function hideLoginPopup() {
+  isShowLogin.value = false;
+}
+
+/**
  * 前往登录，打开登录弹窗
  */
-function gotoLogin() {}
+function gotoLogin() {
+  showLoginPopup();
+}
 
 /**
  * 前往搜索，调用搜索api
  */
-function gotoSearch() {}
+function gotoSearch() {
+  // TODO 调用搜索api
+}
 
 useHead({
   title: '查查木材商',
@@ -188,18 +192,18 @@ setPageLayout('mobile-only')
 
 nuxtApp.hook("page:finish", () => {
   makeViewVerticalCenter();
-  makeLoginPopUpInScreenCenter();
   scrollGenerateSearchInputWordBox();
   window.onresize = () => {
     makeViewVerticalCenter();
-    makeLoginPopUpInScreenCenter();
   };
 })
 </script>
 
 <template>
   <div class="flex flex-col items-center w-11/12 min-h-screen m-auto bg-black text-white main">
+    <!-- 顶部标题 -->
     <h1 class="text-5xl md:text-6xl 2xl:text-8xl text-center font-extrabold tracking-widest top-title">查查木材商</h1>
+    <!-- 顶部副标题 -->
     <p class="text-sm sm:text-base md:text-xl 2xl:text-3xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap">助力检索木材交易隐患，降低木材交易风险</p>
     <!-- 搜索框 -->
     <div class="relative inline-flex justify-center w-full md:w-96 2xl:w-1/3 text-base">
@@ -299,36 +303,46 @@ nuxtApp.hook("page:finish", () => {
       </div>
       <button class="w-1/5 h-14 search-button" @click="searchButtonHandle">查一下</button>
     </div>
+    <!-- pc端底部导航栏 -->
     <div class="hidden md:inline-flex justify-between w-11/12 lg:w-4/5 xl:w-2/3 mt-14 p-4 bottom-bg bottom-bg-pc">
+      <!-- 信用排行榜 -->
       <div class="inline-flex flex-col items-center justify-center w-1/5">
         <img class="w-full h-full object-contain" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagebc0fc650b7b2855011cd4f677ff84d18.png" />
       </div>
+      <!-- 问答 -->
       <div class="inline-flex flex-col items-center justify-center w-1/5">
         <img class="w-10 xl:w-12 2xl:w-14" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image78d4ecfb51b36699a32eab989bf5d4b3.png" />
         <p class="h-10 text-center text-base mt-2">问答</p>
       </div>
+      <!-- 评论 -->
       <div class="inline-flex flex-col items-center justify-center w-1/5">
         <img class="w-10 xl:w-12 2xl:w-14" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5206a70a10664e3094ca56f7b5daa4d0.png" />
         <p class="h-10 text-center text-xs mt-2">提出您的问题，了解关于商家的问题及解答</p>
       </div>
+      <!-- 投诉 -->
       <div class="inline-flex flex-col items-center justify-center w-1/5">
         <img class="w-10 xl:w-12 2xl:w-14" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image3db75212dbc6abcdcda9d72349d98b1e.png" />
         <p class="h-10 text-center text-base mt-2">投诉</p>
       </div>
     </div>
+    <!-- 移动端底部导航栏 -->
     <div class="inline-block md:hidden w-full mt-14 p-4 bottom-bg">
+      <!-- 信用排行榜 -->
       <div class="flex justify-between items-center rank-list-cover"></div>
       <div class="flex flex-col mt-5 bg-black py-4 help-box">
         <h1 class="text-center font-bold space tracking-widest help-eliminate-hidden-danger">三大功能助力消除隐患</h1>
         <div class="flex justify-between mt-6 help-list">
+          <!-- 问答 -->
           <div>
             <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image78d4ecfb51b36699a32eab989bf5d4b3.png" />
             <p>问答</p>
           </div>
+          <!-- 评论 -->
           <div>
             <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5206a70a10664e3094ca56f7b5daa4d0.png" />
             <p>评论</p>
           </div>
+          <!-- 投诉 -->
           <div>
             <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image3db75212dbc6abcdcda9d72349d98b1e.png" />
             <p>投诉</p>
@@ -337,29 +351,8 @@ nuxtApp.hook("page:finish", () => {
       </div>
     </div>
   </div>
-  <!-- 手机号登录弹窗 -->
-  <div class="fixed top-0 left-0 w-screen h-screen login-pop-up-cover">
-    <div class="fixed w-1/2 bg-black px-10 py-8 login-pop-up">
-      <div class="relative text-center mb-2">
-        <span class="text-sm">助力检索木材交易隐患，降低木材交易风险</span>
-        <button class="absolute right-0 top-1">
-          <svg class="absolute w-5 h-5" style="left: 74%;color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
-        </button>
-      </div>
-      <div class="inline-flex flex-col items-center w-full h-full bg-white text-black px-2 py-8 overflow-hidden login-pop-up-main">
-        <h1 class="text-xl font-extrabold tracking-widest">手机号登录</h1>
-        <input class="w-10/12 h-16 px-2 py-1 login-pop-up-main-input-item" placeholder="请输入您的手机号" />
-        <div class="w-10/12 h-16 mt-8 login-pop-up-main-input-item">
-          <input class="w-3/5 px-2 py-1" placeholder="请输入验证码" />
-          <button class="w-2/5 h-full login-pop-up-main-input-item-button">立即发送</button>
-        </div>
-        <button class="w-10/12 text-white text-2xl font-normal py-5 mt-10 login-pop-up-main-login-button">注册/登录</button>
-        <span class="w-10/12 text-sm text-center mt-7">未注册手机验证后自动注册并登录</span>
-        <hr class=" w-screen mt-11" />
-        <div class="w-10/12 text-sm text-center mt-8">登录即同意<button>《用户协议》</button>和<button>《隐私政策》</button></div>
-      </div>
-    </div>
-  </div>
+  <!-- 登录弹窗 -->
+  <LoginPopup v-if="isShowLogin" @close="hideLoginPopup" />
 </template>
 
 <style setup>
@@ -582,30 +575,5 @@ nuxtApp.hook("page:finish", () => {
 
 .help-list img {
   width: 2rem;
-}
-
-.login-pop-up-cover {
-  background: rgba(0,0,0,0.8);
-}
-
-.login-pop-up,
-.login-pop-up-main {
-  border-radius: 16px;
-}
-
-.login-pop-up-main-input-item {
-  border: 2px solid rgba(192,204,218,0.44);
-  border-radius: 8px;
-}
-
-.login-pop-up-main-input-item-button {
-  color: #999999;
-  background: #F9FAFC;
-  border-left: 2px solid rgba(192,204,218,0.44);
-}
-
-.login-pop-up-main-login-button {
-  background: #FF834E;
-  border-radius: 33px;
 }
 </style>
