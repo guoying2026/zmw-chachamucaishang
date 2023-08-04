@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import './assets/css/global.css'
+
 const nuxtApp = useNuxtApp()
 
 nuxtApp.hook("page:finish", () => {
