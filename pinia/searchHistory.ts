@@ -1,26 +1,12 @@
 import { useSessionStorage } from "@vueuse/core";
 
+import { SearchHistoryListItem } from '~/types/searchHistoryListItem';
+
 /**
  * 记录用户在搜索后给出的搜索结果中，点击的项目
- * 数据格式：
- * ```ts
- * [
- *    {
- *      id: number,
- *      name: string,
- *      logo: string,
- *    },
- *    ...
- * ]
- * ```
  */
 export const useSearchHistoryStore = defineStore('searchHistoryStore', () => {
-  type listItem = {
-    id: number,
-    name: string,
-    logo: string,
-  };
-  const list = useSessionStorage('search-history', [] as listItem[]);
+  const list = useSessionStorage('search-history', [] as SearchHistoryListItem[]);
 
   const getList = () => {
     return list.value;
@@ -34,13 +20,13 @@ export const useSearchHistoryStore = defineStore('searchHistoryStore', () => {
     let _list = list.value;
     if (id === 0) return;
     if (isNaN(id)) return;
-    _list = _list.filter((item: listItem) => {
+    _list = _list.filter((item: SearchHistoryListItem) => {
       return item.id !== id;
     });
     list.value = _list;
   };
 
-  const add = (item: listItem) => {
+  const add = (item: SearchHistoryListItem) => {
     let _list = list.value;
     if (item.id === 0) return;
     if (isNaN(item.id)) return;
