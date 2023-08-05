@@ -1,11 +1,45 @@
 <script setup lang="ts">
- const route = useRoute()
+const route = useRoute()
 
- useHead({
+useHead({
   title: '信用排行榜',
- })
+})
 
- const headerWidth = ref<string>('100vw');
+const headerWidth = ref<string>('100vw');
+
+const currentPage = ref<number>(1);
+
+const paginationSize = ref<number>(5);
+
+const totalPages = ref<number>(9);
+
+const inputPage = ref<number>(currentPage.value);
+
+function jumpToPrevPage() {
+  if (currentPage.value - 1 > 0) {
+    currentPage.value = currentPage.value - 1;
+  } else {
+    currentPage.value = 1;
+  }
+}
+
+function jumpToNextPage() {
+  if (currentPage.value + 1 <= totalPages.value) {
+    currentPage.value = currentPage.value + 1;
+  } else {
+    currentPage.value = totalPages.value;
+  }
+}
+
+function jumpToPage(page: number) {
+  if (page < 1) page = 1
+  if (page > totalPages.value) page = totalPages.value
+  currentPage.value = page;
+}
+
+function jumpToInputPage() {
+  jumpToPage(Number(inputPage.value));
+}
 </script>
 
 <template>
@@ -31,6 +65,50 @@
       <div class="absolute inline-flex items-center text-xs item-third_line">经营范围: 脚墩、托盘、胶合板...</div>
     </div>
   </div>
+  <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">
+    <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage > 1" @click="jumpToPrevPage">上一页</div>
+    <template v-if="totalPages <= paginationSize">
+      <template v-for="i in totalPages">
+        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
+      </template>
+    </template>
+    <template v-else-if="currentPage <= paginationSize - 2 && totalPages >= paginationSize + 2">
+      <template v-for=" i in paginationSize - 1">
+        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
+      </template>
+      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
+      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
+    </template>
+    <template v-else-if="currentPage <= paginationSize - 2 && totalPages < paginationSize + 2">
+      <template v-for=" i in paginationSize - 1">
+        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
+      </template>
+      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
+      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
+    </template>
+    <template v-else-if="currentPage >= totalPages - paginationSize + 3">
+      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === 1 ? ' selected' : '')" @click="jumpToPage(1)">1</div>
+      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
+      <template v-for="i in totalPages">
+        <div v-if="i >= totalPages - paginationSize + 2" :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
+      </template>
+    </template>
+    <template v-else>
+      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === 1 ? ' selected' : '')" @click="jumpToPage(1)">1</div>
+      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
+      <template v-for="i in currentPage + 1">
+        <div v-if="i >= currentPage - 1" :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
+      </template>
+      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
+      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
+    </template>
+    <div class="inline-flex justify-center items-center mr-5 jump-to">
+      <span>跳到</span>
+      <input class="w-16 mx-2 text-center" type="text" v-model="inputPage" @keyup.enter="jumpToInputPage" />
+      <button @click="jumpToInputPage">确定</button>
+    </div>
+    <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage < totalPages" @click="jumpToNextPage">下一页</div>
+  </div>
 </template>
 
 <style setup>
@@ -42,6 +120,7 @@
 .list {
   top: calc((var(--real-width) * 742 / 750) * -0.25);
   min-height: calc(100vh - (var(--real-width) * 742 / 750));
+  margin-bottom: calc((var(--real-width) * 742 / 750) * -0.25);
 }
 
 .item {
@@ -163,6 +242,48 @@
   width: calc((var(--real-width) / 12 * 11) / 710 * 445);
 }
 
+.pagination .page-button {
+  color: #999999;
+  padding: 4.5px 10px 4.5px 9px;
+  border: 1px solid #5B5A5C;
+  border-radius: 2px;
+}
+
+.pagination .page-button.selected {
+  color: #FFFFFF;
+  background: #32323C;
+  cursor: default;
+}
+
+.pagination .page-button:not(.selected) {
+  cursor: pointer;
+}
+
+.pagination .jump-to,
+.pagination .ellipsis {
+  color: #999999;
+}
+
+.pagination .jump-to input {
+  width: 4rem;
+  background: transparent;
+  padding: 4.5px 1px;
+  border: 1px solid #5B5A5C;
+  border-radius: 2px;
+}
+
+.pagination .jump-to input:focus-visible {
+  outline: unset;
+}
+
+.pagination .jump-to button {
+  font-family: Adobe Heiti Std;
+  color: #FF9B40;
+  padding: 4.5px 10px 4.5px 9px;
+  border: 1px solid #5B5A5C;
+  border-radius: 2px;
+}
+
 @media (min-width: 768px) {
   .header {
     height: calc(var(--real-width) * 1026 / 1920);
@@ -175,6 +296,7 @@
     min-height: calc(100vh - (var(--real-width) * 1026 / 1920));
     background: #0F0F14;
     margin-left: calc((var(--real-width) - (var(--real-width) / 1920 * 1380)) / 2);
+    margin-bottom: calc((var(--real-width) * 1026 / 1920) * -0.30);
     padding-top: calc(var(--real-width) / 1920 * 45);
     padding-bottom: calc(var(--real-width) / 1920 * 45);
   }
