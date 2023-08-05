@@ -12,6 +12,10 @@
   <div class="inline-block w-full bg-no-repeat bg-cover header" :style="'--real-width:'+headerWidth+';'"></div>
   <div class="relative inline-block w-full list" :style="'--real-width:'+headerWidth+';'">
     <div class="relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item" :style="'--real-width:'+headerWidth+';'" v-for="n in 5">
+      <div class="absolute inline-block bg-contain bg-no-repeat medal">
+        <div class="absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">100</div>
+        <div class="absolute inline-flex justify-center items-end w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num">N0.{{ n }}</div>
+      </div>
       <div class="absolute text-xs md:text-base item-title">江苏木里文化投资有限公司</div>
       <div class="absolute inline-flex flex-row justify-between items-center text-xs whitespace-nowrap pr-4 item-sec_line">
         <div class="relative">法人:王国栋</div>
@@ -61,9 +65,62 @@
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagecf926b002ff9ded51090934e1e4f3834.png");
 }
 
+.item:nth-of-type(1) .medal {
+  background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image30bf583154265f2c16723b18eaed25e0.png");
+}
+
+.item:nth-of-type(2) .medal {
+  background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image676765f0aebdb93352f2762c7ac79b2d.png");
+}
+
+.item:nth-of-type(3) .medal {
+  background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image730371f66d0949790ab2797c7076e224.png");
+}
+
+.item .medal {
+  background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagedaadad28efd199a6bdd5f4c53db0c289.png");
+}
+
+.item .medal {
+  left: calc((var(--real-width) / 12 * 11) / 710 * 27);
+  top: calc(var(--real-width) / 12 * 11 / 710 * 43);
+  width: calc(var(--real-width) / 12 * 11 / 710 * 146);
+  height: calc(var(--real-width) / 12 * 11 / 710 * 103);
+}
+
+.item .medal .score {
+  font-family: D-DIN;
+}
+
+.item:nth-of-type(1) .medal .rank_num {
+  background: linear-gradient(0deg, #EDC452 0%, #FDF6B4 100%);
+  -webkit-background-clip: text;
+}
+
+.item:nth-of-type(2) .medal .rank_num {
+  background: linear-gradient(0deg, #AFBBE0 0%, #E0E6F8 100%);
+  -webkit-background-clip: text;
+}
+
+.item:nth-of-type(3) .medal .rank_num {
+  background: linear-gradient(0deg, #FFD4AD 0%, #FFF1E5 100%);
+  -webkit-background-clip: text;
+}
+
+.item .medal .rank_num {
+  background: linear-gradient(0deg, #AFBBE0 0%, #E0E6F8 100%);
+  -webkit-background-clip: text;
+}
+
+.item .medal .rank_num {
+  font-family: D-DIN;
+  -webkit-text-fill-color: transparent;
+}
+
 .item-title {
   top: calc(((var(--real-width) / 12 * 11) * 190 / 710) / 19 * 3);
   left: calc((var(--real-width) / 12 * 11) / 710 * 234);
+  font-family: Source Han Sans CN;
 }
 
 .item:nth-of-type(1) .item-title {
@@ -80,6 +137,11 @@
 
 .item .item-title {
   color: #FFFFFF;
+}
+
+.item .item-sec_line,
+.item .item-third_line {
+  font-family: Source Han Sans CN;
 }
 
 .item .item-sec_line {
@@ -138,6 +200,13 @@
     background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imageb8c258179e015857eef693ef50a243ce.png");
   }
 
+  .item .medal {
+    left: calc((var(--real-width) / 12 * 11) / 1258 * 83);
+    top: calc(var(--real-width) / 12 * 11 / 1258 * 29);
+    width: calc(var(--real-width) / 12 * 11 / 1258 * 146);
+    height: calc(var(--real-width) / 12 * 11 / 1258 * 103);
+  }
+
   .item-title {
     top: calc(((var(--real-width) / 12 * 11) * 160 / 1258) / 160 * 30);
     left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
@@ -164,7 +233,7 @@
 
 @media (min-width: 1280px) {
   .item-title {
-    top: calc(((var(--real-width) / 12 * 11) * 160 / 1258) / 160 * 40);
+    top: calc(((var(--real-width) / 12 * 11) * 160 / 1258) / 160 * 39);
   }
 }
 </style>
