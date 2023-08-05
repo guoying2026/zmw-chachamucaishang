@@ -184,6 +184,19 @@ function gotoSearch() {
   // TODO 调用搜索api
 }
 
+function dealSearchTipsAreaExpanded() {
+  const searchTipsArea = document.querySelector('.search-tips-area')
+
+  document.querySelector('.search-text')?.addEventListener('click', e => {
+    searchTipsArea?.classList.add('expanded')
+    e.stopPropagation()
+  })
+
+  document.addEventListener('click', function () {
+    searchTipsArea?.classList.remove('expanded')
+  })
+}
+
 useHead({
   title: '查查木材商',
 })
@@ -191,6 +204,9 @@ useHead({
 setPageLayout('mobile-only')
 
 nuxtApp.hook("page:finish", () => {
+  if(window.screen.width < 768) {
+    dealSearchTipsAreaExpanded();
+  }
   makeViewVerticalCenter();
   scrollGenerateSearchInputWordBox();
   window.onresize = () => {
@@ -211,35 +227,35 @@ nuxtApp.hook("page:finish", () => {
       <!-- 搜索图标 -->
       <svg class="absolute left-3 hidden md:inline-block w-5 h-14 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
       <!-- 叉叉图标 -->
-      <svg v-if="searchInputText.length > 0" @click="clearSearchInputText" class="absolute hidden w-5 h-14 clear-icon" style="left: 74%;color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+      <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute hidden w-5 h-14 clear-icon" style="left: 74%;color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
       <!-- 输入框下方的弹出框 -->
-      <div class="absolute top-14 left-0 inline-flex w-4/5 max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area">
+      <div @click.stop="false" class="absolute top-14 left-0 inline-flex w-4/5 max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area">
         <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
         <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-full px-10 py-4">
           <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
           <p class="text-xs whitespace-nowrap mt-1 goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
-          <button @click="gotoLogin" class="text-sm px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
+          <button @click.stop="gotoLogin" class="text-sm px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
         </div>
         <!-- 未输入任何搜索内容、有搜索历史记录 -->
         <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length > 0" class="inline-flex flex-col w-full h-full px-2 py-1">
           <!-- 输入历史记录 -->
           <div class="inline-flex flex-row items-center justify-between w-full">
             <ul class="inline-flex flex-row text-xs list-none overflow-x-scroll search-input-history-list">
-              <li @click="searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
+              <li @click.stop="searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
                 <span>{{ item }}</span>
-                <button v-if="isShowSearchInputHistoryListDelete" @click="clearSearchInputHistoryItem(item)" class="absolute top-0 right-0 w-3 h-3 p-0.5 clear-search-input-history-item-button">
+                <button v-if="isShowSearchInputHistoryListDelete" @click.stop="clearSearchInputHistoryItem(item)" class="absolute top-0 right-0 w-3 h-3 p-0.5 clear-search-input-history-item-button">
                   <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
                 </button>
               </li>
             </ul>
             <template v-if="isShowSearchInputHistoryListDelete">
               <div class="inline-flex">
-                <button @click="clearAllSearchInputHistory" class="text-sm whitespace-nowrap pl-1 clear-all-search-input-history-button">删除全部</button>
-                <button @click="hideSearchInputHistoryListDelete" class="text-sm whitespace-nowrap pl-1 finish-clear-search-input-history-button">完成</button>
+                <button @click.stop="clearAllSearchInputHistory" class="text-sm whitespace-nowrap pl-1 clear-all-search-input-history-button">删除全部</button>
+                <button @click.stop="hideSearchInputHistoryListDelete" class="text-sm whitespace-nowrap pl-1 finish-clear-search-input-history-button">完成</button>
               </div>
             </template>
             <template v-else>
-              <button @click="showSearchInputHistoryListDelete" class="inline-flex flex-row justify-center items-center w-4 h-4 pl-1">
+              <button @click.stop="showSearchInputHistoryListDelete" class="inline-flex flex-row justify-center items-center w-4 h-4 pl-1">
                 <svg class="w-4 clear-search-input-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
               </button>
             </template>
@@ -251,7 +267,7 @@ nuxtApp.hook("page:finish", () => {
               <li class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in searchHistoryStore.getList()">
                 <img class="w-8 h-8 object-cover search-history-list-item-logo" src="{{ item.logo }}" />
                 <span class="text-sm pl-1 search-history-list-item-name">{{ item.name }}</span>
-                <button @click="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
+                <button @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
                   <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
                 </button>
               </li>
@@ -260,12 +276,12 @@ nuxtApp.hook("page:finish", () => {
           <template v-if="searchHistoryStore.getList().length > 0">
             <template v-if="isShowSearchHistoryListDelete">
               <div class="inline-flex flex-row justify-start items-center">
-                <button @click="clearAllSearchHistory" class="text-sm whitespace-nowrap pl-0 clear-all-search-history-button">删除全部</button>
-                <button @click="hideSearchHistoryListDelete" class="text-sm whitespace-nowrap pl-1 finish-clear-search-history-button">完成</button>
+                <button @click.stop="clearAllSearchHistory" class="text-sm whitespace-nowrap pl-0 clear-all-search-history-button">删除全部</button>
+                <button @click.stop="hideSearchHistoryListDelete" class="text-sm whitespace-nowrap pl-1 finish-clear-search-history-button">完成</button>
               </div>
             </template>
             <template v-else>
-              <button @click="showSearchHistoryListDelete" class="inline-flex flex-row justify-center items-center w-20">
+              <button @click.stop="showSearchHistoryListDelete" class="inline-flex flex-row justify-center items-center w-20">
                 <svg class="w-4 clear-search-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
                 <span class="text-sm clear-search-history-button-text">删除历史</span>
               </button>
@@ -296,12 +312,12 @@ nuxtApp.hook("page:finish", () => {
           </div>
           <!-- 登录提示 -->
           <div class="text-xs text-center mt-1">
-            <button @click="gotoLogin" class="goto-login-button1">立即登录</button>
+            <button @click.stop="gotoLogin" class="goto-login-button1">立即登录</button>
             <span>获取更精准的关键词匹配结果</span>
           </div>
         </div>
       </div>
-      <button class="w-1/5 h-14 search-button" @click="searchButtonHandle">查一下</button>
+      <button class="w-1/5 h-14 search-button" @click.stop="searchButtonHandle">查一下</button>
     </div>
     <!-- pc端底部导航栏 -->
     <div class="hidden md:inline-flex justify-between w-11/12 lg:w-4/5 xl:w-2/3 mt-14 p-4 bottom-bg bottom-bg-pc">
@@ -507,7 +523,8 @@ nuxtApp.hook("page:finish", () => {
 }
 
 .search-text:focus-visible ~ .search-tips-area,
-.search-tips-area:hover {
+.search-tips-area:hover,
+.search-tips-area.expanded {
   max-height: 100vh;
 }
 
