@@ -371,7 +371,7 @@ nuxtApp.hook("page:finish", () => {
   <LoginPopup v-if="isShowLogin" @close="hideLoginPopup" />
 </template>
 
-<style setup>
+<style scoped>
 .main {
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image2231863ac57fa007d544e99f9d395130.png");
   background-size: cover;

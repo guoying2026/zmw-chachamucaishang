@@ -88,7 +88,7 @@ function dealLogin() {
   </div>
 </template>
 
-<style setup>
+<style scoped>
 .login-pop-up-cover {
   background: rgba(0,0,0,0.6);
   z-index: 9999;

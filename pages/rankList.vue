@@ -117,7 +117,7 @@ function jumpToInputPage() {
   </div>
 </template>
 
-<style setup>
+<style scoped>
 .header {
   height: calc(var(--real-width) * 742 / 750);
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imageadd6a50e85826b45099ac8cf7dce84f4.png");
