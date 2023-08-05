@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { RankingListItem } from '~/types/rankingListItem'
+
 const route = useRoute()
 
 useHead({
@@ -9,11 +11,15 @@ const headerWidth = ref<string>('100vw');
 
 const currentPage = ref<number>(1);
 
+const pageSize = ref<number>(20);
+
 const paginationSize = ref<number>(5);
 
 const totalPages = ref<number>(9);
 
 const inputPage = ref<number>(currentPage.value);
+
+const list = ref<RankingListItem[]>([]);
 
 function jumpToPrevPage() {
   if (currentPage.value - 1 > 0) {
@@ -45,24 +51,24 @@ function jumpToInputPage() {
 <template>
   <div class="inline-block w-full bg-no-repeat bg-cover header" :style="'--real-width:'+headerWidth+';'"></div>
   <div class="relative inline-block w-full list" :style="'--real-width:'+headerWidth+';'">
-    <div class="relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item" :style="'--real-width:'+headerWidth+';'" v-for="n in 5">
+    <div :class="'relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+(((currentPage - 1) * pageSize) + index + 1 === 1 ? ' first' : '')+(((currentPage - 1) * pageSize) + index + 1 === 2 ? ' second' : '')+(((currentPage - 1) * pageSize) + index + 1 === 3 ? ' third' : '')" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
       <div class="absolute inline-block bg-contain bg-no-repeat medal">
-        <div class="absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">100</div>
-        <div class="absolute inline-flex justify-center items-end w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num">N0.{{ n }}</div>
+        <div class="absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
+        <div class="absolute inline-flex justify-center items-end w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
       </div>
-      <div class="absolute text-xs md:text-base item-title">江苏木里文化投资有限公司</div>
+      <div class="absolute text-xs md:text-base item-title">{{ item.company_name }}</div>
       <div class="absolute inline-flex flex-row justify-between items-center text-xs whitespace-nowrap pr-4 item-sec_line">
-        <div class="relative">法人:王国栋</div>
+        <div class="relative">法人:{{ item.corporation }}</div>
         <div class="inline-flex justify-center items-center separator-wrap">|</div>
-        <div class="relative">山东临沂</div>
+        <div class="relative">{{ item.address }}</div>
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
-        <div class="relative hidden md:inline-block">评论:7</div>
+        <div class="relative hidden md:inline-block">评论:{{ item.comment_count }}</div>
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
-        <div class="relative hidden md:inline-block">问答:5</div>
+        <div class="relative hidden md:inline-block">问答:{{ item.ask_count }}</div>
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
-        <div class="relative hidden md:inline-block">投诉:2</div>
+        <div class="relative hidden md:inline-block">投诉:{{ item.complaint_count }}</div>
       </div>
-      <div class="absolute inline-flex items-center text-xs item-third_line">经营范围: 脚墩、托盘、胶合板...</div>
+      <div class="absolute inline-flex items-center text-xs item-third_line">经营范围: {{ item.range }}</div>
     </div>
   </div>
   <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">
@@ -128,15 +134,15 @@ function jumpToInputPage() {
   margin-top: calc(var(--real-width) / 750 * 20);
 }
 
-.item:nth-of-type(1) {
+.item.first {
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagec82262d52bac98b81b5dfcc6a57e1904.png");
 }
 
-.item:nth-of-type(2) {
+.item.second {
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image7d5e79ece2ffc2638ff497f2a882153e.png");
 }
 
-.item:nth-of-type(3) {
+.item.third {
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image8483a5499b3b62432924188925f62603.png");
 }
 
@@ -144,15 +150,15 @@ function jumpToInputPage() {
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagecf926b002ff9ded51090934e1e4f3834.png");
 }
 
-.item:nth-of-type(1) .medal {
+.item.first .medal {
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image30bf583154265f2c16723b18eaed25e0.png");
 }
 
-.item:nth-of-type(2) .medal {
+.item.second .medal {
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image676765f0aebdb93352f2762c7ac79b2d.png");
 }
 
-.item:nth-of-type(3) .medal {
+.item.third .medal {
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image730371f66d0949790ab2797c7076e224.png");
 }
 
@@ -171,17 +177,17 @@ function jumpToInputPage() {
   font-family: D-DIN;
 }
 
-.item:nth-of-type(1) .medal .rank_num {
+.item.first .medal .rank_num {
   background: linear-gradient(0deg, #EDC452 0%, #FDF6B4 100%);
   -webkit-background-clip: text;
 }
 
-.item:nth-of-type(2) .medal .rank_num {
+.item.second .medal .rank_num {
   background: linear-gradient(0deg, #AFBBE0 0%, #E0E6F8 100%);
   -webkit-background-clip: text;
 }
 
-.item:nth-of-type(3) .medal .rank_num {
+.item.third .medal .rank_num {
   background: linear-gradient(0deg, #FFD4AD 0%, #FFF1E5 100%);
   -webkit-background-clip: text;
 }
@@ -202,15 +208,15 @@ function jumpToInputPage() {
   font-family: Source Han Sans CN;
 }
 
-.item:nth-of-type(1) .item-title {
+.item.first .item-title {
   color: #F0CF92;
 }
 
-.item:nth-of-type(2) .item-title {
+.item.second .item-title {
   color: #CED5DB;
 }
 
-.item:nth-of-type(3) .item-title {
+.item.third .item-title {
   color: #E3A061;
 }
 
@@ -306,15 +312,15 @@ function jumpToInputPage() {
     margin-top: calc(var(--real-width) / 1920 * 19);
   }
 
-  .item:nth-of-type(1) {
+  .item.first {
     background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image7cd1f3b6161a2e4fcb0ce7a93b124326.png");
   }
 
-  .item:nth-of-type(2) {
+  .item.second {
     background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imageaa5e28c778becba8ebc34b1274127da3.png");
   }
 
-  .item:nth-of-type(3) {
+  .item.third {
     background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image4d01d698c0df2c77de87023ccfe7c242.png");
   }
 
