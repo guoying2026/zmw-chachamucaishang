@@ -197,7 +197,7 @@ useHead({
           </template>
         </div>
         <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
-          <li class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in searchHistoryStore.getList()">
+          <li class="relative inline-flex flex-row items-center mt-4" v-for="item in searchHistoryStore.getList()">
             <img class="w-8 h-8 object-cover search-history-list-item-logo" src="{{ item.logo }}" />
             <span class="text-sm pl-1 search-history-list-item-name">{{ item.name }}</span>
             <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
@@ -208,6 +208,36 @@ useHead({
       </div>
     </div>
     <!-- 已输入任何搜索内容 -->
+    <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-full h-full px-2 py-1">
+      <!-- 猜你想搜 -->
+      <div class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 search-input-history">
+        <div class="inline-flex flex-row justify-between items-center">
+          <span class="text-sm font-normal search-input-history-title">猜你想搜</span>
+          <button class="inline-flex flex-row justify-center items-center w-4 pl-1">
+            <svg class="w-4 regenerate-search-input-word-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12 23q-2.8 0-5.15-1.275T3 18.325V21H1v-6h6v2H4.525q1.2 1.8 3.163 2.9T12 21q1.875 0 3.513-.713t2.85-1.924q1.212-1.213 1.925-2.85T21 12h2q0 2.275-.863 4.275t-2.362 3.5q-1.5 1.5-3.5 2.363T12 23ZM1 12q0-2.275.863-4.275t2.362-3.5q1.5-1.5 3.5-2.362T12 1q2.8 0 5.15 1.275t3.85 3.4V3h2v6h-6V7h2.475q-1.2-1.8-3.163-2.9T12 3q-1.875 0-3.513.713t-2.85 1.924Q4.426 6.85 3.714 8.488T3 12H1Z"/></svg>
+          </button>
+        </div>
+        <ul class="inline-flex flex-row list-none mt-4 overflow-y-scroll search-history-list">
+          <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>木材</span></li>
+          <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>测试</span></li>
+          <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>广东木材</span></li>
+          <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>深圳木材</span></li>
+          <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>杭州木材有限公司</span></li>
+        </ul>
+      </div>
+      <!-- 相关企业 -->
+      <div class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 mt-5 search-history">
+        <div class="inline-flex flex-row justify-between items-center">
+          <span class="text-sm font-normal search-input-history-title">相关企业</span>
+        </div>
+        <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
+          <li class="relative inline-flex flex-row items-center mt-4" v-for="n in 5">
+            <img class="w-8 h-8 object-cover search-history-list-item-logo" src="" alt="" />
+            <span class="text-sm pl-1 search-history-list-item-name">杭州木材有限公司</span>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -245,7 +275,8 @@ input:focus-visible {
 
 .goto-login-and-get-detail-search-result-tips,
 .search-input-history-title,
-.clear-search-input-history-button-icon {
+.clear-search-input-history-button-icon,
+.regenerate-search-input-word-button-icon {
   font-family: Source Han Sans CN;
   color: #999;
 }
