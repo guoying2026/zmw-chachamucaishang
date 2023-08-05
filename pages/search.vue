@@ -1,0 +1,311 @@
+<script setup lang="ts">
+// 导入搜索输入历史记录存储
+import { useSearchInputHistoryStore } from '~/pinia/searchInputHistory'
+
+// 导入搜索历史记录存储
+import { useSearchHistoryStore } from '~/pinia/searchHistory'
+
+const route = useRoute()
+
+// 实例化搜索输入历史记录存储
+const searchInputHistoryStore = useSearchInputHistoryStore()
+
+// 实例化搜索历史记录存储
+const searchHistoryStore = useSearchHistoryStore()
+
+const searchTextRef = ref()
+
+// 搜索框输入内容
+const searchInputText = ref<string>('')
+
+// 是否显示搜索输入历史记录的删除按钮
+const isShowSearchInputHistoryListDelete = ref<boolean>(false)
+
+// 是否显示搜索历史记录的删除按钮
+const isShowSearchHistoryListDelete = ref<boolean>(false)
+
+// 是否显示登录弹窗
+const isShowLogin = ref<boolean>(false)
+
+/**
+ * 显示搜索输入历史记录的删除按钮
+ */
+function showSearchInputHistoryListDelete() {
+  isShowSearchInputHistoryListDelete.value = true;
+}
+
+/**
+ * 隐藏搜索输入历史记录的删除按钮
+ */
+function hideSearchInputHistoryListDelete() {
+  isShowSearchInputHistoryListDelete.value = false;
+}
+
+/**
+ * 删除所有的搜索输入历史记录
+ */
+function clearAllSearchInputHistory() {
+  searchInputHistoryStore.clearAll();
+  hideSearchInputHistoryListDelete();
+}
+
+/**
+ * 删除指定的搜索输入历史记录
+ * @param {string} item
+ */
+function clearSearchInputHistoryItem(item: string) {
+  searchInputHistoryStore.remove(item);
+}
+
+/**
+ * 清除搜索输入框的输入内容，并且使输入框获取焦点
+ */
+function clearSearchInputText() {
+  searchInputText.value = '';
+  searchTextRef.value.focus();
+}
+
+/**
+ * 显示搜索历史记录的删除按钮
+ */
+function showSearchHistoryListDelete() {
+  isShowSearchHistoryListDelete.value = true;
+}
+
+/**
+ * 隐藏搜索历史记录的删除按钮
+ */
+function hideSearchHistoryListDelete() {
+  isShowSearchHistoryListDelete.value = false;
+}
+
+/**
+ * 清除所有的搜索历史记录
+ */
+function clearAllSearchHistory() {
+  searchHistoryStore.clearAll();
+  hideSearchHistoryListDelete();
+}
+
+/**
+ * 删除指定的搜索历史记录
+ * @param {number} id
+ */
+function clearSearchHistoryItem(id: number) {
+  searchHistoryStore.remove(id);
+}
+
+/**
+ * 搜索输入历史记录项的点击处理事件
+ */
+function searchInputHistoryListItemClickHandle(str: string) {
+  if (str.trim() === '') return;
+  searchInputText.value = str;
+  gotoSearch();
+}
+
+/**
+ * 显示登录弹窗
+ */
+ function showLoginPopup() {
+  isShowLogin.value = true;
+}
+
+/**
+ * 隐藏登录弹窗
+ */
+function hideLoginPopup() {
+  isShowLogin.value = false;
+}
+
+/**
+ * 前往登录，打开登录弹窗
+ */
+function gotoLogin() {
+  showLoginPopup();
+}
+
+/**
+ * 前往搜索，调用搜索api
+ */
+function gotoSearch() {
+  // TODO 调用搜索api
+}
+
+useHead({
+  title: '搜索',
+})
+</script>
+
+<template>
+  <div class="inline-flex flex-col w-screen h-screen contain">
+    <div class="relative inline-flex flex-row justify-between items-center w-full px-2 pt-6">
+      <input class="w-10/12 md:w-11/12 h-8 text-sm pl-6 pr-5 text-black search-input" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" />
+      <!-- 搜索图标 -->
+      <svg class="absolute left-4 top-6 inline-block w-4 h-8 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
+      <!-- 叉叉图标 -->
+      <svg @click="clearSearchInputText" v-if="searchInputText.length > 0" class="absolute hidden w-4 h-8 clear-icon" style="color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+      <button class="w-2/12 md:w-1/12 text-base font-normal cancel-button">取消</button>
+    </div>
+    <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
+    <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-auto px-10 py-4 mt-10">
+      <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
+      <p class="text-xs whitespace-nowrap mt-1 goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
+      <button @click="gotoLogin" class="text-sm px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
+    </div>
+    <!-- 未输入任何搜索内容、有搜索历史记录 -->
+    <div v-if="searchInputText.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-full px-2 py-1">
+      <!-- 搜索历史 -->
+      <div v-if="searchInputHistoryStore.getList().length > 0" class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 search-input-history">
+        <div class="inline-flex flex-row justify-between items-center">
+          <span class="text-sm font-normal search-input-history-title">搜索历史</span>
+          <template v-if="isShowSearchInputHistoryListDelete">
+            <div class="inline-flex">
+              <button @click="clearAllSearchInputHistory" class="text-sm whitespace-nowrap pl-1 clear-all-search-input-history-button">删除全部</button>
+              <button @click="hideSearchInputHistoryListDelete" class="text-sm whitespace-nowrap pl-1 finish-clear-search-input-history-button">完成</button>
+            </div>
+          </template>
+          <template v-else>
+            <button @click="showSearchInputHistoryListDelete" class="w-4 h-4 clear-search-input-history-item-button">
+              <svg class="w-4 h-4 clear-search-input-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
+            </button>
+          </template>
+        </div>
+        <ul class="inline-flex flex-row list-none mt-4 overflow-y-scroll search-history-list">
+          <li @click="searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="(item, index) in searchInputHistoryStore.getList()" :key="index">
+            <span>{{ item }}</span>
+            <button v-if="isShowSearchInputHistoryListDelete" @click="clearSearchInputHistoryItem(item)" class="absolute top-0 right-0 w-3 h-3 p-0.5 clear-search-input-history-item-button">
+              <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <!-- 历史记录 -->
+      <div v-if="searchHistoryStore.getList().length > 0" class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 mt-5 search-history">
+        <div class="inline-flex flex-row justify-between items-center">
+          <span class="text-sm font-normal search-input-history-title">历史记录</span>
+          <template v-if="isShowSearchHistoryListDelete">
+            <div class="inline-flex">
+              <button @click="clearAllSearchHistory" class="text-sm whitespace-nowrap pl-1 clear-all-search-input-history-button">删除全部</button>
+              <button @click="hideSearchHistoryListDelete" class="text-sm whitespace-nowrap pl-1 finish-clear-search-input-history-button">完成</button>
+            </div>
+          </template>
+          <template v-else>
+            <button @click="showSearchHistoryListDelete" class="w-4 h-4 clear-search-history-item-button">
+              <svg class="w-4 h-4 clear-search-input-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
+            </button>
+          </template>
+        </div>
+        <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
+          <li class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in searchHistoryStore.getList()">
+            <img class="w-8 h-8 object-cover search-history-list-item-logo" src="{{ item.logo }}" />
+            <span class="text-sm pl-1 search-history-list-item-name">{{ item.name }}</span>
+            <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
+              <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 已输入任何搜索内容 -->
+  </div>
+</template>
+
+<style scoped>
+input:focus-visible {
+  outline: unset;
+}
+
+.contain {
+  background-color: #010101;
+}
+
+.search-input {
+  border-radius: 1rem;
+}
+
+.clear-icon {
+  right: calc(16.666667% + 0.55rem);
+}
+
+.search-input:hover ~ .clear-icon {
+  z-index: 999;
+}
+
+.search-input:focus-visible ~ .clear-icon,
+.search-input:hover ~ .clear-icon,
+.clear-icon:hover {
+  display: inline-block;
+}
+
+.cancel-button {
+  font-family: Source Han Sans CN;
+  color: #FF9B40;
+}
+
+.goto-login-and-get-detail-search-result-tips,
+.search-input-history-title,
+.clear-search-input-history-button-icon {
+  font-family: Source Han Sans CN;
+  color: #999;
+}
+
+.goto-login-button {
+  background: #864E28;
+  border-radius: 4px;
+}
+
+.search-input-history,
+.search-history {
+  background-color: #121212;
+}
+
+.search-input-history-list-item {
+  font-family: Source Han Sans CN;
+  background-color: #262626;
+  color: #999;
+  border-radius: 6px;
+}
+
+.search-input-history-list-item button {
+  background-color: #676767;
+  color: #262626;
+  border-radius: 0px 6px 0px 6px;
+}
+
+.search-input-history-list,
+.search-history-list,
+.related-enterprises-list {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.search-input-history-list::-webkit-scrollbar,
+.search-history-list::-webkit-scrollbar,
+.related-enterprises-list::-webkit-scrollbar {
+  display: none;
+}
+
+.clear-all-search-input-history-button {
+  color: #FF4747;
+}
+
+.finish-clear-search-input-history-button {
+  color: #FF9B40;
+}
+
+.clear-search-history-item-button {
+  top: 0.625rem;
+  color: #707070;
+}
+
+.search-history-list-item-logo {
+  border-radius: 6px;
+}
+
+@media (min-width: 768px) {
+  .clear-icon {
+    right: calc(8.333333% + 0.65rem);
+  }
+}
+</style>
