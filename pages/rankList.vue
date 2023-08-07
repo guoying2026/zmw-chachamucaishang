@@ -46,6 +46,21 @@ function jumpToPage(page: number) {
 function jumpToInputPage() {
   jumpToPage(Number(inputPage.value));
 }
+
+function changeRankNumToElClass(rankNum: number) {
+  if (rankNum >= 100 && rankNum <= 999) {
+    return ' hundred';
+  } else if (rankNum >= 1000 && rankNum <= 9999) {
+    return ' thousand';
+  } else if (rankNum >= 10000 && rankNum <= 99999) {
+    return ' ten_thousand';
+  } else if (rankNum >= 100000 && rankNum <= 999999) {
+    return ' one_hundred_thousand';
+  } else if (rankNum >= 1000000 && rankNum <= 9999999) {
+    return ' one_hundred_thousand';
+  }
+  return '';
+}
 </script>
 
 <template>
@@ -54,7 +69,7 @@ function jumpToInputPage() {
     <div :class="'relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+(((currentPage - 1) * pageSize) + index + 1 === 1 ? ' first' : '')+(((currentPage - 1) * pageSize) + index + 1 === 2 ? ' second' : '')+(((currentPage - 1) * pageSize) + index + 1 === 3 ? ' third' : '')" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
       <div class="absolute inline-block bg-contain bg-no-repeat medal">
         <div class="absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
-        <div class="absolute inline-flex justify-center items-end w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
+        <div :class="'absolute inline-flex justify-center items-end w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankNumToElClass(((currentPage - 1) * pageSize) + index + 1)">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
       </div>
       <div class="absolute text-xs md:text-base item-title">{{ item.company_name }}</div>
       <div class="absolute inline-flex flex-row justify-between items-center text-xs whitespace-nowrap pr-4 item-sec_line">
@@ -202,6 +217,23 @@ function jumpToInputPage() {
   -webkit-text-fill-color: transparent;
 }
 
+.item .medal .rank_num.hundred {
+  transform: scale(0.65) translateY(0.6rem);
+}
+
+.item .medal .rank_num.thousand {
+  transform: scale(0.55) translateY(0.85rem);
+}
+
+.item .medal .rank_num.ten_thousand {
+  transform: scale(0.45) translateY(1.2rem);
+}
+
+.item .medal .rank_num.one_hundred_thousand,
+.item .medal .rank_num.million {
+  transform: scale(0.35) translateY(1.9rem);
+}
+
 .item-title {
   top: calc(((var(--real-width) / 12 * 11) * 190 / 710) / 19 * 3);
   left: calc((var(--real-width) / 12 * 11) / 710 * 234);
@@ -333,6 +365,23 @@ function jumpToInputPage() {
     top: calc(var(--real-width) / 12 * 11 / 1258 * 29);
     width: calc(var(--real-width) / 12 * 11 / 1258 * 146);
     height: calc(var(--real-width) / 12 * 11 / 1258 * 103);
+  }
+
+  .item .medal .rank_num.hundred {
+    transform: scale(0.9) translateY(0.1rem);
+  }
+
+  .item .medal .rank_num.thousand {
+    transform: scale(0.7) translateY(0.6rem);
+  }
+
+  .item .medal .rank_num.ten_thousand {
+    transform: scale(0.6) translateY(0.8rem);
+  }
+
+  .item .medal .rank_num.one_hundred_thousand,
+  .item .medal .rank_num.million {
+    transform: scale(0.5) translateY(1.2rem);
   }
 
   .item-title {
