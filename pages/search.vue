@@ -244,11 +244,11 @@ nuxtApp.hook("page:finish", () => {
           </button>
         </div>
         <ul class="inline-flex flex-row list-none pb-1 mt-4 overflow-x-scroll overflow-y-hidden search-input-history-list">
-          <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>木材</span></li>
-          <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>测试</span></li>
-          <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>广东木材</span></li>
-          <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>深圳木材</span></li>
-          <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>杭州木材有限公司</span></li>
+          <li @click="searchInputHistoryListItemClickHandle('木材')" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>木材</span></li>
+          <li @click="searchInputHistoryListItemClickHandle('测试')" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>测试</span></li>
+          <li @click="searchInputHistoryListItemClickHandle('广东木材')" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>广东木材</span></li>
+          <li @click="searchInputHistoryListItemClickHandle('深圳木材')" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>深圳木材</span></li>
+          <li @click="searchInputHistoryListItemClickHandle('杭州木材有限公司')" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>杭州木材有限公司</span></li>
         </ul>
       </div>
       <!-- 相关企业 -->
