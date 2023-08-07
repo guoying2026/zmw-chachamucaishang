@@ -265,6 +265,8 @@ nuxtApp.hook("page:finish", () => {
       </div>
     </div>
   </div>
+  <!-- 登录弹窗 -->
+  <LoginPopup v-if="isShowLogin" @close="hideLoginPopup" />
 </template>
 
 <style scoped>
