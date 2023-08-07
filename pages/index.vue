@@ -33,6 +33,8 @@ const searchTextRef = ref()
 // 是否显示登录弹窗
 const isShowLogin = ref<boolean>(false)
 
+const isAddScrollGenerateSearchInputWordBoxEvent = ref<boolean>(false)
+
 /**
  * 使pc端的界面能够在屏幕上垂直居中
  */
@@ -63,10 +65,13 @@ function makeViewVerticalCenter() {
 function scrollGenerateSearchInputWordBox() {
   let box = document.querySelector('.generate-search-input-word-list,.search-input-history-list');
   if (!box) return;
+  // 这里要防止一直添加事件，否则横向滚动距离会越滑动越长
+  if (isAddScrollGenerateSearchInputWordBoxEvent.value) return;
   box.addEventListener('wheel', (e: Event) => {
     let wheelEvent = e as WheelEvent;
     wheelEvent.preventDefault();
     if (!box) return;
+    isAddScrollGenerateSearchInputWordBoxEvent.value = true;
     box.scrollLeft += wheelEvent.deltaX + (wheelEvent.deltaY / document.body.offsetHeight * box.clientWidth / 2);
   });
 }

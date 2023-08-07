@@ -29,16 +29,21 @@ const isShowSearchHistoryListDelete = ref<boolean>(false)
 // 是否显示登录弹窗
 const isShowLogin = ref<boolean>(false)
 
+const isAddScrollGenerateSearchInputWordBoxEvent = ref<boolean>(false)
+
 /**
  * 使搜索框的“猜你想搜”的区域在滚轮上下滑动时，对应区域能够左右滑动
  */
 function scrollGenerateSearchInputWordBox() {
   let box = document.querySelector('.search-input-history-list');
   if (!box) return;
+  // 这里要防止一直添加事件，否则横向滚动距离会越滑动越长
+  if (isAddScrollGenerateSearchInputWordBoxEvent.value) return;
   box.addEventListener('wheel', (e: Event) => {
     let wheelEvent = e as WheelEvent;
     wheelEvent.preventDefault();
     if (!box) return;
+    isAddScrollGenerateSearchInputWordBoxEvent.value = true;
     box.scrollLeft += wheelEvent.deltaX + (wheelEvent.deltaY / document.body.offsetHeight * box.clientWidth / 2);
   });
 }
