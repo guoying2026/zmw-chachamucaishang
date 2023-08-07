@@ -71,6 +71,9 @@ function clearAllSearchInputHistory() {
  */
 function clearSearchInputHistoryItem(item: string) {
   searchInputHistoryStore.remove(item);
+  if (searchInputHistoryStore.getList().length === 0) {
+    hideSearchInputHistoryListDelete();
+  }
 }
 
 /**
@@ -109,6 +112,9 @@ function clearAllSearchHistory() {
  */
 function clearSearchHistoryItem(id: number) {
   searchHistoryStore.remove(id);
+  if (searchHistoryStore.getList().length === 0) {
+    hideSearchHistoryListDelete();
+  }
 }
 
 /**
