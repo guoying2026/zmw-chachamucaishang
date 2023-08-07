@@ -277,7 +277,7 @@ nuxtApp.hook("page:finish", () => {
             <h1 class="text-sm pb-2 search-history-box-title">历史记录</h1>
             <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
               <li class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in searchHistoryStore.getList()">
-                <img class="w-8 h-8 object-cover search-history-list-item-logo" src="{{ item.logo }}" />
+                <img class="w-8 h-8 object-cover search-history-list-item-logo" :src="item.logo" />
                 <span class="text-sm pl-1 search-history-list-item-name">{{ item.name }}</span>
                 <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
                   <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
