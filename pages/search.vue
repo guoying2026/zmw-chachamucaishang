@@ -159,7 +159,7 @@ nuxtApp.hook("page:finish", () => {
 
 <template>
   <div class="inline-flex flex-col w-screen h-screen contain">
-    <div class="relative inline-flex flex-row justify-between items-center w-full px-2 pt-6">
+    <div class="fixed top-0 z-50 inline-flex flex-row justify-between items-center w-full px-2 pt-6 search-input-box">
       <input class="w-10/12 md:w-11/12 h-8 text-sm pl-6 pr-5 text-black search-input" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @focus="scrollGenerateSearchInputWordBox" @change="scrollGenerateSearchInputWordBox" @keyup="scrollGenerateSearchInputWordBox" />
       <!-- 搜索图标 -->
       <svg class="absolute left-4 top-6 inline-block w-4 h-8 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
@@ -168,13 +168,13 @@ nuxtApp.hook("page:finish", () => {
       <button class="w-2/12 md:w-1/12 text-base font-normal cancel-button">取消</button>
     </div>
     <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
-    <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-auto px-10 py-4 mt-10 search-tips-area">
+    <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-auto px-10 py-4 mt-14 search-tips-area">
       <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
       <p class="text-xs whitespace-nowrap mt-1 goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
       <button @click="gotoLogin" class="text-sm px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
     </div>
     <!-- 未输入任何搜索内容、有搜索历史记录 -->
-    <div v-if="searchInputText.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-auto px-2 py-1 search-tips-area">
+    <div v-if="searchInputText.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-auto px-2 py-1 mt-14 bg-black search-tips-area">
       <!-- 搜索历史 -->
       <div v-if="searchInputHistoryStore.getList().length > 0" class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 search-input-history">
         <div class="inline-flex flex-row justify-between items-center">
@@ -202,7 +202,7 @@ nuxtApp.hook("page:finish", () => {
       </div>
       <!-- 历史记录 -->
       <div v-if="searchHistoryStore.getList().length > 0" class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 mt-5 search-history">
-        <div class="inline-flex flex-row justify-between items-center">
+        <div class="sticky top-14 inline-flex flex-row justify-between items-center z-10 search-history-header">
           <span class="text-sm font-normal search-input-history-title">历史记录</span>
           <template v-if="isShowSearchHistoryListDelete">
             <div class="inline-flex">
@@ -228,7 +228,7 @@ nuxtApp.hook("page:finish", () => {
       </div>
     </div>
     <!-- 已输入任何搜索内容 -->
-    <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-full h-auto px-2 py-1 search-tips-area">
+    <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-full h-auto px-2 py-1 mt-14 bg-black search-tips-area">
       <!-- 猜你想搜 -->
       <div class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 search-input-history">
         <div class="inline-flex flex-row justify-between items-center">
@@ -246,8 +246,8 @@ nuxtApp.hook("page:finish", () => {
         </ul>
       </div>
       <!-- 相关企业 -->
-      <div class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 mt-5 search-history">
-        <div class="inline-flex flex-row justify-between items-center">
+      <div class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 mt-5 related-enterprises">
+        <div class="sticky top-14 inline-flex flex-row justify-between items-center z-10 related-enterprises-header">
           <span class="text-sm font-normal search-input-history-title">相关企业</span>
         </div>
         <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
@@ -306,8 +306,12 @@ input:focus-visible {
   border-radius: 4px;
 }
 
+.search-input-box,
 .search-input-history,
-.search-history {
+.search-history,
+.search-history-header,
+.related-enterprises,
+.related-enterprises-header {
   background-color: #121212;
 }
 
