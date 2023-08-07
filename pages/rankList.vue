@@ -48,6 +48,11 @@ function jumpToInputPage() {
 }
 
 function changeRankNumToElClass(rankNum: number) {
+  let list: string[] = [' first', ' second', ' third'];
+  return list[rankNum - 1] ?? '';
+}
+
+function changeRankDigitsToElClass(rankNum: number) {
   if (rankNum >= 100 && rankNum <= 999) {
     return ' hundred';
   } else if (rankNum >= 1000 && rankNum <= 9999) {
@@ -66,10 +71,10 @@ function changeRankNumToElClass(rankNum: number) {
 <template>
   <div class="inline-block w-full bg-no-repeat bg-cover header" :style="'--real-width:'+headerWidth+';'"></div>
   <div class="relative inline-block w-full list" :style="'--real-width:'+headerWidth+';'">
-    <div :class="'relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+(((currentPage - 1) * pageSize) + index + 1 === 1 ? ' first' : '')+(((currentPage - 1) * pageSize) + index + 1 === 2 ? ' second' : '')+(((currentPage - 1) * pageSize) + index + 1 === 3 ? ' third' : '')" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
+    <div :class="'relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(((currentPage - 1) * pageSize) + index + 1)" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
       <div class="absolute inline-block bg-contain bg-no-repeat medal">
         <div class="absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
-        <div :class="'absolute inline-flex justify-center items-end w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankNumToElClass(((currentPage - 1) * pageSize) + index + 1)">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
+        <div :class="'absolute inline-flex justify-center items-end w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(((currentPage - 1) * pageSize) + index + 1)">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
       </div>
       <div class="absolute text-xs md:text-base item-title">{{ item.company_name }}</div>
       <div class="absolute inline-flex flex-row justify-between items-center text-xs whitespace-nowrap pr-4 item-sec_line">
