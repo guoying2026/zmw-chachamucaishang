@@ -246,7 +246,7 @@ nuxtApp.hook("page:finish", () => {
         <!-- 未输入任何搜索内容、有搜索历史记录 -->
         <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length > 0" class="inline-flex flex-col w-full h-full px-2 py-1">
           <!-- 输入历史记录 -->
-          <div class="inline-flex flex-row items-center justify-between w-full">
+          <div class="inline-flex flex-row items-center justify-between w-full search-input-history-box">
             <ul class="inline-flex flex-row text-xs list-none pb-1 overflow-x-scroll search-input-history-list">
               <li @click.stop="isShowSearchInputHistoryListDelete?'':searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
                 <span>{{ item }}</span>
@@ -274,7 +274,7 @@ nuxtApp.hook("page:finish", () => {
               <li class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in searchHistoryStore.getList()">
                 <img class="w-8 h-8 object-cover search-history-list-item-logo" src="{{ item.logo }}" />
                 <span class="text-sm pl-1 search-history-list-item-name">{{ item.name }}</span>
-                <button @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
+                <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
                   <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
                 </button>
               </li>
@@ -298,7 +298,7 @@ nuxtApp.hook("page:finish", () => {
         <!-- 已输入任何搜索内容 -->
         <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-full h-full px-2 py-1 pb-2">
           <!-- 猜你想搜 -->
-          <div class="inline-flex flex-row items-center justify-between w-full">
+          <div class="inline-flex flex-row items-center justify-between w-full search-input-history-box">
             <h1 class="text-xs pr-2 mb-2 whitespace-nowrap guess-what-you-want-to-search-tips">猜你想搜</h1>
             <ul class="inline-flex flex-row text-xs list-none pb-1 overflow-x-scroll search-input-history-list generate-search-input-word-list">
               <li @click.stop="searchInputHistoryListItemClickHandle('建筑木材')" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="n in 5">建筑木材</li>
@@ -475,11 +475,15 @@ nuxtApp.hook("page:finish", () => {
   background-color: rgba(0,0,0,.9);
 }
 
-.search-tips-area ::-webkit-scrollbar-thumb {
+.search-tips-area .search-input-history-box ::-webkit-scrollbar-thumb,
+.search-tips-area .search-history-box ::-webkit-scrollbar-thumb,
+.search-tips-area .related-enterprises-box ::-webkit-scrollbar-thumb {
   visibility: hidden;
 }
 
-.search-tips-area:hover ::-webkit-scrollbar-thumb {
+.search-tips-area .search-input-history-box:hover ::-webkit-scrollbar-thumb,
+.search-tips-area .search-history-box:hover ::-webkit-scrollbar-thumb,
+.search-tips-area .related-enterprises-box:hover ::-webkit-scrollbar-thumb {
   visibility: visible;
 }
 
