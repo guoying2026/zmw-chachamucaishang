@@ -125,7 +125,7 @@ function jumpToInputPage() {
 
 .list {
   top: calc((var(--real-width) * 742 / 750) * -0.25);
-  min-height: calc(100vh - (var(--real-width) * 742 / 750));
+  min-height: calc(100vh - (var(--real-width) * 742 / 750) + ((var(--real-width) * 742 / 750) * 0.25));
   margin-bottom: calc((var(--real-width) * 742 / 750) * -0.25);
 }
 
@@ -299,7 +299,7 @@ function jumpToInputPage() {
   .list {
     top: calc((var(--real-width) * 1026 / 1920) * -0.30);
     width: calc(var(--real-width) / 1920 * 1380);
-    min-height: calc(100vh - (var(--real-width) * 1026 / 1920));
+    min-height: calc(100vh - (var(--real-width) * 1026 / 1920) + ((var(--real-width) * 1026 / 1920) * 0.30) - 66.333px);
     background: #0F0F14;
     margin-left: calc((var(--real-width) - (var(--real-width) / 1920 * 1380)) / 2);
     margin-bottom: calc((var(--real-width) * 1026 / 1920) * -0.30);
