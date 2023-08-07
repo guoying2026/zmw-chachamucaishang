@@ -61,13 +61,13 @@ function makeViewVerticalCenter() {
  * 使搜索框的“猜你想搜”的区域在滚轮上下滑动时，对应区域能够左右滑动
  */
 function scrollGenerateSearchInputWordBox() {
-  let box = document.querySelector('.generate-search-input-word-list');
+  let box = document.querySelector('.generate-search-input-word-list,.search-input-history-list');
   if (!box) return;
   box.addEventListener('wheel', (e: Event) => {
     let wheelEvent = e as WheelEvent;
     wheelEvent.preventDefault();
     if (!box) return;
-    box.scrollLeft += wheelEvent.deltaX + wheelEvent.deltaY;
+    box.scrollLeft += wheelEvent.deltaX + (wheelEvent.deltaY / document.body.offsetHeight * box.clientWidth / 2);
   });
 }
 
@@ -223,7 +223,7 @@ nuxtApp.hook("page:finish", () => {
     <p class="text-sm sm:text-base md:text-xl 2xl:text-3xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap">助力检索木材交易隐患，降低木材交易风险</p>
     <!-- 搜索框 -->
     <div class="relative inline-flex justify-center w-full md:w-96 2xl:w-1/3 text-base">
-      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-4 text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
+      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-4 text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @focus="scrollGenerateSearchInputWordBox" @change="scrollGenerateSearchInputWordBox" @keyup="scrollGenerateSearchInputWordBox" @keyup.enter="searchButtonHandle" />
       <!-- 搜索图标 -->
       <svg class="absolute left-3 hidden md:inline-block w-5 h-14 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
       <!-- 叉叉图标 -->
@@ -240,7 +240,7 @@ nuxtApp.hook("page:finish", () => {
         <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length > 0" class="inline-flex flex-col w-full h-full px-2 py-1">
           <!-- 输入历史记录 -->
           <div class="inline-flex flex-row items-center justify-between w-full">
-            <ul class="inline-flex flex-row text-xs list-none overflow-x-scroll search-input-history-list">
+            <ul class="inline-flex flex-row text-xs list-none pb-1 overflow-x-scroll search-input-history-list">
               <li @click.stop="searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
                 <span>{{ item }}</span>
                 <button v-if="isShowSearchInputHistoryListDelete" @click.stop="clearSearchInputHistoryItem(item)" class="absolute top-0 right-0 w-3 h-3 p-0.5 clear-search-input-history-item-button">
@@ -293,7 +293,7 @@ nuxtApp.hook("page:finish", () => {
           <!-- 猜你想搜 -->
           <div class="inline-flex flex-row items-center justify-between w-full">
             <h1 class="text-xs pr-2 whitespace-nowrap guess-what-you-want-to-search-tips">猜你想搜</h1>
-            <ul class="inline-flex flex-row text-xs list-none overflow-x-scroll search-input-history-list generate-search-input-word-list">
+            <ul class="inline-flex flex-row text-xs list-none pb-1 overflow-x-scroll search-input-history-list generate-search-input-word-list">
               <li class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="n in 5">建筑木材</li>
             </ul>
             <button class="inline-flex flex-row justify-center items-center w-4 pl-1">
@@ -437,17 +437,43 @@ nuxtApp.hook("page:finish", () => {
   max-height: 30vh;
 }
 
-.search-input-history-list,
-.search-history-list,
-.related-enterprises-list {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+::-webkit-scrollbar {
+  height: .5rem;
+  width: .25rem;
 }
 
-.search-input-history-list::-webkit-scrollbar,
-.search-history-list::-webkit-scrollbar,
-.related-enterprises-list::-webkit-scrollbar {
-  display: none;
+::-webkit-scrollbar:horizontal {
+  height: .25rem;
+  width: .5rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  --tw-border-opacity: 1;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 9999px;
+  border-width: 1px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0,0,0,0.4);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: rgba(0,0,0,.9);
+}
+
+.search-tips-area ::-webkit-scrollbar-thumb {
+  visibility: hidden;
+}
+
+.search-tips-area:hover ::-webkit-scrollbar-thumb {
+  visibility: visible;
 }
 
 .clear-search-input-history-item-button {

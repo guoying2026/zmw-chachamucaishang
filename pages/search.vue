@@ -7,6 +7,8 @@ import { useSearchHistoryStore } from '~/pinia/searchHistory'
 
 const route = useRoute()
 
+const nuxtApp = useNuxtApp()
+
 // 实例化搜索输入历史记录存储
 const searchInputHistoryStore = useSearchInputHistoryStore()
 
@@ -26,6 +28,20 @@ const isShowSearchHistoryListDelete = ref<boolean>(false)
 
 // 是否显示登录弹窗
 const isShowLogin = ref<boolean>(false)
+
+/**
+ * 使搜索框的“猜你想搜”的区域在滚轮上下滑动时，对应区域能够左右滑动
+ */
+function scrollGenerateSearchInputWordBox() {
+  let box = document.querySelector('.search-input-history-list');
+  if (!box) return;
+  box.addEventListener('wheel', (e: Event) => {
+    let wheelEvent = e as WheelEvent;
+    wheelEvent.preventDefault();
+    if (!box) return;
+    box.scrollLeft += wheelEvent.deltaX + (wheelEvent.deltaY / document.body.offsetHeight * box.clientWidth / 2);
+  });
+}
 
 /**
  * 显示搜索输入历史记录的删除按钮
@@ -135,12 +151,16 @@ function gotoSearch() {
 useHead({
   title: '搜索',
 })
+
+nuxtApp.hook("page:finish", () => {
+  scrollGenerateSearchInputWordBox();
+})
 </script>
 
 <template>
   <div class="inline-flex flex-col w-screen h-screen contain">
     <div class="relative inline-flex flex-row justify-between items-center w-full px-2 pt-6">
-      <input class="w-10/12 md:w-11/12 h-8 text-sm pl-6 pr-5 text-black search-input" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" />
+      <input class="w-10/12 md:w-11/12 h-8 text-sm pl-6 pr-5 text-black search-input" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @focus="scrollGenerateSearchInputWordBox" @change="scrollGenerateSearchInputWordBox" @keyup="scrollGenerateSearchInputWordBox" />
       <!-- 搜索图标 -->
       <svg class="absolute left-4 top-6 inline-block w-4 h-8 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
       <!-- 叉叉图标 -->
@@ -148,13 +168,13 @@ useHead({
       <button class="w-2/12 md:w-1/12 text-base font-normal cancel-button">取消</button>
     </div>
     <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
-    <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-auto px-10 py-4 mt-10">
+    <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-auto px-10 py-4 mt-10 search-tips-area">
       <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
       <p class="text-xs whitespace-nowrap mt-1 goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
       <button @click="gotoLogin" class="text-sm px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
     </div>
     <!-- 未输入任何搜索内容、有搜索历史记录 -->
-    <div v-if="searchInputText.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-full px-2 py-1">
+    <div v-if="searchInputText.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-auto px-2 py-1 search-tips-area">
       <!-- 搜索历史 -->
       <div v-if="searchInputHistoryStore.getList().length > 0" class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 search-input-history">
         <div class="inline-flex flex-row justify-between items-center">
@@ -171,7 +191,7 @@ useHead({
             </button>
           </template>
         </div>
-        <ul class="inline-flex flex-row list-none mt-4 overflow-y-scroll search-history-list">
+        <ul class="inline-flex flex-row list-none pb-1 mt-4 overflow-x-scroll overflow-y-hidden search-input-history-list">
           <li @click="searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="(item, index) in searchInputHistoryStore.getList()" :key="index">
             <span>{{ item }}</span>
             <button v-if="isShowSearchInputHistoryListDelete" @click="clearSearchInputHistoryItem(item)" class="absolute top-0 right-0 w-3 h-3 p-0.5 clear-search-input-history-item-button">
@@ -208,7 +228,7 @@ useHead({
       </div>
     </div>
     <!-- 已输入任何搜索内容 -->
-    <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-full h-full px-2 py-1">
+    <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-full h-auto px-2 py-1 search-tips-area">
       <!-- 猜你想搜 -->
       <div class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 search-input-history">
         <div class="inline-flex flex-row justify-between items-center">
@@ -217,7 +237,7 @@ useHead({
             <svg class="w-4 regenerate-search-input-word-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12 23q-2.8 0-5.15-1.275T3 18.325V21H1v-6h6v2H4.525q1.2 1.8 3.163 2.9T12 21q1.875 0 3.513-.713t2.85-1.924q1.212-1.213 1.925-2.85T21 12h2q0 2.275-.863 4.275t-2.362 3.5q-1.5 1.5-3.5 2.363T12 23ZM1 12q0-2.275.863-4.275t2.362-3.5q1.5-1.5 3.5-2.362T12 1q2.8 0 5.15 1.275t3.85 3.4V3h2v6h-6V7h2.475q-1.2-1.8-3.163-2.9T12 3q-1.875 0-3.513.713t-2.85 1.924Q4.426 6.85 3.714 8.488T3 12H1Z"/></svg>
           </button>
         </div>
-        <ul class="inline-flex flex-row list-none mt-4 overflow-y-scroll search-history-list">
+        <ul class="inline-flex flex-row list-none pb-1 mt-4 overflow-x-scroll overflow-y-hidden search-input-history-list">
           <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>木材</span></li>
           <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>测试</span></li>
           <li class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>广东木材</span></li>
@@ -304,17 +324,43 @@ input:focus-visible {
   border-radius: 0px 6px 0px 6px;
 }
 
-.search-input-history-list,
-.search-history-list,
-.related-enterprises-list {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+::-webkit-scrollbar {
+  height: .5rem;
+  width: .25rem;
 }
 
-.search-input-history-list::-webkit-scrollbar,
-.search-history-list::-webkit-scrollbar,
-.related-enterprises-list::-webkit-scrollbar {
-  display: none;
+::-webkit-scrollbar:horizontal {
+  height: .25rem;
+  width: .5rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  --tw-border-opacity: 1;
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 9999px;
+  border-width: 1px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255,255,255,0.4);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: rgba(255,255,255,.9);
+}
+
+.search-tips-area ::-webkit-scrollbar-thumb {
+  visibility: hidden;
+}
+
+.search-tips-area:hover ::-webkit-scrollbar-thumb {
+  visibility: visible;
 }
 
 .clear-all-search-input-history-button {
