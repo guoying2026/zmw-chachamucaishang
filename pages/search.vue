@@ -192,7 +192,7 @@ nuxtApp.hook("page:finish", () => {
           </template>
         </div>
         <ul class="inline-flex flex-row list-none pb-1 mt-4 overflow-x-scroll overflow-y-hidden search-input-history-list">
-          <li @click="searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="(item, index) in searchInputHistoryStore.getList()" :key="index">
+          <li @click="isShowSearchInputHistoryListDelete?'':searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="(item, index) in searchInputHistoryStore.getList()" :key="index">
             <span>{{ item }}</span>
             <button v-if="isShowSearchInputHistoryListDelete" @click="clearSearchInputHistoryItem(item)" class="absolute top-0 right-0 w-3 h-3 p-0.5 clear-search-input-history-item-button">
               <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>

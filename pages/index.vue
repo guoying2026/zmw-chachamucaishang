@@ -241,7 +241,7 @@ nuxtApp.hook("page:finish", () => {
           <!-- 输入历史记录 -->
           <div class="inline-flex flex-row items-center justify-between w-full">
             <ul class="inline-flex flex-row text-xs list-none pb-1 overflow-x-scroll search-input-history-list">
-              <li @click.stop="searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
+              <li @click.stop="isShowSearchInputHistoryListDelete?'':searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
                 <span>{{ item }}</span>
                 <button v-if="isShowSearchInputHistoryListDelete" @click.stop="clearSearchInputHistoryItem(item)" class="absolute top-0 right-0 w-3 h-3 p-0.5 clear-search-input-history-item-button">
                   <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
@@ -249,13 +249,13 @@ nuxtApp.hook("page:finish", () => {
               </li>
             </ul>
             <template v-if="isShowSearchInputHistoryListDelete">
-              <div class="inline-flex">
+              <div class="inline-flex mb-2">
                 <button @click.stop="clearAllSearchInputHistory" class="text-sm whitespace-nowrap pl-1 clear-all-search-input-history-button">删除全部</button>
                 <button @click.stop="hideSearchInputHistoryListDelete" class="text-sm whitespace-nowrap pl-1 finish-clear-search-input-history-button">完成</button>
               </div>
             </template>
             <template v-else>
-              <button @click.stop="showSearchInputHistoryListDelete" class="inline-flex flex-row justify-center items-center w-4 h-4 pl-1">
+              <button @click.stop="showSearchInputHistoryListDelete" class="inline-flex flex-row justify-center items-center w-4 h-4 pl-1 mb-2">
                 <svg class="w-4 clear-search-input-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
               </button>
             </template>
@@ -292,11 +292,11 @@ nuxtApp.hook("page:finish", () => {
         <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-full h-full px-2 py-1 pb-2">
           <!-- 猜你想搜 -->
           <div class="inline-flex flex-row items-center justify-between w-full">
-            <h1 class="text-xs pr-2 whitespace-nowrap guess-what-you-want-to-search-tips">猜你想搜</h1>
+            <h1 class="text-xs pr-2 mb-2 whitespace-nowrap guess-what-you-want-to-search-tips">猜你想搜</h1>
             <ul class="inline-flex flex-row text-xs list-none pb-1 overflow-x-scroll search-input-history-list generate-search-input-word-list">
               <li class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="n in 5">建筑木材</li>
             </ul>
-            <button class="inline-flex flex-row justify-center items-center w-4 pl-1">
+            <button class="inline-flex flex-row justify-center items-center w-4 pl-1 mb-2">
               <svg class="w-4 regenerate-search-input-word-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12 23q-2.8 0-5.15-1.275T3 18.325V21H1v-6h6v2H4.525q1.2 1.8 3.163 2.9T12 21q1.875 0 3.513-.713t2.85-1.924q1.212-1.213 1.925-2.85T21 12h2q0 2.275-.863 4.275t-2.362 3.5q-1.5 1.5-3.5 2.363T12 23ZM1 12q0-2.275.863-4.275t2.362-3.5q1.5-1.5 3.5-2.362T12 1q2.8 0 5.15 1.275t3.85 3.4V3h2v6h-6V7h2.475q-1.2-1.8-3.163-2.9T12 3q-1.875 0-3.513.713t-2.85 1.924Q4.426 6.85 3.714 8.488T3 12H1Z"/></svg>
             </button>
           </div>
@@ -532,6 +532,11 @@ nuxtApp.hook("page:finish", () => {
   border-bottom-left-radius: 0px;
   transition: all 0s 0ms;
 }
+
+.search-text:has(~ .search-tips-area.expanded) {
+  border-bottom-left-radius: 0px;
+}
+
 .search-text:hover ~ .clear-icon {
   z-index: 999;
 }
