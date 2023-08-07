@@ -328,6 +328,7 @@ input:focus-visible {
   background-color: #262626;
   color: #999;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 .search-input-history-list-item button {
