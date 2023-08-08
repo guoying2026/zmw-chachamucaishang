@@ -95,6 +95,11 @@ function getGeoPosition() {
     timeout: 5000,
     maximumAge: 0,
   });
+  navigator.geolocation.getCurrentPosition((pos) => {
+    var crd = pos.coords;
+    console.log(crd);
+    isLeaveMeClosestDistance.value = true;
+  })
   navigator.geolocation.clearWatch(geoLocationId.value);
   geoLocationId.value = -1;
 }
