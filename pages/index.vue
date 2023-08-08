@@ -334,9 +334,9 @@ nuxtApp.hook("page:finish", () => {
     <!-- pc端底部导航栏 -->
     <div class="hidden md:inline-flex justify-between w-11/12 lg:w-4/5 xl:w-2/3 mt-14 p-4 bottom-bg bottom-bg-pc">
       <!-- 信用排行榜 -->
-      <div class="inline-flex flex-col items-center justify-center w-1/5">
+      <NuxtLink class="inline-flex flex-col items-center justify-center w-1/5" to="/rankList">
         <img class="w-full h-full object-contain" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagebc0fc650b7b2855011cd4f677ff84d18.png" />
-      </div>
+      </NuxtLink>
       <!-- 问答 -->
       <div class="inline-flex flex-col items-center justify-center w-1/5">
         <img class="w-10 xl:w-12 2xl:w-14" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image78d4ecfb51b36699a32eab989bf5d4b3.png" />
@@ -356,7 +356,7 @@ nuxtApp.hook("page:finish", () => {
     <!-- 移动端底部导航栏 -->
     <div class="inline-block md:hidden w-full mt-14 p-4 bottom-bg">
       <!-- 信用排行榜 -->
-      <div class="flex justify-between items-center rank-list-cover"></div>
+      <NuxtLink class="flex justify-between items-center rank-list-cover" to="/rankList"></NuxtLink>
       <div class="flex flex-col mt-5 bg-black py-4 help-box">
         <h1 class="text-center font-bold space tracking-widest help-eliminate-hidden-danger">三大功能助力消除隐患</h1>
         <div class="flex justify-between mt-6 help-list">
@@ -584,11 +584,11 @@ nuxtApp.hook("page:finish", () => {
   border-radius: 10px;
 }
 
-.bottom-bg-pc > div:not(:first-of-type,:last-of-type) {
+.bottom-bg-pc > div:not(:last-of-type) {
   position: relative;
 }
 
-.bottom-bg-pc > div:not(:first-of-type,:last-of-type)::after {
+.bottom-bg-pc > div:not(:last-of-type)::after {
   content: '';
   position: absolute;
   right: -1em;
@@ -596,6 +596,18 @@ nuxtApp.hook("page:finish", () => {
   width: 0px;
   height: 100%;
   border-right: 2px solid #2E2E3B;
+}
+
+.bottom-bg-pc > a {
+  transition: all 0.5s;
+}
+
+.bottom-bg-pc > a:hover {
+  transform: scale(1.05);
+}
+
+.bottom-bg-pc > a::after:has(:hover) {
+  transform: scale(1);
 }
 
 .bottom-bg p {
