@@ -10,6 +10,8 @@ import { useSearchHistoryStore } from '~/pinia/searchHistory'
 
 const route = useRoute()
 
+const router = useRouter()
+
 const nuxtApp = useNuxtApp()
 
 // 实例化搜索输入历史记录存储
@@ -194,6 +196,11 @@ function gotoLogin() {
  */
 function gotoSearch() {
   // TODO 调用搜索api
+  if (searchInputText.value.trim() === '') {
+    router.push('/search');
+    return;
+  }
+  router.push('/search?search=' + searchInputText.value);
 }
 
 function dealSearchTipsAreaExpanded() {

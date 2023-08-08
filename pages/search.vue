@@ -165,6 +165,10 @@ useHead({
 
 nuxtApp.hook("page:finish", () => {
   scrollGenerateSearchInputWordBox();
+  if (route.query.search) {
+    searchInputText.value = route.query.search as string;
+    gotoSearch();
+  }
 })
 </script>
 
