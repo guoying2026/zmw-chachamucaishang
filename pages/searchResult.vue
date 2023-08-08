@@ -77,11 +77,7 @@ function changeToLeaveMeClosestDistance() {
   getGeoPosition();
 }
 function getGeoPosition() {
-  geoLocationId.value = navigator.geolocation.watchPosition((pos) => {
-    var crd = pos.coords;
-    console.log(crd);
-    isLeaveMeClosestDistance.value = true;
-  }, (err) => {
+  geoLocationId.value = navigator.geolocation.watchPosition(success, (err) => {
     console.log(err);
     if (err.code === 1) {
       console.log('您拒绝了该网站获取地理位置的权限');
@@ -95,11 +91,12 @@ function getGeoPosition() {
     timeout: 5000,
     maximumAge: 0,
   });
-  navigator.geolocation.getCurrentPosition((pos) => {
+  function success (pos: GeolocationPosition) {
     var crd = pos.coords;
     console.log(crd);
     isLeaveMeClosestDistance.value = true;
-  })
+  }
+  navigator.geolocation.getCurrentPosition(success)
   navigator.geolocation.clearWatch(geoLocationId.value);
   geoLocationId.value = -1;
 }
