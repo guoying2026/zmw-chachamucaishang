@@ -347,17 +347,26 @@ nuxtApp.hook("page:finish", () => {
       <!-- 问答 -->
       <div class="inline-flex flex-col items-center justify-center w-1/5">
         <img class="w-10 xl:w-12 2xl:w-14" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image78d4ecfb51b36699a32eab989bf5d4b3.png" />
-        <p class="h-10 text-center text-base mt-2">问答</p>
+        <div class="relative inline-flex flex-col items-center justify-center w-full h-14">
+          <p class="absolute opacity-100 h-10 text-center text-base mt-2">问答</p>
+          <p class="absolute opacity-0 h-10 text-center text-xs mt-2 select-none">提出您的问题，了解关于商家的问题及解答</p>
+        </div>
       </div>
       <!-- 评论 -->
       <div class="inline-flex flex-col items-center justify-center w-1/5">
         <img class="w-10 xl:w-12 2xl:w-14" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5206a70a10664e3094ca56f7b5daa4d0.png" />
-        <p class="h-10 text-center text-xs mt-2">提出您的问题，了解关于商家的问题及解答</p>
+        <div class="relative inline-flex flex-col items-center justify-center w-full h-14">
+          <p class="absolute opacity-100 h-10 text-center text-base mt-2">评论</p>
+          <p class="absolute opacity-0 h-10 text-center text-xs mt-2 select-none">提出您的问题，了解关于商家的问题及解答</p>
+        </div>
       </div>
       <!-- 投诉 -->
       <div class="inline-flex flex-col items-center justify-center w-1/5">
         <img class="w-10 xl:w-12 2xl:w-14" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image3db75212dbc6abcdcda9d72349d98b1e.png" />
-        <p class="h-10 text-center text-base mt-2">投诉</p>
+        <div class="relative inline-flex flex-col items-center justify-center w-full h-14">
+          <p class="absolute opacity-100 h-10 text-center text-base mt-2">投诉</p>
+          <p class="absolute opacity-0 h-10 text-center text-xs mt-2 select-none">提出您的问题，了解关于商家的问题及解答</p>
+        </div>
       </div>
     </div>
     <!-- 移动端底部导航栏 -->
@@ -615,6 +624,26 @@ nuxtApp.hook("page:finish", () => {
 
 .bottom-bg-pc > a::after:has(:hover) {
   transform: scale(1);
+}
+
+.bottom-bg-pc > div p {
+  transition: all 0.5s;
+}
+
+.bottom-bg-pc > div:hover p:first-of-type {
+  opacity: 0;
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.bottom-bg-pc > div:hover p:last-of-type {
+  opacity: 1;
+  user-select: auto;
+  -ms-user-select: auto;
+  -moz-user-select: auto;
+  -webkit-user-select: auto;
 }
 
 .bottom-bg p {
