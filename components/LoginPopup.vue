@@ -59,7 +59,7 @@ function dealLogin() {
 <template>
   <!-- 手机号登录弹窗 -->
   <div @click.stop="$emit('close')" class="fixed top-0 left-0 w-screen h-screen login-pop-up-cover">
-    <div class="fixed px-5 py-4 login-pop-up">
+    <div @click.stop="false" class="fixed px-5 py-4 login-pop-up">
       <div class="relative text-center mb-2">
         <span class="text-xs md:text-sm font-normal tracking-wide login-pop-up-header-title">助力检索木材交易隐患，降低木材交易风险</span>
         <button @click.stop="$emit('close')" class="absolute -right-2 top-1 w-5 h-5 login-pop-up-header-close-button">
