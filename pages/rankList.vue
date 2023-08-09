@@ -305,7 +305,7 @@ function changeRankDigitsToElClass(rankNum: number) {
       <div class="absolute inline-flex flex-row justify-between items-center text-xs whitespace-nowrap pr-4 item-sec_line">
         <div class="relative">法人:{{ item.corporation }}</div>
         <div class="inline-flex justify-center items-center separator-wrap">|</div>
-        <div class="relative">经营范围: {{ item.range }}{{ item.range }}{{ item.range }}</div>
+        <div class="relative">经营范围:{{ item.range }}</div>
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
         <div class="relative hidden md:inline-block">评论:{{ item.comment_count }}</div>
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
@@ -313,7 +313,7 @@ function changeRankDigitsToElClass(rankNum: number) {
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
         <div class="relative hidden md:inline-block">投诉:{{ item.complaint_count }}</div>
       </div>
-      <div class="absolute inline-block text-xs item-third_line">{{ item.address }}</div>
+      <div class="absolute inline-block text-xs item-third_line">地址:{{ item.address }}</div>
     </div>
   </div>
   <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">
@@ -514,7 +514,7 @@ function changeRankDigitsToElClass(rankNum: number) {
 .item .item-third_line {
   top: calc(((var(--real-width) / 12 * 11) * 190 / 710) / 190 * 139);
   left: calc((var(--real-width) / 12 * 11) / 710 * 234);
-  width: calc((var(--real-width) / 12 * 11) / 710 * 445);
+  width: calc((var(--real-width) / 12 * 11) / 710 * 300);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
