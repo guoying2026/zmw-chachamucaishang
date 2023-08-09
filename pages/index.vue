@@ -220,8 +220,6 @@ useHead({
   title: '查查木材商',
 })
 
-setPageLayout('mobile-only')
-
 nuxtApp.hook("page:finish", () => {
   if(window.screen.width < 768) {
     dealSearchTipsAreaExpanded();
