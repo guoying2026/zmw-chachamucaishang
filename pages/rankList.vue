@@ -26,7 +26,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '江苏木里文化投资有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -37,7 +37,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '广东广物木材产业股份有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -48,7 +48,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '江苏木里文化投资有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -59,7 +59,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '玉林市玉州区木材公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -70,7 +70,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '温州绿星木材贸易有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -82,7 +82,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '江苏木里文化投资有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -93,7 +93,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '广东广物木材产业股份有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -104,7 +104,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '江苏木里文化投资有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -115,7 +115,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '玉林市玉州区木材公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -126,7 +126,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '温州绿星木材贸易有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -138,7 +138,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '江苏木里文化投资有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -149,7 +149,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '广东广物木材产业股份有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -160,7 +160,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '江苏木里文化投资有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -171,7 +171,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '玉林市玉州区木材公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -182,7 +182,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '温州绿星木材贸易有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -194,7 +194,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '江苏木里文化投资有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -205,7 +205,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '广东广物木材产业股份有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -216,7 +216,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '江苏木里文化投资有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -227,7 +227,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '玉林市玉州区木材公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -238,7 +238,7 @@ const list = ref<RankingListItem[]>([
     score: 100,
     company_name: '温州绿星木材贸易有限公司',
     corporation: '王国栋',
-    address: '山东临沂',
+    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
     comment_count: 5,
     ask_count: 4,
     complaint_count: 2,
@@ -305,7 +305,7 @@ function changeRankDigitsToElClass(rankNum: number) {
       <div class="absolute inline-flex flex-row justify-between items-center text-xs whitespace-nowrap pr-4 item-sec_line">
         <div class="relative">法人:{{ item.corporation }}</div>
         <div class="inline-flex justify-center items-center separator-wrap">|</div>
-        <div class="relative">{{ item.address }}</div>
+        <div class="relative">经营范围: {{ item.range }}{{ item.range }}{{ item.range }}</div>
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
         <div class="relative hidden md:inline-block">评论:{{ item.comment_count }}</div>
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
@@ -313,7 +313,7 @@ function changeRankDigitsToElClass(rankNum: number) {
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
         <div class="relative hidden md:inline-block">投诉:{{ item.complaint_count }}</div>
       </div>
-      <div class="absolute inline-flex items-center text-xs item-third_line">经营范围: {{ item.range }}</div>
+      <div class="absolute inline-block text-xs item-third_line">{{ item.address }}</div>
     </div>
   </div>
   <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">
@@ -497,6 +497,13 @@ function changeRankDigitsToElClass(rankNum: number) {
   width: calc((var(--real-width) / 12 * 11) / 710 * 445);
 }
 
+.item .item-sec_line > div:nth-of-type(3) {
+  max-width: calc(((var(--real-width) / 12 * 11) / 1258 * 530) / 1.2);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .item .separator-wrap {
   width: 1px;
   height: 1rem;
@@ -508,6 +515,9 @@ function changeRankDigitsToElClass(rankNum: number) {
   top: calc(((var(--real-width) / 12 * 11) * 190 / 710) / 190 * 139);
   left: calc((var(--real-width) / 12 * 11) / 710 * 234);
   width: calc((var(--real-width) / 12 * 11) / 710 * 445);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .pagination .page-button {
@@ -624,6 +634,10 @@ function changeRankDigitsToElClass(rankNum: number) {
     top: calc(((var(--real-width) / 12 * 11) * 160 / 1258) / 160 * 90);
     left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
     width: calc((var(--real-width) / 12 * 11) / 1258 * 530);
+  }
+
+  .item .item-sec_line > div:nth-of-type(3) {
+    max-width: calc(((var(--real-width) / 12 * 11) / 1258 * 530) / 2);
   }
 
   .item .item-third_line {
