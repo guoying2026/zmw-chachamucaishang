@@ -176,7 +176,7 @@ function gotoSearch() {
     router.push('/search');
     return;
   }
-  router.push('/search?search=' + searchInputText.value);
+  router.push('/searchResult?search=' + searchInputText.value);
 }
 
 function dealSearchTipsAreaExpanded() {
