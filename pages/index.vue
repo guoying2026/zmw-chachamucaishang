@@ -38,30 +38,6 @@ const isShowLogin = ref<boolean>(false)
 const isAddScrollGenerateSearchInputWordBoxEvent = ref<boolean>(false)
 
 /**
- * 使pc端的界面能够在屏幕上垂直居中
- */
-function makeViewVerticalCenter() {
-  // 如果为pc端，则计算页面内容高度和屏幕高度，使页面内容垂直居中
-  if (window.screen.width < 768) return;
-  let screenHeight = window.screen.height;
-  let leng = document.querySelector('.main')?.children.length;
-  let elTotalHeight = 0;
-  if (!leng || typeof leng !== 'number' || leng === 0) return;
-  let i = -1;
-  while (++i < leng) {
-    let computedStyle = window.getComputedStyle(document.querySelector('.main')?.children[i]??new Element());
-    let elHeight = document.querySelector('.main')?.children[i].clientHeight??0;
-    if (computedStyle) {
-      if (i > 0) elTotalHeight += Number(computedStyle['marginTop'].replaceAll('px', ''));
-      if (i + 1 !== leng) elTotalHeight += Number(computedStyle['marginBottom'].replaceAll('px', ''));
-    }
-    elTotalHeight += elHeight;
-  }
-  if (elTotalHeight > screenHeight) return;
-  document.querySelector('.top-title')?.setAttribute('style', 'margin-top: ' + ((screenHeight - elTotalHeight) / 2) + 'px;');
-}
-
-/**
  * 使搜索框的“猜你想搜”的区域在滚轮上下滑动时，对应区域能够左右滑动
  */
 function scrollGenerateSearchInputWordBox() {
@@ -224,22 +200,18 @@ nuxtApp.hook("page:finish", () => {
   if(window.screen.width < 768) {
     dealSearchTipsAreaExpanded();
   }
-  makeViewVerticalCenter();
   scrollGenerateSearchInputWordBox();
-  window.onresize = () => {
-    makeViewVerticalCenter();
-  };
 })
 </script>
 
 <template>
-  <div class="flex flex-col items-center w-11/12 min-h-screen m-auto bg-black text-white main">
+  <div class="flex flex-col items-center w-full min-h-screen bg-black text-white bg-cover main">
     <!-- 顶部标题 -->
     <h1 class="text-5xl md:text-6xl 2xl:text-8xl text-center font-extrabold tracking-widest top-title">查查木材商</h1>
     <!-- 顶部副标题 -->
-    <p class="text-sm sm:text-base md:text-xl 2xl:text-3xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap">助力检索木材交易隐患，降低木材交易风险</p>
+    <p class="text-sm sm:text-base md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap">助力检索木材交易隐患，降低木材交易风险</p>
     <!-- 搜索框 -->
-    <div class="relative inline-flex justify-center w-full md:w-96 2xl:w-1/3 text-base">
+    <div class="relative inline-flex justify-center w-full md:w-96 2xl:w-1/3 text-base search-box">
       <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-4 text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @focus="scrollGenerateSearchInputWordBox" @change="scrollGenerateSearchInputWordBox" @keyup="scrollGenerateSearchInputWordBox" @keyup.enter="searchButtonHandle" />
       <!-- 搜索图标 -->
       <svg class="absolute left-3 hidden md:inline-block w-5 h-14 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
@@ -400,12 +372,29 @@ nuxtApp.hook("page:finish", () => {
 <style scoped>
 .main {
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image2231863ac57fa007d544e99f9d395130.png");
-  background-size: cover;
+  background-position-x: center;
+  background-position-y: top;
+  padding-left: calc((100% - 91.666667%) / 2);
+  padding-right: calc((100% - 91.666667%) / 2);
+}
+
+@media (min-width: 768px) {
+  .main {
+    background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image3b38dbd45823b2c0e8409d9eac58307c.png");
+  }
 }
 
 .top-title {
   letter-spacing: 0.1em;
-  margin-top: 9rem;
+  /* margin-top: 9rem; */
+  margin-top: calc(100vw / 1920 * 195);
+}
+
+@media (min-width: 768px) {
+  .search-box {
+    min-width: 24rem;
+    width: calc(100vw / 1920 * 584);
+  }
 }
 
 .search-text {
@@ -598,6 +587,10 @@ nuxtApp.hook("page:finish", () => {
   border-radius: 10px;
 }
 
+.bottom-bg-pc {
+  width: calc(100vw / 1920 * 1256);
+}
+
 .bottom-bg-pc > div:not(:last-of-type) {
   position: relative;
 }
@@ -613,6 +606,7 @@ nuxtApp.hook("page:finish", () => {
 }
 
 .bottom-bg-pc > a {
+  width: calc(100vw / 1920 * 331);
   transition: all 0.5s;
 }
 
@@ -642,6 +636,10 @@ nuxtApp.hook("page:finish", () => {
   -ms-user-select: auto;
   -moz-user-select: auto;
   -webkit-user-select: auto;
+}
+
+.bottom-bg-pc > div img {
+  width: calc(100vw / 1920 * 67);
 }
 
 .bottom-bg p {
