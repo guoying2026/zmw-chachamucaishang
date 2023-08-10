@@ -113,7 +113,7 @@ const searchResultList = ref<SearchResultListItem[]>([
     city: '宿迁市',
     district: '沐阳县',
     company_sort: '',
-    credit_code: '',
+    credit_code: '91321322MA215HKM23',
     taxpayer_id: '',
     registration_mark: '',
     organisation_code: '',
@@ -121,7 +121,7 @@ const searchResultList = ref<SearchResultListItem[]>([
     industry: '',
     address: '宿迁市沐阳县胡集镇梁井村吴组205国道边1号',
     website: '',
-    email: '',
+    email: 'noreply@qq.com',
     business_scope: '木材加工，人造板制造，人造板销售，软木制品制造',
     company_img: '',
     credit_score: '',
@@ -136,7 +136,7 @@ const searchResultList = ref<SearchResultListItem[]>([
     city: '宿迁市',
     district: '沐阳县',
     company_sort: '',
-    credit_code: '',
+    credit_code: '91321322MA215HKM23',
     taxpayer_id: '',
     registration_mark: '',
     organisation_code: '',
@@ -144,7 +144,7 @@ const searchResultList = ref<SearchResultListItem[]>([
     industry: '',
     address: '宿迁市沐阳县胡集镇梁井村吴组205国道边1号',
     website: '',
-    email: '',
+    email: 'noreply@qq.com',
     business_scope: '木材加工，人造板制造，人造板销售，软木制品制造',
     company_img: '',
     credit_score: '',
@@ -159,7 +159,7 @@ const searchResultList = ref<SearchResultListItem[]>([
     city: '宿迁市',
     district: '沐阳县',
     company_sort: '',
-    credit_code: '',
+    credit_code: '91321322MA215HKM23',
     taxpayer_id: '',
     registration_mark: '',
     organisation_code: '',
@@ -167,7 +167,7 @@ const searchResultList = ref<SearchResultListItem[]>([
     industry: '',
     address: '宿迁市沐阳县胡集镇梁井村吴组205国道边1号',
     website: '',
-    email: '',
+    email: 'noreply@qq.com',
     business_scope: '木材加工，人造板制造，人造板销售，软木制品制造',
     company_img: '',
     credit_score: '',
@@ -182,7 +182,7 @@ const searchResultList = ref<SearchResultListItem[]>([
     city: '宿迁市',
     district: '沐阳县',
     company_sort: '',
-    credit_code: '',
+    credit_code: '91321322MA215HKM23',
     taxpayer_id: '',
     registration_mark: '',
     organisation_code: '',
@@ -190,7 +190,7 @@ const searchResultList = ref<SearchResultListItem[]>([
     industry: '',
     address: '宿迁市沐阳县胡集镇梁井村吴组205国道边1号',
     website: '',
-    email: '',
+    email: 'noreply@qq.com',
     business_scope: '木材加工，人造板制造，人造板销售，软木制品制造',
     company_img: '',
     credit_score: '',
@@ -205,7 +205,7 @@ const searchResultList = ref<SearchResultListItem[]>([
     city: '宿迁市',
     district: '沐阳县',
     company_sort: '',
-    credit_code: '',
+    credit_code: '91321322MA215HKM23',
     taxpayer_id: '',
     registration_mark: '',
     organisation_code: '',
@@ -213,7 +213,7 @@ const searchResultList = ref<SearchResultListItem[]>([
     industry: '',
     address: '宿迁市沐阳县胡集镇梁井村吴组205国道边1号',
     website: '',
-    email: '',
+    email: 'noreply@qq.com',
     business_scope: '木材加工，人造板制造，人造板销售，软木制品制造',
     company_img: '',
     credit_score: '',
@@ -364,14 +364,14 @@ function getGeoPosition() {
       <NuxtLink to="detail" class="inline-flex flex-col py-4 mt-4 first-of-type:mt-0 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item" v-for="(item, index) in searchResultList">
         <!-- 搜索结果项 - 第一行 -->
         <div class="inline-flex flex-row px-4">
-          <img class="w-8 h-8 rounded-md" :src="item.company_img" />
+          <img class="w-8 h-8 md:w-24 md:h-24 rounded-md" :src="item.company_img" />
           <div class="inline-flex flex-row items-center h-full pl-2">
-            <span>{{ item.company_name }}</span>
+            <span class="md:text-2xl md:font-bold">{{ item.company_name }}</span>
             <span class="inline-block w-max h-max px-1 ml-2 text-xs border border-solid rounded zaiye">{{ item.operation_state }}</span>
           </div>
         </div>
         <!-- 搜索结果项 - 第二行 -->
-        <div class="inline-flex flex-row justify-evenly text-xs px-4 mt-2">
+        <div class="inline-flex md:hidden flex-row justify-evenly text-xs px-4 mt-2">
           <div class="inline-flex flex-col items-center">
             <span>法定代表人</span>
             <span class="mt-1">{{ item.corporation }}</span>
@@ -386,6 +386,33 @@ function getGeoPosition() {
               <span>{{ encryptPhone(item.contact_phone) }}</span>
               <button v-if="typeof item.contact_phone === 'object' && item.contact_phone instanceof Array && item.contact_phone.length > 1" @click.stop.prevent="showAllPhone(index)" class="ml-1 font-orange">更多</button>
             </div>
+          </div>
+        </div>
+        <div class="hidden md:inline-flex">
+          <div>
+            <span>法定代表人:</span>
+            <span>{{ item.corporation }}</span>
+          </div>
+          <div>
+            <span>成立日期:</span>
+            <span>{{ item.foundation_date }}</span>
+          </div>
+          <div>
+            <span>邮箱:</span>
+            <span>{{ item.email }}</span>
+          </div>
+        </div>
+        <div class="hidden md:inline-flex">
+          <div>
+            <span>电话:</span>
+            <div>
+              <span>{{ encryptPhone(item.contact_phone) }}</span>
+              <button v-if="typeof item.contact_phone === 'object' && item.contact_phone instanceof Array && item.contact_phone.length > 1" @click.stop.prevent="showAllPhone(index)" class="ml-1 font-orange">更多</button>
+            </div>
+          </div>
+          <div>
+            <span>社会统一信用代码:</span>
+            <span>{{ item.credit_code }}</span>
           </div>
         </div>
         <!-- 搜索结果项 - 第三行 -->
