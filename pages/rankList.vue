@@ -297,10 +297,9 @@ function changeRankDigitsToElClass(rankNum: number) {
   <div class="inline-block w-full bg-no-repeat bg-cover header" :style="'--real-width:'+headerWidth+';'"></div>
   <div class="relative inline-block w-full list" :style="'--real-width:'+headerWidth+';'">
     <div :class="'relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(((currentPage - 1) * pageSize) + index + 1)" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
-      <div class="absolute inline-block bg-contain bg-no-repeat medal">
-        <div class="absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
-        <div :class="'absolute inline-flex justify-center items-end w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(((currentPage - 1) * pageSize) + index + 1)">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
-      </div>
+      <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
+      <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
+      <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(((currentPage - 1) * pageSize) + index + 1)">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
       <div class="absolute text-xs md:text-base item-title">{{ item.company_name }}</div>
       <div class="absolute inline-flex flex-row justify-between items-center text-xs whitespace-nowrap pr-4 item-sec_line">
         <div class="relative">法人:{{ item.corporation }}</div>
@@ -418,49 +417,57 @@ function changeRankDigitsToElClass(rankNum: number) {
   height: calc(var(--real-width) / 12 * 11 / 710 * 103);
 }
 
-.item .medal .score {
+.item .score {
+  left: calc((var(--real-width) / 12 * 11) / 710 * 70.5);
+  top: calc(var(--real-width) / 12 * 11 / 710 * 65);
+  width: calc(var(--real-width) / 12 * 11 / 710 * 56);
+  height: calc(var(--real-width) / 12 * 11 / 710 * 56);
   font-family: D-DIN;
 }
 
-.item.first .medal .rank_num {
+.item.first .rank_num {
   background: linear-gradient(0deg, #EDC452 0%, #FDF6B4 100%);
   -webkit-background-clip: text;
 }
 
-.item.second .medal .rank_num {
+.item.second .rank_num {
   background: linear-gradient(0deg, #AFBBE0 0%, #E0E6F8 100%);
   -webkit-background-clip: text;
 }
 
-.item.third .medal .rank_num {
+.item.third .rank_num {
   background: linear-gradient(0deg, #FFD4AD 0%, #FFF1E5 100%);
   -webkit-background-clip: text;
 }
 
-.item .medal .rank_num {
+.item .rank_num {
   background: linear-gradient(0deg, #AFBBE0 0%, #E0E6F8 100%);
   -webkit-background-clip: text;
 }
 
-.item .medal .rank_num {
+.item .rank_num {
+  left: calc((var(--real-width) / 12 * 11) / 710 * 66);
+  top: calc(var(--real-width) / 12 * 11 / 710 * 117);
+  width: calc(var(--real-width) / 12 * 11 / 710 * 69);
+  height: calc(var(--real-width) / 12 * 11 / 710 * 28);
   font-family: D-DIN;
   -webkit-text-fill-color: transparent;
 }
 
-.item .medal .rank_num.hundred {
+.item .rank_num.hundred {
   transform: scale(0.65) translateY(0.6rem);
 }
 
-.item .medal .rank_num.thousand {
+.item .rank_num.thousand {
   transform: scale(0.55) translateY(0.85rem);
 }
 
-.item .medal .rank_num.ten_thousand {
+.item .rank_num.ten_thousand {
   transform: scale(0.45) translateY(1.2rem);
 }
 
-.item .medal .rank_num.one_hundred_thousand,
-.item .medal .rank_num.million {
+.item .rank_num.one_hundred_thousand,
+.item .rank_num.million {
   transform: scale(0.35) translateY(1.9rem);
 }
 
@@ -607,20 +614,34 @@ function changeRankDigitsToElClass(rankNum: number) {
     height: calc(var(--real-width) / 12 * 11 / 1258 * 103);
   }
 
-  .item .medal .rank_num.hundred {
+  .item .score {
+    left: calc((var(--real-width) / 12 * 11) / 1258 * 128);
+    top: calc(var(--real-width) / 12 * 11 / 1258 * 53);
+    width: calc(var(--real-width) / 12 * 11 / 1258 * 55);
+    height: calc(var(--real-width) / 12 * 11 / 1258 * 55);
+  }
+
+  .item .rank_num {
+    left: calc((var(--real-width) / 12 * 11) / 1258 * 121);
+    top: calc(var(--real-width) / 12 * 11 / 1258 * 102);
+    width: calc(var(--real-width) / 12 * 11 / 1258 * 70);
+    height: calc(var(--real-width) / 12 * 11 / 1258 * 28);
+  }
+
+  .item .rank_num.hundred {
     transform: scale(0.9) translateY(0.1rem);
   }
 
-  .item .medal .rank_num.thousand {
+  .item .rank_num.thousand {
     transform: scale(0.7) translateY(0.6rem);
   }
 
-  .item .medal .rank_num.ten_thousand {
+  .item .rank_num.ten_thousand {
     transform: scale(0.6) translateY(0.8rem);
   }
 
-  .item .medal .rank_num.one_hundred_thousand,
-  .item .medal .rank_num.million {
+  .item .rank_num.one_hundred_thousand,
+  .item .rank_num.million {
     transform: scale(0.5) translateY(1.2rem);
   }
 
