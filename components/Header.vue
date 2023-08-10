@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import LoginPopup from "~/components/LoginPopup.vue";
+
 const route = useRoute()
 
 const router = useRouter()
@@ -48,6 +50,16 @@ function searchInputFocusAndBlurHandle() {
   }
 }
 
+const isShowLogin = ref<boolean>(false)
+
+function openLoginPopup() {
+  isShowLogin.value = true;
+}
+
+function hideLoginPopup() {
+  isShowLogin.value = false
+}
+
 onMounted(() => {
   let headerEl = document.querySelector('.header');
   let headerWhiteSpaceEl = document.querySelector('.header_white_space');
@@ -87,10 +99,12 @@ nuxtApp.hook('page:finish', () => {
       <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute right-1 md:right-16 w-4 h-4 cursor-pointer" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
       <button @click.stop="searchButtonHandle" class="hidden md:inline-block text-sm px-2 py-1 rounded search-button">查一下</button>
     </div>
-    <button @click="$emit('openLoginPopup')" :class="(isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium ml-2 md:ml-4 goto-login-button'">登录</button>
+    <button @click="openLoginPopup" :class="(isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium ml-2 md:ml-4 goto-login-button'">登录</button>
     <button @click="searchInputBlurHandle" :class="(isSearchInputFocusing ? 'inline-block md:hidden' : 'hidden') + ' text-sm md:text-base font-medium ml-2 md:ml-4 goto-login-button'">取消</button>
   </div>
   <div class="header_white_space"></div>
+  <!-- 登录弹窗 -->
+  <LoginPopup v-if="isShowLogin" @close="hideLoginPopup" />
 </template>
 
 <style scoped>
