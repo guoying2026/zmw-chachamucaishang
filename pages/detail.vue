@@ -33,7 +33,6 @@
           <div class="second_1_2_third">等级</div>
         </div>
       </div>
-      <a href="http://shop{$company['id']}.zhenmuwang.com" target="_blank" class="second_1_3">点击进入</a>
     </div>
     <div class="third_2">
       <div class="third_2_space">
@@ -53,54 +52,47 @@
     <div class="third_4" v-if="tabItemStore.tabItem*1 === 0">
       <div class="third_4_left white-color">
         <div class="third_4_left_1">
-          <img class="third_4_left_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_395067ed-d2f0-4c5b-b2fc-cb322af9cc75.png"/>
-          <text class="third_4_left_1_right">商家地址</text>
+          <img class="third_4_left_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_b1e32456-293f-44db-bae5-62a5749d9b5b.png"  alt=""/>
+          <text class="third_4_left_1_right">企业简介</text>
         </div>
-        <div id="container" class="third_4_left_2"></div>
+        <div class="third_4_left_1_detail">
+          <div class="third_4_left_1_detail_1">
+            <text>张珊珊的木材加工厂</text>
+          </div>
+          <div class="third_4_left_1_detail_2">
+            <div class="third_4_left_1_detail_2_1">
+              <div class="third_4_left_1_detail_2_1_item">
+                <text>法定代表人：张姗姗</text>
+                <text class="margin-10-top">注册时间：2022-10-09</text>
+              </div>
+              <div class="third_4_left_1_detail_2_1_item">
+                <text>联系方式：139********</text>
+                <text class="margin-10-top">注册资本：89万元</text>
+              </div>
+            </div>
+            <div class="third_4_left_1_detail_2_1 margin-10-top">
+              <text class="third_4_left_1_detail_2_1_1">经营范围：</text>
+              <text class="third_4_left_1_detail_2_1_2">原木、锯材及木制品的销售；家居装饰；木材仓储，木材加工，木材研发，木材检测，木材及制品的展示 展销、信息咨询、技术服务 ，物流配送</text>
+            </div>
+          </div>
+        </div>
+<!--        <div id="container" class="third_4_left_2"></div>-->
+
         <!--                <div class="fujin"></div>-->
         <!--                <image class="third_4_left_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e8b85a02-f6f9-4f01-b4c0-92c39128fb2b.png"></image>-->
-        <text class="third_4_left_3">公司地址</text>
+<!--        <text class="third_4_left_3">公司地址</text>-->
         <div class="third_4_left_4">
           <div class="third_4_left_4_1">
-            <img class="third_4_left_4_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_13ebe768-2a48-405f-0f6b-6b07e3f776ba.png"/>
-            <text class="third_4_left_4_1_right">商品列表</text>
+            <img class="third_4_left_4_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_395067ed-d2f0-4c5b-b2fc-cb322af9cc75.png"/>
+            <text class="third_4_left_4_1_right">商家地址</text>
           </div>
         </div>
         <!--                商品列表开始-->
-        <div class="third_4_left_5">
-          <a class="third_4_left_5_item" href="#" target="_blank">
-            <img class="third_4_left_5_item_1" src="#"  alt=""/>
-            <div class="third_4_left_5_item_2">
-              <div class="third_4_left_5_item_2_top">
-                <text class="size-14">¥</text>
-                <text class="size-20">34</text>
-              </div>
-              <text class="third_4_left_5_item_2_bottom white-color">{$item.goods_title}</text>
-            </div>
-          </a>
-          <!--                    <div class="third_4_left_5_item">-->
-          <!--                        <image class="third_4_left_5_item_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_5bee340a-2839-428f-0edf-476da7441843.png"></image>-->
-          <!--                        <div class="third_4_left_5_item_2">-->
-          <!--                            <div class="third_4_left_5_item_2_top">-->
-          <!--                                <text class="size-14">¥</text>-->
-          <!--                                <text class="size-20">87.2</text>-->
-          <!--                            </div>-->
-          <!--                            <text class="third_4_left_5_item_2_bottom white-color">精品实木松木</text>-->
-          <!--                        </div>-->
-          <!--                    </div>-->
-          <!--                    <div class="third_4_left_5_item">-->
-          <!--                        <image class="third_4_left_5_item_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_5bee340a-2839-428f-0edf-476da7441843.png"></image>-->
-          <!--                        <div class="third_4_left_5_item_2">-->
-          <!--                            <div class="third_4_left_5_item_2_top">-->
-          <!--                                <text class="size-14">¥</text>-->
-          <!--                                <text class="size-20">87.2</text>-->
-          <!--                            </div>-->
-          <!--                            <text class="third_4_left_5_item_2_bottom white-color">精品实木松木</text>-->
-          <!--                        </div>-->
-          <!--                    </div>-->
-        </div>
       </div>
       <img class="third_4_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_57253c6a-7053-4709-b69b-6148dca9969b.png" alt=""/>
+    </div>
+    <div class="tab_0_space light_brown" v-if="tabItemStore.tabItem*1 === 0">
+      东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。
     </div>
     <div class="tab_1_space" v-if="tabItemStore.tabItem*1 === 1">
       <table>
@@ -183,9 +175,10 @@
     <div class="tab_2_space" v-if="tabItemStore.tabItem*1 === 2">
       <div class="tab_2_space_1">
         <text>全部动态 46</text>
-        <div>
-          <text>动态类型</text>
-          <div>
+        <div class="horizontal_line"></div>
+        <div class="choose_item">
+          <text class="choose_title">动态类型</text>
+          <div class="choose_detail">
             <text>全部类型</text>
             <text>工商</text>
             <text>风险</text>
@@ -194,9 +187,26 @@
             <text>新闻</text>
           </div>
         </div>
-        <div>
-          <text>时间选择</text>
-          <div>
+<!--        <div class="choose_item">-->
+<!--          <text class="choose_title">工商动态</text>-->
+<!--          <div class="choose_detail">-->
+<!--            <text>全部</text>-->
+<!--            <text>法定代表人变更</text>-->
+<!--            <text>主要成员变更</text>-->
+<!--            <text>股东变更</text>-->
+<!--            <text>大股东变更</text>-->
+<!--            <text>实际控制人变更</text>-->
+<!--            <text>最终受益人变更</text>-->
+<!--            <text>对外投资人变更</text>-->
+<!--            <text>注册资本变更</text>-->
+<!--            <text>经营范围变更</text>-->
+<!--            <text>经营状态变更</text>-->
+<!--            <text>企业名称变更变更</text>-->
+<!--          </div>-->
+<!--        </div>-->
+        <div class="choose_item">
+          <text class="choose_title">时间选择</text>
+          <div class="choose_detail">
             <text>全部时间</text>
             <text>今天</text>
             <text>近7天</text>
@@ -213,16 +223,38 @@
           <th>操作</th>
         </tr>
         <tr class="table_detail">
-          <td>利好</td>
+          <td class="green_classify">利好</td>
           <td>中标结果</td>
           <td class="wide-column">[终结公告]广东广物木材产业股份有限公司713.99万股</td>
           <td>2022-12-16</td>
           <td>详情</td>
         </tr>
         <tr class="table_detail">
-          <td>警示</td>
+          <td class="pink_classify">警示</td>
           <td>新增开庭公告</td>
           <td class="wide-column">开庭时间：2022-10-11</td>
+          <td>2022-11-21</td>
+          <td>详情</td>
+        </tr>
+        <tr class="table_detail">
+          <td class="blue_classify">提示</td>
+          <td>新增企业公告</td>
+          <td class="wide-column">公告名称：[临时公告]广物木材:董事、监事换届公告<br/> 公告日期：2022-09-18<br/> 公告名称：[临时公告]广物木材:监事换届公告<br/>  公告日期：2022-09-18</td>
+          <td>2022-11-21</td>
+          <td>详情</td>
+        </tr>
+        <tr class="table_detail">
+          <td class="blue_classify">提示</td>
+          <td>新增企业公告</td>
+          <td class="wide-column">公告名称：[临时公告]广物木材:董事、监事换届公告<br/> 公告日期：2022-09-18<br/> 公告名称：[临时公告]广物木材:监事换届公告<br/>  公告日期：2022-09-18</td>
+          <td>2022-11-21</td>
+          <td>详情</td>
+        </tr>
+        <tr class="table_detail">
+          <td class="red_classify">高风险</td>
+          <td>被列入严重执法</td>
+          <td class="wide-column">列入原因: 未依照《企业信息公示暂行条例》第八条规定的期限公示年度报告<br/>
+            列入日期: 2021-06-11</td>
           <td>2022-11-21</td>
           <td>详情</td>
         </tr>
@@ -234,7 +266,7 @@
     <div class="second_2">
       <div class="second_2_left">
         <div class="second_2_left_1">
-          <text class="second_2_left_1_left">公司名字 > 口碑</text>
+          <text class="second_2_left_1_left">张珊珊加工厂口碑</text>
           <!--                    <text class="size-10 grey-color">更多</text>-->
         </div>
         <div class="second_2_left_item">
@@ -242,39 +274,21 @@
             <img class="second_2_left_2_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e9a1e1da-d6e0-4c64-b332-46fd243749db.png"/>
             <div class="second_2_left_2_right">
               <text class="second_2_left_2_right_1">网友</text>
-              <text class="second_2_left_2_right_2">网友印象</text>
             </div>
           </div>
-          <div class="second_2_left_3">
-            <!--                            <div class="second_2_left_3_left_top">-->
-            <!--                                <image class="second_2_left_3_left_top_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_36acf18d-2d6a-40af-b13d-8c47b50bf32c.png"></image>-->
-            <!--                                <image class="second_2_left_3_left_top_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_dd28b805-d944-41e0-bdf2-5accbd2976a4.png"></image>-->
-            <!--                            </div>-->
-            <!--                            <div class="second_2_left_3_left_middle">-->
-            <!--                                <text>-->
-            <!--                                    货物出现了很严重的质量问题（缺边儿，毛刺，规格不一），客户没办法用这批货物要求退而且还要了货物图片，收到货实物跟图片严重不符-->
-            <!--                                    货物出现了很严重的质量问题（缺边儿，毛刺，规格不一），客户没办法用这批货物要求退而且还要了货物图片，收到货实物跟图片严重不符-->
-            <!--                                </text>-->
-            <!--                            </div>-->
-            <!--                            <div class="second_2_left_3_left_bottom">-->
-            <!--                                <image class="second_2_left_3_left_bottom_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_6a65789d-dffe-4153-b1f2-67739e7e22ec.png"></image>-->
-            <!--                                <image class="second_2_left_3_left_bottom_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_27118c68-9b62-4833-b540-e14e9019bd80.png"></image>-->
-            <!--                            </div>-->
-          </div>
+          <text>货物出现了很严重的质量问题（缺边、毛刺、规格不一）客户没办法用这批货要求退而且
+            要了货物图片，收到货实物跟图片严重不符）</text>
         </div>
-        <!--                <div class="second_2_left_item">-->
-        <!--                    <div class="second_2_left_2">-->
-        <!--                        <image class="second_2_left_2_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e9a1e1da-d6e0-4c64-b332-46fd243749db.png"></image>-->
-        <!--                        <div class="second_2_left_2_right">-->
-        <!--                            <text class="second_2_left_2_right_1">张山山木材加工厂</text>-->
-        <!--                            <text class="second_2_left_2_right_2">网友印象</text>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                    <div class="second_2_left_3">-->
-        <!--                        货物出现了很严重的质量问题（缺边儿，毛刺，规格不一），客户没办法用这批货物要求退而且还要了货物图片，收到货实物跟图片严重不符-->
-        <!--                            货物出现了很严重的质量问题（缺边儿，毛刺，规格不一），客户没办法用这批货物要求退而且还要了货物图片，收到货实物跟图片严重不符-->
-        <!--                    </div>-->
-        <!--                </div>-->
+        <div class="second_2_left_item">
+          <div class="second_2_left_2">
+            <img class="second_2_left_2_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e9a1e1da-d6e0-4c64-b332-46fd243749db.png"/>
+            <div class="second_2_left_2_right">
+              <text class="second_2_left_2_right_1">网友</text>
+            </div>
+          </div>
+          <text>货物出现了很严重的质量问题（缺边、毛刺、规格不一）客户没办法用这批货要求退而且
+            要了货物图片，收到货实物跟图片严重不符）</text>
+        </div>
         <div class="second_2_left_1 second_2_left_1_margin">
           <text class="second_2_left_1_left">公司名字相关回答</text>
           <!--                    <text class="size-10 grey-color">更多</text>-->
@@ -299,8 +313,8 @@
       </div>
       <text class="grey-color size-10">更多</text>
     </div>
-    <div class="tab_2_space" v-if="tabItemStore.tabItem*1 === 0">
-      <table>
+    <div class="tab_0_space" v-if="tabItemStore.tabItem*1 === 0">
+      <table class="green">
         <tr class="table_title">
           <th>动态等级</th>
           <th>动态类型</th>
@@ -309,25 +323,140 @@
           <th>操作</th>
         </tr>
         <tr class="table_detail">
-          <td>利好</td>
+          <td class="green_classify">利好</td>
           <td>中标结果</td>
           <td class="wide-column">[终结公告]广东广物木材产业股份有限公司713.99万股</td>
           <td>2022-12-16</td>
           <td>详情</td>
         </tr>
         <tr class="table_detail">
-          <td>警示</td>
+          <td class="pink_classify">警示</td>
           <td>新增开庭公告</td>
           <td class="wide-column">开庭时间：2022-10-11</td>
           <td>2022-11-21</td>
           <td>详情</td>
         </tr>
+        <tr class="table_detail">
+          <td class="blue_classify">提示</td>
+          <td>新增企业公告</td>
+          <td class="wide-column">公告名称：[临时公告]广物木材:董事、监事换届公告<br/> 公告日期：2022-09-18<br/> 公告名称：[临时公告]广物木材:监事换届公告<br/>  公告日期：2022-09-18</td>
+          <td>2022-11-21</td>
+          <td>详情</td>
+        </tr>
+        <tr class="table_detail">
+          <td class="blue_classify">提示</td>
+          <td>新增企业公告</td>
+          <td class="wide-column">公告名称：[临时公告]广物木材:董事、监事换届公告<br/> 公告日期：2022-09-18<br/> 公告名称：[临时公告]广物木材:监事换届公告<br/>  公告日期：2022-09-18</td>
+          <td>2022-11-21</td>
+          <td>详情</td>
+        </tr>
+        <tr class="table_detail">
+          <td class="red_classify">高风险</td>
+          <td>被列入严重执法</td>
+          <td class="wide-column">列入原因: 未依照《企业信息公示暂行条例》第八条规定的期限公示年度报告<br/>
+            列入日期: 2021-06-11</td>
+          <td>2022-11-21</td>
+          <td>详情</td>
+        </tr>
       </table>
+      <text class="green_tip">查查木材商企业动态数据基于公开数据分析而成，仅作参考，不作为个人决策及媒体引用的依据，查查木材商亦不承担因此产生的任何后果</text>
     </div>
 
   </div>
 </template>
 <style scoped>
+.light_brown{
+  background: #684525;
+  padding: 10px 20px;
+}
+.choose_item{
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
+  font-size: 14px;
+}
+.choose_title{
+  color: #999999;
+}
+.choose_detail{
+  margin-left: 20px;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+}
+.choose_detail text{
+  margin: 0 5px;
+}
+.horizontal_line{
+  height: 2px;      /* 线的厚度 */
+  background: #3F1E00;  /* 线的颜色 */
+  width: 100%;       /* 线的宽度 */
+  margin: 10px 0;
+}
+.tab_2_space_1{
+  background: #684525;
+  border-radius: 10px;
+  padding: 20px;
+}
+.margin-10-top{
+  margin-top: 10px;
+}
+.green_tip{
+  color: #847C1C;
+  font-size: 12px;
+}
+.green_classify{
+  color: #00AD79;
+}
+.blue_classify{
+  color: #6FD5FF;
+}
+.pink_classify{
+  color: #FF6F6F;
+}
+.red_classify{
+  color: #FF3535;
+}
+.third_4_left_1_detail{
+  width: 100%;
+  margin-top: 20px;
+}
+.third_4_left_1_detail_1{
+  background: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_94fceb32-91cb-4731-beed-643c1fde67e9.png");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 70px;
+  font-size: 20px;
+}
+.third_4_left_1_detail_2{
+  margin-top:2px;
+  display: flex;
+  flex-direction: column;
+  background-color: #684525;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 20px;
+  font-size: 14px !important;
+}
+.third_4_left_1_detail_2_1{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.third_4_left_1_detail_2_1_item{
+  display: flex;
+  flex-direction: column;
+}
+.third_4_left_1_detail_2_1_1{
+  width: 70px;
+}
+.third_4_left_1_detail_2_1_2{
+  flex: 1;
+}
 .tab_1_space{
   margin-top: 20px;
   width: 58%;
@@ -337,23 +466,23 @@
 .tab_1_space table{
   width: 100%;
   color: #fff;
-  border:none;
-  border-collapse: collapse;
+  border:none !important;
+  border-collapse: collapse !important;
 }
 .tab_1_space table tr th{
   padding: 10px;
   background: #5C3B1D;
-  border-bottom: 1.5px solid #4D2F13;
+  border: 1.5px solid #4D2F13 !important;
 }
 .tab_1_space table tr td{
   padding: 10px;
   background: #684525;
-  border-bottom: 1.5px solid #4D2F13;
+  border: 1.5px solid #4D2F13 !important;
 }
 .last_tr{
   border-bottom:none;
 }
-.tab_2_space{
+.tab_2_space,.tab_0_space{
   margin-top: 20px;
   width: 58%;
   border-radius: 10px;
@@ -362,30 +491,56 @@
   width: 100%;
   color: #fff;
   border-collapse: collapse;
+  border: none !important;
+  margin-top: 20px;
 }
 .tab_2_space table td, table th {
   text-align: center; /* 设置内容居中 */
 }
-
+.tab_0_space table td, table th {
+  text-align: center; /* 设置内容居中 */
+}
 .tab_2_space table td:nth-child(3), table th:nth-child(3) {
   text-align: left; /* 设置第三列的内容左对齐 */
 }
-.tab_2_space table tr:first-child td {
+.tab_0_space table td:nth-child(3), table th:nth-child(3){
+  text-align: left; /* 设置第三列的内容左对齐 */
+}
+.tab_2_space table tr:first-child td,.tab_0_space table tr:first-child td {
   border-top: none;
+}
+.tab_0_space .green{
+  font-size: 14px !important;
+  border: 1px solid #474101 !important;
+  width: 100%;
+  color: #fff;
+  border-collapse: collapse;
+}
+.tab_0_space .green th,td{
+  border: 1.5px solid #474101 !important;
+}
+.tab_0_space .green .table_title{
+  background: #605902 !important;
 }
 .tab_2_space table .table_title{
   background: #5C3B1D;
 }
-.tab_2_space table tr th{
+.tab_2_space table tr th,.tab_0_space table tr th{
+  padding: 10px;
+}
+.tab_2_space table tr td,.tab_0_space table tr td{
   padding: 10px;
 }
 .tab_2_space table tr td{
-  padding: 10px;
+  border: 1.5px solid #563619 !important;
 }
-.tab_2_space table .table_detail{
+.tab_0_space table.green .table_detail{
+  background: #534D05 !important;
+}
+.tab_2_space table .table_detail,.tab_0_space table .table_detail{
   background: #684525;
 }
-.tab_2_space table .wide-column{
+.tab_2_space table .wide-column,.tab_0_space table .wide-column{
   width: 50%;
 }
 .first{
@@ -430,6 +585,7 @@
   align-items: center;
   margin: 10px 5%;
   width: 30%;
+  color: #000;
 }
 .third .second_1 .second_1_2 .second_1_2_first{
   height: 80px;
@@ -503,6 +659,9 @@
 }
 .second .second_2 .second_2_left .second_2_left_item{
   margin-top: 20px;
+  background: linear-gradient(#3E98F6, #1B62B8);
+  border-radius: 10px;
+  padding: 10px;
 }
 .second .second_2 .second_2_left .second_2_left_item .second_2_left_2{
   display: flex;
@@ -511,8 +670,8 @@
   align-items: center;
 }
 .second .second_2 .second_2_left .second_2_left_item .second_2_left_2 .second_2_left_2_left{
-  width: 60px;
-  height: 60px;
+  width: 35px;
+  height: 35px;
 }
 .second .second_2 .second_2_left .second_2_left_item .second_2_left_2 .second_2_left_2_right{
   display: flex;
@@ -840,7 +999,7 @@
 }
 </style>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue';
 const route = useRoute();
 
 import { useTabItemStore } from "~/pinia/tabItem";
@@ -850,4 +1009,32 @@ const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
   console.log(tabItemStore.tabItem);
 }
+//
+const geohash = ref<string>("wwh917b6bxnk");
+const company_name = ref<string>("沭阳县钱集镇槽坊木材加工厂");
+const address = ref<string>("沭阳县钱集镇南槽坊村村部");
+const map = ref<any>(null);
+const markers = ref<any[]>([]);
+const infos = ref<string[]>([]);
+const infoWindows = ref<any[]>([]);
+
+// const mark_point = (infoWindow: any, item: any) => {
+//   // ... 原来的 mark_point 函数内容 ...
+// };
+//
+// const searchByStationName = () => {
+//   // ... 原来的 searchByStationName 函数内容 ...
+// };
+//
+// onMounted(() => {
+//   map.value = new BMap.Map("container");
+//   // ... 其他 map 初始化代码 ...
+//
+//   axios.post('__URL__/getfujimcs', { geohash: geohash.value }).then(response => {
+//     const data = response.data;
+//     // ... 剩余的成功回调代码 ...
+//   });
+//
+//   searchByStationName();
+// });
 </script>
