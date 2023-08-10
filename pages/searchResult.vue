@@ -332,15 +332,15 @@ function getGeoPosition() {
       <div v-if="isCanMultiSelectProvince"></div>
       <div v-else class="inline-flex flex-row flex-wrap ml-4">
         <template v-for="(item, index) in areaList">
-          <div v-if="index > 0" class="mr-4 last-of-type:mr-0 whitespace-nowrap">{{ item.name }}</div>
+          <div v-if="index > 0" class="mr-4 last-of-type:mr-0 whitespace-nowrap cursor-pointer">{{ item.name }}</div>
         </template>
       </div>
-      <div @click.stop="isShowMoreProvinceSelect = !isShowMoreProvinceSelect" class="inline-flex flex-row items-center whitespace-nowrap ml-4 select-item-title-expand-more-button">
+      <div @click.stop="isShowMoreProvinceSelect = !isShowMoreProvinceSelect" class="inline-flex flex-row items-center whitespace-nowrap ml-4 cursor-pointer select-item-title-expand-more-button">
         更多
         <svg v-if="isShowMoreProvinceSelect" class="w-5 h-5 ml-1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="m16 6.594l-.72.687l-12.5 12.5l1.44 1.44L16 9.437l11.78 11.78l1.44-1.437l-12.5-12.5l-.72-.686z"/></svg>
         <svg v-else class="w-5 h-5 ml-1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="m4.22 10.78l-1.44 1.44l12.5 12.5l.72.686l.72-.687l12.5-12.5l-1.44-1.44L16 22.564L4.22 10.78z"/></svg>
       </div>
-      <div @click.stop="isCanMultiSelectProvince = !isCanMultiSelectProvince" :class="'inline-flex flex-row items-center whitespace-nowrap ml-4 ' + (isCanMultiSelectProvince ? 'to-cancel-multi-select-province' : 'font-orange')">
+      <div @click.stop="isCanMultiSelectProvince = !isCanMultiSelectProvince" :class="'inline-flex flex-row items-center whitespace-nowrap ml-4 cursor-pointer ' + (isCanMultiSelectProvince ? 'to-cancel-multi-select-province' : 'font-orange')">
         <template v-if="isCanMultiSelectProvince">取消多选</template>
         <template v-else>
           多选
@@ -351,8 +351,8 @@ function getGeoPosition() {
     <div class="inline-flex flex-row justify-start items-start w-full px-4 text-sm">
       <div class="inline-flex whitespace-nowrap select-item-title">商家距离</div>
       <div class="inline-flex flex-row flex-wrap ml-4">
-        <div class="mr-4 whitespace-nowrap">全部</div>
-        <div class="mr-0 whitespace-nowrap">离我最近</div>
+        <div class="mr-4 whitespace-nowrap cursor-pointer">全部</div>
+        <div class="mr-0 whitespace-nowrap cursor-pointer">离我最近</div>
       </div>
     </div>
   </div>
