@@ -300,8 +300,8 @@ function changeRankDigitsToElClass(rankNum: number) {
       <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
       <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
       <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(((currentPage - 1) * pageSize) + index + 1)">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
-      <div class="absolute text-xs md:text-base item-title">{{ item.company_name }}</div>
-      <div class="absolute inline-flex flex-row justify-between items-center text-xs whitespace-nowrap pr-4 item-sec_line">
+      <div class="absolute inline-block text-xs md:text-base item-title">{{ item.company_name }}</div>
+      <div class="absolute inline-flex flex-row justify-between items-center text-xs md:text-sm whitespace-nowrap pr-4 item-sec_line">
         <div class="relative">法人:{{ item.corporation }}</div>
         <div class="inline-flex justify-center items-center separator-wrap">|</div>
         <div class="relative">经营范围:{{ item.range }}</div>
@@ -312,7 +312,7 @@ function changeRankDigitsToElClass(rankNum: number) {
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
         <div class="relative hidden md:inline-block">投诉:{{ item.complaint_count }}</div>
       </div>
-      <div class="absolute inline-block text-xs item-third_line">地址:{{ item.address }}</div>
+      <div class="absolute inline-block text-xs md:text-sm item-third_line">地址:{{ item.address }}</div>
     </div>
   </div>
   <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">
@@ -446,9 +446,9 @@ function changeRankDigitsToElClass(rankNum: number) {
 }
 
 .item .rank_num {
-  left: calc((var(--real-width) / 12 * 11) / 710 * 66);
+  left: calc((var(--real-width) / 12 * 11) / 710 * 53);
   top: calc(var(--real-width) / 12 * 11 / 710 * 117);
-  width: calc(var(--real-width) / 12 * 11 / 710 * 69);
+  width: calc(var(--real-width) / 12 * 11 / 710 * 97);
   height: calc(var(--real-width) / 12 * 11 / 710 * 28);
   font-family: D-DIN;
   -webkit-text-fill-color: transparent;
@@ -472,8 +472,11 @@ function changeRankDigitsToElClass(rankNum: number) {
 }
 
 .item-title {
-  top: calc(((var(--real-width) / 12 * 11) * 190 / 710) / 19 * 3);
   left: calc((var(--real-width) / 12 * 11) / 710 * 234);
+  top: calc((var(--real-width) / 12 * 11) / 710 * 25);
+  width: calc((var(--real-width) / 12 * 11) / 710 * 472);
+  height: calc((var(--real-width) / 12 * 11) / 710 * 45);
+  line-height: calc((var(--real-width) / 12 * 11) / 710 * 45);
   font-family: Source Han Sans CN;
 }
 
@@ -491,6 +494,9 @@ function changeRankDigitsToElClass(rankNum: number) {
 
 .item .item-title {
   color: #FFFFFF;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .item .item-sec_line,
@@ -499,7 +505,7 @@ function changeRankDigitsToElClass(rankNum: number) {
 }
 
 .item .item-sec_line {
-  top: calc(((var(--real-width) / 12 * 11) * 190 / 710) / 190 * 95);
+  top: calc((var(--real-width) / 12 * 11) / 710 * 95);
   left: calc((var(--real-width) / 12 * 11) / 710 * 234);
   width: calc((var(--real-width) / 12 * 11) / 710 * 445);
 }
@@ -519,7 +525,7 @@ function changeRankDigitsToElClass(rankNum: number) {
 }
 
 .item .item-third_line {
-  top: calc(((var(--real-width) / 12 * 11) * 190 / 710) / 190 * 139);
+  top: calc((var(--real-width) / 12 * 11) / 710 * 139);
   left: calc((var(--real-width) / 12 * 11) / 710 * 234);
   width: calc((var(--real-width) / 12 * 11) / 710 * 300);
   overflow: hidden;
@@ -616,16 +622,16 @@ function changeRankDigitsToElClass(rankNum: number) {
 
   .item .score {
     left: calc((var(--real-width) / 12 * 11) / 1258 * 128);
-    top: calc(var(--real-width) / 12 * 11 / 1258 * 53);
-    width: calc(var(--real-width) / 12 * 11 / 1258 * 55);
-    height: calc(var(--real-width) / 12 * 11 / 1258 * 55);
+    top: calc((var(--real-width) / 12 * 11) / 1258 * 53);
+    width: calc((var(--real-width) / 12 * 11) / 1258 * 55);
+    height: calc((var(--real-width) / 12 * 11) / 1258 * 55);
   }
 
   .item .rank_num {
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 121);
-    top: calc(var(--real-width) / 12 * 11 / 1258 * 102);
-    width: calc(var(--real-width) / 12 * 11 / 1258 * 70);
-    height: calc(var(--real-width) / 12 * 11 / 1258 * 28);
+    left: calc((var(--real-width) / 12 * 11) / 1258 * 119);
+    top: calc((var(--real-width) / 12 * 11) / 1258 * 102);
+    width: calc((var(--real-width) / 12 * 11) / 1258 * 75);
+    height: calc((var(--real-width) / 12 * 11) / 1258 * 28);
   }
 
   .item .rank_num.hundred {
@@ -646,13 +652,16 @@ function changeRankDigitsToElClass(rankNum: number) {
   }
 
   .item-title {
-    top: calc(((var(--real-width) / 12 * 11) * 160 / 1258) / 160 * 30);
     left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
+    top: calc((var(--real-width) / 12 * 11) / 1258 * 27);
+    width: calc((var(--real-width) / 12 * 11) / 1258 * 532);
+    height: calc((var(--real-width) / 12 * 11) / 1258 * 46);
+    line-height: calc((var(--real-width) / 12 * 11) / 1258 * 46);
     font-size: calc((var(--real-width) / 12 * 11) * 0.025);
   }
 
   .item .item-sec_line {
-    top: calc(((var(--real-width) / 12 * 11) * 160 / 1258) / 160 * 90);
+    top: calc((var(--real-width) / 12 * 11) / 1258 * 90);
     left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
     width: calc((var(--real-width) / 12 * 11) / 1258 * 530);
   }
@@ -662,20 +671,8 @@ function changeRankDigitsToElClass(rankNum: number) {
   }
 
   .item .item-third_line {
-    top: calc(((var(--real-width) / 12 * 11) * 160 / 1258) / 160 * 121);
+    top: calc((var(--real-width) / 12 * 11) / 1258 * 121);
     left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
-  }
-}
-
-@media (min-width: 1024px) {
-  .item-title {
-    top: calc(((var(--real-width) / 12 * 11) * 160 / 1258) / 160 * 35);
-  }
-}
-
-@media (min-width: 1280px) {
-  .item-title {
-    top: calc(((var(--real-width) / 12 * 11) * 160 / 1258) / 160 * 39);
   }
 }
 </style>
