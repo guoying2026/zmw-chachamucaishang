@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
     '@vueuse/nuxt',
   ],
   tailwindcss: {
@@ -17,5 +18,11 @@ export default defineNuxtConfig({
     autoImports: [
       'defineStore', // import { defineStore } from 'pinia'
     ],
+  },
+  piniaPersistedstate: {
+    // cookieOptions: {
+    //   sameSite: 'strict',
+    // },
+    storage: 'localStorage'
   },
 })
