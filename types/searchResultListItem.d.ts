@@ -1,0 +1,24 @@
+export type SearchResultListItem = {
+  id: number;
+  company_name: string;
+  corporation: string;
+  registered_capital: string;
+  foundation_date: string;
+  operation_state: string;
+  province: string;
+  city: string;
+  district: string;
+  company_sort: string;
+  credit_code: string;
+  taxpayer_id: string;
+  registration_mark: string;
+  organisation_code: string;
+  contact_phone: string | string[];
+  industry: string;
+  address: string;
+  website: string;
+  email: string;
+  business_scope: string;
+  company_img: string;
+  credit_score: string | number;
+};
