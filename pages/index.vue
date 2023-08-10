@@ -212,11 +212,11 @@ nuxtApp.hook("page:finish", () => {
     <p class="text-sm sm:text-base md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap">助力检索木材交易隐患，降低木材交易风险</p>
     <!-- 搜索框 -->
     <div class="relative inline-flex justify-center w-full md:w-96 2xl:w-1/3 text-base search-box">
-      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-4 text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @focus="scrollGenerateSearchInputWordBox" @change="scrollGenerateSearchInputWordBox" @keyup="scrollGenerateSearchInputWordBox" @keyup.enter="searchButtonHandle" />
+      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-4 text-sm md:text-base text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @focus="scrollGenerateSearchInputWordBox" @change="scrollGenerateSearchInputWordBox" @keyup="scrollGenerateSearchInputWordBox" @keyup.enter="searchButtonHandle" />
       <!-- 搜索图标 -->
       <svg class="absolute left-3 hidden md:inline-block w-5 h-14 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
       <!-- 叉叉图标 -->
-      <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute hidden w-5 h-14 clear-icon" style="left: 74%;color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+      <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute hidden w-5 h-14 clear-icon" style="color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
       <!-- 输入框下方的弹出框 -->
       <div @click.stop="false" class="absolute top-14 left-0 inline-flex w-4/5 max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area">
         <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
@@ -386,11 +386,13 @@ nuxtApp.hook("page:finish", () => {
 
 .top-title {
   letter-spacing: 0.1em;
-  /* margin-top: 9rem; */
-  margin-top: calc(100vw / 1920 * 195);
+  margin-top: calc(100vw / 750 * 285);
 }
 
 @media (min-width: 768px) {
+  .top-title {
+    margin-top: calc(100vw / 1920 * 195);
+  }
   .search-box {
     min-width: 24rem;
     width: calc(100vw / 1920 * 584);
@@ -566,6 +568,17 @@ nuxtApp.hook("page:finish", () => {
   display: inline-block;
 }
 
+.clear-icon {
+  right: calc(100vw / 750 * 138);
+}
+
+@media (min-width: 768px) {
+  .clear-icon {
+    left: 74%;
+    right: unset;
+  }
+}
+
 .search-tips-area {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -652,7 +665,9 @@ nuxtApp.hook("page:finish", () => {
   /* w1,h1为原图宽度高度，w2,h2为div元素的宽度高度，根据 "w1 / h1 = w2 / h2" 得出 "h2 = w2 * h1 / w1" */
   height: calc(((100vw / 12 * 11) - 2rem) * 120 / 670);
   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagecbb69d514835e9ff75024d11e4f58d42.png");
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .help-box {
