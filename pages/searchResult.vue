@@ -344,7 +344,7 @@ function getGeoPosition() {
         <template v-if="isCanMultiSelectProvince">取消多选</template>
         <template v-else>
           多选
-          <svg class="w-5 h-5 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g><rect stroke-width="2" stroke="currentColor" fill="transparent" id="svg_1" height="14.96052" width="15.0659" y="2.40201" x="1.76341"/><rect stroke-width="2" stroke="currentColor" fill="transparent" id="svg_2" height="14.71381" width="15" y="6" x="5.5329"/><line stroke-width="2" stroke="currentColor" id="svg_3" y2="18.99872" x2="12.14711" y1="14.02504" x1="7.31839"/><path stroke-width="2" stroke="currentColor" id="svg_4" d="m19.20346,8.98684l-7.51799,10.2157"/></g></svg>
+          <svg class="w-5 h-5 ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g><path stroke-width="2" stroke="currentColor" id="svg_1" d="m16.76341,5.40201 v-3 h-15 v15 h3.2 v-11.3 h10z" /><rect stroke-width="2" stroke="currentColor" fill="transparent" id="svg_2" height="14.71381" width="15" y="6" x="5.5329"/><line stroke-width="2" stroke="currentColor" id="svg_3" y2="18.99872" x2="12.14711" y1="14.02504" x1="7.31839"/><path stroke-width="2" stroke="currentColor" id="svg_4" d="m19.20346,8.98684l-7.51799,10.2157"/></g></svg>
         </template>
       </div>
     </div>
