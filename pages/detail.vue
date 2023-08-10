@@ -841,10 +841,11 @@
 </style>
 <script setup lang="ts">
 import { ref } from 'vue'
+const route = useRoute();
+
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
 console.log(tabItemStore.tabItem);
-const route = useRoute();
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
   console.log(tabItemStore.tabItem);
