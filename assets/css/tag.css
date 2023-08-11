@@ -1,0 +1,11 @@
+.custom_tag{
+    padding: 5px 25px;
+    border-radius: 10px;
+    margin: 10px;
+}
+.border_50_radius{
+    border-radius: 50px !important;
+}
+.orange_btn{
+    background: linear-gradient(to right, #DA7327, #FA4704);
+}
