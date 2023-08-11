@@ -35,6 +35,7 @@
       </div>
     </div>
     <div class="third_2">
+      <client-only>
       <div class="third_2_space">
         <text class="tab_0" :class="tabItemStore.tabItem*1 === 0 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
         <text>|</text>
@@ -48,6 +49,7 @@
         <text>|</text>
         <text class="tab_5" :class="tabItemStore.tabItem*1 === 5 ?'white-color white-underline':''" @click="switchTab(5)">投诉</text>
       </div>
+      </client-only>
     </div>
     <div class="third_4" v-if="tabItemStore.tabItem*1 === 0">
       <div class="third_4_left white-color">
@@ -88,7 +90,7 @@
           </div>
           <text class="third_4_left_4_2">附近商家 ></text>
         </div>
-        <client-only><baidu-map class="map" :center="{lng: 118.454, lat: 32.955}" :zoom="5" @ready="ready" ></baidu-map></client-only>
+        <client-only><baidu-map class="map" :center="{lng: 118.906004, lat: 33.962873}" :zoom="5" @ready="ready" ></baidu-map></client-only>
         <div class="map_address">
           <svg t="1691724915543" class="icon" viewBox="0 0 1024 1024" width="200" height="200"><path d="M513.8 63.4C327.2 63.4 173 221.2 173 414.9c0 186.5 304.9 520.2 319.3 534.5 3.6 7.2 14.3 10.8 21.5 10.8s17.9-3.6 21.5-10.8l104-125.6C779.2 644.5 851 508.2 851 414.9c3.6-193.7-150.7-351.5-337.2-351.5z m0 513c-86.1 0-154.3-71.7-154.3-161.4s68.2-161.4 154.3-161.4S668 325.3 668 414.9s-68.1 161.5-154.2 161.5z" fill="#ffffff" p-id="1445"></path></svg>
           <text>沭阳县钱集镇南槽坊村村部</text>
@@ -264,6 +266,12 @@
           <td>详情</td>
         </tr>
       </table>
+    </div>
+    <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3">
+      <div class="tab_3_space_1">
+        <text>全部评价（887）</text>
+        <text>写评论</text>
+      </div>
     </div>
   </div>
   <div class="second" v-if="tabItemStore.tabItem*1 === 0">
