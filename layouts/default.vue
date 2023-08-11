@@ -5,7 +5,10 @@ import Header from "~/components/Header.vue";
 
 const route = useRoute()
 
-const unShowHeaderRouteName = ["index", "search", "searchResult"];
+const unShowHeaderRouteName = [
+  "index",
+  "search",
+];
 
 </script>
 
