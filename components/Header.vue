@@ -86,7 +86,7 @@ nuxtApp.hook('page:finish', () => {
 </script>
 
 <template>
-  <div class="fixed inline-flex flex-row justify-center items-center w-full bg-black py-2 z-10 header">
+  <div class="fixed inline-flex flex-row justify-center items-center w-full bg-black py-2 z-30 header">
     <!-- 查查木材商图标 -->
     <NuxtLink to="/">
       <img class="block md:hidden h-6" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imageee2c089b91ece3372b37b7ea820936fe.png" />
