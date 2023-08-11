@@ -325,6 +325,26 @@ function changeAreaSecondSelectedIndex(index: number) {
   hideAreaSelect();
 }
 
+function changeAreaFirstIsSelected(index: number) {
+  let isSelected = areaList.value[index].is_selected;
+  if (areaFirstSelectedIndex.value != index) {
+    areaFirstSelectedIndex.value = index;
+    areaSecondSelectedIndex.value = 1;
+  }
+  areaList.value = areaList.value.map((_item, _index) => {
+    if (_index != index) return _item;
+    _item.is_selected = !isSelected;
+    _item.childs = _item.childs.map((_subitem, _subindex) => {
+      _subitem.is_selected = false;
+      if (_subindex > 0) {
+        _subitem.is_selected = !isSelected;
+      }
+      return _subitem;
+    });
+    return _item;
+  });
+}
+
 function changeAreaSecondIsSelected(index: number) {
   areaList.value = areaList.value.map((_item, _index) => {
     if (_index == areaFirstSelectedIndex.value) {
@@ -621,7 +641,7 @@ function getGeoPosition() {
           <div class="inline-flex flex-col w-1/2 h-auto overflow-y-scroll">
             <template v-for="(item, index) in areaList">
               <div v-if="index > 0" @click.stop="changeAreaFirstSelectedIndex(index)" :class="(item.is_show ? '' : 'hidden ') + 'relative inline-flex flex-row items-center mx-2 my-1 cursor-pointer'">
-                <svg class="w-4 h-4" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg @click.stop="changeAreaFirstIsSelected(index)" class="w-4 h-4" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <g id="Layer_1">
                     <rect rx="2" :fill="item.is_selected ? 'rgb(253,148,53)' : 'transparent'" x="0.99319" y="0.95587" width="22" height="22" id="svg_2" :stroke="item.is_selected ? 'rgb(253,148,53)' : 'white'" stroke-width="2"/>
                     <line v-if="item.is_selected" stroke="rgb(70,70,70)" fill="none" x1="5" y1="11" x2="10" y2="19.75534" id="svg_3" stroke-width="2"/>
