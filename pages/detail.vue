@@ -86,8 +86,10 @@
             <img class="third_4_left_4_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_395067ed-d2f0-4c5b-b2fc-cb322af9cc75.png"/>
             <text class="third_4_left_4_1_right">商家地址</text>
           </div>
+          <text class="third_4_left_4_2">附近商家 ></text>
         </div>
-        <!--                商品列表开始-->
+        <client-only><baidu-map class="map" :center="{lng: 118.454, lat: 32.955}" :zoom="5" @ready="ready" ></baidu-map></client-only>
+        <div class="map_address">沭阳县钱集镇南槽坊村村部</div>
       </div>
       <img class="third_4_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_57253c6a-7053-4709-b69b-6148dca9969b.png" alt=""/>
     </div>
@@ -365,6 +367,15 @@
   </div>
 </template>
 <style scoped>
+.map_address{
+  font-size: 14px;
+  margin-top: 10px;
+}
+.map {
+  margin-top: 10px;
+  width: 466px;
+  height: 300px;
+}
 .light_brown{
   background: #684525;
   padding: 10px 20px;
@@ -836,11 +847,8 @@
 .third .third_4 .third_4_left .third_4_left_1 .third_4_left_1_right{
   margin-left: 10px;
 }
-.third .third_4 .third_4_left .third_4_left_2{
-  width: 100%;
-  height: 100%;
-  margin-top: 10px;
-  border-radius: 10px;
+.third .third_4 .third_4_left_4_2{
+  font-size: 14px;
 }
 .third .third_4 .third_4_left .third_4_left_3{
   margin-top: 10px;
@@ -999,10 +1007,10 @@
 }
 </style>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-const route = useRoute();
-
+import { ref } from 'vue';
 import { useTabItemStore } from "~/pinia/tabItem";
+import {BaiduMap} from "vue-baidu-map-3x";
+const route = useRoute();
 const tabItemStore = useTabItemStore();
 console.log(tabItemStore.tabItem);
 const switchTab = (item :number) => {
@@ -1013,28 +1021,7 @@ const switchTab = (item :number) => {
 const geohash = ref<string>("wwh917b6bxnk");
 const company_name = ref<string>("沭阳县钱集镇槽坊木材加工厂");
 const address = ref<string>("沭阳县钱集镇南槽坊村村部");
-const map = ref<any>(null);
-const markers = ref<any[]>([]);
-const infos = ref<string[]>([]);
-const infoWindows = ref<any[]>([]);
-
-// const mark_point = (infoWindow: any, item: any) => {
-//   // ... 原来的 mark_point 函数内容 ...
-// };
-//
-// const searchByStationName = () => {
-//   // ... 原来的 searchByStationName 函数内容 ...
-// };
-//
-// onMounted(() => {
-//   map.value = new BMap.Map("container");
-//   // ... 其他 map 初始化代码 ...
-//
-//   axios.post('__URL__/getfujimcs', { geohash: geohash.value }).then(response => {
-//     const data = response.data;
-//     // ... 剩余的成功回调代码 ...
-//   });
-//
-//   searchByStationName();
-// });
+const ready = ({ BMap , map }: { BMap: any, map: any })=>{
+  // 对地图进行自定义操作
+}
 </script>
