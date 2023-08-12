@@ -25,21 +25,12 @@ const areaList = ref<AreaListItem[]>([{
   is_show: true,
 }]);
 
-fetch('/area.json').then(res => res.json()).then(res => {
-  /* // 处理直辖市，把地级市级的“市辖区”删除，把区县级移到地级市级
-  res = res.map(item => {
-    if ([11, 12, 31, 50].includes(Number(item.code))) {
-      item.childs = item.childs[0].childs;
-      return item;
-    }
-    item.childs = item.childs.map(subitem => {
-      subitem.childs = [];
-      return subitem;
-    });
-    return item;
-  }); */
+const { data, pending, error, refresh } = await useFetch('/api/areaData')
+
+if (data.value) {
+  let areaData: AreaListItem[] = JSON.parse(JSON.stringify(data.value.result))
   // 添加“全(省/市/自治区)”
-  res = res.map((item: AreaListItem) => {
+  areaData = areaData.map((item: AreaListItem) => {
     let end = '';
     if (item.name.includes('自治区')) {
       end = '全自治区';
@@ -63,7 +54,7 @@ fetch('/area.json').then(res => res.json()).then(res => {
     return item;
   });
   // 添加“全国”
-  res.unshift({
+  areaData.unshift({
     code: 0,
     name: '全国',
     childs: [{
@@ -76,9 +67,8 @@ fetch('/area.json').then(res => res.json()).then(res => {
     is_selected: false,
     is_show: true,
   });
-  console.log(res);
-  areaList.value = res;
-});
+  areaList.value = areaData;
+}
 
 const isShowAreaSelect = ref<boolean>(false)
 
