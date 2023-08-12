@@ -378,9 +378,14 @@ function changeIsCanMultiSelectProvince() {
       }
       if (item.is_selected) {
         isHasFirstSelected = true;
+        let isHasFirstSelected1 = false;
         item.childs = item.childs.map((subitem, subindex) => {
           if (subindex == 0) return subitem;
-          subitem.is_selected = true;
+          if (subitem.is_selected && !isHasFirstSelected1) {
+            isHasFirstSelected1 = true;
+          } else {
+            subitem.is_selected = false;
+          }
           return subitem;
         });
       }
@@ -458,18 +463,31 @@ function clearAllMultiSelectProvinceIsSelected() {
   });
 }
 
+function clearAllMultiSelectCityIsSelected() {
+  areaList.value = areaList.value.map(item => {
+    item.childs = item.childs.map(subitem => {
+      subitem.is_selected = false;
+      return subitem;
+    });
+    return item;
+  });
+}
+
 function changeAreaListProvinceIsSelectedWithOnlyOne(index: number) {
   let isSelected = areaList.value[index].is_selected;
+  areaFirstSelectedIndex.value = index;
   areaList.value = areaList.value.map((_item, _index) => {
     if (_index == index) {
       _item.is_selected = !isSelected;
-      _item.childs = _item.childs.map((_subitem, _subindex) => {
-        _subitem.is_selected = !isSelected;
-        if (_subindex == 0) {
-          _subitem.is_selected = false;
-        }
-        return _subitem;
-      });
+      if (!_item.is_selected) {
+        _item.childs = _item.childs.map((_subitem, _subindex) => {
+          _subitem.is_selected = !isSelected;
+          if (_subindex == 0) {
+            _subitem.is_selected = false;
+          }
+          return _subitem;
+        });
+      }
     } else {
       _item.is_selected = false;
       _item.childs = _item.childs.map((_subitem, _subindex) => {
@@ -599,17 +617,33 @@ function getGeoPosition() {
       </div>
       <!-- 单选地区条件下 -->
       <div v-else class="relative inline-flex flex-row w-full h-5">
-        <template v-for="item in areaList.filter(item=>item.is_selected)">
-          <div class="inline-flex flex-row justify-start items-center px-1 py-0.5 ml-4 border border-solid font-orange" style="border-color: rgb(253,148,53);">
-            <span>{{ item.name }}</span>
-            <svg @click.stop="clearAllMultiSelectProvinceIsSelected" class="w-3 h-3 ml-1 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
-          </div>
+        <template v-if="areaList.filter(item=>{return item.is_selected&&item.childs.filter(subitem=>subitem.is_selected).length>0}).length>0">
+          <template v-for="item in areaList.filter(item=>{return item.is_selected&&item.childs.filter(subitem=>subitem.is_selected).length>0})[0].childs.filter(item=>item.is_selected)">
+            <div class="inline-flex flex-row justify-start items-center px-1 py-0.5 ml-4 border border-solid font-orange" style="border-color: rgb(253,148,53);">
+              <span>{{ item.name }}</span>
+              <svg @click.stop="clearAllMultiSelectCityIsSelected" class="w-3 h-3 ml-1 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+            </div>
+          </template>
+        </template>
+        <template v-else>
+          <template v-for="item in areaList.filter(item=>item.is_selected)">
+            <div class="inline-flex flex-row justify-start items-center px-1 py-0.5 ml-4 border border-solid font-orange" style="border-color: rgb(253,148,53);">
+              <span>{{ item.name }}</span>
+              <svg @click.stop="clearAllMultiSelectProvinceIsSelected" class="w-3 h-3 ml-1 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+            </div>
+          </template>
         </template>
       </div>
     </div>
     <!-- 省份地区 -->
     <div :class="'relative inline-flex flex-row justify-start items-start w-full px-4 pb-2 mb-2 text-sm transition-all'">
-      <div class="inline-flex whitespace-nowrap select-item-title">省份地区</div>
+      <div class="inline-flex whitespace-nowrap select-item-title">
+        <template v-if="isCanMultiSelectProvince">省份地区</template>
+        <template v-else>
+          <template v-if="areaList.filter(item=>item.is_selected).length==0">省份地区</template>
+          <template v-else>城市&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</template>
+        </template>
+      </div>
       <div class="relative inline-flex flex-row justify-start items-center w-full text-sm px-4">
         <!-- 多选地区 -->
         <div v-if="isCanMultiSelectProvince" @click.stop="isShowMultiSelectProvincePopup?hideMultiSelectProvincePopup():showMultiSelectProvincePopup()" :class="'inline-flex flex-row flex-wrap items-center w-auto cursor-pointer' + (areaList.filter(item=>item.is_selected).length>0 ? ' font-orange' : '')">
@@ -619,8 +653,15 @@ function getGeoPosition() {
         </div>
         <!-- 单选地区 -->
         <div v-else :class="'inline-flex flex-row flex-wrap ' + (isShowMoreProvinceSelect ? 'max-h-full' : 'max-h-5') + ' overflow-hidden transition-all'">
-          <template v-for="(item, index) in areaList">
-            <div v-if="index > 0" @click.stop="changeAreaListProvinceIsSelectedWithOnlyOne(index)" :class="'mr-4 last-of-type:mr-0 whitespace-nowrap cursor-pointer' + (item.is_selected ? ' font-orange' : '')">{{ item.name }}</div>
+          <template v-if="areaList.filter(item=>item.is_selected).length>0">
+            <template v-for="(item, index) in areaList.filter(item=>item.is_selected)[0].childs">
+              <div v-if="index > 0" @click.stop="changeAreaListCityIsSelectedWithOnlyOne(index)" :class="'mr-4 last-of-type:mr-0 whitespace-nowrap cursor-pointer' + (item.is_selected ? ' font-orange' : '')">{{ item.name }}</div>
+            </template>
+          </template>
+          <template v-else>
+            <template v-for="(item, index) in areaList">
+              <div v-if="index > 0" @click.stop="changeAreaListProvinceIsSelectedWithOnlyOne(index)" :class="'mr-4 last-of-type:mr-0 whitespace-nowrap cursor-pointer' + (item.is_selected ? ' font-orange' : '')">{{ item.name }}</div>
+            </template>
           </template>
         </div>
       </div>
