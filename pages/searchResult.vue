@@ -576,15 +576,23 @@ function getGeoPosition() {
   <div class="hidden md:flex flex-col w-full lg:w-3/4 lg:mx-auto py-4 rounded-xl select-box-pc">
     <div class="px-4 text-lg pb-2 mb-2 border-b border-solid border-gray-950">筛选条件</div>
     <!-- 已选条件 -->
-    <div class="relative inline-flex flex-row justify-start items-center w-full text-sm px-4 pb-2 mb-2 border-b border-solid border-gray-950 transition-all">
-      <div :class="'inline-flex whitespace-nowrap select-item-title' + (areaList.filter(item=>item.is_selected).length>0?' font-orange':'')">已选条件</div>
+    <div class="relative inline-flex flex-row justify-start items-start w-full text-sm px-4 pb-2 mb-2 border-b border-solid border-gray-950 transition-all">
+      <div :class="'inline-flex py-0.5 whitespace-nowrap select-item-title' + (areaList.filter(item=>item.is_selected).length>0?' font-orange':'')">已选条件</div>
       <!-- 多选地区条件下 -->
-      <div v-if="isCanMultiSelectProvince" class="relative inline-flex flex-row w-full h-5">
-        <div v-if="areaList.filter(item=>item.is_selected).length>0" class="inline-flex flex-row justify-start items-center px-1 py-0.5 ml-4 border border-solid font-orange" style="border-color: rgb(253,148,53);">
-          <span>省份地区：{{ areaList.filter(item=>item.is_selected).map(item=>item.name).join('，') }}</span>
+      <div v-if="isCanMultiSelectProvince" class="relative inline-flex flex-row w-full h-auto">
+        <div v-if="areaList.filter(item=>item.is_selected).length>0" class="inline-flex flex-row justify-start items-center px-1 py-0.5 ml-4 mr-20 border border-solid font-orange" style="border-color: rgb(253,148,53);">
+          <span>省份地区：
+            <template v-for="(item, index) in areaList.filter(item=>item.is_selected)">
+              <template v-if="item.childs.filter(subitem=>subitem.is_selected).length == item.childs.length - 1">{{ item.name }}</template>
+              <template v-else v-for="(subitem, subindex) in item.childs.filter(subitem=>subitem.is_selected)">{{ subitem.name }}
+                <template v-if="subindex < item.childs.filter(subitem=>subitem.is_selected).length - 1">，</template>
+              </template>
+              <template v-if="index < areaList.filter(item=>item.is_selected).length - 1">，</template>
+            </template>
+          </span>
           <svg @click.stop="clearAllMultiSelectProvinceIsSelected" class="w-3 h-3 ml-1 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
         </div>
-        <div @click.stop="clearAllMultiSelectProvinceIsSelected" class="absolute right-0 top-0 bottom-0 inline-flex flex-row justify-center items-center py-2.5 cursor-pointer font-orange">
+        <div @click.stop="clearAllMultiSelectProvinceIsSelected" class="absolute right-0 top-0 bottom-0 inline-flex flex-row justify-center items-baseline py-2.5 pt-0.5 cursor-pointer font-orange">
           <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12 23q-2.8 0-5.15-1.275T3 18.325V21H1v-6h6v2H4.525q1.2 1.8 3.163 2.9T12 21q1.875 0 3.513-.713t2.85-1.924q1.212-1.213 1.925-2.85T21 12h2q0 2.275-.863 4.275t-2.362 3.5q-1.5 1.5-3.5 2.363T12 23ZM1 12q0-2.275.863-4.275t2.362-3.5q1.5-1.5 3.5-2.362T12 1q2.8 0 5.15 1.275t3.85 3.4V3h2v6h-6V7h2.475q-1.2-1.8-3.163-2.9T12 3q-1.875 0-3.513.713t-2.85 1.924Q4.426 6.85 3.714 8.488T3 12H1Z"/></svg>
           <span>重置筛选</span>
         </div>
