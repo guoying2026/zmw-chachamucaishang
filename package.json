@@ -21,7 +21,7 @@
     "@vueuse/core": "^10.3.0",
     "@vueuse/nuxt": "^10.3.0",
     "autoprefixer": "^10.4.14",
-    "geoip-lite": "^1.4.7",
+    "fast-geoip": "^1.1.88",
     "postcss": "^8.4.27",
     "tailwindcss": "^3.3.3"
   }
