@@ -25,6 +25,9 @@ export default defineEventHandler (async (e) => {
   }
   return new Promise(resolve => {
     searcher.search(ip).then((res: any) => {
+      if (!res || !res.hasOwnProperty('region') || !res.region) {
+        resolve({code: 500, message: 'Parsing failed', data: res})
+      }
       let region: string = res.region as string
       let regionArr: string[] = region.split('|')
       let country: string = regionArr[0] as string
