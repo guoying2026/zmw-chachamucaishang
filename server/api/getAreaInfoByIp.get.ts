@@ -24,7 +24,7 @@ export default defineEventHandler (async (e) => {
     || e.node.req.socket.remoteAddress as string // 判断后端的 socket 的 IP
   }
   return new Promise(resolve => {
-    searcher.search(res.ip).then((res: any) => {
+    searcher.search(ip).then((res: any) => {
       let region: string = res.region as string
       let regionArr: string[] = region.split('|')
       let country: string = regionArr[0] as string
