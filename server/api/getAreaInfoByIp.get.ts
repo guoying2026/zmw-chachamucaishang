@@ -1,7 +1,7 @@
 import Searcher from './ip2region.class'
 import { AreaListItem } from '../../types/areaListItem';
 
-// 下载地址：https://gitee.com/lionsoul/ip2region/raw/master/data/ip2region.xdb
+// 下载地址：https://raw.githubusercontent.com/lionsoul2014/ip2region/master/data/ip2region.xdb
 const searcher = Searcher.newWithFileOnly('server/data/ip2region.xdb')
 
 export default defineEventHandler (async (e) => {
