@@ -269,8 +269,12 @@
     </div>
     <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3">
       <div class="tab_3_space_1">
-        <text>全部评价（887）</text>
-        <text>写评论</text>
+        <text>全部评价（{{company_comment_count}}）</text>
+        <Tag tag="写评论" number="41" color="orange"></Tag>
+      </div>
+      <NoDetail v-if="company_comment_count < 0"></NoDetail>
+      <div class="tab_3_space_2" v-else>
+        <comment></comment>
       </div>
     </div>
   </div>
@@ -378,6 +382,15 @@
   </div>
 </template>
 <style scoped>
+
+.tab_3_space_1{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
 .icon{
   width: 20px;
   height: 20px;
@@ -428,9 +441,6 @@
   background: #684525;
   border-radius: 10px;
   padding: 20px;
-}
-.margin-10-top{
-  margin-top: 10px;
 }
 .green_tip{
   color: #847C1C;
@@ -513,7 +523,7 @@
 .last_tr{
   border-bottom:none;
 }
-.tab_2_space,.tab_0_space{
+.tab_2_space,.tab_0_space,.tab_3_space{
   margin-top: 20px;
   width: 58%;
   border-radius: 10px;
@@ -1027,7 +1037,7 @@
 }
 </style>
 <script setup lang="ts">
-import { ref } from 'vue';
+// import { ref } from 'vue';
 import { useTabItemStore } from "~/pinia/tabItem";
 import {BaiduMap} from "vue-baidu-map-3x";
 const route = useRoute();
@@ -1038,10 +1048,13 @@ const switchTab = (item :number) => {
   console.log(tabItemStore.tabItem);
 }
 //
-const geohash = ref<string>("wwh917b6bxnk");
-const company_name = ref<string>("沭阳县钱集镇槽坊木材加工厂");
-const address = ref<string>("沭阳县钱集镇南槽坊村村部");
+// const geohash = ref<string>("wwh917b6bxnk");
+// const company_name = ref<string>("沭阳县钱集镇槽坊木材加工厂");
+// const address = ref<string>("沭阳县钱集镇南槽坊村村部");
 const ready = ({ BMap , map }: { BMap: any, map: any })=>{
   // 对地图进行自定义操作
 }
+//评论开始
+const company_comment_count = 887;
+//评论结束
 </script>
