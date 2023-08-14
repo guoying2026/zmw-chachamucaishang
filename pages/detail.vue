@@ -382,7 +382,6 @@
   </div>
 </template>
 <style scoped>
-
 .tab_3_space_1{
   display: flex;
   flex-direction: row;
