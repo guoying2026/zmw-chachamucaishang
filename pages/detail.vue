@@ -389,7 +389,6 @@
   align-items: center;
   margin-bottom: 5px;
 }
-
 .icon{
   width: 20px;
   height: 20px;
