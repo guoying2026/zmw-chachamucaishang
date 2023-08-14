@@ -658,7 +658,8 @@ function changeToLeaveMeClosestDistance() {
  */
 async function getAreaInfoByIP() {
   // 调用获取位置信息接口
-  const { data } = await useFetch('/api/getAreaInfoByIp?ip=223.104.65.74')
+  const url = process.env.NODE_ENV == 'production' ? '/api/getAreaInfoByIp' : '/api/getAreaInfoByIp?ip=223.104.65.74'
+  const { data } = await useFetch(url)
   hideAskForGetPositionPopup()
   let res = data.value as {
     code: number,
