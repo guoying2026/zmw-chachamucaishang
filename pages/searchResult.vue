@@ -78,8 +78,6 @@ const areaSecondSelectedIndex = ref<number>(0)
 
 const isLeaveMeClosestDistance = ref<boolean>(false)
 
-const geoLocationId = ref<number>(-1)
-
 const totalCountOfSearchResult = ref<number>(183949)
 
 const searchResultList = ref<SearchResultListItem[]>([
@@ -230,6 +228,8 @@ const totalPages = ref<number>(9);
 
 const inputPage = ref<number>(currentPage.value);
 
+const isShowAskForGetPositionPopup = ref<boolean>(false)
+
 function jumpToPrevPage() {
   if (currentPage.value - 1 > 0) {
     currentPage.value = currentPage.value - 1;
@@ -316,6 +316,7 @@ function changeAreaSecondSelectedIndex(index: number) {
 }
 
 function changeAreaFirstIsSelected(index: number) {
+  isLeaveMeClosestDistance.value = false
   let isSelected = areaList.value[index].is_selected;
   if (areaFirstSelectedIndex.value != index) {
     areaFirstSelectedIndex.value = index;
@@ -336,6 +337,7 @@ function changeAreaFirstIsSelected(index: number) {
 }
 
 function changeAreaSecondIsSelected(index: number) {
+  isLeaveMeClosestDistance.value = false
   areaList.value = areaList.value.map((_item, _index) => {
     if (_index == areaFirstSelectedIndex.value) {
       _item.childs = _item.childs.map((_subitem, _subindex) => {
@@ -354,6 +356,7 @@ function changeAreaSecondIsSelected(index: number) {
 }
 
 function changeIsCanMultiSelectProvince() {
+  isLeaveMeClosestDistance.value = false
   isCanMultiSelectProvince.value = !isCanMultiSelectProvince.value;
   if (!isCanMultiSelectProvince.value) {
     let isHasFirstSelected = false;
@@ -443,6 +446,7 @@ function hideMultiSelectProvincePopup() {
 }
 
 function clearAllMultiSelectProvinceIsSelected() {
+  isLeaveMeClosestDistance.value = false
   areaList.value = areaList.value.map(item => {
     item.is_selected = false;
     item.childs = item.childs.map(subitem => {
@@ -454,6 +458,7 @@ function clearAllMultiSelectProvinceIsSelected() {
 }
 
 function clearAllMultiSelectCityIsSelected() {
+  isLeaveMeClosestDistance.value = false
   areaList.value = areaList.value.map(item => {
     item.childs = item.childs.map(subitem => {
       subitem.is_selected = false;
@@ -464,6 +469,7 @@ function clearAllMultiSelectCityIsSelected() {
 }
 
 function changeAreaListProvinceIsSelectedWithOnlyOne(index: number) {
+  isLeaveMeClosestDistance.value = false
   let isSelected = areaList.value[index].is_selected;
   areaFirstSelectedIndex.value = index;
   areaList.value = areaList.value.map((_item, _index) => {
@@ -493,6 +499,7 @@ function changeAreaListProvinceIsSelectedWithOnlyOne(index: number) {
 }
 
 function changeAreaListCityIsSelectedWithOnlyOne(index: number) {
+  isLeaveMeClosestDistance.value = false
   let isSelected = areaList.value[areaFirstSelectedIndex.value].childs[index].is_selected;
   areaList.value = areaList.value.map((_item, _index) => {
     if (_index == areaFirstSelectedIndex.value) {
@@ -518,40 +525,52 @@ function changeAreaListCityIsSelectedWithOnlyOne(index: number) {
 
 function changeToSwitchArea() {
   isLeaveMeClosestDistance.value = false;
-  if (geoLocationId.value != -1) {
-    navigator.geolocation.clearWatch(geoLocationId.value);
-    geoLocationId.value = -1;
-  }
 }
 
 function changeToLeaveMeClosestDistance() {
-  getGeoPosition();
+  showAskForGetPositionPopup();
 }
-function getGeoPosition() {
-  function success (pos: GeolocationPosition) {
-    var crd = pos.coords;
-    console.log(crd);
-    isLeaveMeClosestDistance.value = true;
-    clearAllMultiSelectProvinceIsSelected();
+
+async function getAreaInfoByIP() {
+  const { data } = await useFetch('/api/getAreaInfoByIp?ip=223.104.65.74')
+  hideAskForGetPositionPopup()
+  let res = data.value as {
+    code: number,
+    message: string,
+    result: any,
   }
-  if (geoLocationId.value == -1) {
-    geoLocationId.value = navigator.geolocation.watchPosition(success, (err) => {
-      console.log(err);
-      if (err.code === 1) {
-        console.log('您拒绝了该网站获取地理位置的权限');
-      } else if (err.code === 2) {
-        console.log('位置服务不可用');
-      } else if (err.code === 3) {
-        console.log('获取地理位置超时');
-      }
-      changeToSwitchArea();
-    }, {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
-    });
+  if (res.hasOwnProperty('code') && Number(res.code) == 200) {
+    clearAllMultiSelectProvinceIsSelected()
+    isLeaveMeClosestDistance.value = true
+    isCanMultiSelectProvince.value = false
+    if (res.result.hasOwnProperty('province_code') && Number(res.result.province_code) > 0) {
+      areaList.value = areaList.value.map((item, index) => {
+        item.is_selected = item.code == Number(res.result.province_code)
+        if (item.is_selected) areaFirstSelectedIndex.value = index
+        return item
+      })
+    }
+    if (res.result.hasOwnProperty('city_code') && Number(res.result.city_code) > 0) {
+      areaList.value = areaList.value.map(item => {
+        item.childs = item.childs.map((subitem, subindex) => {
+          subitem.is_selected = subitem.code == Number(res.result.city_code)
+          if (subitem.is_selected) areaSecondSelectedIndex.value = subindex
+          return subitem
+        })
+        return item
+      })
+    }
+  } else {
+    changeToSwitchArea()
   }
-  navigator.geolocation.getCurrentPosition(success);
+}
+
+function showAskForGetPositionPopup() {
+  isShowAskForGetPositionPopup.value = true;
+}
+
+function hideAskForGetPositionPopup() {
+  isShowAskForGetPositionPopup.value = false;
 }
 </script>
 
@@ -584,7 +603,7 @@ function getGeoPosition() {
   <div class="hidden md:flex flex-col w-full lg:w-3/4 lg:mx-auto py-4 rounded-xl select-box-pc">
     <div class="px-4 text-lg pb-2 mb-2 border-b border-solid border-gray-950">筛选条件</div>
     <!-- 已选条件 -->
-    <div class="relative inline-flex flex-row justify-start items-start w-full text-sm px-4 pb-2 mb-2 border-b border-solid border-gray-950 transition-all">
+    <div :class="'relative inline-flex flex-row justify-start ' + (isCanMultiSelectProvince?'items-start':'items-center') + ' w-full text-sm px-4 pb-2 mb-2 border-b border-solid border-gray-950 transition-all'">
       <div :class="'inline-flex py-0.5 whitespace-nowrap select-item-title' + (areaList.filter(item=>item.is_selected).length>0?' font-orange':'')">已选条件</div>
       <!-- 多选地区条件下 -->
       <div v-if="isCanMultiSelectProvince" class="relative inline-flex flex-row w-full h-auto">
@@ -710,11 +729,16 @@ function getGeoPosition() {
       </div>
     </div>
     <!-- 商家距离 -->
-    <div class="inline-flex flex-row justify-start items-start w-full px-4 text-sm">
+    <div class="inline-flex flex-row justify-start items-center w-full px-4 text-sm">
       <div class="inline-flex whitespace-nowrap select-item-title">商家距离</div>
-      <div class="inline-flex flex-row flex-wrap ml-4">
+      <div class="inline-flex flex-row flex-wrap items-center ml-4">
         <div @click.stop="changeToSwitchArea" class="mr-4 whitespace-nowrap cursor-pointer">全部</div>
         <div @click.stop="changeToLeaveMeClosestDistance" :class="'mr-0 whitespace-nowrap cursor-pointer' + (isLeaveMeClosestDistance ? ' font-orange' : '')">离我最近</div>
+        <div v-if="isLeaveMeClosestDistance" @click.stop="changeToLeaveMeClosestDistance" class="inline-flex flex-row justify-center items-center py-0.5 ml-2 border border-solid border-current rounded-sm cursor-pointer font-orange">
+          <svg class="w-3 md:w-4 h-3 md:h-4 mx-1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><path fill="currentColor" d="M256 32C167.67 32 96 96.51 96 176c0 128 160 304 160 304s160-176 160-304c0-79.49-71.67-144-160-144Zm0 224a64 64 0 1 1 64-64a64.07 64.07 0 0 1-64 64Z"/></svg>
+          {{ areaList.filter(item=>item.is_selected).length>0?areaList.filter(item=>item.is_selected)[0].name+(areaList.filter(item=>item.is_selected)[0].childs.filter(item=>item.is_selected).length>0?areaList.filter(item=>item.is_selected)[0].childs.filter(item=>item.is_selected)[0].name:''):'' }}
+          <svg class="w-3 md:w-4 h-3 md:h-4 mx-1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32zm-622.3-84c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0 9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9z"/></svg>
+        </div>
       </div>
     </div>
   </div>
@@ -846,6 +870,26 @@ function getGeoPosition() {
       </div>
       <div class="inline-flex flex-col items-center h-full mt-2">
         <div class="inline-flex justify-center w-full h-full py-4 border-t border-solid last-of-type:border-b" v-for="item in searchResultList[showPhoneIndex]?.contact_phone">{{ encryptPhone(item) }}</div>
+      </div>
+    </div>
+  </div>
+  <!-- 获取定位权限询问弹窗 -->
+  <div @click.stop="hideAskForGetPositionPopup" :class="'fixed ' + (isShowAskForGetPositionPopup ? 'left-0 top-0' : 'left-1/2 top-1/2') + ' inline-flex justify-center items-center ' + (isShowAskForGetPositionPopup ? 'w-full h-full' : 'w-0 h-0') + ' bg-black bg-opacity-50 transition-all'">
+    <div @click.stop="false" :class="'inline-flex flex-col w-4/5 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5 ' + (isShowAskForGetPositionPopup ? 'max-h-screen' : 'max-h-0') + ' min-h-max px-2 ' + (isShowAskForGetPositionPopup ? 'py-4' : 'py-0') + ' bg-white text-black rounded-xl overflow-hidden shadow transition-all'">
+      <div class="relative inline-flex justify-center items-center text-base md:text-xl font-medium">
+        <div>&nbsp;</div>
+        <svg @click.stop="hideAskForGetPositionPopup" class="absolute right-0 top-0 w-5 h-5" style="color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+      </div>
+      <div class="relative inline-flex justify-center items-center text-base md:text-xl font-normal" style="color: #333333;">
+        <div>查查木材商想要获取你的定位</div>
+      </div>
+      <div class="inline-flex flex-row justify-center items-center h-full mt-2 text-sm md:text-base" style="color: #333333;">
+        <svg class="w-3 md:w-4 h-3 md:h-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><path fill="currentColor" d="M256 32C167.67 32 96 96.51 96 176c0 128 160 304 160 304s160-176 160-304c0-79.49-71.67-144-160-144Zm0 224a64 64 0 1 1 64-64a64.07 64.07 0 0 1-64 64Z"/></svg>
+        <div>获取你的位置</div>
+      </div>
+      <div class="inline-flex flex-row justify-evenly h-full mt-4 text-base">
+        <div @click.stop="getAreaInfoByIP" class="inline-flex justify-center items-center text-base px-4 py-1 border border-solid border-current rounded cursor-pointer" style="color: #20B16A;">允许</div>
+        <div @click.stop="hideAskForGetPositionPopup" class="inline-flex justify-center items-center text-base px-4 py-1 border border-solid border-current rounded cursor-pointer" style="color: #999999;">禁止</div>
       </div>
     </div>
   </div>
