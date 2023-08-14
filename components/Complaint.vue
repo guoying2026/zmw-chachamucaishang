@@ -1,7 +1,3 @@
-<!--<template>-->
-<!--  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_3cef8124-864e-4abd-b190-966c6d1a69f9.png">-->
-<!--</template>-->
-=======
 <template>
-<!--  <img src="">-->
+  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png"/>
 </template>

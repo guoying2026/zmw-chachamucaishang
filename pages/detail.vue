@@ -268,14 +268,49 @@
       </table>
     </div>
     <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3">
-      <div class="tab_3_space_1">
-        <text>全部评价（{{company_comment_count}}）</text>
-        <Tag tag="写评论" number="41" color="orange"></Tag>
+      <div class="tab_3_space_left"></div>
+      <div class="tab_3_space_middle">
+        <div class="tab_3_space_1">
+          <text>全部评价（{{company_comment_count}}）</text>
+          <Tag tag="写评论" number="41" color="orange"></Tag>
+        </div>
+        <NoDetail v-if="company_comment_count < 0"></NoDetail>
+        <div class="tab_3_space_2" v-else>
+          <comment></comment>
+        </div>
       </div>
-      <NoDetail v-if="company_comment_count < 0"></NoDetail>
-      <div class="tab_3_space_2" v-else>
-        <comment></comment>
+      <div class="tab_3_space_right">
+
       </div>
+    </div>
+    <div class="tab_4_space" v-if="tabItemStore.tabItem*1 === 4">
+      <div class="tab_4_space_left"></div>
+      <div class="tab_4_space_middle">
+        <div class="tab_4_space_1">
+          <text>全部问答</text>
+          <Tag tag="我要提问" number="41" color="orange"></Tag>
+        </div>
+        <NoDetail tag="我要提问" text="没有问答" v-if="answer_question_count < 0"></NoDetail>
+        <div class="tab_4_space_2" v-else>
+          <question></question>
+        </div>
+      </div>
+      <div class="tab_4_space_right">
+        <div class="tab_4_space_3">
+          <text>附近商家（商品问答）</text>
+          <div class="tab_4_space_4">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab_5_space" v-if="tabItemStore.tabItem*1 === 5">
+      <div class="tab_5_space_left"></div>
+      <div class="tab_5_space_middle">
+        <complaint></complaint>
+        <NoDetail tag="我要投诉" text="没有投诉"></NoDetail>
+      </div>
+      <div class="tab_5_space_right"></div>
     </div>
   </div>
   <div class="second" v-if="tabItemStore.tabItem*1 === 0">
@@ -382,7 +417,27 @@
   </div>
 </template>
 <style scoped>
-.tab_3_space_1{
+.tab_3_space,.tab_4_space,.tab_5_space{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.tab_3_space_left,.tab_4_space_left,.tab_5_space_left{
+  width: 21%;
+}
+.tab_3_space_right,.tab_4_space_right,.tab_5_space_right{
+  width: 21%;
+  display: flex;
+  justify-content: center;
+}
+.tab_4_space_3{
+  width: 90%;
+  margin-top: 80px;
+  background: #582D06;
+  border-radius: 10px;
+  height: auto;
+}
+.tab_3_space_1,.tab_4_space_1{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -521,7 +576,7 @@
 .last_tr{
   border-bottom:none;
 }
-.tab_2_space,.tab_0_space,.tab_3_space{
+.tab_2_space,.tab_0_space,.tab_3_space_middle,.tab_4_space_middle,.tab_5_space_middle{
   margin-top: 20px;
   width: 58%;
   border-radius: 10px;
@@ -882,4 +937,7 @@ const ready = ({ BMap , map }: { BMap: any, map: any })=>{
 //评论开始
 const company_comment_count = 887;
 //评论结束
+//问答开始
+const answer_question_count = 886;
+//问答结束
 </script>

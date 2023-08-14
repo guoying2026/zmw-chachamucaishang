@@ -10,7 +10,7 @@
       <div class="comment_item_2">
         <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
         <div class="comment_item_3">
-          <text class="font-15-size time margin-10-top grey-color">2020-08-09 12:12:30</text>
+          <text class="font-15-size time grey-color">2020-08-09 12:12:30</text>
           <div class="comment_item_4">
             <div class="comment_item_4_s s_1">
               <svg t="1691744480998" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7486" width="200" height="200"><path d="M889.6 396.8l-281.6 0c25.6-134.4 76.8-300.8-32-352-115.2-51.2-121.6 19.2-134.4 134.4-12.8 121.6-192 249.6-192 249.6l0 563.201 608 0c83.2-38.4 134.4-377.6 160-499.2s-128-96-128-96zM0 428.8l179.201 0 0 569.6-179.201 0 0-569.6z" fill="#ffffff" p-id="7487"></path></svg>
@@ -87,7 +87,7 @@
       <div class="comment_item_2">
         <p class="margin-10-top ">上个周末，我搬家具的时候，没想到沙发从手里滑出，砸在了我那美丽的枫木地板上。当时我真的气坏了，地板上出现了一道明显的划痕，让我觉得心疼不已。原本觉得枫木地板很美观耐用，但现在看来，这种地板在耐磨和抗冲击方面还是有待提高。我真心希望商家能重视这个问题，优化地板的制作工艺，让它在遇到类似意外时能更好地抵抗划痕。毕竟，我们花了不少钱购买这样的地板，自然希望能长时间保持美观。而且，生活中类似的意外难免会发生，如果地板能提高耐磨性和抗冲击性，那我们在享受枫木地板美观舒适的同时，也会更加放心。</p>
         <div class="comment_item_3">
-          <text class="font-15-size time margin-10-top grey-color">2020-08-09 12:12:30</text>
+          <text class="font-15-size time grey-color">2020-08-09 12:12:30</text>
           <div class="comment_item_4">
             <div class="comment_item_4_s s_1">
               <svg t="1691744480998" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7486" width="200" height="200"><path d="M889.6 396.8l-281.6 0c25.6-134.4 76.8-300.8-32-352-115.2-51.2-121.6 19.2-134.4 134.4-12.8 121.6-192 249.6-192 249.6l0 563.201 608 0c83.2-38.4 134.4-377.6 160-499.2s-128-96-128-96zM0 428.8l179.201 0 0 569.6-179.201 0 0-569.6z" fill="#ffffff" p-id="7487"></path></svg>
