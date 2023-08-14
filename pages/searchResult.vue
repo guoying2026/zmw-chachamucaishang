@@ -230,6 +230,9 @@ const inputPage = ref<number>(currentPage.value);
 
 const isShowAskForGetPositionPopup = ref<boolean>(false)
 
+/**
+ * 上一页
+ */
 function jumpToPrevPage() {
   if (currentPage.value - 1 > 0) {
     currentPage.value = currentPage.value - 1;
@@ -238,6 +241,9 @@ function jumpToPrevPage() {
   }
 }
 
+/**
+ * 下一页
+ */
 function jumpToNextPage() {
   if (currentPage.value + 1 <= totalPages.value) {
     currentPage.value = currentPage.value + 1;
@@ -246,17 +252,28 @@ function jumpToNextPage() {
   }
 }
 
+/**
+ * 跳转到指定的页码
+ * @param page 
+ */
 function jumpToPage(page: number) {
   if (page < 1) page = 1
   if (page > totalPages.value) page = totalPages.value
   currentPage.value = page;
 }
 
+/**
+ * 跳转到输入的页码
+ */
 function jumpToInputPage() {
   jumpToPage(Number(inputPage.value));
 }
 
+/**
+ * 地区名称搜索的处理事件
+ */
 function filterAreaSearchHandle() {
+  // 如果没有输入任何关键词或关键词为空格，则所有的区域都显示
   if (areaSearchText.value.trim() == '') {
     areaList.value = areaList.value.map(item => {
       item.is_show = true;
@@ -271,6 +288,7 @@ function filterAreaSearchHandle() {
   let fi = -1;
   let si = -1;
   areaList.value = areaList.value.map((item, index) => {
+    // 如果输入的关键词匹配到省份或直辖市，则对应的地级市级别全部显示，然后跳过该省份或直辖市
     if (item.name.includes(areaSearchText.value)) {
       item.is_show = true;
       if (fi == -1) fi = index;
@@ -281,6 +299,7 @@ function filterAreaSearchHandle() {
       });
       return item;
     }
+    // 如果输入的关键词匹配到地级市，则显示该地级市
     item.childs = item.childs.map((subitem, subindex) => {
       subitem.is_show = subitem.name.includes(areaSearchText.value);
       if (subitem.is_show && si == -1) si = subindex;
@@ -294,34 +313,59 @@ function filterAreaSearchHandle() {
   if (fi > -1 && si > -1) areaSecondSelectedIndex.value = si;
 }
 
+/**
+ * 显示区域筛选弹出框
+ */
 function showAreaSelect() {
   isShowAreaSelect.value = true;
 }
 
+/**
+ * 隐藏区域筛选弹出框
+ */
 function hideAreaSelect() {
   isShowAreaSelect.value = false;
 }
 
+/**
+ * 改变区域选择的省份的高亮选项
+ * @param index 
+ */
 function changeAreaFirstSelectedIndex(index: number) {
   areaFirstSelectedIndex.value = index;
-  isLeaveMeClosestDistance.value = false;
   areaSecondSelectedIndex.value = 0;
+  // 关闭“离我最近”功能
+  isLeaveMeClosestDistance.value = false;
 }
 
+/**
+ * 改变区域选择的地级市的高亮选项
+ * @param index 
+ */
 function changeAreaSecondSelectedIndex(index: number) {
   areaSecondSelectedIndex.value = index;
+  // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false;
+  // 模拟点击该地级市选项
   changeAreaListCityIsSelectedWithOnlyOne(index);
   hideAreaSelect();
 }
 
+/**
+ * 区域筛选弹出框的勾选或取消勾选省份
+ * @param index 
+ */
 function changeAreaFirstIsSelected(index: number) {
+  // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false
+  // 获取在点击之前的选中状态
   let isSelected = areaList.value[index].is_selected;
+  // 高亮该省份或直辖市
   if (areaFirstSelectedIndex.value != index) {
     areaFirstSelectedIndex.value = index;
     areaSecondSelectedIndex.value = 1;
   }
+  // 反选该省份或直辖市，同步选中或取消选中对应的地级市
   areaList.value = areaList.value.map((_item, _index) => {
     if (_index != index) return _item;
     _item.is_selected = !isSelected;
@@ -336,9 +380,15 @@ function changeAreaFirstIsSelected(index: number) {
   });
 }
 
+/**
+ * 区域筛选弹出框的勾选或取消勾选地级市
+ * @param index 
+ */
 function changeAreaSecondIsSelected(index: number) {
+  // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false
   areaList.value = areaList.value.map((_item, _index) => {
+    // 如果该省份为该地级市的归属省份，再获取该地级市，并反选该地级市
     if (_index == areaFirstSelectedIndex.value) {
       _item.childs = _item.childs.map((_subitem, _subindex) => {
         if (_subindex != index) return _subitem;
@@ -346,6 +396,7 @@ function changeAreaSecondIsSelected(index: number) {
         return _subitem;
       });
     }
+    // 如果归属省份的地级市的选中数量大于零，则选中该省份
     if (_item.childs.filter(_item => _item.is_selected).length > 0) {
       _item.is_selected = true;
     } else {
@@ -355,12 +406,20 @@ function changeAreaSecondIsSelected(index: number) {
   });
 }
 
+/**
+ * 多选地区或取消多选地区的处理事件
+ */
 function changeIsCanMultiSelectProvince() {
+  // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false
+  // 修改多选或取消多选的状态
   isCanMultiSelectProvince.value = !isCanMultiSelectProvince.value;
+  // 如果是单选状态，判断第一个选中的地级市，该地级市以及对应的归属省份为选中状态，其它省份和地级市为未选状态
   if (!isCanMultiSelectProvince.value) {
+    // 是否有第一个选中的省份了
     let isHasFirstSelected = false;
     areaList.value = areaList.value.map(item => {
+      // 如果有第一个选中的省份了，则其它都未选，然后跳过后面的处理
       if (isHasFirstSelected) {
         item.is_selected = false;
         item.childs = item.childs.map(subitem => {
@@ -369,8 +428,10 @@ function changeIsCanMultiSelectProvince() {
         });
         return item;
       }
+      // 如果该省份已选，则判断对应的地级市
       if (item.is_selected) {
         isHasFirstSelected = true;
+        // 是否有第一个选中的地级市了
         let isHasFirstSelected1 = false;
         item.childs = item.childs.map((subitem, subindex) => {
           if (subindex == 0) return subitem;
@@ -387,6 +448,10 @@ function changeIsCanMultiSelectProvince() {
   }
 }
 
+/**
+ * 加密手机号码
+ * @param phone 
+ */
 function encryptPhone(phone: string | number | string[]) {
   if (typeof phone === 'object' && phone instanceof Array) {
     phone = phone[0];
@@ -398,30 +463,49 @@ function encryptPhone(phone: string | number | string[]) {
   return phone;
 }
 
+/**
+ * 显示移动端的电话号码展示弹窗
+ */
 function showPhonePopup() {
   isShowPhonePopup.value = true
 }
 
+/**
+ * 隐藏移动端的电话号码展示弹窗
+ */
 function hidePhonePopup() {
   isShowPhonePopup.value = false
 }
 
+/**
+ * 移动端的显示更多手机号码的处理事件
+ * @param index 
+ */
 function showAllPhone(index: number) {
   showPhoneIndex.value = index;
   showPhonePopup();
 }
 
+/**
+ * pc端的显示更多手机号码的处理事件
+ * @param index 
+ */
 function showPhonePopupByPc(index: number) {
   searchResultList.value = searchResultList.value.map((_item, _index) => {
     if (_index == index) {
       _item.is_show_phone_popup = true;
     } else {
+      // 其它搜索结果的更多手机号码弹出框隐藏掉
       _item.is_show_phone_popup = false;
     }
     return _item;
   });
 }
 
+/**
+ * pc端的隐藏更多手机号码的处理事件
+ * @param index 
+ */
 function hidePhonePopupByPc() {
   searchResultList.value = searchResultList.value.map((item, index) => {
     item.is_show_phone_popup = false;
@@ -429,10 +513,17 @@ function hidePhonePopupByPc() {
   })
 }
 
+/**
+ * pc端的显示更多手机号码的处理事件
+ * @param index 
+ */
 function showAllPhoneByPc(index: number) {
   showPhonePopupByPc(index);
 }
 
+/**
+ * 显示多选地区弹出框
+ */
 function showMultiSelectProvincePopup() {
   isShowMultiSelectProvincePopup.value = true;
   if (areaFirstSelectedIndex.value == 0 && areaSecondSelectedIndex.value == 0) {
@@ -441,10 +532,16 @@ function showMultiSelectProvincePopup() {
   }
 }
 
+/**
+ * 隐藏多选地区弹出框
+ */
 function hideMultiSelectProvincePopup() {
   isShowMultiSelectProvincePopup.value = false;
 }
 
+/**
+ * 清除所有的省份和地级市的选中状态
+ */
 function clearAllMultiSelectProvinceIsSelected() {
   isLeaveMeClosestDistance.value = false
   areaList.value = areaList.value.map(item => {
@@ -457,6 +554,9 @@ function clearAllMultiSelectProvinceIsSelected() {
   });
 }
 
+/**
+ * 清除所有的地级市的选中状态
+ */
 function clearAllMultiSelectCityIsSelected() {
   isLeaveMeClosestDistance.value = false
   areaList.value = areaList.value.map(item => {
@@ -468,11 +568,18 @@ function clearAllMultiSelectCityIsSelected() {
   });
 }
 
+/**
+ * pc端单选地区的点击省份的处理事件
+ * @param index 
+ */
 function changeAreaListProvinceIsSelectedWithOnlyOne(index: number) {
+  // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false
+  // 获取该省份再点击前的选中状态
   let isSelected = areaList.value[index].is_selected;
   areaFirstSelectedIndex.value = index;
   areaList.value = areaList.value.map((_item, _index) => {
+    // 如果是点击的省份，则反选，对应的地级市列表也反选
     if (_index == index) {
       _item.is_selected = !isSelected;
       if (!_item.is_selected) {
@@ -485,6 +592,7 @@ function changeAreaListProvinceIsSelectedWithOnlyOne(index: number) {
         });
       }
     } else {
+      // 如果不是点击的省份，则取消选中该省份和对应的地级市列表
       _item.is_selected = false;
       _item.childs = _item.childs.map((_subitem, _subindex) => {
         _subitem.is_selected = false;
@@ -498,10 +606,17 @@ function changeAreaListProvinceIsSelectedWithOnlyOne(index: number) {
   });
 }
 
+/**
+ * pc端单选地区的点击地级市的处理事件
+ * @param index 
+ */
 function changeAreaListCityIsSelectedWithOnlyOne(index: number) {
+  // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false
+  // 获取该地级市在点击之前的选中状态
   let isSelected = areaList.value[areaFirstSelectedIndex.value].childs[index].is_selected;
   areaList.value = areaList.value.map((_item, _index) => {
+    // 如果是点击的地级市的归属省份，则反选该省份和该地级市
     if (_index == areaFirstSelectedIndex.value) {
       _item.is_selected = !isSelected;
       _item.childs = _item.childs.map((_subitem, _subindex) => {
@@ -513,6 +628,7 @@ function changeAreaListCityIsSelectedWithOnlyOne(index: number) {
         return _subitem;
       });
     } else {
+      // 否则直接取消选中省份和地级市
       _item.is_selected = false;
       _item.childs = _item.childs.map((_subitem, _subindex) => {
         _subitem.is_selected = false;
@@ -523,15 +639,25 @@ function changeAreaListCityIsSelectedWithOnlyOne(index: number) {
   });
 }
 
+/**
+ * pc端的取消“离我最近”，即pc端的“商家距离-全部”的处理事件
+ */
 function changeToSwitchArea() {
   isLeaveMeClosestDistance.value = false;
 }
 
+/**
+ * pc端的“商家距离-离我最近”的处理事件
+ */
 function changeToLeaveMeClosestDistance() {
   showAskForGetPositionPopup();
 }
 
+/**
+ * 通过ip获取当前地理位置的处理事件，即“获取定位权限询问弹窗”的“允许”的处理事件
+ */
 async function getAreaInfoByIP() {
+  // 调用获取位置信息接口
   const { data } = await useFetch('/api/getAreaInfoByIp?ip=223.104.65.74')
   hideAskForGetPositionPopup()
   let res = data.value as {
@@ -539,36 +665,47 @@ async function getAreaInfoByIP() {
     message: string,
     result: any,
   }
-  if (res.hasOwnProperty('code') && Number(res.code) == 200) {
-    clearAllMultiSelectProvinceIsSelected()
-    isLeaveMeClosestDistance.value = true
-    isCanMultiSelectProvince.value = false
-    if (res.result.hasOwnProperty('province_code') && Number(res.result.province_code) > 0) {
-      areaList.value = areaList.value.map((item, index) => {
-        item.is_selected = item.code == Number(res.result.province_code)
-        if (item.is_selected) areaFirstSelectedIndex.value = index
-        return item
-      })
-    }
-    if (res.result.hasOwnProperty('city_code') && Number(res.result.city_code) > 0) {
-      areaList.value = areaList.value.map(item => {
-        item.childs = item.childs.map((subitem, subindex) => {
-          subitem.is_selected = subitem.code == Number(res.result.city_code)
-          if (subitem.is_selected) areaSecondSelectedIndex.value = subindex
-          return subitem
-        })
-        return item
-      })
-    }
-  } else {
+  // 如果接口有错误或出问题，则取消“离我最近”功能
+  if (!res.hasOwnProperty('code') || Number(res.code) != 200) {
     changeToSwitchArea()
+  }
+  // 取消所有的省份和地级市的选中状态
+  clearAllMultiSelectProvinceIsSelected()
+  // 开启“离我最近”功能
+  isLeaveMeClosestDistance.value = true
+  // 取消多选功能
+  isCanMultiSelectProvince.value = false
+  // 如果返回了省份区划代码，并且匹配到了，则该省份为选中状态
+  if (res.result.hasOwnProperty('province_code') && Number(res.result.province_code) > 0) {
+    areaList.value = areaList.value.map((item, index) => {
+      item.is_selected = item.code == Number(res.result.province_code)
+      if (item.is_selected) areaFirstSelectedIndex.value = index
+      return item
+    })
+  }
+  // 如果返回了地级市区划代码，并且匹配到了，则该地级市为选中状态
+  if (res.result.hasOwnProperty('city_code') && Number(res.result.city_code) > 0) {
+    areaList.value = areaList.value.map(item => {
+      item.childs = item.childs.map((subitem, subindex) => {
+        subitem.is_selected = subitem.code == Number(res.result.city_code)
+        if (subitem.is_selected) areaSecondSelectedIndex.value = subindex
+        return subitem
+      })
+      return item
+    })
   }
 }
 
+/**
+ * 显示获取定位权限询问弹窗
+ */
 function showAskForGetPositionPopup() {
   isShowAskForGetPositionPopup.value = true;
 }
 
+/**
+ * 隐藏获取定位权限询问弹窗
+ */
 function hideAskForGetPositionPopup() {
   isShowAskForGetPositionPopup.value = false;
 }
