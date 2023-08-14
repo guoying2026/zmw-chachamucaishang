@@ -85,7 +85,7 @@
 <!--        <text class="third_4_left_3">公司地址</text>-->
         <div class="third_4_left_4">
           <div class="third_4_left_4_1">
-            <img class="third_4_left_4_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_395067ed-d2f0-4c5b-b2fc-cb322af9cc75.png"/>
+            <img class="third_4_left_4_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_395067ed-d2f0-4c5b-b2fc-cb322af9cc75.png" alt="商家地址图标"/>
             <text class="third_4_left_4_1_right">商家地址</text>
           </div>
           <text class="third_4_left_4_2">附近商家 ></text>
