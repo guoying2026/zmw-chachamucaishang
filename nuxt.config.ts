@@ -24,5 +24,5 @@ export default defineNuxtConfig({
     //   sameSite: 'strict',
     // },
     storage: 'localStorage'
-  }
+  },
 })
