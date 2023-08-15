@@ -280,7 +280,87 @@
         </div>
       </div>
       <div class="tab_3_space_right">
-
+        <div class="tab_3_space_3">
+          <text class="right_title">附近商家（客户评论）</text>
+          <div class="tab_3_space_4">
+            <div class="tab_3_space_4_1">
+              <text>高唐县木材加工厂</text>
+              <div class="grey-color tab_3_space_4_1_2">
+                <text>信用分：55</text>
+                <text class="margin-20-left">距离：5km</text>
+              </div>
+            </div>
+            <div class="tab_3_space_4_2">
+              <div class="comment_item little_item">
+                <div class="comment_item_1">
+                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+                  <figcaption class="avatar-name__name margin-10-left">
+                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+                  </figcaption>
+                </div>
+                <div class="comment_item_2">
+                  <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+                  <div class="comment_item_3">
+                    <text class="font-15-size grey-color little_time">2020-08-09 12:12:30</text>
+                  </div>
+                </div>
+              </div>
+              <div class="comment_item little_item">
+                <div class="comment_item_1">
+                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+                  <figcaption class="avatar-name__name margin-10-left">
+                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+                  </figcaption>
+                </div>
+                <div class="comment_item_2">
+                  <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+                  <div class="comment_item_3">
+                    <text class="font-15-size grey-color little_time">2020-08-09 12:12:30</text>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab_3_space_4">
+            <div class="tab_3_space_4_1">
+              <text>高唐县木材加工厂</text>
+              <div class="grey-color tab_3_space_4_1_2">
+                <text>信用分：55</text>
+                <text class="margin-20-left">距离：5km</text>
+              </div>
+            </div>
+            <div class="tab_3_space_4_2">
+              <div class="comment_item little_item">
+                <div class="comment_item_1">
+                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+                  <figcaption class="avatar-name__name margin-10-left">
+                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+                  </figcaption>
+                </div>
+                <div class="comment_item_2">
+                  <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+                  <div class="comment_item_3">
+                    <text class="font-15-size grey-color little_time">2020-08-09 12:12:30</text>
+                  </div>
+                </div>
+              </div>
+              <div class="comment_item little_item">
+                <div class="comment_item_1">
+                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+                  <figcaption class="avatar-name__name margin-10-left">
+                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+                  </figcaption>
+                </div>
+                <div class="comment_item_2">
+                  <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+                  <div class="comment_item_3">
+                    <text class="font-15-size grey-color little_time">2020-08-09 12:12:30</text>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="tab_4_space" v-if="tabItemStore.tabItem*1 === 4">
@@ -297,9 +377,46 @@
       </div>
       <div class="tab_4_space_right">
         <div class="tab_4_space_3">
-          <text>附近商家（商品问答）</text>
+          <text class="right_title">附近商家（商品问答）</text>
           <div class="tab_4_space_4">
-            
+            <div class="tab_4_space_4_1">
+              <text>高唐县木材加工厂</text>
+              <div class="grey-color tab_4_space_4_1_2">
+                <text>信用分：55</text>
+                <text class="margin-20-left">距离：5km</text>
+              </div>
+            </div>
+            <div class="tab_4_space_4_2">
+              <div>
+                <text class="orange-bg border-padding">问</text>
+                <text class="margin-5-left">商品质量怎么样，有没有买过的宝宝，告诉我吧，呜呜呜</text>
+              </div>
+              <hr class="little_margin">
+              <div>
+                <text class="blue-bg border-padding">答</text>
+                <text class="margin-5-left">挺好的</text>
+              </div>
+            </div>
+          </div>
+          <div class="tab_4_space_4">
+            <div class="tab_4_space_4_1">
+              <text>高唐县木材加工厂</text>
+              <div class="grey-color tab_4_space_4_1_2">
+                <text>信用分：55</text>
+                <text class="margin-20-left">距离：5km</text>
+              </div>
+            </div>
+            <div class="tab_4_space_4_2">
+              <div>
+                <text class="orange-bg border-padding">问</text>
+                <text class="margin-5-left">商品质量怎么样，有没有买过的宝宝，告诉我吧，呜呜呜</text>
+              </div>
+              <hr class="little_margin">
+              <div>
+                <text class="blue-bg border-padding">答</text>
+                <text class="margin-5-left">挺好的</text>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -310,7 +427,23 @@
         <complaint></complaint>
         <NoDetail tag="我要投诉" text="没有投诉"></NoDetail>
       </div>
-      <div class="tab_5_space_right"></div>
+      <div class="tab_5_space_right">
+        <div class="tab_5_space_3">
+          <text class="right_title">附近商家（被投诉记录）</text>
+          <div class="tab_5_space_4">
+            <div class="tab_5_space_4_1">
+              <text>高唐县木材加工厂</text>
+              <div class="grey-color tab_5_space_4_1_2">
+                <text>信用分：55</text>
+                <text class="margin-20-left">距离：5km</text>
+              </div>
+            </div>
+            <div class="tab_5_space_4_2">
+              <text>投诉记录：0</text>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="second" v-if="tabItemStore.tabItem*1 === 0">
@@ -417,10 +550,47 @@
   </div>
 </template>
 <style scoped>
+.little_time{
+    font-size: 8px;
+    font-weight: 300;
+}
+.little_item{
+  padding: 0 !important;
+  font-size: 14px !important;
+}
+.tab_4_space_4_1_2,.tab_3_space_4_1_2,.tab_5_space_4_1_2{
+  font-size: 14px;
+  margin-top: 5px;
+}
+.border-padding{
+  padding: 2px 3px 3px 2px;
+  border-radius: 5px;
+  font-size: 8px;
+}
+.tab_4_space_4_2,.tab_3_space_4_2,.tab_5_space_4_2{
+  margin: 10px 0 5px 0;
+  font-size: 14px !important;
+}
+.little_margin{
+  margin: 5px 0 5px 0 !important;
+}
+.tab_4_space_4_1,.tab_3_space_4_1,.tab_5_space_4_1{
+  background: linear-gradient(to right,#874B14,#582D06);
+  padding: 10px;
+  border-radius: 10px;
+}
+.tab_4_space_4,.tab_3_space_4,.tab_5_space_4{
+  padding: 0 10px 10px 10px;
+}
+.right_title{
+  align-self: center;
+  margin: 20px 0;
+}
 .tab_3_space,.tab_4_space,.tab_5_space{
   width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
 }
 .tab_3_space_left,.tab_4_space_left,.tab_5_space_left{
   width: 21%;
@@ -430,12 +600,23 @@
   display: flex;
   justify-content: center;
 }
-.tab_4_space_3{
+.tab_5_space_3{
+  width: 90%;
+  margin-top: 20px;
+  background: #582D06;
+  border-radius: 10px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+.tab_4_space_3,.tab_3_space_3{
   width: 90%;
   margin-top: 80px;
   background: #582D06;
   border-radius: 10px;
   height: auto;
+  display: flex;
+  flex-direction: column;
 }
 .tab_3_space_1,.tab_4_space_1{
   display: flex;
