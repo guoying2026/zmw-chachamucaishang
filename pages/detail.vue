@@ -37,17 +37,17 @@
     <div class="third_2">
       <client-only>
       <div class="third_2_space">
-        <text class="tab_0" :class="tabItemStore.tabItem*1 === 0 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
+        <text class="tab_" :class="tabItemStore.tabItem*1 === 0 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
         <text>|</text>
-        <text class="tab_1" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
+        <text class="tab_" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
         <text>|</text>
-        <text class="tab_2" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
+        <text class="tab_" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
         <text>|</text>
-        <text class="tab_3" :class="tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(3)">评论</text>
+        <text class="tab_" :class="tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(3)">评论</text>
         <text>|</text>
-        <text class="tab_4" :class="tabItemStore.tabItem*1 === 4 ?'white-color white-underline':''" @click="switchTab(4)">问答</text>
+        <text class="tab_" :class="tabItemStore.tabItem*1 === 4 ?'white-color white-underline':''" @click="switchTab(4)">问答</text>
         <text>|</text>
-        <text class="tab_5" :class="tabItemStore.tabItem*1 === 5 ?'white-color white-underline':''" @click="switchTab(5)">投诉</text>
+        <text class="tab_" :class="tabItemStore.tabItem*1 === 5 ?'white-color white-underline':''" @click="switchTab(5)">投诉</text>
       </div>
       </client-only>
     </div>
@@ -550,6 +550,11 @@
   </div>
 </template>
 <style scoped>
+.tab_{
+  padding: 20px 40px;
+  margin: -20px -40px;
+  transition: background-color 0.3s;
+}
 .little_time{
     font-size: 8px;
     font-weight: 300;
