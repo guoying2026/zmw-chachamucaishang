@@ -90,6 +90,7 @@ h4 span{
     margin-bottom: 15px;
 }
 .reply_item{
+    position: relative;
     margin-top: 20px;
     padding: 15px 0 10px 15px;
     background: #4B2502;
@@ -97,6 +98,15 @@ h4 span{
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+}
+.reply_item::before {
+    content: '';
+    position: absolute;
+    top: -10px;      /* 箭头高度 */
+    left: 15px;      /* 从左边调整箭头的位置 */
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #4b2502;  /* 箭头的颜色，应与对话框边框或背景颜色相同 */
 }
 .comment_item_1,.reply_item_1{
     display: flex;
