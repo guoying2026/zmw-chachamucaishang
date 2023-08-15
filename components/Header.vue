@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useUser, userLoggedIn, userLogout } from "~/composables/userAuth"
-
 import LoginPopup from "~/components/LoginPopup.vue"
 
 // 导入搜索下拉框组件
@@ -107,7 +105,7 @@ function encryptPhone(phone: string | number | string[] | null | undefined) {
 }
 
 function logout() {
-  userLogout()
+  userInfoStore.removeUserId()
   isShowUserInfoPopup.value = false
 }
 

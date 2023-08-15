@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { userLogin, useUser } from '~/composables/userAuth'
+// 导入用户信息存储
+import { useUserInfoStore } from "~/pinia/userInfo"
 
 const emit = defineEmits(['close'])
+
+const userInfoStore = useUserInfoStore()
 
 const phoneNumberInputRef = ref()
 
@@ -120,20 +123,19 @@ function dealLogin() {
       return;
     }
     // api成功运行,存储用户信息
-    let oldUser = await useUser()
-    let ret = await userLogin({
-      user_id: res1.result.user_id,
-      phone: loginPhoneNumber.value,
-      nick_name: oldUser?.nick_name ? oldUser?.nick_name : loginPhoneNumber.value,
-      avatar: oldUser?.avatar ? oldUser?.avatar : 'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image47296ddc7ee77db34d9c3a6357d82b70.png',
-    })
-    if (!ret) {
+    if (!res1.result.user_id) {
       isNeedCheckPhoneField.value = true
       isNeedCheckRegCodeField.value = true
       isShowPhoneFieldTips.value = true
       isShowRegCodeFieldTips.value = true
       return;
     }
+    userInfoStore.setUserInfo({
+      user_id: res1.result.user_id,
+      phone: loginPhoneNumber.value,
+      nick_name: userInfoStore.getNickName() && userInfoStore.getNickName().length > 0 ? userInfoStore.getNickName() : loginPhoneNumber.value,
+      avatar: userInfoStore.getAvatar() && userInfoStore.getAvatar().length > 0 ? userInfoStore.getAvatar() : 'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image47296ddc7ee77db34d9c3a6357d82b70.png',
+    })
     emit('close')
   })
 }
