@@ -15,6 +15,9 @@ html, body {
 .margin-20-left{
     margin-left: 20px;
 }
+.margin-5-left{
+    margin-left: 5px;
+}
 :root {
     --dotted-color: linear-gradient(to right, #000 10%, transparent 10%), linear-gradient(to right, #000 10%, transparent 10%);
 }
