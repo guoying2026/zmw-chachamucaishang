@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { userLogin, useUser } from '~/composables/userAuth'
 
+const emit = defineEmits(['close'])
+
 const phoneNumberInputRef = ref()
 
 const regCodeInputRef = ref()
@@ -132,6 +134,7 @@ function dealLogin() {
       isShowRegCodeFieldTips.value = true
       return;
     }
+    emit('close')
   })
 }
 </script>
