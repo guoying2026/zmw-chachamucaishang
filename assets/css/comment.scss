@@ -127,37 +127,3 @@ p{
     margin: 1.1em 0;
     line-height: 1.7em;
 }
-@media only screen and (max-width: 989px) {
-    p{
-        margin: 0.5em;
-        line-height: 1.8em;
-        font-size: 1em;
-        font-weight: 350;
-    }
-    .avatar-name__img{
-        width: 20px;
-        height: 20px;
-    }
-    .avatar-name__name{
-        font-size: 14px;
-        margin-left: 13px;
-    }
-    .time{
-        font-size: 13px;
-        line-height: 0.8em;
-    }
-    .icon{
-        width: 20px;
-        height: 20px;
-    }
-    .icon_l{
-        width: 27px;
-        height: 27px;
-    }
-    .text-bold{
-        font-weight: normal;
-    }
-    .link-underlined:before{
-        display: none;
-    }
-}

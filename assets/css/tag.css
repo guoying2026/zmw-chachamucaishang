@@ -6,6 +6,9 @@
 .border_50_radius{
     border-radius: 50px !important;
 }
-.orange_btn{
+.orange_linear_btn{
     background: linear-gradient(to right, #DA7327, #FA4704);
+}
+.orange_btn{
+    background: #FF834E;
 }

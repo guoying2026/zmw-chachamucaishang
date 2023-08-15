@@ -272,7 +272,7 @@
       <div class="tab_3_space_middle">
         <div class="tab_3_space_1">
           <text>全部评价（{{company_comment_count}}）</text>
-          <Tag tag="写评论" number="41" color="orange"></Tag>
+          <Tag tag="写评论" number="41" color="orange_linear"></Tag>
         </div>
         <NoDetail v-if="company_comment_count < 0"></NoDetail>
         <div class="tab_3_space_2" v-else>
@@ -301,7 +301,7 @@
                 <div class="comment_item_2">
                   <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
                   <div class="comment_item_3">
-                    <text class="font-15-size grey-color little_time">2020-08-09 12:12:30</text>
+                    <text class=" grey-color little_time">2020-08-09 12:12:30</text>
                   </div>
                 </div>
               </div>
@@ -315,7 +315,7 @@
                 <div class="comment_item_2">
                   <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
                   <div class="comment_item_3">
-                    <text class="font-15-size grey-color little_time">2020-08-09 12:12:30</text>
+                    <text class=" grey-color little_time">2020-08-09 12:12:30</text>
                   </div>
                 </div>
               </div>
@@ -340,7 +340,7 @@
                 <div class="comment_item_2">
                   <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
                   <div class="comment_item_3">
-                    <text class="font-15-size grey-color little_time">2020-08-09 12:12:30</text>
+                    <text class=" grey-color little_time">2020-08-09 12:12:30</text>
                   </div>
                 </div>
               </div>
@@ -354,7 +354,7 @@
                 <div class="comment_item_2">
                   <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
                   <div class="comment_item_3">
-                    <text class="font-15-size grey-color little_time">2020-08-09 12:12:30</text>
+                    <text class=" grey-color little_time">2020-08-09 12:12:30</text>
                   </div>
                 </div>
               </div>
@@ -368,7 +368,7 @@
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
           <text>全部问答</text>
-          <Tag tag="我要提问" number="41" color="orange"></Tag>
+          <Tag tag="我要提问" number="41" color="orange_linear"></Tag>
         </div>
         <NoDetail tag="我要提问" text="没有问答" v-if="answer_question_count < 0"></NoDetail>
         <div class="tab_4_space_2" v-else>
@@ -474,16 +474,37 @@
           <text>货物出现了很严重的质量问题（缺边、毛刺、规格不一）客户没办法用这批货要求退而且
             要了货物图片，收到货实物跟图片严重不符）</text>
         </div>
+        <div class="margin-10-top right_display">
+          <Tag tag="我要点评" number="41" color="orange"></Tag>
+          <Tag tag="查看全部" number="41" color="orange"></Tag>
+        </div>
         <div class="second_2_left_1 second_2_left_1_margin">
           <text class="second_2_left_1_left">公司名字相关回答</text>
           <!--                    <text class="size-10 grey-color">更多</text>-->
         </div>
-        <div class="second_2_left_items">
-          <div class="second_2_left_items_top">
-            <text class="second_2_left_items_top_1">问</text>
-            <text class="second_2_left_items_top_2">商家怎么样呢？货有什么问题吗？</text>
+        <div class="question_item_display">
+            <div class="question_item_1_display">
+              <div class="avatar-wrapper">
+                <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+                <span class="question-icon orange-bg">问</span>
+              </div>
+              <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+              <text class="little_time grey-color">2020-08-09 12:12:30</text>
+            </div>
+        </div>
+        <div class="answer_item_display">
+          <div class="answer_item_1_display">
+            <div class="avatar-wrapper">
+              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+              <span class="question-icon red-bg">答</span>
+            </div>
+            <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+            <text class="little_time grey-color">2020-08-09 12:12:30</text>
           </div>
-          <text class="second_2_left_items_bottom">暂无回答</text>
+        </div>
+        <div class="margin-10-top right_display">
+          <Tag tag="我要提问" number="41" color="orange"></Tag>
+          <Tag tag="查看全部" number="41" color="orange"></Tag>
         </div>
       </div>
       <img class="second_2_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_32b3a7b9-6975-4544-b3cd-7c294c699f6b.png" alt=""/>
@@ -550,6 +571,48 @@
   </div>
 </template>
 <style scoped>
+.right_display{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.red-bg{
+  background: #FF4E54;
+}
+.question_item_1_display,.answer_item_1_display{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.question_item_display,.answer_item_display{
+  position: relative;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(#3E98F6, #1B62B8);
+  border-radius: 10px;
+  margin-top: 20px;
+}
+.answer_item_display::before{
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -12px;
+  width: 0;
+  height: 0;
+  border-right: 20px solid #226ec5; /* 控制箭头的宽度 */
+  border-bottom: 20px solid transparent; /* 控制箭头的高度 */
+}
+.question_item_display::before{
+  content: '';
+  position: absolute;
+  left: 0; /* 这会将箭头紧靠在对话框的左侧 */
+  bottom: -12px; /* 这会将箭头放在对话框的下方 */
+  width: 0;
+  height: 0;
+  border-left: 20px solid #226ec5; /* 控制箭头的宽度 */
+  border-bottom: 20px solid transparent; /* 控制箭头的高度 */
+}
 .tab_{
   padding: 20px 40px;
   margin: -20px -40px;
@@ -976,7 +1039,7 @@
   /*background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_0efc2dc0-ef82-4dad-b906-10772e2f93f0.png");*/
 }
 .second .second_2 .second_2_left_1_margin{
-  margin-top: 30px;
+  margin-top: 15px;
 }
 .second .second_2 .second_2_right{
   height: 100%;
