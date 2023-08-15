@@ -272,7 +272,14 @@
       <div class="tab_3_space_middle">
         <div class="tab_3_space_1">
           <text>全部评价（{{company_comment_count}}）</text>
-          <Tag tag="写评论" number="41" color="orange_linear"></Tag>
+          <!-- 引用子组件并传递属性和监听事件 -->
+          <AddComment :show="show" @update:show="handleShowUpdate">
+            <!-- 定义插槽内容 -->
+            <template #trigger>
+              <!-- Tag组件，当点击时触发openCommentBox方法 -->
+              <Tag tag="写评论" number="41" color="orange_linear" @click="openCommentBox"></Tag>
+            </template>
+          </AddComment>
         </div>
         <NoDetail v-if="company_comment_count < 0"></NoDetail>
         <div class="tab_3_space_2" v-else>
@@ -571,6 +578,18 @@
   </div>
 </template>
 <style scoped>
+.tab_3_space_2{
+  margin-top: 20px;
+}
+.tab_3_space_3{
+  width: 90%;
+  margin-top: 65px;
+  background: #582D06;
+  border-radius: 10px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
 .right_display{
   display: flex;
   flex-direction: row;
@@ -677,7 +696,7 @@
   display: flex;
   flex-direction: column;
 }
-.tab_4_space_3,.tab_3_space_3{
+.tab_4_space_3{
   width: 90%;
   margin-top: 80px;
   background: #582D06;
@@ -1170,7 +1189,7 @@
 }
 </style>
 <script setup lang="ts">
-// import { ref } from 'vue';
+import { ref} from 'vue';
 import { useTabItemStore } from "~/pinia/tabItem";
 import {BaiduMap} from "vue-baidu-map-3x";
 const tabItemStore = useTabItemStore();
@@ -1185,6 +1204,18 @@ const ready = ({ BMap , map }: { BMap: any, map: any })=>{
 }
 //评论开始
 const company_comment_count = 887;
+// 定义响应式引用
+const show = ref(false);
+
+// 打开评论框的方法
+const openCommentBox = () => {
+  show.value = true;
+};
+
+// 更新show的值的方法
+const handleShowUpdate = (value: boolean) => {
+  show.value = value;
+};
 //评论结束
 //问答开始
 const answer_question_count = 886;
