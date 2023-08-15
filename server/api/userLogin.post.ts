@@ -45,7 +45,7 @@ export default defineEventHandler(async (e) => {
     formData.append('click_index', '0')
 
     // 执行发送到转发接口的请求
-    let data = await fetch('https://zmwapi.jinrongwan.cn/Pc/User/login', {
+    let data = await fetch((process.env.NODE_ENV == 'production' ? 'https://api.jinrongwan.cn/' : 'https://zmwapi.jinrongwan.cn/') + 'Pc/User/login', {
       method: 'POST',
       body: formData,
       headers: {

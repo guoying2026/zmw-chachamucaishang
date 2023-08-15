@@ -70,7 +70,7 @@ function sendRegCode() {
     }
     // api请求成功运行,执行验证码重新发送倒计时
     isGettingRegCode.value = true;
-    getRegCodeRemainSeconds.value = 10;
+    getRegCodeRemainSeconds.value = process.env.NODE_ENV == 'production' ? 60 : 10;
     let timerHandle = () => {
       getRegCodeRemainSeconds.value = getRegCodeRemainSeconds.value - 1;
       if (getRegCodeRemainSeconds.value >= 0) {
