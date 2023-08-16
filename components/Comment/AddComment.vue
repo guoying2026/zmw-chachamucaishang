@@ -6,32 +6,17 @@
     <!-- 如果internalShow为真，显示遮罩层和评论框 -->
     <div class="overlay" v-if="internalShow" @click="closeCommentBox">
       <div class="comment-box" @click.stop>
+        <img class="close-box" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_574ad6b3-3918-4434-babf-0fd2db4a90a5.png">
+        <h1>我要评论</h1>
         <!-- 文本域用于输入评论 -->
-        <textarea placeholder="请输入您的评论..."></textarea>
-        <el-input
-            v-model="textarea"
-            maxlength="200"
-            :placeholder="placeholderText"
-            show-word-limit
-            type="textarea"
-            :rows="5"
-            resize="none"
-        />
-        <el-upload
-            class="margin-20-top"
-            action="#"
-            list-type="picture-card"
-            v-model:file-list="fileList"
-            :auto-upload="false"
-            :on-change="handleChange"
-            :on-success="handleSuccess"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove"
-        >
-          <el-icon><Plus /></el-icon>
-        </el-upload>
+        <div class="comment-box-2">
+          <text>评论商家：张家港木业有限公司</text>
+        </div>
+        <AddForm @submit-comment="handleCommentSubmission" placeholderText="我们鼓励真实有帮助的评价"></AddForm>
         <!-- 提交按钮，点击时触发submitComment方法 -->
-        <button @click="submitComment">提交评论</button>
+        <div class="comment-box-3">
+          <Tag color="orange" tag="发布评论" @click="submitComment"></Tag>
+        </div>
       </div>
     </div>
   </div>
@@ -64,6 +49,12 @@ watch(internalShow, (newVal) => {
   }
 });
 
+const handleCommentSubmission = (payload: { text: any; files: any; }) => {
+  console.log("Comment submitted:", payload.text);
+  console.log("Files submitted:", payload.files);
+  // Handle the comment and file submission logic here.
+}
+
 // 提交评论的方法
 const submitComment = () => {
   console.log("提交评论");
@@ -75,28 +66,61 @@ const submitComment = () => {
 const closeCommentBox = () => {
   internalShow.value = false;
 };
+
+//发布评论开始
+//发布评论结束
+//添加评论结束
 </script>
 
-
 <style scoped>
+.comment-box-3{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.close-box{
+  width: 20px;
+  height: 20px;
+  align-self: flex-end;
+}
+.comment-box-2{
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0 0 10px;
+  color: #333;
+}
+.comment-box h1{
+  align-self: center;
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: bolder;
+  letter-spacing: 2px;
+  background-size: cover;
+  background-position: center;
+}
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: url(https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_8bf78604-a95e-4cc5-b5cc-06d01140952c.png);
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  color: #000;
 }
 
 .comment-box {
+  display: flex;
+  flex-direction: column;
   border: 1px solid #ccc;
   padding: 20px;
-  width: 300px;
-  background-color: white;
+  width: 766px;
+  height: 500px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 25px;
+  background: url(https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_8bf78604-a95e-4cc5-b5cc-06d01140952c.png);
 }
 
 textarea {

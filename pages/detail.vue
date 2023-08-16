@@ -283,7 +283,7 @@
         </div>
         <NoDetail v-if="company_comment_count < 0"></NoDetail>
         <div class="tab_3_space_2" v-else>
-          <comment></comment>
+          <CommentList></CommentList>
         </div>
       </div>
       <div class="tab_3_space_right">
@@ -379,7 +379,7 @@
         </div>
         <NoDetail tag="我要提问" text="没有问答" v-if="answer_question_count < 0"></NoDetail>
         <div class="tab_4_space_2" v-else>
-          <question></question>
+          <QuestionList></QuestionList>
         </div>
       </div>
       <div class="tab_4_space_right">
@@ -431,7 +431,7 @@
     <div class="tab_5_space" v-if="tabItemStore.tabItem*1 === 5">
       <div class="tab_5_space_left"></div>
       <div class="tab_5_space_middle">
-        <complaint></complaint>
+        <ComplaintList></ComplaintList>
         <NoDetail tag="我要投诉" text="没有投诉"></NoDetail>
       </div>
       <div class="tab_5_space_right">
@@ -574,9 +574,42 @@
       </table>
       <text class="green_tip">查查木材商企业动态数据基于公开数据分析而成，仅作参考，不作为个人决策及媒体引用的依据，查查木材商亦不承担因此产生的任何后果</text>
     </div>
-
   </div>
 </template>
+<script setup lang="ts">
+import { ref} from 'vue';
+import { useTabItemStore } from "~/pinia/tabItem";
+import {BaiduMap} from "vue-baidu-map-3x";
+import AddComment from "~/components/Comment/AddComment.vue";
+const tabItemStore = useTabItemStore();
+console.log(tabItemStore.tabItem);
+const switchTab = (item :number) => {
+  tabItemStore.tabItem = item;
+  console.log(tabItemStore.tabItem);
+}
+
+const ready = ({ BMap , map }: { BMap: any, map: any })=>{
+  // 对地图进行自定义操作
+}
+//评论开始
+const company_comment_count = 887;
+// 定义响应式引用
+const show = ref(false);
+
+// 打开评论框的方法
+const openCommentBox = () => {
+  show.value = true;
+};
+
+// 更新show的值的方法
+const handleShowUpdate = (value: boolean) => {
+  show.value = value;
+};
+//评论结束
+//问答开始
+const answer_question_count = 886;
+//问答结束
+</script>
 <style scoped>
 .tab_3_space_2{
   margin-top: 20px;
@@ -638,8 +671,8 @@
   transition: background-color 0.3s;
 }
 .little_time{
-    font-size: 8px;
-    font-weight: 300;
+  font-size: 8px;
+  font-weight: 300;
 }
 .little_item{
   padding: 0 !important;
@@ -1188,36 +1221,3 @@
   font-size: 10px;
 }
 </style>
-<script setup lang="ts">
-import { ref} from 'vue';
-import { useTabItemStore } from "~/pinia/tabItem";
-import {BaiduMap} from "vue-baidu-map-3x";
-const tabItemStore = useTabItemStore();
-console.log(tabItemStore.tabItem);
-const switchTab = (item :number) => {
-  tabItemStore.tabItem = item;
-  console.log(tabItemStore.tabItem);
-}
-
-const ready = ({ BMap , map }: { BMap: any, map: any })=>{
-  // 对地图进行自定义操作
-}
-//评论开始
-const company_comment_count = 887;
-// 定义响应式引用
-const show = ref(false);
-
-// 打开评论框的方法
-const openCommentBox = () => {
-  show.value = true;
-};
-
-// 更新show的值的方法
-const handleShowUpdate = (value: boolean) => {
-  show.value = value;
-};
-//评论结束
-//问答开始
-const answer_question_count = 886;
-//问答结束
-</script>
