@@ -104,7 +104,7 @@ useHead({
       <!-- 叉叉图标 -->
       <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute hidden w-5 h-14 clear-icon" style="color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
       <ClientOnly>
-        <SearchTips @gotoLogin="gotoLogin" @gotoSearch="searchInputHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-14" width="w-4/5" />
+        <SearchTips @gotoLogin="gotoLogin" @gotoSearch="searchInputHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-14" width="w-4/5" zIndex="z-10" />
       </ClientOnly>
       <button class="w-1/5 h-14 search-button" @click.stop="searchButtonHandle">查一下</button>
     </div>
@@ -254,6 +254,21 @@ useHead({
 .search-tips-area:hover,
 .search-tips-area.expanded {
   max-height: 100vh;
+}
+
+.search-text:focus-visible ~ .search-button,
+.search-text:focus-visible,
+.search-tips-area:hover ~ .search-button,
+.search-tips-area:hover ~ .search-text,
+.search-tips-area.expanded ~ .search-button,
+.search-tips-area.expanded ~ .search-text  {
+  z-index: 11;
+}
+
+.search-text:focus-visible ~ svg,
+.search-tips-area:hover ~ svg,
+.search-tips-area.expanded ~ svg {
+  z-index: 12;
 }
 
 .bottom-bg {

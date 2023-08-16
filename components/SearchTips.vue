@@ -11,6 +11,7 @@ const props = defineProps<{
   searchValue?: string | undefined,
   top?: string | undefined,
   width?: string | undefined,
+  zIndex?: string | undefined,
 }>()
 
 const emit = defineEmits([
@@ -183,8 +184,8 @@ nuxtApp.hook("page:finish", () => {
 
 <template>
   <!-- 输入框下方的弹出框 -->
-  <div class="fixed left-0 top-0 w-screen h-0 z-0 search-tips-area-cover"></div>
-  <div @click.stop="false" :class="'absolute ' + (props.top && typeof props.top == 'string' && props.top.trim().length > 0 ? props.top + ' ' : '') + 'left-0 inline-flex ' + (props.width && typeof props.width == 'string' && props.width.trim().length > 0 ? props.width + ' ' : '') + ' max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area'">
+  <div :class="'fixed left-0 top-0 w-screen h-0 ' + (props.zIndex && typeof props.zIndex == 'string' && props.zIndex.trim().length > 0 ? props.zIndex : 'z-0') + ' search-tips-area-cover'"></div>
+  <div @click.stop="false" :class="'absolute ' + (props.top && typeof props.top == 'string' && props.top.trim().length > 0 ? props.top + ' ' : '') + 'left-0 inline-flex ' + (props.width && typeof props.width == 'string' && props.width.trim().length > 0 ? props.width + ' ' : '') + ' max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area'" :style="(props.zIndex && typeof props.zIndex == 'string' && props.zIndex.trim().length > 0 ? 'z-index:' + (Number(props.zIndex.trim().replace('z-','')) + 1) + ';' : '')">
     <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
     <div v-if="props.searchValue?.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-full px-10 py-4">
       <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
