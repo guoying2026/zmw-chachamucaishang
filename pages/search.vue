@@ -33,6 +33,42 @@ const isShowLogin = ref<boolean>(false)
 
 const isAddScrollGenerateSearchInputWordBoxEvent = ref<boolean>(false)
 
+// 猜你想搜列表
+const whatYouWantSearchList = ref<string[]>([])
+const whatYouWantSearchPage = ref<number>(1)
+const whatYouWantSearchTotalPage = ref<number>(1)
+const whatYouWantSearchOffset = ref<number>(0)
+
+/**
+ * 重新生成“猜你想搜”列表数据
+ */
+function regenerateWhatYouWantSearchList(name?: string, page?: number, offset?: number) {
+  if (!name || name == '') {
+    name = searchInputText.value
+  }
+  if (!page || page == 0) {
+    page = whatYouWantSearchPage.value < whatYouWantSearchTotalPage.value ? whatYouWantSearchPage.value + 1 : 1
+  }
+  if (!offset) {
+    offset = whatYouWantSearchOffset.value
+  }
+  useFetch('/api/getWhatYouWantSearch', {
+    query: {
+      name: name,
+      page: page,
+      offset: offset,
+    }
+  })
+  .then(res => new Promise(resolve => resolve(res.data.value)))
+  .then(async res => {
+    let res1 = res as {data: string[], offset: number, page: number, total_page: number}
+    whatYouWantSearchList.value = res1.data
+    whatYouWantSearchPage.value = res1.page
+    whatYouWantSearchTotalPage.value = res1.total_page
+    whatYouWantSearchOffset.value = res1.offset
+  })
+}
+
 /**
  * 使搜索框的“猜你想搜”的区域在滚轮上下滑动时，对应区域能够左右滑动
  */
@@ -166,11 +202,16 @@ function cancelButtonHandle() {
   router.back();
 }
 
+watch(() => searchInputText.value, (newProps) => {
+  regenerateWhatYouWantSearchList(newProps, 1, 0)
+})
+
 useHead({
   title: '搜索',
 })
 
 nuxtApp.hook("page:finish", () => {
+  regenerateWhatYouWantSearchList();
   scrollGenerateSearchInputWordBox();
   if (route.query.search) {
     searchInputText.value = route.query.search as string;
@@ -255,16 +296,12 @@ nuxtApp.hook("page:finish", () => {
       <div class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 search-input-history">
         <div class="inline-flex flex-row justify-between items-center">
           <span class="text-sm font-normal search-input-history-title">猜你想搜</span>
-          <button class="inline-flex flex-row justify-center items-center w-4 pl-1">
+          <button @click="regenerateWhatYouWantSearchList()" class="inline-flex flex-row justify-center items-center w-4 pl-1">
             <svg class="w-4 regenerate-search-input-word-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12 23q-2.8 0-5.15-1.275T3 18.325V21H1v-6h6v2H4.525q1.2 1.8 3.163 2.9T12 21q1.875 0 3.513-.713t2.85-1.924q1.212-1.213 1.925-2.85T21 12h2q0 2.275-.863 4.275t-2.362 3.5q-1.5 1.5-3.5 2.363T12 23ZM1 12q0-2.275.863-4.275t2.362-3.5q1.5-1.5 3.5-2.362T12 1q2.8 0 5.15 1.275t3.85 3.4V3h2v6h-6V7h2.475q-1.2-1.8-3.163-2.9T12 3q-1.875 0-3.513.713t-2.85 1.924Q4.426 6.85 3.714 8.488T3 12H1Z"/></svg>
           </button>
         </div>
         <ul class="inline-flex flex-row list-none pb-1 mt-4 overflow-x-scroll overflow-y-hidden search-input-history-list">
-          <li @click="searchInputHistoryListItemClickHandle('木材')" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>木材</span></li>
-          <li @click="searchInputHistoryListItemClickHandle('测试')" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>测试</span></li>
-          <li @click="searchInputHistoryListItemClickHandle('广东木材')" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>广东木材</span></li>
-          <li @click="searchInputHistoryListItemClickHandle('深圳木材')" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>深圳木材</span></li>
-          <li @click="searchInputHistoryListItemClickHandle('杭州木材有限公司')" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item"><span>杭州木材有限公司</span></li>
+          <li @click="searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in whatYouWantSearchList"><span>{{ item }}</span></li>
         </ul>
       </div>
       <!-- 相关企业 -->
