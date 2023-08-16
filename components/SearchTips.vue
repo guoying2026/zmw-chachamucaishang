@@ -13,6 +13,11 @@ const props = defineProps<{
   width?: string | undefined,
 }>()
 
+const emit = defineEmits([
+  'gotoLogin',
+  'gotoSearch',
+])
+
 // 实例化搜索输入历史记录存储
 const searchInputHistoryStore = useSearchInputHistoryStore()
 
