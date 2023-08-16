@@ -8,6 +8,28 @@
       <div class="comment-box" @click.stop>
         <!-- 文本域用于输入评论 -->
         <textarea placeholder="请输入您的评论..."></textarea>
+        <el-input
+            v-model="textarea"
+            maxlength="200"
+            :placeholder="placeholderText"
+            show-word-limit
+            type="textarea"
+            :rows="5"
+            resize="none"
+        />
+        <el-upload
+            class="margin-20-top"
+            action="#"
+            list-type="picture-card"
+            v-model:file-list="fileList"
+            :auto-upload="false"
+            :on-change="handleChange"
+            :on-success="handleSuccess"
+            :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemove"
+        >
+          <el-icon><Plus /></el-icon>
+        </el-upload>
         <!-- 提交按钮，点击时触发submitComment方法 -->
         <button @click="submitComment">提交评论</button>
       </div>
@@ -63,7 +85,7 @@ const closeCommentBox = () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
+  background: url(https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_8bf78604-a95e-4cc5-b5cc-06d01140952c.png);
   display: flex;
   justify-content: center;
   align-items: center;
