@@ -130,11 +130,11 @@ function dealLogin() {
       isShowRegCodeFieldTips.value = true
       return;
     }
-    userInfoStore.setUserInfo({
+    userInfoStore.login({
       user_id: res1.result.user_id,
       phone: loginPhoneNumber.value,
-      nick_name: userInfoStore.getNickName() && userInfoStore.getNickName().length > 0 ? userInfoStore.getNickName() : loginPhoneNumber.value,
-      avatar: userInfoStore.getAvatar() && userInfoStore.getAvatar().length > 0 ? userInfoStore.getAvatar() : 'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image47296ddc7ee77db34d9c3a6357d82b70.png',
+      nick_name: userInfoStore.getNickName(),
+      avatar: userInfoStore.getAvatar(),
     })
     emit('close')
   })

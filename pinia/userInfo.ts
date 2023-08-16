@@ -75,6 +75,64 @@ export const useUserInfoStore = defineStore('userInfoStore', () => {
     return true
   }
 
+  const logout = () => {
+    removeUserId()
+  }
+
+  const login = (user: {
+    user_id: string,
+    phone: string,
+    nick_name?: string,
+    avatar?: string,
+  }) => {
+    if (
+      !user.hasOwnProperty('user_id') 
+      || user.user_id.trim().length == 0 
+      || Number(user.user_id.trim()) == 0 
+      || isNaN(Number(user.user_id.trim()))
+    ) {
+      user.user_id = ''
+      if (
+        userInfo.value 
+        && userInfo.value.user_id 
+        && typeof userInfo.value.user_id == 'string' 
+        && userInfo.value.user_id.trim().length > 0 
+        && !isNaN(Number(userInfo.value.user_id.trim())) 
+        && Number(userInfo.value.user_id.trim()) != 0
+      ) {
+        user.user_id = userInfo.value.user_id
+      }
+    }
+
+    if (!user.hasOwnProperty('phone') || user.phone.trim().length == 0) {
+      user.phone = ''
+      if (
+        userInfo.value 
+        && userInfo.value.phone 
+        && typeof userInfo.value.phone == 'string' 
+        && userInfo.value.phone.trim().length > 0
+      ) {
+        user.phone = userInfo.value.phone
+      }
+    }
+
+    if (!user.hasOwnProperty('nick_name') || typeof user.nick_name != 'string' || user.nick_name.trim().length == 0) {
+      user.nick_name = user.phone
+      if (userInfo.value && userInfo.value.nick_name && userInfo.value.nick_name.trim().length > 0) {
+        user.nick_name = userInfo.value.nick_name
+      }
+    }
+
+    if (!user.hasOwnProperty('avatar') || typeof user.avatar != 'string' || user.avatar.trim().length == 0) {
+      user.avatar = 'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image47296ddc7ee77db34d9c3a6357d82b70.png'
+      if (userInfo.value && userInfo.value.avatar && userInfo.value.avatar.trim().length > 0) {
+        user.avatar = userInfo.value.avatar
+      }
+    }
+
+    setUserInfo(user as UserInfo)
+  }
+
   return {
     getUserInfo,
     setUserInfo,
@@ -88,6 +146,8 @@ export const useUserInfoStore = defineStore('userInfoStore', () => {
     getAvatar,
     setAvatar,
     isLoggedIn,
+    logout,
+    login,
   }
 
 })

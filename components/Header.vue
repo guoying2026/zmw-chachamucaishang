@@ -105,7 +105,7 @@ function encryptPhone(phone: string | number | string[] | null | undefined) {
 }
 
 function logout() {
-  userInfoStore.removeUserId()
+  userInfoStore.logout()
   isShowUserInfoPopup.value = false
 }
 
