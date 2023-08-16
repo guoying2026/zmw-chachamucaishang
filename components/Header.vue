@@ -163,7 +163,7 @@ nuxtApp.hook('page:finish', () => {
   <!-- 用户登录之后 点击头像弹出的信息框 -->
   <div @click.stop="isShowUserInfoPopup = false" :class="'fixed top-0 left-0 inline-block w-screen ' + (isShowUserInfoPopup ? 'h-screen' : 'h-0') + ' z-20 overflow-hidden transition-all'">
     <!-- 移动端 -->
-    <div @click.stop="false" :class="'absolute top-11 inline-flex md:hidden flex-row justify-between items-center w-full ' + (isShowUserInfoPopup ? 'h-14' : 'h-0') + ' text-white text-sm px-2 overflow-hidden transition-all'" style="background-color: rgb(29,29,29);">
+    <div @click.stop="false" :class="'absolute top-11 inline-flex md:hidden flex-row justify-between items-center w-full ' + (isShowUserInfoPopup ? 'h-14' : 'h-0') + ' text-white text-sm px-2 overflow-hidden transition-all select-none'" style="background-color: rgb(29,29,29);">
       <div>账号:{{ encryptPhone(userInfoStore.getPhone()) }}</div>
       <div @click.stop.prevent="logout" class="inline-flex flex-row items-center">
         <svg class="w-3 h-3 mr-1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" d="M10 2.29v2.124c.566.247 1.086.6 1.536 1.05C12.48 6.408 13 7.664 13 9s-.52 2.591-1.464 3.536C10.592 13.48 9.336 14 8 14s-2.591-.52-3.536-1.464C3.52 11.592 3 10.336 3 9s.52-2.591 1.464-3.536c.45-.45.97-.803 1.536-1.05V2.29a7 7 0 1 0 4 0zM7 0h2v8H7z"/></svg>
@@ -171,13 +171,13 @@ nuxtApp.hook('page:finish', () => {
       </div>
     </div>
     <!-- PC端 -->
-    <div @click.stop="false" :class="'absolute top-14 hidden md:inline-flex flex-col w-80 ' + (isShowUserInfoPopup ? ' h-40' : 'h-0') + ' text-balck text-sm bg-white overflow-hidden rounded-lg z-40 transition-all pc-userinfo-popup'">
+    <div @click.stop="false" :class="'absolute top-14 hidden md:inline-flex flex-col w-80 ' + (isShowUserInfoPopup ? ' h-40' : 'h-0') + ' text-balck text-sm bg-white overflow-hidden rounded-lg z-40 transition-all select-none pc-userinfo-popup'">
       <div class="inline-flex flex-row justify-start items-center h-2/3 px-2 bg-gray-500 text-white">
         <img class="w-14 mr-2" :src="userInfoStore.getAvatar()"/>
         <span>{{ encryptPhone(userInfoStore.getPhone()) }}</span>
       </div>
       <div class="inline-flex flex-row justify-between items-center h-1/3 px-2">
-        <span style="color: rgb(163,163,163);">账号管理</span>
+        <span class="cursor-default" style="color: rgb(163,163,163);">账号管理</span>
         <div @click.stop.prevent="logout" class="inline-flex flex-row items-center cursor-pointer">
           <svg class="w-3 h-3 mr-1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" d="M10 2.29v2.124c.566.247 1.086.6 1.536 1.05C12.48 6.408 13 7.664 13 9s-.52 2.591-1.464 3.536C10.592 13.48 9.336 14 8 14s-2.591-.52-3.536-1.464C3.52 11.592 3 10.336 3 9s.52-2.591 1.464-3.536c.45-.45.97-.803 1.536-1.05V2.29a7 7 0 1 0 4 0zM7 0h2v8H7z"/></svg>
           <span>退出登录</span>
