@@ -234,6 +234,9 @@ const searchInputText = ref<string>('')
 
 if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string' && route.query.search.trim().length > 0) {
   toSearch(route.query.search.trim(), '', 1)
+  watch(() => route.query.search as string, (newProps) => {
+    toSearch(newProps.trim(), '', 1)
+  })
 }
 
 function toSearch(name?: string, area?: string, page?: number, page_size?: number) {
