@@ -1,4 +1,4 @@
-import { useSessionStorage } from "@vueuse/core";
+import { useLocalStorage } from "@vueuse/core";
 
 /**
  * 记录用户的搜索历史记录
@@ -8,7 +8,7 @@ import { useSessionStorage } from "@vueuse/core";
  * ```
  */
 export const useSearchInputHistoryStore = defineStore('searchInputHistoryStore', () => {
-  const list = useSessionStorage('search-input-history', [] as string[]);
+  const list = useLocalStorage('search-input-history', [] as string[]);
 
   const getList = () => {
     return list.value;

@@ -1,7 +1,9 @@
+import { useLocalStorage } from "@vueuse/core";
+
 import { UserInfo } from "types/userInfo"
 
 export const useUserInfoStore = defineStore('userInfoStore', () => {
-  const userInfo = useSessionStorage('user-info', {} as UserInfo);
+  const userInfo = useLocalStorage('user-info', {} as UserInfo);
 
   const getUserInfo = () => {
     return userInfo.value;

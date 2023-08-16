@@ -1,4 +1,4 @@
-import { useSessionStorage } from "@vueuse/core";
+import { useLocalStorage } from "@vueuse/core";
 
 import { SearchHistoryListItem } from '~/types/searchHistoryListItem';
 
@@ -6,7 +6,7 @@ import { SearchHistoryListItem } from '~/types/searchHistoryListItem';
  * 记录用户在搜索后给出的搜索结果中，点击的项目
  */
 export const useSearchHistoryStore = defineStore('searchHistoryStore', () => {
-  const list = useSessionStorage('search-history', [] as SearchHistoryListItem[]);
+  const list = useLocalStorage('search-history', [] as SearchHistoryListItem[]);
 
   const getList = () => {
     return list.value;
