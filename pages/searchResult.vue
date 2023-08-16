@@ -714,7 +714,7 @@ function hideAskForGetPositionPopup() {
 
 <template>
   <!-- 移动端筛选 -->
-  <div class="fixed md:hidden w-full z-10">
+  <div class="fixed md:hidden w-full z-10 select-none">
     <!-- 顶部的筛选和排序 -->
     <div class="relative w-full inline-flex flex-row justify-evenly bg-black py-2 z-10">
       <!-- 省份地区 -->
@@ -738,7 +738,7 @@ function hideAskForGetPositionPopup() {
     </div>
   </div>
   <!-- pc端筛选 -->
-  <div class="hidden md:flex flex-col w-full lg:w-3/4 lg:mx-auto py-4 rounded-xl select-box-pc">
+  <div class="hidden md:flex flex-col w-full lg:w-3/4 lg:mx-auto py-4 rounded-xl select-none select-box-pc">
     <div class="px-4 text-lg pb-2 mb-2 border-b border-solid border-gray-950">筛选条件</div>
     <!-- 已选条件 -->
     <div :class="'relative inline-flex flex-row justify-start ' + (isCanMultiSelectProvince?'items-start':'items-center') + ' w-full text-sm px-4 pb-2 mb-2 border-b border-solid border-gray-950 transition-all'">
