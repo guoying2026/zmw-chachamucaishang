@@ -47,6 +47,34 @@ export const useUserInfoStore = defineStore('userInfoStore', () => {
     userInfo.value.avatar = avatar
   }
 
+  const isLoggedIn = () => {
+    if (!userInfo.value) {
+      return false
+    }
+
+    if (!userInfo.value.hasOwnProperty('user_id')) {
+      return false
+    }
+
+    if (!userInfo.value.user_id) {
+      return false
+    }
+
+    if (userInfo.value.user_id.trim().length == 0) {
+      return false
+    }
+
+    if (isNaN(Number(userInfo.value.user_id.trim()))) {
+      return false
+    }
+
+    if (Number(userInfo.value.user_id.trim()) == 0) {
+      return false
+    }
+
+    return true
+  }
+
   return {
     getUserInfo,
     setUserInfo,
@@ -59,6 +87,7 @@ export const useUserInfoStore = defineStore('userInfoStore', () => {
     setNickName,
     getAvatar,
     setAvatar,
+    isLoggedIn,
   }
 
 })
