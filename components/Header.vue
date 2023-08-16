@@ -4,8 +4,6 @@ import LoginPopup from "~/components/LoginPopup.vue"
 // 导入搜索下拉框组件
 import SearchTips from '~/components/SearchTips.vue'
 
-import { UserInfo } from "types/userInfo"
-
 // 导入用户信息存储
 import { useUserInfoStore } from "~/pinia/userInfo"
 
@@ -18,20 +16,16 @@ const nuxtApp = useNuxtApp()
 // 搜索框输入内容
 const searchInputText = ref<string>('')
 
+if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string' && route.query.search.trim().length > 0) {
+  searchInputText.value = route.query.search.trim()
+}
+
 const isSearchInputFocusing = ref<boolean>(false)
 
 // 搜索输入框对象
 const searchTextRef = ref()
 
 const userInfoStore = useUserInfoStore()
-
-/* const userId = userInfoStore.getUserId()
-
-const isLoggedin = ref<boolean>(userInfoStore && typeof userId == 'string' && userId.trim().length > 0)
-
-const userInfo = ref<UserInfo | null>(userInfoStore.getUserInfo())
-
-const userPhone = ref<string>(await encryptPhone(userInfoStore.getPhone())) */
 
 const isShowUserInfoPopup = ref<boolean>(false)
 
@@ -43,7 +37,12 @@ function searchButtonHandle() {
     router.push('/search');
     return;
   }
-  router.push('/search?search=' + searchInputText.value);
+  router.push({
+    path: '/searchResult',
+    query: {
+      search: searchInputText.value,
+    },
+  })
 }
 
 /**

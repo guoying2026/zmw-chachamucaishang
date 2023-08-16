@@ -224,20 +224,60 @@ const pageSize = ref<number>(20);
 
 const paginationSize = ref<number>(5);
 
-const totalPages = ref<number>(9);
+const totalPages = ref<number>(1);
 
 const inputPage = ref<number>(currentPage.value);
 
 const isShowAskForGetPositionPopup = ref<boolean>(false)
+
+const searchInputText = ref<string>('')
+
+if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string' && route.query.search.trim().length > 0) {
+  toSearch(route.query.search.trim(), '', 1)
+}
+
+function toSearch(name?: string, area?: string, page?: number, page_size?: number) {
+  if (!name || name == '') {
+    name = searchInputText.value
+  }
+  if (!area || area == '') {
+    area = ''
+  }
+  if (!page || page == 0) {
+    page = currentPage.value
+  }
+  if (!page_size || page_size == 0) {
+    page_size = pageSize.value
+  }
+  useFetch('/api/getSearchList', {
+    query: {
+      name: name,
+      area: area,
+      page: page,
+      page_size: page_size,
+    }
+  })
+  .then(res => new Promise(resolve => resolve(res.data.value)))
+  .then(async res => {
+    let res1 = res as {code: number, message: string, result?: {current_page: number, data: any[], page_size: number, total_page: number, total_size: number}}
+    if (res1.result && res1.result.data) {
+      searchResultList.value = res1.result.data
+      totalCountOfSearchResult.value = res1.result.total_size
+      currentPage.value = res1.result.current_page
+      pageSize.value = res1.result.page_size
+      totalPages.value = res1.result.total_page
+    }
+  })
+}
 
 /**
  * 上一页
  */
 function jumpToPrevPage() {
   if (currentPage.value - 1 > 0) {
-    currentPage.value = currentPage.value - 1;
+    jumpToPage(currentPage.value - 1);
   } else {
-    currentPage.value = 1;
+    jumpToPage(1);
   }
 }
 
@@ -246,9 +286,9 @@ function jumpToPrevPage() {
  */
 function jumpToNextPage() {
   if (currentPage.value + 1 <= totalPages.value) {
-    currentPage.value = currentPage.value + 1;
+    jumpToPage(currentPage.value + 1);
   } else {
-    currentPage.value = totalPages.value;
+    jumpToPage(totalPages.value);
   }
 }
 
@@ -260,6 +300,13 @@ function jumpToPage(page: number) {
   if (page < 1) page = 1
   if (page > totalPages.value) page = totalPages.value
   currentPage.value = page;
+  toSearch(searchInputText.value, '', currentPage.value)
+  if (window.screen.width >= 768) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
 }
 
 /**
