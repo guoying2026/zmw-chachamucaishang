@@ -158,7 +158,7 @@ nuxtApp.hook('page:finish', () => {
     <ClientOnly v-else>
       <button @click="openLoginPopup" :class="(isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 border border-solid rounded goto-login-button'">登录/注册</button>
     </ClientOnly>
-    <button @click="searchInputBlurHandle" :class="(isSearchInputFocusing ? 'inline-block md:hidden' : 'hidden') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 ml-2 md:ml-10 border border-dashed goto-login-button border-transparent'">取消</button>
+    <button @click="searchInputBlurHandle" :class="(isSearchInputFocusing ? 'inline-block md:hidden' : 'hidden') + ' h-8 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 ml-2 md:ml-10 border border-dashed goto-login-button border-transparent'">取消</button>
   </div>
   <!-- 用户登录之后 点击头像弹出的信息框 -->
   <div @click.stop="isShowUserInfoPopup = false" :class="'fixed top-0 left-0 inline-block w-screen ' + (isShowUserInfoPopup ? 'h-screen' : 'h-0') + ' z-20 overflow-hidden transition-all'">
