@@ -152,7 +152,7 @@ nuxtApp.hook('page:finish', () => {
         <SearchTips @gotoLogin="openLoginPopup" @gotoSearch="searchInputHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-6 md:top-9" width="w-full md:w-80" />
       </ClientOnly>
     </div>
-    <div v-if="userInfoStore.isLoggedIn()" @click.stop="isShowUserInfoPopup = !isShowUserInfoPopup" :class="(isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 rounded cursor-pointer'">
+    <div v-if="userInfoStore.isLoggedIn()" @click.stop="isShowUserInfoPopup = !isShowUserInfoPopup" :class="(isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' w-9 md:w-auto text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 rounded cursor-pointer'">
       <img class="h-6 md:h-8" :src="userInfoStore.getAvatar()"/>
     </div>
     <ClientOnly v-else>
