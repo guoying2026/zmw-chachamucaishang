@@ -136,14 +136,14 @@ nuxtApp.hook('page:finish', () => {
 
 <template>
   <ClientOnly>
-  <div class="fixed inline-flex flex-row justify-start md:justify-center items-center w-full bg-black py-2 z-30 header">
+  <div class="fixed inline-flex flex-row justify-start md:justify-center items-center w-full h-14 bg-black pb-2 md:pt-1 md:pb-1 z-30 header">
     <!-- 查查木材商图标 -->
-    <NuxtLink to="/">
+    <NuxtLink to="/" class="grow md:grow-0">
       <img class="block md:hidden h-6" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imageee2c089b91ece3372b37b7ea820936fe.png" />
       <img class="hidden md:block h-8" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagef6dd0552bbc692e03c05de8bd0b26610.png" />
     </NuxtLink>
     <!-- 搜索框 -->
-    <div class="relative inline-flex md:justify-evenly items-center w-full md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
+    <div class="relative grow md:grow-0 inline-flex md:justify-evenly items-center w-full md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
       <input class="w-full md:w-80 px-5 py-1 md:px-0 md:py-0 md:pr-6 text-xs md:text-sm md:bg-transparent text-inherit md:text-white rounded-2xl md:rounded transition-all search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
       <svg class="absolute md:hidden left-1 inline-block w-4 h-4 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
       <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute right-1 md:right-16 w-4 h-4 cursor-pointer" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
@@ -152,18 +152,18 @@ nuxtApp.hook('page:finish', () => {
         <SearchTips @gotoLogin="openLoginPopup" @gotoSearch="searchInputHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-6 md:top-9" width="w-full md:w-80" />
       </ClientOnly>
     </div>
-    <div v-if="userInfoStore.isLoggedIn()" @click.stop="isShowUserInfoPopup = !isShowUserInfoPopup" :class="(isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' w-9 md:w-auto text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 rounded cursor-pointer'">
+    <div v-if="userInfoStore.isLoggedIn()" @click.stop="isShowUserInfoPopup = !isShowUserInfoPopup" :class="'grow md:grow-0 ' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' w-9 md:w-auto text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 rounded cursor-pointer'">
       <img class="h-6 md:h-8" :src="userInfoStore.getAvatar()"/>
     </div>
     <ClientOnly v-else>
-      <button @click="openLoginPopup" :class="(isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 my-1 border border-solid rounded goto-login-button'">登录/注册</button>
+      <button @click="openLoginPopup" :class="'grow md:grow-0 ' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 my-1 border border-solid rounded goto-login-button'">登录/注册</button>
     </ClientOnly>
-    <button @click="searchInputBlurHandle" :class="(isSearchInputFocusing ? 'inline-block md:hidden' : 'hidden') + ' h-8 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 ml-2 md:ml-10 border border-dashed goto-login-button border-transparent'">取消</button>
+    <button @click="searchInputBlurHandle" :class="'grow md:grow-0 ' + (isSearchInputFocusing ? 'inline-block md:hidden' : 'hidden') + ' h-8 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 ml-2 md:ml-10 border border-dashed goto-login-button border-transparent'">取消</button>
   </div>
   <!-- 用户登录之后 点击头像弹出的信息框 -->
   <div @click.stop="isShowUserInfoPopup = false" :class="'fixed top-0 left-0 inline-block w-screen ' + (isShowUserInfoPopup ? 'h-screen' : 'h-0') + ' z-20 overflow-hidden transition-all'">
     <!-- 移动端 -->
-    <div @click.stop="false" :class="'absolute top-11 inline-flex md:hidden flex-row justify-between items-center w-full ' + (isShowUserInfoPopup ? 'h-14' : 'h-0') + ' text-white text-sm px-2 overflow-hidden transition-all select-none'" style="background-color: rgb(29,29,29);">
+    <div @click.stop="false" :class="'absolute top-14 inline-flex md:hidden flex-row justify-between items-center w-full ' + (isShowUserInfoPopup ? 'h-14' : 'h-0') + ' text-white text-sm px-2 overflow-hidden transition-all select-none'" style="background-color: rgb(29,29,29);">
       <div>账号:{{ encryptPhone(userInfoStore.getPhone()) }}</div>
       <div @click.stop.prevent="logout" class="inline-flex flex-row items-center">
         <svg class="w-3 h-3 mr-1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" d="M10 2.29v2.124c.566.247 1.086.6 1.536 1.05C12.48 6.408 13 7.664 13 9s-.52 2.591-1.464 3.536C10.592 13.48 9.336 14 8 14s-2.591-.52-3.536-1.464C3.52 11.592 3 10.336 3 9s.52-2.591 1.464-3.536c.45-.45.97-.803 1.536-1.05V2.29a7 7 0 1 0 4 0zM7 0h2v8H7z"/></svg>
