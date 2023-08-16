@@ -2,10 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    '@nuxtjs/tailwindcss',
-    '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
-    '@vueuse/nuxt',
+      '@nuxtjs/tailwindcss',
+      '@pinia/nuxt',
+      '@pinia-plugin-persistedstate/nuxt',
+      '@vueuse/nuxt',
+      '@element-plus/nuxt',
   ],
   tailwindcss: {
     cssPath: '~/assets/css/tailwind.css',

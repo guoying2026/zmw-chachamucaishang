@@ -105,8 +105,5 @@
   </div>
 </template>
 <script>
-import '~/assets/css/comment.scss'
-export default{
-  name: 'Comment'
-}
+import 'assets/css/comment.scss'
 </script>

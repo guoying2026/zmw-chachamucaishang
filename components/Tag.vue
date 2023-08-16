@@ -10,7 +10,7 @@ const props = defineProps({
   },
   number:{
     type: [Number,String],
-    default: 60
+    default: 10
   },
   color:{
     type: String,

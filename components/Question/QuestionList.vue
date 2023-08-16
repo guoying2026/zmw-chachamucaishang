@@ -175,8 +175,5 @@
   </div>
 </template>
 <script>
-import '~/assets/css/question.scss'
-export default{
-  name: 'Question'
-}
+import 'assets/css/question.scss'
 </script>
