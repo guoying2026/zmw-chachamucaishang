@@ -117,14 +117,17 @@ function clearSearchHistoryItem(id: number) {
 
 function dealSearchTipsAreaExpanded() {
   const searchTipsArea = document.querySelector('.search-tips-area')
+  const searchTipsAreaCover = document.querySelector('.search-tips-area-cover')
 
   document.querySelector('.search-text')?.addEventListener('click', e => {
     searchTipsArea?.classList.add('expanded')
+    searchTipsAreaCover?.classList.add('expanded')
     e.stopPropagation()
   })
 
   document.addEventListener('click', function () {
     searchTipsArea?.classList.remove('expanded')
+    searchTipsAreaCover?.classList.remove('expanded')
   })
 }
 
@@ -142,6 +145,7 @@ nuxtApp.hook("page:finish", () => {
 
 <template>
   <!-- 输入框下方的弹出框 -->
+  <div class="fixed left-0 top-0 w-screen h-0 z-0 search-tips-area-cover"></div>
   <div @click.stop="false" :class="'absolute ' + (props.top && typeof props.top == 'string' && props.top.trim().length > 0 ? props.top + ' ' : '') + 'left-0 inline-flex ' + (props.width && typeof props.width == 'string' && props.width.trim().length > 0 ? props.width + ' ' : '') + ' max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area'">
     <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
     <div v-if="props.searchValue?.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-full px-10 py-4">
@@ -374,5 +378,10 @@ nuxtApp.hook("page:finish", () => {
 .search-tips-area:hover,
 .search-tips-area.expanded {
   max-height: 100vh;
+}
+
+.search-text:focus-visible ~ .search-tips-area-cover,
+.search-tips-area-cover.expanded {
+  height: 100vh;
 }
 </style>
