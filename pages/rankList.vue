@@ -19,246 +19,68 @@ const totalPages = ref<number>(9);
 
 const inputPage = ref<number>(currentPage.value);
 
-const list = ref<RankingListItem[]>([
-  {
-    id: 1,
-    credit_code: '',
-    score: 100,
-    company_name: '江苏木里文化投资有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 2,
-    credit_code: '',
-    score: 100,
-    company_name: '广东广物木材产业股份有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 3,
-    credit_code: '',
-    score: 100,
-    company_name: '江苏木里文化投资有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 4,
-    credit_code: '',
-    score: 100,
-    company_name: '玉林市玉州区木材公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 5,
-    credit_code: '',
-    score: 100,
-    company_name: '温州绿星木材贸易有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },
-  {
-    id: 1,
-    credit_code: '',
-    score: 100,
-    company_name: '江苏木里文化投资有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 2,
-    credit_code: '',
-    score: 100,
-    company_name: '广东广物木材产业股份有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 3,
-    credit_code: '',
-    score: 100,
-    company_name: '江苏木里文化投资有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 4,
-    credit_code: '',
-    score: 100,
-    company_name: '玉林市玉州区木材公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 5,
-    credit_code: '',
-    score: 100,
-    company_name: '温州绿星木材贸易有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },
-  {
-    id: 1,
-    credit_code: '',
-    score: 100,
-    company_name: '江苏木里文化投资有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 2,
-    credit_code: '',
-    score: 100,
-    company_name: '广东广物木材产业股份有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 3,
-    credit_code: '',
-    score: 100,
-    company_name: '江苏木里文化投资有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 4,
-    credit_code: '',
-    score: 100,
-    company_name: '玉林市玉州区木材公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 5,
-    credit_code: '',
-    score: 100,
-    company_name: '温州绿星木材贸易有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },
-  {
-    id: 1,
-    credit_code: '',
-    score: 100,
-    company_name: '江苏木里文化投资有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 2,
-    credit_code: '',
-    score: 100,
-    company_name: '广东广物木材产业股份有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 3,
-    credit_code: '',
-    score: 100,
-    company_name: '江苏木里文化投资有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 4,
-    credit_code: '',
-    score: 100,
-    company_name: '玉林市玉州区木材公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
-  },{
-    id: 5,
-    credit_code: '',
-    score: 100,
-    company_name: '温州绿星木材贸易有限公司',
-    corporation: '王国栋',
-    address: '山东省临沂市费县探沂镇甘林村S229省道向西500米路南',
-    comment_count: 5,
-    ask_count: 4,
-    complaint_count: 2,
-    range: '脚墩、托盘、胶合板',
+const list = ref<RankingListItem[]>([]);
+
+const {
+  pending: isRankListPending,
+  data: rankListData,
+  error: rankListError,
+  refresh: rankListRefresh,
+} = useLazyAsyncData('rankList', () => $fetch('/api/getRankList', {
+  query: {
+    page: currentPage.value,
   }
-]);
+}))
+
+function rankListChangedHandle (newProps: any) {
+  let res = JSON.parse(JSON.stringify(newProps)) as {
+    code: number,
+    message: string,
+    result?: {
+      data: any[],
+      total_size: number,
+      total_page: number,
+      current_page: number,
+      page_size: number,
+    },
+  }
+  if (!res || res.code != 200 || !res.result) return;
+  list.value = res.result.data.map(item => {
+    return {
+      id: Number(item.id),
+      credit_code: item.credit_code,
+      score: Number(item.score),
+      company_name: item.company_name,
+      corporation: item.corporation,
+      address: item.address,
+      comment_count: Number(item.comment_count),
+      ask_count: Number(item.ask_count),
+      complaint_count: Number(item.complaint_count),
+      range: '脚墩、托盘、胶合板',
+    }
+  })
+  currentPage.value = res.result.current_page
+  pageSize.value = res.result.page_size
+  totalPages.value = res.result.total_page
+}
+
+rankListChangedHandle(rankListData.value)
+
+watch(() => rankListData.value, rankListChangedHandle)
 
 function jumpToPrevPage() {
   if (currentPage.value - 1 > 0) {
-    currentPage.value = currentPage.value - 1;
+    jumpToPage(currentPage.value - 1);
   } else {
-    currentPage.value = 1;
+    jumpToPage(1);
   }
 }
 
 function jumpToNextPage() {
   if (currentPage.value + 1 <= totalPages.value) {
-    currentPage.value = currentPage.value + 1;
+    jumpToPage(currentPage.value + 1);
   } else {
-    currentPage.value = totalPages.value;
+    jumpToPage(totalPages.value);
   }
 }
 
@@ -266,6 +88,11 @@ function jumpToPage(page: number) {
   if (page < 1) page = 1
   if (page > totalPages.value) page = totalPages.value
   currentPage.value = page;
+  rankListRefresh()
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
 }
 
 function jumpToInputPage() {
