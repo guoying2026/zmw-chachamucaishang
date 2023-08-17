@@ -39,7 +39,7 @@ function searchButtonHandle() {
     return;
   }
   if (route.path == '/searchResult' && route.query.search == searchInputText.value) {
-    window.location.reload()
+    refreshNuxtData('searchResultList')
     return;
   }
   router.push({

@@ -11,6 +11,8 @@ useHead({
   title: '搜索结果',
 })
 
+const isMobile = ref<boolean>(false)
+
 const areaList = ref<AreaListItem[]>([{
   code: 0,
   name: '全国',
@@ -82,8 +84,6 @@ const totalCountOfSearchResult = ref<number>(0)
 
 const searchResultList = ref<SearchResultListItem[]>([])
 
-const isLoading = ref<boolean>(false)
-
 const isShowPhonePopup = ref<boolean>(false)
 
 const showPhoneIndex = ref<number>(-1)
@@ -112,15 +112,6 @@ const isShowAskForGetPositionPopup = ref<boolean>(false)
 
 const searchInputText = ref<string>('')
 
-if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string' && route.query.search.trim().length > 0) {
-  searchInputText.value = route.query.search.trim()
-  toSearch(route.query.search.trim(), '', 1, pageSize.value, true)
-  watch(() => route.query.search as string, (newProps) => {
-    searchInputText.value = newProps.trim()
-    toSearch(newProps.trim(), '', 1, pageSize.value, true)
-  })
-}
-
 const intersectionObserver = ref<IntersectionObserver | null>(null)
 
 watch(() => intersectionObserver.value, (newProps) => {
@@ -131,59 +122,52 @@ watch(() => intersectionObserver.value, (newProps) => {
   }
 })
 
-function toSearch(name?: string, area?: string, page?: number, page_size?: number, is_continue?: boolean) {
-  if (isLoading.value) return;
-  isLoading.value = true
-  if (!name || name == '') {
-    name = searchInputText.value
+const isReloadSearchResultList = ref<boolean>(true)
+
+const {
+  pending: isSearchResultListPending,
+  data: searchResultListData,
+  error: searchResultListError,
+  refresh: searchResultListRefresh,
+} = useLazyAsyncData('searchResultList', () => $fetch('/api/getSearchList', {
+  query: {
+    name: searchInputText.value,
+    area: '',
+    page: isReloadSearchResultList.value ? 1 : currentPage.value,
+    page_size: pageSize.value,
   }
-  if (!area || area == '') {
-    area = ''
+}))
+
+function searchResultListChangedHandle (newProps: any) {
+  isReloadSearchResultList.value = true
+  let res1 = newProps as {code: number, message: string, result?: {current_page: number, data: any[], page_size: number, total_page: number, total_size: number}}
+  if (!res1 || res1.code != 200 || !res1.result) return;
+  if (res1.result && res1.result.data) {
+    // 修改搜索结果列表数据
+    searchResultList.value = isMobile.value ? searchResultList.value.concat(res1.result.data) : res1.result.data
+    totalCountOfSearchResult.value = res1.result.total_size
+    currentPage.value = res1.result.current_page
+    pageSize.value = res1.result.page_size
+    totalPages.value = res1.result.total_page
   }
-  if (!page || page == 0) {
-    page = currentPage.value
-  }
-  if (!page_size || page_size == 0) {
-    page_size = pageSize.value
-  }
-  if (!is_continue) {
-    page = 1
-  }
-  useFetch('/api/getSearchList', {
-    query: {
-      name: name,
-      area: area,
-      page: page,
-      page_size: page_size,
-    }
-  })
-  .finally(() => {
-    isLoading.value = false
-  })
-  .then(res => new Promise(resolve => resolve(res.data.value)))
-  .then(async res => {
-    let res1 = res as {code: number, message: string, result?: {current_page: number, data: any[], page_size: number, total_page: number, total_size: number}}
-    if (res1.result && res1.result.data) {
-      // 修改搜索结果列表数据
-      searchResultList.value = window.screen.width >= 768 ? res1.result.data : searchResultList.value.concat(res1.result.data)
-      totalCountOfSearchResult.value = res1.result.total_size
-      currentPage.value = res1.result.current_page
-      pageSize.value = res1.result.page_size
-      totalPages.value = res1.result.total_page
-      if (res1.result.current_page == res1.result.total_page) {
-        isLoading.value = false
-      }
-      // pc端则滚动到顶部
-      if (window.screen.width >= 768 || res1.result.current_page == 1) {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        })
-      }
-      document.querySelector('.search-tips-area.expanded')?.classList.remove('expanded')
-    }
+}
+
+if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string' && route.query.search.trim().length > 0) {
+  searchInputText.value = route.query.search.trim()
+  currentPage.value = 1
+  isReloadSearchResultList.value = false
+  searchResultListRefresh()
+  watch(() => route.query.search as string, (newProps) => {
+    searchInputText.value = newProps.trim()
+    currentPage.value = 1
+    isReloadSearchResultList.value = false
+    searchResultListRefresh()
   })
 }
+
+searchResultListChangedHandle(searchResultListData.value)
+
+watch(() => searchResultListData.value, searchResultListChangedHandle)
 
 /**
  * 上一页
@@ -215,7 +199,13 @@ function jumpToPage(page: number) {
   if (page < 1) page = 1
   if (page > totalPages.value) page = totalPages.value
   currentPage.value = page;
-  toSearch(searchInputText.value, '', currentPage.value, pageSize.value, true)
+  isReloadSearchResultList.value = false
+  searchResultListRefresh()
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+  document.querySelector('.search-tips-area.expanded')?.classList.remove('expanded')
 }
 
 /**
@@ -668,12 +658,17 @@ function hideAskForGetPositionPopup() {
 }
 
 nuxtApp.hook('page:finish', () => {
+  isMobile.value = window.screen.width < 768
   const intersectionObserverCallback = (entries: IntersectionObserverEntry[]) => {
     if (entries[0].intersectionRatio <= 0) return;
-    toSearch(searchInputText.value, '', currentPage.value + 1, pageSize.value, true)
+    if (currentPage.value > totalPages.value) return;
+    currentPage.value = currentPage.value + 1
+    isReloadSearchResultList.value = false
+    searchResultListRefresh()
   }
   if (window.screen.width < 768 && !intersectionObserver.value) intersectionObserver.value = new IntersectionObserver(intersectionObserverCallback)
   window.addEventListener('resize', () => {
+    isMobile.value = window.screen.width < 768
     if (!intersectionObserver.value) return;
     intersectionObserver.value.disconnect()
     if (window.screen.width < 768) {
@@ -924,7 +919,7 @@ nuxtApp.hook('page:finish', () => {
           </div>
         </div>
       </NuxtLink>
-      <div :class="'relative ' + (isLoading ? 'hidden' : 'inline-flex') + ' md:hidden flex-row justify-center items-center py-1 mt-4 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item load-more-tips'" style="color: rgb(151,151,151);">
+      <div :class="'relative ' + (currentPage > totalPages || isSearchResultListPending ? 'hidden' : 'inline-flex') + ' md:hidden flex-row justify-center items-center py-1 mt-4 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item load-more-tips'" style="color: rgb(151,151,151);">
         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg>
         <span>加载中...</span>
       </div>
