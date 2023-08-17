@@ -253,10 +253,6 @@ function dealLogin() {
     height: 416.667px;
   }
 
-  .login-pop-up-main-input-item-button {
-    color: #999999;
-  }
-
   .login-pop-up-main-login-button {
     background: #FF834E;
   }
