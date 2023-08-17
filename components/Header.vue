@@ -33,6 +33,7 @@ const isShowUserInfoPopup = ref<boolean>(false)
  * “查一下”按钮的点击处理事件
  */
 function searchButtonHandle() {
+  searchTextRef.value.blur()
   if (searchInputText.value.trim() === '') {
     router.push('/search');
     return;
