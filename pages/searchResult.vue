@@ -80,129 +80,7 @@ const isLeaveMeClosestDistance = ref<boolean>(false)
 
 const totalCountOfSearchResult = ref<number>(183949)
 
-const searchResultList = ref<SearchResultListItem[]>([
-  {
-    id: 1,
-    company_name: '广东广物木材产业股份有限公司',
-    corporation: '张新田',
-    registered_capital: '',
-    foundation_date: '2020-04-02',
-    operation_state: '在业',
-    province: '江苏省',
-    city: '宿迁市',
-    district: '沐阳县',
-    company_sort: '',
-    credit_code: '91321322MA215HKM23',
-    taxpayer_id: '',
-    registration_mark: '',
-    organisation_code: '',
-    contact_phone: ['13800138000', '15018375194', '17796224896', '17819180351'],
-    industry: '',
-    address: '宿迁市沐阳县胡集镇梁井村吴组205国道边1号',
-    website: '',
-    email: 'noreply@qq.com',
-    business_scope: '木材加工，人造板制造，人造板销售，软木制品制造',
-    company_img: '',
-    credit_score: '',
-    is_show_phone_popup: false,
-  },{
-    id: 1,
-    company_name: '广东广物木材产业股份有限公司',
-    corporation: '张新田',
-    registered_capital: '',
-    foundation_date: '2020-04-02',
-    operation_state: '在业',
-    province: '江苏省',
-    city: '宿迁市',
-    district: '沐阳县',
-    company_sort: '',
-    credit_code: '91321322MA215HKM23',
-    taxpayer_id: '',
-    registration_mark: '',
-    organisation_code: '',
-    contact_phone: '13800138000',
-    industry: '',
-    address: '宿迁市沐阳县胡集镇梁井村吴组205国道边1号',
-    website: '',
-    email: 'noreply@qq.com',
-    business_scope: '木材加工，人造板制造，人造板销售，软木制品制造',
-    company_img: '',
-    credit_score: '',
-    is_show_phone_popup: false,
-  },{
-    id: 1,
-    company_name: '广东广物木材产业股份有限公司',
-    corporation: '张新田',
-    registered_capital: '',
-    foundation_date: '2020-04-02',
-    operation_state: '在业',
-    province: '江苏省',
-    city: '宿迁市',
-    district: '沐阳县',
-    company_sort: '',
-    credit_code: '91321322MA215HKM23',
-    taxpayer_id: '',
-    registration_mark: '',
-    organisation_code: '',
-    contact_phone: '13800138000',
-    industry: '',
-    address: '宿迁市沐阳县胡集镇梁井村吴组205国道边1号',
-    website: '',
-    email: 'noreply@qq.com',
-    business_scope: '木材加工，人造板制造，人造板销售，软木制品制造',
-    company_img: '',
-    credit_score: '',
-    is_show_phone_popup: false,
-  },{
-    id: 1,
-    company_name: '广东广物木材产业股份有限公司',
-    corporation: '张新田',
-    registered_capital: '',
-    foundation_date: '2020-04-02',
-    operation_state: '在业',
-    province: '江苏省',
-    city: '宿迁市',
-    district: '沐阳县',
-    company_sort: '',
-    credit_code: '91321322MA215HKM23',
-    taxpayer_id: '',
-    registration_mark: '',
-    organisation_code: '',
-    contact_phone: '13800138000',
-    industry: '',
-    address: '宿迁市沐阳县胡集镇梁井村吴组205国道边1号',
-    website: '',
-    email: 'noreply@qq.com',
-    business_scope: '木材加工，人造板制造，人造板销售，软木制品制造',
-    company_img: '',
-    credit_score: '',
-    is_show_phone_popup: false,
-  },{
-    id: 1,
-    company_name: '广东广物木材产业股份有限公司',
-    corporation: '张新田',
-    registered_capital: '',
-    foundation_date: '2020-04-02',
-    operation_state: '在业',
-    province: '江苏省',
-    city: '宿迁市',
-    district: '沐阳县',
-    company_sort: '',
-    credit_code: '91321322MA215HKM23',
-    taxpayer_id: '',
-    registration_mark: '',
-    organisation_code: '',
-    contact_phone: '13800138000',
-    industry: '',
-    address: '宿迁市沐阳县胡集镇梁井村吴组205国道边1号',
-    website: '',
-    email: 'noreply@qq.com',
-    business_scope: '木材加工，人造板制造，人造板销售，软木制品制造',
-    company_img: '',
-    credit_score: '',
-    is_show_phone_popup: false,
-  }
-])
+const searchResultList = ref<SearchResultListItem[]>([])
 
 const isShowPhonePopup = ref<boolean>(false)
 
@@ -937,29 +815,29 @@ function hideAskForGetPositionPopup() {
     <!-- 搜索结果列表 -->
     <div class="inline-flex flex-col w-full">
       <!-- 搜索结果项 -->
-      <NuxtLink to="detail" class="relative inline-flex flex-col py-4 mt-4 first-of-type:mt-0 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item" v-for="(item, index) in searchResultList">
+      <NuxtLink :to="'/detail?id=' + item.id" class="relative inline-flex flex-col py-4 mt-4 first-of-type:mt-0 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item" v-for="(item, index) in searchResultList">
         <!-- 搜索结果项 - 第一行 -->
         <div class="inline-flex flex-row px-4">
           <img class="w-8 h-8 md:w-24 md:h-24 rounded-md" :src="item.company_img" />
           <div class="inline-flex flex-row items-center h-full pl-2 md:pl-4">
             <span class="md:text-2xl md:font-bold">{{ item.company_name }}</span>
-            <span class="inline-block w-max h-max px-1 ml-2 text-xs border border-solid rounded zaiye">{{ item.operation_state }}</span>
+            <span :class="'inline-block w-max h-max px-1 ml-2 text-xs border border-solid border-current rounded ' + (item.operation_state=='存续'?'cunxu':'') + (item.operation_state=='在业'?'zaiye':'') + (item.operation_state=='开业'?'kaiye':'') + (item.operation_state=='注销'?'zhuxiao':'') + (item.operation_state=='吊销'?'diaoxiao':'') + (item.operation_state=='迁出'?'qianchu':'') + (item.operation_state=='迁入'?'qianru':'') + (item.operation_state=='停业'?'tingye':'') + (item.operation_state=='清算'?'qingsuan':'')">{{ item.operation_state }}</span>
           </div>
         </div>
         <!-- 搜索结果项 - 第二行 -->
         <div class="inline-flex md:hidden flex-row justify-evenly text-xs px-4 mt-2">
           <div class="inline-flex flex-col items-center">
             <span>法定代表人</span>
-            <span class="mt-1">{{ item.corporation }}</span>
+            <span class="mt-1">{{ item.corporation && item.corporation.length > 0 ? item.corporation : '-' }}</span>
           </div>
           <div class="inline-flex flex-col items-center">
             <span>成立日期</span>
-            <span class="mt-1">{{ item.foundation_date }}</span>
+            <span class="mt-1">{{ item.foundation_date && item.foundation_date.length > 0 ? item.foundation_date : '-' }}</span>
           </div>
           <div class="inline-flex flex-col items-center">
             <span>电话</span>
             <div class="inline-flex flex-row items-center mt-1">
-              <span>{{ encryptPhone(item.contact_phone) }}</span>
+              <span>{{ item.contact_phone && item.contact_phone.length > 0 ? encryptPhone(item.contact_phone) : '-' }}</span>
               <button v-if="typeof item.contact_phone === 'object' && item.contact_phone instanceof Array && item.contact_phone.length > 1" @click.stop.prevent="showAllPhone(index)" class="ml-1 font-orange">更多</button>
             </div>
           </div>
@@ -967,34 +845,34 @@ function hideAskForGetPositionPopup() {
         <div class="hidden md:inline-flex flex-row justify-between w-3/4 mx-4 -mt-12 pl-28">
           <div class="inline-flex flex-row">
             <span>法定代表人：</span>
-            <span class="text-white">{{ item.corporation }}</span>
+            <span class="text-white">{{ item.corporation && item.corporation.length > 0 ? item.corporation : '-' }}</span>
           </div>
           <div class="inline-flex flex-row">
             <span>成立日期：</span>
-            <span class="text-white">{{ item.foundation_date }}</span>
+            <span class="text-white">{{ item.foundation_date && item.foundation_date.length > 0 ? item.foundation_date : '-' }}</span>
           </div>
           <div class="inline-flex flex-row">
             <span>邮箱：</span>
-            <span class="text-white">{{ item.email }}</span>
+            <span class="text-white">{{ item.email && item.email.length > 0 ? item.email : '-' }}</span>
           </div>
         </div>
         <div class="hidden md:inline-flex flex-row justify-between w-3/4 mx-4 mt-2 pl-28">
           <div class="inline-flex flex-row">
             <span>电话：</span>
             <div>
-              <span class="text-white">{{ encryptPhone(item.contact_phone) }}</span>
+              <span class="text-white">{{ item.contact_phone && item.contact_phone.length > 0 ? encryptPhone(item.contact_phone) : '-' }}</span>
               <button v-if="typeof item.contact_phone === 'object' && item.contact_phone instanceof Array && item.contact_phone.length > 1" @click.stop.prevent="showAllPhoneByPc(index)" class="ml-1 font-orange">更多</button>
             </div>
           </div>
           <div class="inline-flex flex-row">
             <span>社会统一信用代码：</span>
-            <span class="text-white">{{ item.credit_code }}</span>
+            <span class="text-white">{{ item.credit_code && item.credit_code.length > 0 ? item.credit_code : '-' }}</span>
           </div>
         </div>
         <!-- 搜索结果项 - 第三行 -->
-        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-solid">地址：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.address }}</span></div>
+        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-solid">地址：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.address && item.address.length > 0 ? item.address : '-' }}</span></div>
         <!-- 搜索结果项 - 第四行 -->
-        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-solid">经营范围：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.business_scope }}</span></div>
+        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-solid">经营范围：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.business_scope && item.business_scope.length > 0 ? item.business_scope : '-' }}</span></div>
         <div class="absolute">
           <div @click.stop.prevent="hidePhonePopupByPc" :class="'fixed ' + (item.is_show_phone_popup ? 'left-0 top-0 w-full h-full' : 'left-1/2 top-1/2 w-0 h-0') + ' overflow-hidden z-10 cursor-default transition-all'"></div>
           <div @click.stop.prevent="false" :class="'absolute left-32 top-24 inline-flex w-44 ' + (item.is_show_phone_popup ? 'max-h-screen p-2' : 'max-h-0 p-0') + ' bg-white overflow-hidden z-20 rounded-lg shadow shadow-black cursor-default transition-all'">
@@ -1169,9 +1047,22 @@ function hideAskForGetPositionPopup() {
   background-color: rgb(27,27,27);
 }
 
-.zaiye {
+.cunxu,
+.zaiye,
+.kaiye,
+.qianchu,
+.qianru {
   color: rgb(31,167,101);
-  border-color: rgb(31,167,101);
+}
+
+.zhuxiao {
+  color: rgb(107, 114, 128);
+}
+
+.diaoxiao,
+.tingye,
+.qingsuan {
+  color: rgb(239, 68, 68);
 }
 
 .select-box-pc {
