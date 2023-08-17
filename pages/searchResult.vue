@@ -233,8 +233,10 @@ const isShowAskForGetPositionPopup = ref<boolean>(false)
 const searchInputText = ref<string>('')
 
 if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string' && route.query.search.trim().length > 0) {
+  searchInputText.value = route.query.search.trim()
   toSearch(route.query.search.trim(), '', 1)
   watch(() => route.query.search as string, (newProps) => {
+    searchInputText.value = newProps.trim()
     toSearch(newProps.trim(), '', 1)
   })
 }
