@@ -78,9 +78,11 @@ const areaSecondSelectedIndex = ref<number>(0)
 
 const isLeaveMeClosestDistance = ref<boolean>(false)
 
-const totalCountOfSearchResult = ref<number>(183949)
+const totalCountOfSearchResult = ref<number>(0)
 
 const searchResultList = ref<SearchResultListItem[]>([])
+
+const isLoading = ref<boolean>(false)
 
 const isShowPhonePopup = ref<boolean>(false)
 
@@ -112,14 +114,26 @@ const searchInputText = ref<string>('')
 
 if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string' && route.query.search.trim().length > 0) {
   searchInputText.value = route.query.search.trim()
-  toSearch(route.query.search.trim(), '', 1)
+  toSearch(route.query.search.trim(), '', 1, pageSize.value, true)
   watch(() => route.query.search as string, (newProps) => {
     searchInputText.value = newProps.trim()
-    toSearch(newProps.trim(), '', 1)
+    toSearch(newProps.trim(), '', 1, pageSize.value, true)
   })
 }
 
-function toSearch(name?: string, area?: string, page?: number, page_size?: number) {
+const intersectionObserver = ref<IntersectionObserver | null>(null)
+
+watch(() => intersectionObserver.value, (newProps) => {
+  const el = document.querySelector('.load-more-tips')
+  if (newProps && el) {
+    newProps.unobserve(el)
+    newProps.observe(el)
+  }
+})
+
+function toSearch(name?: string, area?: string, page?: number, page_size?: number, is_continue?: boolean) {
+  if (isLoading.value) return;
+  isLoading.value = true
   if (!name || name == '') {
     name = searchInputText.value
   }
@@ -132,6 +146,9 @@ function toSearch(name?: string, area?: string, page?: number, page_size?: numbe
   if (!page_size || page_size == 0) {
     page_size = pageSize.value
   }
+  if (!is_continue) {
+    page = 1
+  }
   useFetch('/api/getSearchList', {
     query: {
       name: name,
@@ -140,15 +157,30 @@ function toSearch(name?: string, area?: string, page?: number, page_size?: numbe
       page_size: page_size,
     }
   })
+  .finally(() => {
+    isLoading.value = false
+  })
   .then(res => new Promise(resolve => resolve(res.data.value)))
   .then(async res => {
     let res1 = res as {code: number, message: string, result?: {current_page: number, data: any[], page_size: number, total_page: number, total_size: number}}
     if (res1.result && res1.result.data) {
-      searchResultList.value = res1.result.data
+      // 修改搜索结果列表数据
+      searchResultList.value = window.screen.width >= 768 ? res1.result.data : searchResultList.value.concat(res1.result.data)
       totalCountOfSearchResult.value = res1.result.total_size
       currentPage.value = res1.result.current_page
       pageSize.value = res1.result.page_size
       totalPages.value = res1.result.total_page
+      if (res1.result.current_page == res1.result.total_page) {
+        isLoading.value = false
+      }
+      // pc端则滚动到顶部
+      if (window.screen.width >= 768 || res1.result.current_page == 1) {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      }
+      document.querySelector('.search-tips-area.expanded')?.classList.remove('expanded')
     }
   })
 }
@@ -183,13 +215,7 @@ function jumpToPage(page: number) {
   if (page < 1) page = 1
   if (page > totalPages.value) page = totalPages.value
   currentPage.value = page;
-  toSearch(searchInputText.value, '', currentPage.value)
-  if (window.screen.width >= 768) {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-  }
+  toSearch(searchInputText.value, '', currentPage.value, pageSize.value, true)
 }
 
 /**
@@ -640,6 +666,21 @@ function showAskForGetPositionPopup() {
 function hideAskForGetPositionPopup() {
   isShowAskForGetPositionPopup.value = false;
 }
+
+nuxtApp.hook('page:finish', () => {
+  const intersectionObserverCallback = (entries: IntersectionObserverEntry[]) => {
+    if (entries[0].intersectionRatio <= 0) return;
+    toSearch(searchInputText.value, '', currentPage.value + 1, pageSize.value, true)
+  }
+  if (window.screen.width < 768 && !intersectionObserver.value) intersectionObserver.value = new IntersectionObserver(intersectionObserverCallback)
+  window.addEventListener('resize', () => {
+    if (!intersectionObserver.value) return;
+    intersectionObserver.value.disconnect()
+    if (window.screen.width < 768) {
+      intersectionObserver.value = new IntersectionObserver(intersectionObserverCallback)
+    }
+  })
+})
 </script>
 
 <template>
@@ -813,7 +854,7 @@ function hideAskForGetPositionPopup() {
   <div class="inline-block md:block w-full lg:w-3/4 min-h-screen mt-1 md:mt-0 lg:mx-auto text-sm">
     <div class="px-4 py-2 mt-10 md:mt-0 search_find_num_tips">为你找到了<span class="mx-1 font-orange">{{ totalCountOfSearchResult }}</span>条相关结果</div>
     <!-- 搜索结果列表 -->
-    <div class="inline-flex flex-col w-full">
+    <div class="inline-flex flex-col w-full search-result-list">
       <!-- 搜索结果项 -->
       <NuxtLink :to="'/detail?id=' + item.id" class="relative inline-flex flex-col py-4 mt-4 first-of-type:mt-0 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item" v-for="(item, index) in searchResultList">
         <!-- 搜索结果项 - 第一行 -->
@@ -883,6 +924,10 @@ function hideAskForGetPositionPopup() {
           </div>
         </div>
       </NuxtLink>
+      <div :class="'relative ' + (isLoading ? 'hidden' : 'inline-flex') + ' md:hidden flex-row justify-center items-center py-1 mt-4 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item load-more-tips'" style="color: rgb(151,151,151);">
+        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg>
+        <span>加载中...</span>
+      </div>
     </div>
   </div>
   <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">

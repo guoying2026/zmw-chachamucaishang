@@ -38,10 +38,10 @@ export default defineEventHandler(async (e) => {
       message: res.message,
       result: {
         data: res.data,
-        current_page: res.current_page,
-        page_size: res.page_size,
-        total_page: res.total_page,
-        total_size: res.total_size,
+        current_page: Number(res.current_page),
+        page_size: Number(res.page_size),
+        total_page: Number(res.total_page),
+        total_size: Number(res.total_size),
       },
     }
   } catch (e: any | Error) {

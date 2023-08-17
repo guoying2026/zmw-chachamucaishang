@@ -38,6 +38,10 @@ function searchButtonHandle() {
     router.push('/search');
     return;
   }
+  if (route.path == '/searchResult' && route.query.search == searchInputText.value) {
+    window.location.reload()
+    return;
+  }
   router.push({
     path: '/searchResult',
     query: {
