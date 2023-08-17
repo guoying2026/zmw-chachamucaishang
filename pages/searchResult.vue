@@ -818,7 +818,7 @@ function hideAskForGetPositionPopup() {
       <NuxtLink :to="'/detail?id=' + item.id" class="relative inline-flex flex-col py-4 mt-4 first-of-type:mt-0 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item" v-for="(item, index) in searchResultList">
         <!-- 搜索结果项 - 第一行 -->
         <div class="inline-flex flex-row px-4">
-          <img class="w-8 h-8 md:w-24 md:h-24 rounded-md" :src="item.company_img" />
+          <img class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md" :src="item.company_img" />
           <div class="inline-flex flex-row items-center h-full pl-2 md:pl-4">
             <span class="md:text-2xl md:font-bold">{{ item.company_name }}</span>
             <span :class="'inline-block w-max h-max px-1 ml-2 text-xs border border-solid border-current rounded ' + (item.operation_state=='存续'?'cunxu':'') + (item.operation_state=='在业'?'zaiye':'') + (item.operation_state=='开业'?'kaiye':'') + (item.operation_state=='注销'?'zhuxiao':'') + (item.operation_state=='吊销'?'diaoxiao':'') + (item.operation_state=='迁出'?'qianchu':'') + (item.operation_state=='迁入'?'qianru':'') + (item.operation_state=='停业'?'tingye':'') + (item.operation_state=='清算'?'qingsuan':'')">{{ item.operation_state }}</span>
