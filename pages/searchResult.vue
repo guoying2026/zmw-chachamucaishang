@@ -819,9 +819,9 @@ function hideAskForGetPositionPopup() {
         <!-- 搜索结果项 - 第一行 -->
         <div class="inline-flex flex-row px-4">
           <img class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md" :src="item.company_img" />
-          <div class="inline-flex flex-row items-center h-full pl-2 md:pl-4">
-            <span class="md:text-2xl md:font-bold">{{ item.company_name }}</span>
-            <span :class="'inline-block w-max h-max px-1 ml-2 text-xs border border-solid border-current rounded ' + (item.operation_state=='存续'?'cunxu':'') + (item.operation_state=='在业'?'zaiye':'') + (item.operation_state=='开业'?'kaiye':'') + (item.operation_state=='注销'?'zhuxiao':'') + (item.operation_state=='吊销'?'diaoxiao':'') + (item.operation_state=='迁出'?'qianchu':'') + (item.operation_state=='迁入'?'qianru':'') + (item.operation_state=='停业'?'tingye':'') + (item.operation_state=='清算'?'qingsuan':'')">{{ item.operation_state }}</span>
+          <div class="inline-flex flex-row items-center w-11/12 md:w-10/12 h-full pl-2 md:pl-4">
+            <span class=" max-w-max md:text-2xl md:font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{ item.company_name }}</span>
+            <span :class="'inline-block w-max h-max px-1 ml-2 text-xs border border-solid border-current rounded whitespace-nowrap ' + (item.operation_state=='存续'?'cunxu':'') + (item.operation_state=='在业'?'zaiye':'') + (item.operation_state=='开业'?'kaiye':'') + (item.operation_state=='注销'?'zhuxiao':'') + (item.operation_state=='吊销'?'diaoxiao':'') + (item.operation_state=='迁出'?'qianchu':'') + (item.operation_state=='迁入'?'qianru':'') + (item.operation_state=='停业'?'tingye':'') + (item.operation_state=='清算'?'qingsuan':'')">{{ item.operation_state }}</span>
           </div>
         </div>
         <!-- 搜索结果项 - 第二行 -->
@@ -842,16 +842,16 @@ function hideAskForGetPositionPopup() {
             </div>
           </div>
         </div>
-        <div class="hidden md:inline-flex flex-row justify-between w-3/4 mx-4 -mt-12 pl-28">
-          <div class="inline-flex flex-row">
+        <div class="hidden md:inline-flex flex-row justify-between w-3/4 mx-4 -mt-12 pl-28 whitespace-nowrap">
+          <div class="inline-flex flex-row ml-0">
             <span>法定代表人：</span>
             <span class="text-white">{{ item.corporation && item.corporation.length > 0 ? item.corporation : '-' }}</span>
           </div>
-          <div class="inline-flex flex-row">
+          <div class="inline-flex flex-row ml-1">
             <span>成立日期：</span>
             <span class="text-white">{{ item.foundation_date && item.foundation_date.length > 0 ? item.foundation_date : '-' }}</span>
           </div>
-          <div class="inline-flex flex-row">
+          <div class="inline-flex flex-row ml-1">
             <span>邮箱：</span>
             <span class="text-white">{{ item.email && item.email.length > 0 ? item.email : '-' }}</span>
           </div>
