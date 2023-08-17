@@ -82,8 +82,8 @@ function scrollGenerateSearchInputWordBox() {
     wheelEvent.preventDefault();
     if (!box) return;
     isAddScrollGenerateSearchInputWordBoxEvent.value = true;
-    box.scrollLeft += wheelEvent.deltaX + (wheelEvent.deltaY / document.body.offsetHeight * box.clientWidth / 2);
-  });
+    box.scrollLeft += wheelEvent.deltaX + (wheelEvent.deltaY / document.body.offsetHeight * box.clientWidth);
+  }, { passive: false });
 }
 
 /**
