@@ -12,6 +12,8 @@ const props = defineProps<{
   top?: string | undefined,
   width?: string | undefined,
   zIndex?: string | undefined,
+  class?: string | undefined,
+  style?: string | undefined,
 }>()
 
 const emit = defineEmits([
@@ -185,7 +187,7 @@ nuxtApp.hook("page:finish", () => {
 <template>
   <!-- 输入框下方的弹出框 -->
   <div :class="'fixed left-0 top-0 w-screen h-0 ' + (props.zIndex && typeof props.zIndex == 'string' && props.zIndex.trim().length > 0 ? props.zIndex : 'z-0') + ' search-tips-area-cover'"></div>
-  <div @click.stop="false" :class="'absolute ' + (props.top && typeof props.top == 'string' && props.top.trim().length > 0 ? props.top + ' ' : '') + 'left-0 inline-flex ' + (props.width && typeof props.width == 'string' && props.width.trim().length > 0 ? props.width + ' ' : '') + ' max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area'" :style="(props.zIndex && typeof props.zIndex == 'string' && props.zIndex.trim().length > 0 ? 'z-index:' + (Number(props.zIndex.trim().replace('z-','')) + 1) + ';' : '')">
+  <div @click.stop="false" :class="'absolute ' + (props.top && typeof props.top == 'string' && props.top.trim().length > 0 ? props.top + ' ' : '') + 'left-0 inline-flex ' + (props.width && typeof props.width == 'string' && props.width.trim().length > 0 ? props.width + ' ' : '') + 'max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area' + (props.class&&typeof props.class=='string'&&props.class.trim().length>0?' '+props.class:'')" :style="(props.zIndex && typeof props.zIndex == 'string' && props.zIndex.trim().length > 0 ? 'z-index:' + (Number(props.zIndex.trim().replace('z-','')) + 1) + ';' : '') + (props.style&&typeof props.style == 'string'&&props.style.length>0?props.style:'')">
     <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
     <div v-if="props.searchValue?.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-full px-10 py-4">
       <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
@@ -249,12 +251,12 @@ nuxtApp.hook("page:finish", () => {
     <!-- 已输入任何搜索内容 -->
     <div v-if="props.searchValue?.trim() !== ''" class="inline-flex flex-col w-full h-full px-2 py-1 pb-2">
       <!-- 猜你想搜 -->
-      <div class="inline-flex flex-row items-center justify-between w-full search-input-history-box">
+      <div class="relative inline-flex flex-row items-center justify-start w-full search-input-history-box">
         <h1 class="text-xs pr-2 mb-2 whitespace-nowrap guess-what-you-want-to-search-tips">猜你想搜</h1>
-        <ul class="inline-flex flex-row text-xs list-none pb-1 overflow-x-scroll search-input-history-list generate-search-input-word-list">
+        <ul class="inline-flex flex-row text-xs list-none pb-1 mr-4 overflow-x-scroll search-input-history-list generate-search-input-word-list">
           <li @click.stop="$emit('gotoSearch',item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in whatYouWantSearchList">{{ item }}</li>
         </ul>
-        <button @click.stop="regenerateWhatYouWantSearchList()" class="inline-flex flex-row justify-center items-center w-4 pl-1 mb-2">
+        <button @click.stop="regenerateWhatYouWantSearchList()" class="absolute right-0 inline-flex flex-row justify-center items-center w-4 pl-1 mb-2">
           <svg class="w-4 regenerate-search-input-word-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12 23q-2.8 0-5.15-1.275T3 18.325V21H1v-6h6v2H4.525q1.2 1.8 3.163 2.9T12 21q1.875 0 3.513-.713t2.85-1.924q1.212-1.213 1.925-2.85T21 12h2q0 2.275-.863 4.275t-2.362 3.5q-1.5 1.5-3.5 2.363T12 23ZM1 12q0-2.275.863-4.275t2.362-3.5q1.5-1.5 3.5-2.362T12 1q2.8 0 5.15 1.275t3.85 3.4V3h2v6h-6V7h2.475q-1.2-1.8-3.163-2.9T12 3q-1.875 0-3.513.713t-2.85 1.924Q4.426 6.85 3.714 8.488T3 12H1Z"/></svg>
         </button>
       </div>
@@ -422,5 +424,11 @@ nuxtApp.hook("page:finish", () => {
 .search-text:focus-visible ~ .search-tips-area-cover,
 .search-tips-area-cover.expanded {
   height: 100vh;
+}
+
+@media (min-width: 768px) {
+  .search-tips-area.in-header {
+    width: calc(100% - 4rem);
+  }
 }
 </style>
