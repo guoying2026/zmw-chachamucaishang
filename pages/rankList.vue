@@ -3,9 +3,13 @@ import { RankingListItem } from '~/types/rankingListItem'
 
 const route = useRoute()
 
+const nuxtApp = useNuxtApp()
+
 useHead({
   title: '信用排行榜',
 })
+
+const isMobile = ref<boolean>(false)
 
 const headerWidth = ref<string>('100vw');
 
@@ -20,6 +24,16 @@ const totalPages = ref<number>(9);
 const inputPage = ref<number>(currentPage.value);
 
 const list = ref<RankingListItem[]>([]);
+
+const intersectionObserver = ref<IntersectionObserver | null>(null)
+
+watch(() => intersectionObserver.value, (newProps) => {
+  const el = document.querySelector('.load-more-tips')
+  if (newProps && el) {
+    newProps.unobserve(el)
+    newProps.observe(el)
+  }
+})
 
 const {
   pending: isRankListPending,
@@ -45,7 +59,7 @@ function rankListChangedHandle (newProps: any) {
     },
   }
   if (!res || res.code != 200 || !res.result) return;
-  list.value = res.result.data.map(item => {
+  let temp = res.result.data.map(item => {
     return {
       id: Number(item.id),
       credit_code: item.credit_code,
@@ -59,6 +73,11 @@ function rankListChangedHandle (newProps: any) {
       range: '脚墩、托盘、胶合板',
     }
   })
+  if (window.screen.width < 768) {
+    list.value = list.value.concat(temp)
+  } else {
+    list.value = temp
+  }
   currentPage.value = res.result.current_page
   pageSize.value = res.result.page_size
   totalPages.value = res.result.total_page
@@ -118,15 +137,35 @@ function changeRankDigitsToElClass(rankNum: number) {
   }
   return '';
 }
+
+nuxtApp.hook('page:finish', () => {
+  isMobile.value = window.screen.width < 768
+  const intersectionObserverCallback = (entries: IntersectionObserverEntry[]) => {
+    if (entries[0].intersectionRatio <= 0) return;
+    if (currentPage.value + 1 <= totalPages.value) {
+      currentPage.value = currentPage.value + 1
+      rankListRefresh()
+    }
+  }
+  if (window.screen.width < 768 && !intersectionObserver.value) intersectionObserver.value = new IntersectionObserver(intersectionObserverCallback)
+  window.addEventListener('resize', () => {
+    isMobile.value = window.screen.width < 768
+    if (!intersectionObserver.value) return;
+    intersectionObserver.value.disconnect()
+    if (window.screen.width < 768) {
+      intersectionObserver.value = new IntersectionObserver(intersectionObserverCallback)
+    }
+  })
+})
 </script>
 
 <template>
   <div class="inline-block w-full bg-no-repeat bg-cover header" :style="'--real-width:'+headerWidth+';'"></div>
   <div class="relative inline-block w-full list" :style="'--real-width:'+headerWidth+';'">
-    <div :class="'relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(((currentPage - 1) * pageSize) + index + 1)" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
+    <div :class="'relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1))" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
       <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
       <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
-      <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(((currentPage - 1) * pageSize) + index + 1)">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
+      <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1))">N0.{{ isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1) }}</div>
       <div class="absolute inline-block text-xs md:text-base item-title">{{ item.company_name }}</div>
       <div class="absolute inline-flex flex-row justify-between items-center text-xs md:text-sm whitespace-nowrap pr-4 item-sec_line">
         <div class="relative">法人:{{ item.corporation }}</div>
@@ -141,6 +180,10 @@ function changeRankDigitsToElClass(rankNum: number) {
       </div>
       <div class="absolute inline-block text-xs md:text-sm item-third_line">地址:{{ item.address }}</div>
     </div>
+  </div>
+  <div :class="'relative ' + (currentPage > totalPages || isRankListPending ? 'hidden' : 'inline-flex') + ' md:hidden flex-row justify-center items-center w-full py-1 mt-4 load-more-tips'" style="color: rgb(151,151,151);">
+    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg>
+    <span>加载中...</span>
   </div>
   <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">
     <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage > 1" @click="jumpToPrevPage">上一页</div>
