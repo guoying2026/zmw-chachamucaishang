@@ -3,6 +3,7 @@ import {defineNuxtPlugin, useNuxtApp } from 'nuxt/app';
 import BaiduMap from 'vue-baidu-map-3x'
 import { serviceContainer } from '~/pinia/feedback/FeedbackServiceContainer';
 import { commentFeedbackHandler } from '~/pinia/feedback/handlers/commentFeedbackHandler';
+import { commentReplyFeedbackHandler } from '~/pinia/feedback/handlers/commentReplyFeedbackHandler';
 
 export default defineNuxtPlugin({
     name: 'vue-baidu-map-3x',
@@ -19,6 +20,7 @@ export default defineNuxtPlugin({
             console.log('插件被注册')
             // 在此可以进行一些当应用被创建时的操作，如果有需要的话
             serviceContainer.registerHandler('comment', commentFeedbackHandler);
+            serviceContainer.registerHandler('commentReply', commentReplyFeedbackHandler);
             console.log(`Handler for 'comment' registered successfully.`);
         }
     }
