@@ -43,23 +43,26 @@ export const getAnswerOssSignatureApi = async (data: Record<string, any>) => {
  * @returns Promise 返回上传结果
  */
 export const pushAnswerOssApi = async (url: string, formData: FormData) => {
-    try {
-        // 使用fetch发送POST请求
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'multipart/form-data' },
-            body: formData
+    // 注意：我们在这里不设置 'Content-Type'，因为浏览器会自动处理它，并为multipart/form-data添加适当的boundary。
+    return fetch(url, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error pushing to OSS: ${response.statusText}`);
+            }
+            // Check if the response headers indicate a JSON content type
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                return response.json();
+            } else {
+                // If not JSON, resolve with the full response (this might be changed depending on how you want to handle non-JSON responses)
+                return response;
+            }
+        })
+        .catch(error => {
+            console.error("Failed to push to OSS:", error);
+            throw error;
         });
-
-        // 检查响应状态
-        if (!response.ok) {
-            throw new Error(`Error pushing to OSS: ${response.statusText}`);
-        }
-
-        // 返回响应的JSON数据
-        return await response.json();
-    } catch (error) {
-        console.error("Failed to push to OSS:", error);
-        throw error;
-    }
 }

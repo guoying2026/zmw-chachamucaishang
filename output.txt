@@ -1,0 +1,838 @@
+/Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add
+├── addAnswer.ts
+├── addComment.ts
+├── addCommentReply.ts
+├── addComplaint.ts
+├── addComplaintReply.ts
+├── addQuestion.ts
+└── base.ts
+
+1 directory, 7 files
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/base.ts =====
+//共享的辅助函数
+export const sharedState = () => ({
+    fileList: [] as any[],
+    fileBeingUploaded: false,
+    textareaValue: '',
+});
+
+export const sharedActions = (store: any) => ({
+    setFileList(files: any[]) {
+        store.fileList = files;
+    },
+    setFileBeingUploaded(status: boolean) {
+        store.fileBeingUploaded = status;
+    },
+    setTextareaValue(value: string) {
+        store.textareaValue = value;
+    },
+    clearAll() {
+        store.fileList = [];
+        store.textareaValue = '';
+        store.fileBeingUploaded = false;
+    },
+});
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addComplaint.ts =====
+import { defineStore } from 'pinia';
+import { sharedState, sharedActions } from './base';
+
+export const useAddComplaintStore = defineStore('addComplaintStore', {
+    state: () => ({
+        ...sharedState(),
+        // ... Additional state specific to AddCommentStore
+        commentTitle: '',
+    }),
+    actions: {
+        ...sharedActions(this),
+        // ... Add other actions specific to AddCommentStore
+    }
+});
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addQuestion.ts =====
+import { defineStore } from 'pinia';
+import { sharedState, sharedActions } from './base';
+
+export const useAddQuestionStore = defineStore('addQuestionStore', {
+    state: () => ({
+        ...sharedState(),
+        // ... Additional state specific to AddCommentStore
+        commentTitle: '',
+    }),
+    actions: {
+        ...sharedActions(this),
+        // ... Add other actions specific to AddCommentStore
+    }
+});
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addComplaintReply.ts =====
+import { defineStore } from 'pinia';
+import { sharedState, sharedActions } from './base';
+
+export const useAddComplaintReplyStore = defineStore('addComplaintReplyStore', {
+    state: () => ({
+        ...sharedState(),
+        // ... Additional state specific to AddCommentStore
+        commentTitle: '',
+    }),
+    actions: {
+        ...sharedActions(this),
+        // ... Add other actions specific to AddCommentStore
+    }
+});
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addCommentReply.ts =====
+import { defineStore } from 'pinia';
+import { sharedState, sharedActions } from './base';
+
+export const useAddCommentReplyStore = defineStore('addCommentReplyStore', {
+    state: () => ({
+        ...sharedState(),
+        // ... Additional state specific to AddCommentStore
+        commentTitle: '',
+    }),
+    actions: {
+        ...sharedActions(this),
+        // ... Add other actions specific to AddCommentStore
+    }
+});
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addComment.ts =====
+import { defineStore } from 'pinia';
+import { sharedState, sharedActions } from './base';
+
+export const useAddCommentStore = defineStore('addCommentStore', {
+    state: () => ({
+        ...sharedState(),
+        // ... Additional state specific to AddCommentStore
+        commentTitle: '',
+    }),
+    actions: {
+        ...sharedActions(this),
+        // ... Add other actions specific to AddCommentStore
+    }
+});
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addAnswer.ts =====
+import { defineStore } from 'pinia';
+import { sharedState, sharedActions } from './base';
+
+export const useAddAnswerStore = defineStore('addAnswerStore', {
+    state: () => ({
+        ...sharedState(),
+        // ... Additional state specific to AddCommentStore
+        commentTitle: '',
+    }),
+    actions: {
+        ...sharedActions(this),
+        // ... Add other actions specific to AddCommentStore
+    }
+});
+-e 
+
+/Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Comment
+├── AddComment.vue
+├── AddCommentReply.vue
+└── CommentList.vue
+
+1 directory, 3 files
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Comment/AddComment.vue =====
+<template>
+  <div>
+    <!-- 插槽用于放置触发按钮 -->
+    <slot name="trigger"></slot>
+
+    <!-- 如果internalShow为真，显示遮罩层和评论框 -->
+    <div class="overlay" v-if="internalShow" @click="closeCommentBox">
+      <div class="add-box" @click.stop>
+        <img class="close-box" @click="closeCommentBox" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_574ad6b3-3918-4434-babf-0fd2db4a90a5.png" alt="关闭按钮">
+        <h1>我要评论</h1>
+        <!-- 文本域用于输入评论 -->
+        <div class="add-box-2">
+          <text>评论商家：张家港木业有限公司</text>
+          <el-checkbox v-model="anonymity">匿名评价</el-checkbox>
+        </div>
+        <Textarea
+            placeholderText="我们鼓励真实有帮助的评价"
+            :onTextareaChange="addCommentStore.setTextareaValue"
+            :textareaValue="addCommentStore.$state.textareaValue"
+        />
+        <FileUpload
+            :fileList="addCommentStore.$state.fileList"
+            :onFileListChange="addCommentStore.setFileList"
+            :onFileBeingUploadedChange="addCommentStore.setFileBeingUploaded"
+        />
+        <div class="add-box-3">
+          <Tag color="orange" tag="发布评论" @click="submitComment"></Tag>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, watch, defineProps, defineEmits } from 'vue';
+import {useAddCommentStore} from "~/pinia/add/addComment";
+
+// 接收父组件传递的show属性
+const props = defineProps<{
+  show: boolean;
+}>();
+
+const anonymity = ref(false)
+
+// 用于触发更新show的值的事件
+const emit = defineEmits();
+
+const internalShow = ref(props.show);
+//使用了watch来观察props.show和internalShow的变化。这种做法更为严格，确保子组件的本地状态（internalShow）和父组件传递的props.show始终保持同步。
+//当props.show变化时，它会同步到internalShow。
+//当internalShow变化时，它会检查是否与props.show有差异，如果有，则通过事件通知父组件。
+//这种做法适合于子组件和父组件之间的状态需要始终保持同步的场景。例如，如果父组件可能会因其他原因更改show，并且我们希望子组件能够捕捉到这种变化并做出响应。
+watch(() => props.show, (newValue) => {
+  internalShow.value = newValue;
+});
+
+// 更新showCommentBox的值并触发更新事件
+watch(internalShow, (newVal) => {
+  if (newVal !== props.show) {
+    emit('update:show', newVal);
+  }
+});
+
+const addCommentStore = useAddCommentStore();
+
+const submitComment = () => {
+  console.log("提交评论");
+  // console.log(uploadingStatus.value);
+  // if (uploadingStatus.value) {
+  if(addCommentStore.fileBeingUploaded){
+    ElMessage({
+      showClose: true,
+      message: '文件正在上传中，请稍后再试',
+      type: 'warning',
+    })
+    return;  // 如果文件正在上传，不继续执行
+  } else {
+    console.log(addCommentStore.$state);
+    console.log('提交评论');
+    // addCommentStore.clearAll();  // 清理状态
+  }
+};
+
+// 提交评论的方法
+
+// 关闭评论框的方法
+const closeCommentBox = () => {
+  internalShow.value = false;
+};
+
+//发布评论开始
+//发布评论结束
+//添加评论结束
+</script>
+
+<style scoped>
+.close-box{
+  width: 20px;
+  height: 20px;
+  align-self: flex-end;
+}
+.add-box-2{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 0 0;
+  color: #333;
+}
+.add-box h1{
+  align-self: center;
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: bolder;
+  letter-spacing: 2px;
+  background-size: cover;
+  background-position: center;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  color: #000;
+  z-index: 999;
+}
+
+.add-box {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 766px;
+  height: 550px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 25px;
+  background: url(https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_8bf78604-a95e-4cc5-b5cc-06d01140952c.png);
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.overlay:deep(.el-checkbox__inner) {
+  border-radius: 10px;
+}
+</style>
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Comment/AddCommentReply.vue =====
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Comment/CommentList.vue =====
+<template>
+  <div class="comment">
+    <div class="comment_item">
+      <div class="comment_item_1">
+        <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+        <figcaption class="avatar-name__name margin-10-left">
+          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+        </figcaption>
+      </div>
+      <div class="comment_item_2">
+        <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+        <div class="comment_item_3">
+          <text class=" time grey-color">2020-08-09 12:12:30</text>
+          <div class="comment_item_4">
+            <div class="comment_item_4_s s_1">
+              <svg t="1691744480998" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7486" width="200" height="200"><path d="M889.6 396.8l-281.6 0c25.6-134.4 76.8-300.8-32-352-115.2-51.2-121.6 19.2-134.4 134.4-12.8 121.6-192 249.6-192 249.6l0 563.201 608 0c83.2-38.4 134.4-377.6 160-499.2s-128-96-128-96zM0 428.8l179.201 0 0 569.6-179.201 0 0-569.6z" fill="#ffffff" p-id="7487"></path></svg>
+              <text class="margin-10-left grey-color">12</text>
+            </div>
+            <div class="comment_item_4_s s_2">
+              <svg t="1691744322247" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4418" width="200" height="200"><path d="M0.324216 544.126266V99.856667c0-42.502075 34.439126-76.943007 76.950232-76.943007h69.252138v597.416871l-69.252138 0.727905C34.779598 621.060242 0.324216 586.621116 0.324216 544.126266zM906.401774 701.805334c-101.960909-0.643013-203.927236-1.295057-305.889952-1.936264 14.372063 50.5578 21.64389 95.465755 21.64389 135.014667 0 89.738243-78.615563 177.607053-157.128172 166.202603-69.225045-10.057012-76.829216-69.88612-76.829216-144.858545v-67.689761c0-86.871778-72.916951-160.897746-157.451485-169.040169l-11.119068 0.106567V22.915466h602.566394c56.362979 0 104.7768 40.090776 115.278141 95.47298 28.068601 148.097091 56.146233 296.181539 84.21664 444.269599 12.045656 63.672736-29.79715 125.053384-93.46808 137.09904a116.62016 116.62016 0 0 1-21.819092 2.048249z" fill="#ffffff" p-id="4419" data-spm-anchor-id="a313x.search_index.0.i8.81863a81qlwlOT" class="selected"></path></svg>
+              <text class="margin-10-left grey-color">12</text>
+            </div>
+            <text class="margin-20-left grey-color">回复</text>
+          </div>
+        </div>
+      </div>
+      <div class="reply">
+        <div class="reply_item">
+          <div class="reply_item_1">
+            <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+            <figcaption class="avatar-name__name margin-10-left">
+              <strong class="text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+            </figcaption>
+          </div>
+          <div class="reply_item_2">
+            <p class="margin-10-top">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+            <div class="reply_item_3">
+              <text class=" time grey-color">2020-08-09 12:12:30</text>
+              <div class="reply_item_4">
+                <div class="comment_item_4_s s_1">
+                  <svg t="1691744558644" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9341" width="200" height="200"><path d="M341.196926 1023.989977H85.299231a84.019743 84.019743 0 0 1-85.299231-82.313758V466.5595A84.019743 84.019743 0 0 1 85.299231 384.245742h255.897695zM85.299231 938.690746h170.598463V469.544973H85.299231z" fill="#ffffff" p-id="9342"></path><path d="M783.899937 1023.989977H298.54731a42.649616 42.649616 0 0 1-42.649616-42.649615V426.895357a42.649616 42.649616 0 0 1 17.273095-34.33294c69.092377-50.966291 150.97964-168.465982 157.803578-250.139996A142.449716 142.449716 0 0 1 711.39559 107.02324a142.236468 142.236468 0 0 1 5.331202 37.531661v25.163274A452.938919 452.938919 0 0 1 685.805821 341.596126h203.651915a125.816366 125.816366 0 0 1 106.624039 53.31202 174.863424 174.863424 0 0 1 19.405575 151.192887l-105.984295 382.567053v2.985473A140.103988 140.103988 0 0 1 783.899937 1023.989977zM341.196926 938.690746h442.703011a56.723989 56.723989 0 0 0 43.929104-34.332941l104.918054-382.140556v-2.985474a92.336418 92.336418 0 0 0-8.316675-75.276571 40.517135 40.517135 0 0 0-36.038925-17.059847H615.220707a42.649616 42.649616 0 0 1-35.399181-66.5334 333.306747 333.306747 0 0 0 51.606035-190.643782V144.341653A57.150485 57.150485 0 0 0 629.081832 128.348048a57.363733 57.363733 0 0 0-112.808234 15.353861 16.206854 16.206854 0 0 1 0 3.198721C508.596667 248.833212 422.657692 378.701292 341.196926 448.220165z" fill="#ffffff" p-id="9343"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+                <div class="comment_item_4_s s_2">
+                  <svg t="1691744401336" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4593" width="200" height="200"><path d="M300 608.864V88h477.916c25.815 0 41.979 5.525 51.808 14.617 6.238 6.125 9.602 13.574 10.735 20.38l0.438 2.633 92.314 402.165 0.176 0.712c5.816 23.53 1.843 43.53-10.447 59.143-9.517 11.702-32.017 21.182-59.61 21.182H546.349l72.213 130.586c7.856 14.206 15.912 31.605 23.947 53.053 10.618 28.344 20.148 61.09 28.115 98.645 0.036 0.32-0.053 0.518-0.461 1.612-1.324 3.544-4.218 8.523-9.47 15.814C644.654 926.839 623.467 936 594.813 936c-18.135 0-28.537-4.288-37.618-12.874-8.405-7.946-14.718-17.855-25.561-39.254l-5.634-11.118-5.344-5.732c-0.433-0.72-0.918-1.551-1.444-2.474-1.787-3.135-7.986-14.904-10.1-18.652l0.01-0.006c-25.204-43.028-36.934-62.463-52.366-85.841-21.447-32.49-42.12-59.384-64.482-82.682-28.251-29.434-58.872-52.508-92.273-68.503z m-88-24.668a289.824 289.824 0 0 0-29.43-1.476H97.667c-6.617 0-8.667-2.052-8.667-8.768V96.256C89 90.049 91.054 88 97.667 88H212v496.196z m483.57 112.636h167.76c53.193 0 101.27-20.48 128.379-54.272 29.665-37.376 39.382-85.504 27.107-135.168l-91.552-398.848c-2.557-15.36-10.74-44.544-36.826-69.632C863.331 13.312 825.482 0 777.916 0H97.667C42.429 0 1 41.472 1 96.256v477.696c0 55.296 41.429 96.768 96.667 96.768h84.903c121.729 0 184.64 107.008 250.618 219.648 1.535 2.56 12.787 25.6 19.947 33.28C471.037 958.976 504.282 1024 594.811 1024c55.239 0 101.782-20.992 135.027-60.928 17.39-23.552 34.268-52.224 27.108-89.088-7.304-34.634-15.547-64.206-23.833-89.152l-37.543-88z" fill="#ffffff" p-id="4594"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+                <text class="margin-20-left grey-color">回复</text>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reply_item">
+          <div class="reply_item_1">
+            <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+            <figcaption class="avatar-name__name margin-10-left">
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+            </figcaption>
+          </div>
+          <div class="reply_item_2">
+            <p class="margin-10-top">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+            <div class="reply_item_3">
+              <text class=" time grey-color">2020-08-09 12:12:30</text>
+              <div class="reply_item_4">
+                <div class="comment_item_4_s s_1">
+                  <svg t="1691744558644" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9341" width="200" height="200"><path d="M341.196926 1023.989977H85.299231a84.019743 84.019743 0 0 1-85.299231-82.313758V466.5595A84.019743 84.019743 0 0 1 85.299231 384.245742h255.897695zM85.299231 938.690746h170.598463V469.544973H85.299231z" fill="#ffffff" p-id="9342"></path><path d="M783.899937 1023.989977H298.54731a42.649616 42.649616 0 0 1-42.649616-42.649615V426.895357a42.649616 42.649616 0 0 1 17.273095-34.33294c69.092377-50.966291 150.97964-168.465982 157.803578-250.139996A142.449716 142.449716 0 0 1 711.39559 107.02324a142.236468 142.236468 0 0 1 5.331202 37.531661v25.163274A452.938919 452.938919 0 0 1 685.805821 341.596126h203.651915a125.816366 125.816366 0 0 1 106.624039 53.31202 174.863424 174.863424 0 0 1 19.405575 151.192887l-105.984295 382.567053v2.985473A140.103988 140.103988 0 0 1 783.899937 1023.989977zM341.196926 938.690746h442.703011a56.723989 56.723989 0 0 0 43.929104-34.332941l104.918054-382.140556v-2.985474a92.336418 92.336418 0 0 0-8.316675-75.276571 40.517135 40.517135 0 0 0-36.038925-17.059847H615.220707a42.649616 42.649616 0 0 1-35.399181-66.5334 333.306747 333.306747 0 0 0 51.606035-190.643782V144.341653A57.150485 57.150485 0 0 0 629.081832 128.348048a57.363733 57.363733 0 0 0-112.808234 15.353861 16.206854 16.206854 0 0 1 0 3.198721C508.596667 248.833212 422.657692 378.701292 341.196926 448.220165z" fill="#ffffff" p-id="9343"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+                <div class="comment_item_4_s s_2">
+                  <svg t="1691744401336" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4593" width="200" height="200"><path d="M300 608.864V88h477.916c25.815 0 41.979 5.525 51.808 14.617 6.238 6.125 9.602 13.574 10.735 20.38l0.438 2.633 92.314 402.165 0.176 0.712c5.816 23.53 1.843 43.53-10.447 59.143-9.517 11.702-32.017 21.182-59.61 21.182H546.349l72.213 130.586c7.856 14.206 15.912 31.605 23.947 53.053 10.618 28.344 20.148 61.09 28.115 98.645 0.036 0.32-0.053 0.518-0.461 1.612-1.324 3.544-4.218 8.523-9.47 15.814C644.654 926.839 623.467 936 594.813 936c-18.135 0-28.537-4.288-37.618-12.874-8.405-7.946-14.718-17.855-25.561-39.254l-5.634-11.118-5.344-5.732c-0.433-0.72-0.918-1.551-1.444-2.474-1.787-3.135-7.986-14.904-10.1-18.652l0.01-0.006c-25.204-43.028-36.934-62.463-52.366-85.841-21.447-32.49-42.12-59.384-64.482-82.682-28.251-29.434-58.872-52.508-92.273-68.503z m-88-24.668a289.824 289.824 0 0 0-29.43-1.476H97.667c-6.617 0-8.667-2.052-8.667-8.768V96.256C89 90.049 91.054 88 97.667 88H212v496.196z m483.57 112.636h167.76c53.193 0 101.27-20.48 128.379-54.272 29.665-37.376 39.382-85.504 27.107-135.168l-91.552-398.848c-2.557-15.36-10.74-44.544-36.826-69.632C863.331 13.312 825.482 0 777.916 0H97.667C42.429 0 1 41.472 1 96.256v477.696c0 55.296 41.429 96.768 96.667 96.768h84.903c121.729 0 184.64 107.008 250.618 219.648 1.535 2.56 12.787 25.6 19.947 33.28C471.037 958.976 504.282 1024 594.811 1024c55.239 0 101.782-20.992 135.027-60.928 17.39-23.552 34.268-52.224 27.108-89.088-7.304-34.634-15.547-64.206-23.833-89.152l-37.543-88z" fill="#ffffff" p-id="4594"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+                <text class="margin-20-left grey-color">回复</text>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="comment_item">
+      <div class="comment_item_1">
+        <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+        <figcaption class="avatar-name__name margin-10-left">
+          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">最初的梦想</strong>
+        </figcaption>
+      </div>
+      <div class="comment_item_2">
+        <p class="margin-10-top ">上个周末，我搬家具的时候，没想到沙发从手里滑出，砸在了我那美丽的枫木地板上。当时我真的气坏了，地板上出现了一道明显的划痕，让我觉得心疼不已。原本觉得枫木地板很美观耐用，但现在看来，这种地板在耐磨和抗冲击方面还是有待提高。我真心希望商家能重视这个问题，优化地板的制作工艺，让它在遇到类似意外时能更好地抵抗划痕。毕竟，我们花了不少钱购买这样的地板，自然希望能长时间保持美观。而且，生活中类似的意外难免会发生，如果地板能提高耐磨性和抗冲击性，那我们在享受枫木地板美观舒适的同时，也会更加放心。</p>
+        <div class="comment_item_3">
+          <text class=" time grey-color">2020-08-09 12:12:30</text>
+          <div class="comment_item_4">
+            <div class="comment_item_4_s s_1">
+              <svg t="1691744480998" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7486" width="200" height="200"><path d="M889.6 396.8l-281.6 0c25.6-134.4 76.8-300.8-32-352-115.2-51.2-121.6 19.2-134.4 134.4-12.8 121.6-192 249.6-192 249.6l0 563.201 608 0c83.2-38.4 134.4-377.6 160-499.2s-128-96-128-96zM0 428.8l179.201 0 0 569.6-179.201 0 0-569.6z" fill="#ffffff" p-id="7487"></path></svg>
+              <text class="margin-10-left grey-color">12</text>
+            </div>
+            <div class="comment_item_4_s s_2">
+              <svg t="1691744322247" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4418" width="200" height="200"><path d="M0.324216 544.126266V99.856667c0-42.502075 34.439126-76.943007 76.950232-76.943007h69.252138v597.416871l-69.252138 0.727905C34.779598 621.060242 0.324216 586.621116 0.324216 544.126266zM906.401774 701.805334c-101.960909-0.643013-203.927236-1.295057-305.889952-1.936264 14.372063 50.5578 21.64389 95.465755 21.64389 135.014667 0 89.738243-78.615563 177.607053-157.128172 166.202603-69.225045-10.057012-76.829216-69.88612-76.829216-144.858545v-67.689761c0-86.871778-72.916951-160.897746-157.451485-169.040169l-11.119068 0.106567V22.915466h602.566394c56.362979 0 104.7768 40.090776 115.278141 95.47298 28.068601 148.097091 56.146233 296.181539 84.21664 444.269599 12.045656 63.672736-29.79715 125.053384-93.46808 137.09904a116.62016 116.62016 0 0 1-21.819092 2.048249z" fill="#ffffff" p-id="4419" data-spm-anchor-id="a313x.search_index.0.i8.81863a81qlwlOT" class="selected"></path></svg>
+              <text class="margin-10-left grey-color">12</text>
+            </div>
+            <text class="margin-20-left grey-color">回复</text>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import 'assets/css/comment.scss'
+</script>
+-e 
+
+/Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Complaint
+├── AddComplaint.vue
+├── AddComplaintReply.vue
+└── ComplaintList.vue
+
+1 directory, 3 files
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Complaint/AddComplaintReply.vue =====
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Complaint/AddComplaint.vue =====
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Complaint/ComplaintList.vue =====
+<template>
+  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png"/>
+</template>
+-e 
+
+/Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Question
+├── AddAnswer.vue
+├── AddQuestion.vue
+└── QuestionList.vue
+
+1 directory, 3 files
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Question/AddQuestion.vue =====
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Question/QuestionList.vue =====
+<template>
+  <div class="question">
+    <div class="question_item">
+      <div class="question_item_1">
+        <div class="avatar-wrapper">
+          <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+          <span class="question-icon orange-bg">问</span>
+        </div>
+        <figcaption class="avatar-name__name margin-10-left">
+          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+        </figcaption>
+      </div>
+      <div class="question_item_2">
+        <p class="margin-10-top ">商品质量怎么样，有没有买过的，说说看</p>
+        <div class="question_item_3">
+          <text class=" time grey-color">2020-08-09 12:12:30</text>
+          <div class="question_item_4">
+            <div class="question_item_4_s s_1">
+              <svg t="1691744480998" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7486" width="200" height="200"><path d="M889.6 396.8l-281.6 0c25.6-134.4 76.8-300.8-32-352-115.2-51.2-121.6 19.2-134.4 134.4-12.8 121.6-192 249.6-192 249.6l0 563.201 608 0c83.2-38.4 134.4-377.6 160-499.2s-128-96-128-96zM0 428.8l179.201 0 0 569.6-179.201 0 0-569.6z" fill="#ffffff" p-id="7487"></path></svg>
+              <text class="margin-10-left grey-color">12</text>
+            </div>
+            <div class="question_item_4_s s_2">
+              <svg t="1691744322247" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4418" width="200" height="200"><path d="M0.324216 544.126266V99.856667c0-42.502075 34.439126-76.943007 76.950232-76.943007h69.252138v597.416871l-69.252138 0.727905C34.779598 621.060242 0.324216 586.621116 0.324216 544.126266zM906.401774 701.805334c-101.960909-0.643013-203.927236-1.295057-305.889952-1.936264 14.372063 50.5578 21.64389 95.465755 21.64389 135.014667 0 89.738243-78.615563 177.607053-157.128172 166.202603-69.225045-10.057012-76.829216-69.88612-76.829216-144.858545v-67.689761c0-86.871778-72.916951-160.897746-157.451485-169.040169l-11.119068 0.106567V22.915466h602.566394c56.362979 0 104.7768 40.090776 115.278141 95.47298 28.068601 148.097091 56.146233 296.181539 84.21664 444.269599 12.045656 63.672736-29.79715 125.053384-93.46808 137.09904a116.62016 116.62016 0 0 1-21.819092 2.048249z" fill="#ffffff" p-id="4419" data-spm-anchor-id="a313x.search_index.0.i8.81863a81qlwlOT" class="selected"></path></svg>
+              <text class="margin-10-left grey-color">12</text>
+            </div>
+            <text class="margin-20-left grey-color">回答</text>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="answer">
+        <div class="answer_item">
+          <div class="answer_item_1">
+            <div class="avatar-wrapper">
+              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+              <span class="question-icon blue-bg">答</span>
+            </div>
+            <figcaption class="avatar-name__name margin-10-left">
+              <strong class="text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+            </figcaption>
+          </div>
+          <div class="answer_item_2">
+            <p class="margin-10-top">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+            <div class="answer_item_3">
+              <text class=" time grey-color">2020-08-09 12:12:30</text>
+              <div class="answer_item_4">
+                <div class="question_item_4_s s_1">
+                  <svg t="1691744558644" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9341" width="200" height="200"><path d="M341.196926 1023.989977H85.299231a84.019743 84.019743 0 0 1-85.299231-82.313758V466.5595A84.019743 84.019743 0 0 1 85.299231 384.245742h255.897695zM85.299231 938.690746h170.598463V469.544973H85.299231z" fill="#ffffff" p-id="9342"></path><path d="M783.899937 1023.989977H298.54731a42.649616 42.649616 0 0 1-42.649616-42.649615V426.895357a42.649616 42.649616 0 0 1 17.273095-34.33294c69.092377-50.966291 150.97964-168.465982 157.803578-250.139996A142.449716 142.449716 0 0 1 711.39559 107.02324a142.236468 142.236468 0 0 1 5.331202 37.531661v25.163274A452.938919 452.938919 0 0 1 685.805821 341.596126h203.651915a125.816366 125.816366 0 0 1 106.624039 53.31202 174.863424 174.863424 0 0 1 19.405575 151.192887l-105.984295 382.567053v2.985473A140.103988 140.103988 0 0 1 783.899937 1023.989977zM341.196926 938.690746h442.703011a56.723989 56.723989 0 0 0 43.929104-34.332941l104.918054-382.140556v-2.985474a92.336418 92.336418 0 0 0-8.316675-75.276571 40.517135 40.517135 0 0 0-36.038925-17.059847H615.220707a42.649616 42.649616 0 0 1-35.399181-66.5334 333.306747 333.306747 0 0 0 51.606035-190.643782V144.341653A57.150485 57.150485 0 0 0 629.081832 128.348048a57.363733 57.363733 0 0 0-112.808234 15.353861 16.206854 16.206854 0 0 1 0 3.198721C508.596667 248.833212 422.657692 378.701292 341.196926 448.220165z" fill="#ffffff" p-id="9343"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+                <div class="question_item_4_s s_2">
+                  <svg t="1691744401336" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4593" width="200" height="200"><path d="M300 608.864V88h477.916c25.815 0 41.979 5.525 51.808 14.617 6.238 6.125 9.602 13.574 10.735 20.38l0.438 2.633 92.314 402.165 0.176 0.712c5.816 23.53 1.843 43.53-10.447 59.143-9.517 11.702-32.017 21.182-59.61 21.182H546.349l72.213 130.586c7.856 14.206 15.912 31.605 23.947 53.053 10.618 28.344 20.148 61.09 28.115 98.645 0.036 0.32-0.053 0.518-0.461 1.612-1.324 3.544-4.218 8.523-9.47 15.814C644.654 926.839 623.467 936 594.813 936c-18.135 0-28.537-4.288-37.618-12.874-8.405-7.946-14.718-17.855-25.561-39.254l-5.634-11.118-5.344-5.732c-0.433-0.72-0.918-1.551-1.444-2.474-1.787-3.135-7.986-14.904-10.1-18.652l0.01-0.006c-25.204-43.028-36.934-62.463-52.366-85.841-21.447-32.49-42.12-59.384-64.482-82.682-28.251-29.434-58.872-52.508-92.273-68.503z m-88-24.668a289.824 289.824 0 0 0-29.43-1.476H97.667c-6.617 0-8.667-2.052-8.667-8.768V96.256C89 90.049 91.054 88 97.667 88H212v496.196z m483.57 112.636h167.76c53.193 0 101.27-20.48 128.379-54.272 29.665-37.376 39.382-85.504 27.107-135.168l-91.552-398.848c-2.557-15.36-10.74-44.544-36.826-69.632C863.331 13.312 825.482 0 777.916 0H97.667C42.429 0 1 41.472 1 96.256v477.696c0 55.296 41.429 96.768 96.667 96.768h84.903c121.729 0 184.64 107.008 250.618 219.648 1.535 2.56 12.787 25.6 19.947 33.28C471.037 958.976 504.282 1024 594.811 1024c55.239 0 101.782-20.992 135.027-60.928 17.39-23.552 34.268-52.224 27.108-89.088-7.304-34.634-15.547-64.206-23.833-89.152l-37.543-88z" fill="#ffffff" p-id="4594"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="answer_item">
+          <div class="answer_item_1">
+            <div class="avatar-wrapper">
+              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+              <span class="question-icon blue-bg">答</span>
+            </div>
+            <figcaption class="avatar-name__name margin-10-left">
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+            </figcaption>
+          </div>
+          <div class="answer_item_2">
+            <p class="margin-10-top">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+            <div class="answer_item_3">
+              <text class=" time grey-color">2020-08-09 12:12:30</text>
+              <div class="answer_item_4">
+                <div class="question_item_4_s s_1">
+                  <svg t="1691744558644" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9341" width="200" height="200"><path d="M341.196926 1023.989977H85.299231a84.019743 84.019743 0 0 1-85.299231-82.313758V466.5595A84.019743 84.019743 0 0 1 85.299231 384.245742h255.897695zM85.299231 938.690746h170.598463V469.544973H85.299231z" fill="#ffffff" p-id="9342"></path><path d="M783.899937 1023.989977H298.54731a42.649616 42.649616 0 0 1-42.649616-42.649615V426.895357a42.649616 42.649616 0 0 1 17.273095-34.33294c69.092377-50.966291 150.97964-168.465982 157.803578-250.139996A142.449716 142.449716 0 0 1 711.39559 107.02324a142.236468 142.236468 0 0 1 5.331202 37.531661v25.163274A452.938919 452.938919 0 0 1 685.805821 341.596126h203.651915a125.816366 125.816366 0 0 1 106.624039 53.31202 174.863424 174.863424 0 0 1 19.405575 151.192887l-105.984295 382.567053v2.985473A140.103988 140.103988 0 0 1 783.899937 1023.989977zM341.196926 938.690746h442.703011a56.723989 56.723989 0 0 0 43.929104-34.332941l104.918054-382.140556v-2.985474a92.336418 92.336418 0 0 0-8.316675-75.276571 40.517135 40.517135 0 0 0-36.038925-17.059847H615.220707a42.649616 42.649616 0 0 1-35.399181-66.5334 333.306747 333.306747 0 0 0 51.606035-190.643782V144.341653A57.150485 57.150485 0 0 0 629.081832 128.348048a57.363733 57.363733 0 0 0-112.808234 15.353861 16.206854 16.206854 0 0 1 0 3.198721C508.596667 248.833212 422.657692 378.701292 341.196926 448.220165z" fill="#ffffff" p-id="9343"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+                <div class="question_item_4_s s_2">
+                  <svg t="1691744401336" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4593" width="200" height="200"><path d="M300 608.864V88h477.916c25.815 0 41.979 5.525 51.808 14.617 6.238 6.125 9.602 13.574 10.735 20.38l0.438 2.633 92.314 402.165 0.176 0.712c5.816 23.53 1.843 43.53-10.447 59.143-9.517 11.702-32.017 21.182-59.61 21.182H546.349l72.213 130.586c7.856 14.206 15.912 31.605 23.947 53.053 10.618 28.344 20.148 61.09 28.115 98.645 0.036 0.32-0.053 0.518-0.461 1.612-1.324 3.544-4.218 8.523-9.47 15.814C644.654 926.839 623.467 936 594.813 936c-18.135 0-28.537-4.288-37.618-12.874-8.405-7.946-14.718-17.855-25.561-39.254l-5.634-11.118-5.344-5.732c-0.433-0.72-0.918-1.551-1.444-2.474-1.787-3.135-7.986-14.904-10.1-18.652l0.01-0.006c-25.204-43.028-36.934-62.463-52.366-85.841-21.447-32.49-42.12-59.384-64.482-82.682-28.251-29.434-58.872-52.508-92.273-68.503z m-88-24.668a289.824 289.824 0 0 0-29.43-1.476H97.667c-6.617 0-8.667-2.052-8.667-8.768V96.256C89 90.049 91.054 88 97.667 88H212v496.196z m483.57 112.636h167.76c53.193 0 101.27-20.48 128.379-54.272 29.665-37.376 39.382-85.504 27.107-135.168l-91.552-398.848c-2.557-15.36-10.74-44.544-36.826-69.632C863.331 13.312 825.482 0 777.916 0H97.667C42.429 0 1 41.472 1 96.256v477.696c0 55.296 41.429 96.768 96.667 96.768h84.903c121.729 0 184.64 107.008 250.618 219.648 1.535 2.56 12.787 25.6 19.947 33.28C471.037 958.976 504.282 1024 594.811 1024c55.239 0 101.782-20.992 135.027-60.928 17.39-23.552 34.268-52.224 27.108-89.088-7.304-34.634-15.547-64.206-23.833-89.152l-37.543-88z" fill="#ffffff" p-id="4594"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="question_item">
+      <div class="question_item_1">
+        <div class="avatar-wrapper">
+          <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+          <span class="question-icon orange-bg">问</span>
+        </div>
+        <figcaption class="avatar-name__name margin-10-left">
+          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+        </figcaption>
+      </div>
+      <div class="question_item_2">
+        <p class="margin-10-top ">商品质量怎么样，有没有买过的，说说看</p>
+        <div class="question_item_3">
+          <text class=" time grey-color">2020-08-09 12:12:30</text>
+          <div class="question_item_4">
+            <div class="question_item_4_s s_1">
+              <svg t="1691744480998" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7486" width="200" height="200"><path d="M889.6 396.8l-281.6 0c25.6-134.4 76.8-300.8-32-352-115.2-51.2-121.6 19.2-134.4 134.4-12.8 121.6-192 249.6-192 249.6l0 563.201 608 0c83.2-38.4 134.4-377.6 160-499.2s-128-96-128-96zM0 428.8l179.201 0 0 569.6-179.201 0 0-569.6z" fill="#ffffff" p-id="7487"></path></svg>
+              <text class="margin-10-left grey-color">12</text>
+            </div>
+            <div class="question_item_4_s s_2">
+              <svg t="1691744322247" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4418" width="200" height="200"><path d="M0.324216 544.126266V99.856667c0-42.502075 34.439126-76.943007 76.950232-76.943007h69.252138v597.416871l-69.252138 0.727905C34.779598 621.060242 0.324216 586.621116 0.324216 544.126266zM906.401774 701.805334c-101.960909-0.643013-203.927236-1.295057-305.889952-1.936264 14.372063 50.5578 21.64389 95.465755 21.64389 135.014667 0 89.738243-78.615563 177.607053-157.128172 166.202603-69.225045-10.057012-76.829216-69.88612-76.829216-144.858545v-67.689761c0-86.871778-72.916951-160.897746-157.451485-169.040169l-11.119068 0.106567V22.915466h602.566394c56.362979 0 104.7768 40.090776 115.278141 95.47298 28.068601 148.097091 56.146233 296.181539 84.21664 444.269599 12.045656 63.672736-29.79715 125.053384-93.46808 137.09904a116.62016 116.62016 0 0 1-21.819092 2.048249z" fill="#ffffff" p-id="4419" data-spm-anchor-id="a313x.search_index.0.i8.81863a81qlwlOT" class="selected"></path></svg>
+              <text class="margin-10-left grey-color">12</text>
+            </div>
+            <text class="margin-20-left grey-color">回答</text>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="answer">
+        <div class="answer_item">
+          <div class="answer_item_1">
+            <div class="avatar-wrapper">
+              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+              <span class="question-icon blue-bg">答</span>
+            </div>
+            <figcaption class="avatar-name__name margin-10-left">
+              <strong class="text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+            </figcaption>
+          </div>
+          <div class="answer_item_2">
+            <p class="margin-10-top">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+            <div class="answer_item_3">
+              <text class=" time grey-color">2020-08-09 12:12:30</text>
+              <div class="answer_item_4">
+                <div class="question_item_4_s s_1">
+                  <svg t="1691744558644" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9341" width="200" height="200"><path d="M341.196926 1023.989977H85.299231a84.019743 84.019743 0 0 1-85.299231-82.313758V466.5595A84.019743 84.019743 0 0 1 85.299231 384.245742h255.897695zM85.299231 938.690746h170.598463V469.544973H85.299231z" fill="#ffffff" p-id="9342"></path><path d="M783.899937 1023.989977H298.54731a42.649616 42.649616 0 0 1-42.649616-42.649615V426.895357a42.649616 42.649616 0 0 1 17.273095-34.33294c69.092377-50.966291 150.97964-168.465982 157.803578-250.139996A142.449716 142.449716 0 0 1 711.39559 107.02324a142.236468 142.236468 0 0 1 5.331202 37.531661v25.163274A452.938919 452.938919 0 0 1 685.805821 341.596126h203.651915a125.816366 125.816366 0 0 1 106.624039 53.31202 174.863424 174.863424 0 0 1 19.405575 151.192887l-105.984295 382.567053v2.985473A140.103988 140.103988 0 0 1 783.899937 1023.989977zM341.196926 938.690746h442.703011a56.723989 56.723989 0 0 0 43.929104-34.332941l104.918054-382.140556v-2.985474a92.336418 92.336418 0 0 0-8.316675-75.276571 40.517135 40.517135 0 0 0-36.038925-17.059847H615.220707a42.649616 42.649616 0 0 1-35.399181-66.5334 333.306747 333.306747 0 0 0 51.606035-190.643782V144.341653A57.150485 57.150485 0 0 0 629.081832 128.348048a57.363733 57.363733 0 0 0-112.808234 15.353861 16.206854 16.206854 0 0 1 0 3.198721C508.596667 248.833212 422.657692 378.701292 341.196926 448.220165z" fill="#ffffff" p-id="9343"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+                <div class="question_item_4_s s_2">
+                  <svg t="1691744401336" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4593" width="200" height="200"><path d="M300 608.864V88h477.916c25.815 0 41.979 5.525 51.808 14.617 6.238 6.125 9.602 13.574 10.735 20.38l0.438 2.633 92.314 402.165 0.176 0.712c5.816 23.53 1.843 43.53-10.447 59.143-9.517 11.702-32.017 21.182-59.61 21.182H546.349l72.213 130.586c7.856 14.206 15.912 31.605 23.947 53.053 10.618 28.344 20.148 61.09 28.115 98.645 0.036 0.32-0.053 0.518-0.461 1.612-1.324 3.544-4.218 8.523-9.47 15.814C644.654 926.839 623.467 936 594.813 936c-18.135 0-28.537-4.288-37.618-12.874-8.405-7.946-14.718-17.855-25.561-39.254l-5.634-11.118-5.344-5.732c-0.433-0.72-0.918-1.551-1.444-2.474-1.787-3.135-7.986-14.904-10.1-18.652l0.01-0.006c-25.204-43.028-36.934-62.463-52.366-85.841-21.447-32.49-42.12-59.384-64.482-82.682-28.251-29.434-58.872-52.508-92.273-68.503z m-88-24.668a289.824 289.824 0 0 0-29.43-1.476H97.667c-6.617 0-8.667-2.052-8.667-8.768V96.256C89 90.049 91.054 88 97.667 88H212v496.196z m483.57 112.636h167.76c53.193 0 101.27-20.48 128.379-54.272 29.665-37.376 39.382-85.504 27.107-135.168l-91.552-398.848c-2.557-15.36-10.74-44.544-36.826-69.632C863.331 13.312 825.482 0 777.916 0H97.667C42.429 0 1 41.472 1 96.256v477.696c0 55.296 41.429 96.768 96.667 96.768h84.903c121.729 0 184.64 107.008 250.618 219.648 1.535 2.56 12.787 25.6 19.947 33.28C471.037 958.976 504.282 1024 594.811 1024c55.239 0 101.782-20.992 135.027-60.928 17.39-23.552 34.268-52.224 27.108-89.088-7.304-34.634-15.547-64.206-23.833-89.152l-37.543-88z" fill="#ffffff" p-id="4594"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="answer_item">
+          <div class="answer_item_1">
+            <div class="avatar-wrapper">
+              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+              <span class="question-icon blue-bg">答</span>
+            </div>
+            <figcaption class="avatar-name__name margin-10-left">
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+            </figcaption>
+          </div>
+          <div class="answer_item_2">
+            <p class="margin-10-top">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+            <div class="answer_item_3">
+              <text class=" time grey-color">2020-08-09 12:12:30</text>
+              <div class="answer_item_4">
+                <div class="question_item_4_s s_1">
+                  <svg t="1691744558644" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9341" width="200" height="200"><path d="M341.196926 1023.989977H85.299231a84.019743 84.019743 0 0 1-85.299231-82.313758V466.5595A84.019743 84.019743 0 0 1 85.299231 384.245742h255.897695zM85.299231 938.690746h170.598463V469.544973H85.299231z" fill="#ffffff" p-id="9342"></path><path d="M783.899937 1023.989977H298.54731a42.649616 42.649616 0 0 1-42.649616-42.649615V426.895357a42.649616 42.649616 0 0 1 17.273095-34.33294c69.092377-50.966291 150.97964-168.465982 157.803578-250.139996A142.449716 142.449716 0 0 1 711.39559 107.02324a142.236468 142.236468 0 0 1 5.331202 37.531661v25.163274A452.938919 452.938919 0 0 1 685.805821 341.596126h203.651915a125.816366 125.816366 0 0 1 106.624039 53.31202 174.863424 174.863424 0 0 1 19.405575 151.192887l-105.984295 382.567053v2.985473A140.103988 140.103988 0 0 1 783.899937 1023.989977zM341.196926 938.690746h442.703011a56.723989 56.723989 0 0 0 43.929104-34.332941l104.918054-382.140556v-2.985474a92.336418 92.336418 0 0 0-8.316675-75.276571 40.517135 40.517135 0 0 0-36.038925-17.059847H615.220707a42.649616 42.649616 0 0 1-35.399181-66.5334 333.306747 333.306747 0 0 0 51.606035-190.643782V144.341653A57.150485 57.150485 0 0 0 629.081832 128.348048a57.363733 57.363733 0 0 0-112.808234 15.353861 16.206854 16.206854 0 0 1 0 3.198721C508.596667 248.833212 422.657692 378.701292 341.196926 448.220165z" fill="#ffffff" p-id="9343"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+                <div class="question_item_4_s s_2">
+                  <svg t="1691744401336" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4593" width="200" height="200"><path d="M300 608.864V88h477.916c25.815 0 41.979 5.525 51.808 14.617 6.238 6.125 9.602 13.574 10.735 20.38l0.438 2.633 92.314 402.165 0.176 0.712c5.816 23.53 1.843 43.53-10.447 59.143-9.517 11.702-32.017 21.182-59.61 21.182H546.349l72.213 130.586c7.856 14.206 15.912 31.605 23.947 53.053 10.618 28.344 20.148 61.09 28.115 98.645 0.036 0.32-0.053 0.518-0.461 1.612-1.324 3.544-4.218 8.523-9.47 15.814C644.654 926.839 623.467 936 594.813 936c-18.135 0-28.537-4.288-37.618-12.874-8.405-7.946-14.718-17.855-25.561-39.254l-5.634-11.118-5.344-5.732c-0.433-0.72-0.918-1.551-1.444-2.474-1.787-3.135-7.986-14.904-10.1-18.652l0.01-0.006c-25.204-43.028-36.934-62.463-52.366-85.841-21.447-32.49-42.12-59.384-64.482-82.682-28.251-29.434-58.872-52.508-92.273-68.503z m-88-24.668a289.824 289.824 0 0 0-29.43-1.476H97.667c-6.617 0-8.667-2.052-8.667-8.768V96.256C89 90.049 91.054 88 97.667 88H212v496.196z m483.57 112.636h167.76c53.193 0 101.27-20.48 128.379-54.272 29.665-37.376 39.382-85.504 27.107-135.168l-91.552-398.848c-2.557-15.36-10.74-44.544-36.826-69.632C863.331 13.312 825.482 0 777.916 0H97.667C42.429 0 1 41.472 1 96.256v477.696c0 55.296 41.429 96.768 96.667 96.768h84.903c121.729 0 184.64 107.008 250.618 219.648 1.535 2.56 12.787 25.6 19.947 33.28C471.037 958.976 504.282 1024 594.811 1024c55.239 0 101.782-20.992 135.027-60.928 17.39-23.552 34.268-52.224 27.108-89.088-7.304-34.634-15.547-64.206-23.833-89.152l-37.543-88z" fill="#ffffff" p-id="4594"></path></svg>
+                  <text class="margin-10-left grey-color">12</text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import 'assets/css/question.scss'
+</script>
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Question/AddAnswer.vue =====
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/FileUpload.vue =====
+<template>
+  <!-- 上传文件开始 -->
+  <div class="file_upload">
+    <div class="tips">
+      <text>上传图片：</text>
+      <text class="limit">（仅限上传3张图片）</text>
+    </div>
+    <el-upload
+        class="upload_css"
+        action="#"
+        list-type="picture-card"
+        v-model:file-list="fileList"
+        :auto-upload="false"
+        :on-change="handleChange"
+        :on-success="handleSuccess"
+        :on-preview="handlePictureCardPreview"
+        :on-remove="handleRemove"
+        :limit="3"
+    >
+      <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_89ef73df-afa2-4f6b-b2d1-0faaf684cf0d.png" alt="上传图片">
+    </el-upload>
+
+    <el-dialog v-model="dialogVisible">
+      <img w-full :src="dialogImageUrl" alt="Preview Image" />
+    </el-dialog>
+
+  </div>
+  <!-- 上传文件结束 -->
+</template>
+
+<script lang="ts" setup>
+import { ref,defineProps } from 'vue';
+import { getAnswerOssSignatureApi, pushAnswerOssApi } from "~/server/api/ossUploadFile.post";
+import { handeSrcHttpsUtil, guidUtil } from "~/utils/httpReplace";
+
+
+const props = defineProps({
+  fileList: {
+    type: Array,
+    required: true
+  },
+  onFileListChange: {
+    type: Function,
+    required: true
+  },
+  onFileBeingUploadedChange: {
+    type: Function,
+    required: true
+  }
+});
+// 上传文件开始
+const submitFileList = ref<Record<number, string>[]>([]);
+const dialogImageUrl = ref('');
+const dialogVisible = ref(false);
+
+
+const handleSuccess = (): void => {
+  console.log('在执行handleSuccess');
+};
+
+const handleChange = async (uploadFile: any, uploadFiles: any) => {
+  console.log('在执行handleChange');
+  console.log(uploadFile);
+  console.log(uploadFiles);
+  if (uploadFile.status == 'ready') {
+    props.onFileBeingUploadedChange(true);
+    // addCommentStore.setFileBeingUploaded(true);
+  }
+
+  const res = await getAnswerOssSignatureApi({type: 'sell_img'});
+  console.log(res);
+  if (res.status === 1000) {
+    const post = res.data;
+    console.log(post);
+    post.host = handeSrcHttpsUtil(post.host);
+    const fileKey = `${post.dir}_pc_image_${guidUtil()}.png`;
+    const fileUrl = `${post.host}/${fileKey}`;
+    console.log('上传文件地址');
+    console.log(fileUrl);
+    const fileRawUid = uploadFile.raw.uid;
+    const formData = new FormData();
+
+    formData.append('OSSAccessKeyId', post.accessid);
+    formData.append('name', 'file');
+    formData.append('key', fileKey);
+    formData.append('policy', post.policy);
+    formData.append('success_action_status', '200');
+    formData.append('signature', post.signature);
+    formData.append('file', uploadFile.raw);
+    const result = await pushAnswerOssApi(post.host, formData);
+
+    // Check if the result is an object (parsed from JSON) and has a status of 200
+    if (typeof result === 'object' && result.status === 200) {
+      submitFileList.value.push({[fileRawUid]: fileUrl});
+      props.onFileListChange(submitFileList.value);
+      props.onFileBeingUploadedChange(false);
+      // addCommentStore.setFileList(submitFileList.value);
+      // addCommentStore.setFileBeingUploaded(false);
+    } else {
+      props.onFileBeingUploadedChange(false);
+      // addCommentStore.setFileBeingUploaded(false);
+    }
+  }
+};
+
+const handleRemove = (file: any, fileList: any[]): void => {
+  submitFileList.value = submitFileList.value.filter(item => !item[file.raw.uid]);
+  props.onFileListChange(submitFileList.value);
+};
+
+const handlePictureCardPreview = (file: any): void => {
+  dialogImageUrl.value = file.url;
+  dialogVisible.value = true;
+};
+</script>
+
+
+<style scoped>
+.upload_css{
+  margin-top: 20px;
+}
+.upload_css img{
+  width: 148px;
+  height: 148px;
+}
+/* 可以添加您需要的CSS样式 */
+.file_upload:deep(.el-upload--picture-card) {
+  //--el-upload-picture-card-size: 148px;
+  border: none !important;
+  border-radius: 10px;
+}
+.tips{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  color: #333;
+  margin-top: 20px;
+}
+.tips .limit{
+  font-size: 14px;
+}
+</style>
+-e 
+
+===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Textarea.vue =====
+<template>
+  <div class="addBox">
+    <el-input
+        v-model="textareaValue"
+        maxlength="500"
+        :placeholder="placeholderText"
+        show-word-limit
+        type="textarea"
+        :rows="5"
+        resize="none"
+        @input="handleTextareaChange"
+    />
+
+<!--    @input="handleTextareaChange($event)"这个里面为什么要加$event,在 Vue 中，$event 是一个特殊的变量，它引用了原生的 DOM 事件。当你使用 Vue 的事件监听器（如 @input、@click 等）在模板中监听一个事件，并且你想访问原生事件对象时，你可以使用 $event 来传递它。
+在您的例子中，@input="handleTextareaChange($event)" 将输入事件的原生事件对象传递给 handleTextareaChange 方法。这意味着在 handleTextareaChange 函数中，你可以访问到这个事件对象，从中提取所需的信息，如输入框的值等。
+不过，由于你使用了 v-model 和 el-input 组件，$event 实际上会是输入框的当前值，而不是完整的事件对象。所以，handleTextareaChange 函数可以直接接收这个值：
+这样写确实有点冗余，因为 v-model 已经自动处理了输入事件，并更新了绑定的数据属性。但在某些情况下，你可能需要额外的逻辑来处理输入事件，这时候访问 $event 会很有用。-->
+  </div>
+</template>
+<script lang="ts" setup>
+import { defineProps } from 'vue';
+const props = defineProps({
+  placeholderText: {
+    type: String,
+    default: ''
+  },
+  textareaValue: {
+    type: String,
+    required: true
+  },
+  onTextareaChange: {
+    type: Function,
+    required: true
+  }
+});
+
+const handleTextareaChange = (newValue: string) => {
+  props.onTextareaChange(newValue);
+};
+</script>
+<style scoped>
+.addBox{
+  margin-top: 10px;
+}
+.addBox:deep(.el-textarea__inner) {
+  box-shadow: 0 0 0 0;
+  background: #F7F7F7;
+  border:none !important;
+}
+.addBox:deep(.el-textarea__inner:hover) {
+  box-shadow: 0 0 0 0;
+}
+.addBox:deep(.el-textarea__inner:focus) {
+  box-shadow: 0 0 0 0;
+}
+.add-box-3{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+-e 
+

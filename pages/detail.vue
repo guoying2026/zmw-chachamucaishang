@@ -273,11 +273,11 @@
         <div class="tab_3_space_1">
           <text>全部评价（{{company_comment_count}}）</text>
           <!-- 引用子组件并传递属性和监听事件 -->
-          <AddComment :show="show" @update:show="handleShowUpdate">
+          <AddComment :store="addCommentStore">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <!-- Tag组件，当点击时触发openCommentBox方法 -->
-              <Tag tag="写评论" number="41" color="orange_linear" @click="openCommentBox"></Tag>
+              <Tag tag="写评论" number="41" color="orange_linear" @click="addCommentStore.openCommentBox"></Tag>
             </template>
           </AddComment>
         </div>
@@ -579,10 +579,14 @@
 <script setup lang="ts">
 import { ref} from 'vue';
 import { useTabItemStore } from "~/pinia/tabItem";
+import {useAddCommentStore} from "~/pinia/add/addComment";
+
 import {BaiduMap} from "vue-baidu-map-3x";
 import AddComment from "~/components/Comment/AddComment.vue";
 const tabItemStore = useTabItemStore();
-console.log(tabItemStore.tabItem);
+//添加评论
+const addCommentStore = useAddCommentStore();
+
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
   console.log(tabItemStore.tabItem);
@@ -593,18 +597,7 @@ const ready = ({ BMap , map }: { BMap: any, map: any })=>{
 }
 //评论开始
 const company_comment_count = 887;
-// 定义响应式引用
-const show = ref(false);
 
-// 打开评论框的方法
-const openCommentBox = () => {
-  show.value = true;
-};
-
-// 更新show的值的方法
-const handleShowUpdate = (value: boolean) => {
-  show.value = value;
-};
 //评论结束
 //问答开始
 const answer_question_count = 886;
