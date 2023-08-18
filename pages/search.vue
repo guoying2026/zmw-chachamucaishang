@@ -5,6 +5,9 @@ import { useSearchInputHistoryStore } from '~/pinia/searchInputHistory'
 // 导入搜索历史记录存储
 import { useSearchHistoryStore } from '~/pinia/searchHistory'
 
+// 导入用户信息存储
+import { useUserInfoStore } from "~/pinia/userInfo"
+
 const route = useRoute()
 
 const router = useRouter()
@@ -16,6 +19,9 @@ const searchInputHistoryStore = useSearchInputHistoryStore()
 
 // 实例化搜索历史记录存储
 const searchHistoryStore = useSearchHistoryStore()
+
+// 实例化用户信息存储
+const userInfoStore = useUserInfoStore()
 
 const searchTextRef = ref()
 
@@ -164,7 +170,8 @@ function clearSearchHistoryItem(id: number) {
  * 搜索输入历史记录项的点击处理事件
  */
 function searchInputHistoryListItemClickHandle(str: string) {
-  if (str.trim() === '') return;
+  // 在用户未输入任何文字点击“查一下”时，默认视为搜索“木材”结果
+  if (str.trim() === '') str = '木材';
   searchInputText.value = str;
   gotoSearch();
 }
@@ -231,7 +238,7 @@ nuxtApp.hook("page:finish", () => {
       <button @click="cancelButtonHandle" class="w-2/12 md:w-1/12 text-base font-normal cancel-button">取消</button>
     </div>
     <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
-    <div v-if="searchInputText.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-auto px-10 py-4 mt-14 search-tips-area">
+    <div v-if="!userInfoStore.isLoggedIn() && searchInputText.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-auto px-10 py-4 mt-14 search-tips-area">
       <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
       <p class="text-xs whitespace-nowrap mt-1 goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
       <button @click="gotoLogin" class="text-sm px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
@@ -290,8 +297,8 @@ nuxtApp.hook("page:finish", () => {
         </ul>
       </div>
     </div>
-    <!-- 已输入任何搜索内容 -->
-    <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-full h-auto px-2 py-1 mt-14 bg-black search-tips-area">
+    <!-- 已输入任何搜索内容 或者 已登录但未(已登录、未输入任何搜索内容，并且没有搜索历史记录)输入任何搜索内容 -->
+    <div v-if="searchInputText.trim() !== '' || (userInfoStore.isLoggedIn() && searchInputText.trim() == '' && searchInputHistoryStore.getList().length == 0 && searchHistoryStore.getList().length == 0)" class="inline-flex flex-col w-full h-auto px-2 py-1 mt-14 bg-black search-tips-area">
       <!-- 猜你想搜 -->
       <div class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 search-input-history">
         <div class="inline-flex flex-row justify-between items-center">
@@ -305,7 +312,7 @@ nuxtApp.hook("page:finish", () => {
         </ul>
       </div>
       <!-- 相关企业 -->
-      <div class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 mt-5 related-enterprises">
+      <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 mt-5 related-enterprises">
         <div class="sticky top-14 inline-flex flex-row justify-between items-center z-10 related-enterprises-header">
           <span class="text-sm font-normal search-input-history-title">相关企业</span>
         </div>

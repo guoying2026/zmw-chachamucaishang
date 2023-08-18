@@ -763,41 +763,31 @@ function getCompanyShortName(name: string) {
   let symbols = ['（', '(']
 
   if (!name) return ''
-  console.log(name)
+
   if (name.length > 4) {
     province.forEach(prefix => {
       // 以 ***省 开头
       if (name.length > 4 && name.startsWith(prefix)) name = name.substring(prefix.length)
     })
 
-    console.log(name)
-
     city.forEach(prefix => {
       // 以 ***市 开头
       if (name.length > 4 && name.startsWith(prefix)) name = name.substring(prefix.length)
     })
-
-    console.log(name)
 
     // 处理结尾前缀，例如：有限公司
     companySuffixes.forEach(prefix => {
       if (name.length > 4 && name.startsWith(prefix)) name = name.substring(prefix.length)
     })
 
-    console.log(name)
-
     companySuffixes.forEach(contain => {
       if (name.length > 4 && name.includes(contain) && !name.endsWith(contain)) name = name.replace(contain, '')
     })
-
-    console.log(name)
 
     // 处理结尾后缀，例如：有限公司
     companySuffixes.forEach(suffix => {
       if (name.length > 4 && name.endsWith(suffix)) name = name.substring(0, name.length - suffix.length)
     })
-
-    console.log(name)
 
     // 处理特殊符号
     symbols.forEach(symbol => {
@@ -808,23 +798,15 @@ function getCompanyShortName(name: string) {
       }
     })
 
-    console.log(name)
-
     provinceSuffixes.forEach(contain => {
       if (name.length > contain.length && name.includes(contain)) name = name.replace(contain, '')
     })
-
-    console.log(name)
 
     citySuffixes.forEach(contain => {
       if (name.length > contain.length && name.includes(contain)) name = name.replace(contain, '')
     })
 
-    console.log(name)
-
     name = name.substring(0, 4)
-
-    console.log(name)
   }
 
   companySuffixes.forEach(item => {
@@ -848,10 +830,6 @@ function getCompanyShortName(name: string) {
   if (name.length > 2 && !name.includes("\n")) {
     name = name.substring(0,2) + "\n" + name.substring(2)
   }
-
-  console.log(name)
-
-  console.log('=====')
 
   return name
 }
