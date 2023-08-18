@@ -35,50 +35,9 @@ const areaList = ref<AreaListItem[]>([{
   is_show: true,
 }]);
 
-const { data, pending, error, refresh } = await useFetch('/api/areaData')
-
-if (data.value) {
-  let areaData: AreaListItem[] = JSON.parse(JSON.stringify(data.value.result))
-  // 添加“全(省/市/自治区)”
-  areaData = areaData.map((item: AreaListItem) => {
-    let end = '';
-    if (item.name.includes('自治区')) {
-      end = '全自治区';
-    } else if (item.name.includes('市')) {
-      end = '全市';
-    } else {
-      end = '全省';
-    }
-    item.childs.unshift({
-      code: item.code,
-      name: item.name + end,
-      childs: [],
-      is_selected: false,
-      is_show: true,
-    });
-    item.is_show = true;
-    item.childs = item.childs.map(subitem => {
-      subitem.is_show = true;
-      return subitem;
-    });
-    return item;
-  });
-  // 添加“全国”
-  areaData.unshift({
-    code: 0,
-    name: '全国',
-    childs: [{
-      code: 0,
-      name: '全国',
-      childs: [],
-      is_selected: false,
-      is_show: true,
-    }],
-    is_selected: false,
-    is_show: true,
-  });
-  areaList.value = areaData;
-}
+const {
+  data: areaListData
+} = useLazyAsyncData('areaDataList', () => $fetch('/api/areaData'))
 
 const isShowAreaSelect = ref<boolean>(false)
 
@@ -147,6 +106,55 @@ const {
     page_size: pageSize.value,
   }
 }))
+
+function areaListDataChangedHandle(newProps: any) {
+  let res = JSON.parse(JSON.stringify(newProps)) as {
+    code: number,
+    message: string,
+    result?: AreaListItem[],
+  }
+  if (!res || res.code != 200 || !res.result) return;
+  let areaData: AreaListItem[] = res.result ? res.result : []
+  // 添加“全(省/市/自治区)”
+  areaData = areaData.map((item: AreaListItem) => {
+    let end = '';
+    if (item.name.includes('自治区')) {
+      end = '全自治区';
+    } else if (item.name.includes('市')) {
+      end = '全市';
+    } else {
+      end = '全省';
+    }
+    item.childs.unshift({
+      code: item.code,
+      name: item.name + end,
+      childs: [],
+      is_selected: false,
+      is_show: true,
+    });
+    item.is_show = true;
+    item.childs = item.childs.map(subitem => {
+      subitem.is_show = true;
+      return subitem;
+    });
+    return item;
+  });
+  // 添加“全国”
+  areaData.unshift({
+    code: 0,
+    name: '全国',
+    childs: [{
+      code: 0,
+      name: '全国',
+      childs: [],
+      is_selected: false,
+      is_show: true,
+    }],
+    is_selected: false,
+    is_show: true,
+  });
+  areaList.value = areaData;
+}
 
 function searchResultListChangedHandle (newProps: any) {
   isReloadSearchResultList.value = true
@@ -683,6 +691,10 @@ function recordClickItem(item: SearchResultListItem) {
     logo: item.company_img,
   })
 }
+
+areaListDataChangedHandle(areaListData.value)
+
+watch(() => areaListData.value, areaListDataChangedHandle)
 
 nuxtApp.hook('page:finish', () => {
   isMobile.value = window.screen.width < 768
