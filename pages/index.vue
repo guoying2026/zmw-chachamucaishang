@@ -30,7 +30,8 @@ const isShowLogin = ref<boolean>(false)
  * “查一下”按钮的点击处理事件
  */
 function searchButtonHandle() {
-  if (searchInputText.value.trim() === '') return;
+  // 在用户未输入任何文字点击“查一下”时，默认视为搜索“木材”结果
+  if (searchInputText.value.trim() === '') searchInputText.value = '木材';
   searchInputHistoryStore.add(searchInputText.value.trim());
   gotoSearch();
 }

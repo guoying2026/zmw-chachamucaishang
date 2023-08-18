@@ -34,10 +34,7 @@ const isShowUserInfoPopup = ref<boolean>(false)
  */
 function searchButtonHandle() {
   searchTextRef.value.blur()
-  if (searchInputText.value.trim() === '') {
-    router.push('/search');
-    return;
-  }
+  if (searchInputText.value.trim() === '') searchInputText.value = '木材'
   if (route.path == '/searchResult' && route.query.search == searchInputText.value) {
     refreshNuxtData('searchResultList')
     return;
