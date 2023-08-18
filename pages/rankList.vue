@@ -321,29 +321,29 @@ nuxtApp.hook('page:finish', () => {
 }
 
 .item .rank_num {
-  left: calc((var(--real-width) / 12 * 11) / 710 * 53);
+  left: calc((var(--real-width) / 12 * 11) / 710 * 3);
   top: calc(var(--real-width) / 12 * 11 / 710 * 117);
-  width: calc(var(--real-width) / 12 * 11 / 710 * 97);
+  width: calc(var(--real-width) / 12 * 11 / 710 * 197);
   height: calc(var(--real-width) / 12 * 11 / 710 * 28);
   font-family: D-DIN;
   -webkit-text-fill-color: transparent;
 }
 
 .item .rank_num.hundred {
-  transform: scale(0.65) translateY(0.6rem);
+  transform: scale(0.65) translateY(0rem);
 }
 
 .item .rank_num.thousand {
-  transform: scale(0.55) translateY(0.85rem);
+  transform: scale(0.55) translateY(0rem);
 }
 
 .item .rank_num.ten_thousand {
-  transform: scale(0.45) translateY(1.2rem);
+  transform: scale(0.45) translateY(0rem);
 }
 
 .item .rank_num.one_hundred_thousand,
 .item .rank_num.million {
-  transform: scale(0.35) translateY(1.9rem);
+  transform: scale(0.35) translateY(0rem);
 }
 
 .item-title {
@@ -503,27 +503,27 @@ nuxtApp.hook('page:finish', () => {
   }
 
   .item .rank_num {
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 119);
+    left: calc((var(--real-width) / 12 * 11) / 1258 * -1);
     top: calc((var(--real-width) / 12 * 11) / 1258 * 102);
-    width: calc((var(--real-width) / 12 * 11) / 1258 * 75);
+    width: calc((var(--real-width) / 12 * 11) / 1258 * 315);
     height: calc((var(--real-width) / 12 * 11) / 1258 * 28);
   }
 
   .item .rank_num.hundred {
-    transform: scale(0.9) translateY(0.1rem);
+    transform: scale(0.9) translateY(0rem);
   }
 
   .item .rank_num.thousand {
-    transform: scale(0.7) translateY(0.6rem);
+    transform: scale(0.7) translateY(0rem);
   }
 
   .item .rank_num.ten_thousand {
-    transform: scale(0.6) translateY(0.8rem);
+    transform: scale(0.6) translateY(0rem);
   }
 
   .item .rank_num.one_hundred_thousand,
   .item .rank_num.million {
-    transform: scale(0.5) translateY(1.2rem);
+    transform: scale(0.5) translateY(0.05rem);
   }
 
   .item-title {
