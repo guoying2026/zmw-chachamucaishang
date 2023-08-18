@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { RankingListItem } from '~/types/rankingListItem'
 
+// 导入搜索历史记录存储
+import { useSearchHistoryStore } from '~/pinia/searchHistory'
+
 const route = useRoute()
 
 const nuxtApp = useNuxtApp()
@@ -10,6 +13,9 @@ useHead({
 })
 
 const isMobile = ref<boolean>(false)
+
+// 实例化搜索历史记录存储
+const searchHistoryStore = useSearchHistoryStore()
 
 const headerWidth = ref<string>('100vw');
 
@@ -143,6 +149,14 @@ function changeRankDigitsToElClass(rankNum: number) {
   return '';
 }
 
+function recordClickItem(item: RankingListItem) {
+  searchHistoryStore.add({
+    id: item.id,
+    name: item.company_name,
+    logo: '',
+  })
+}
+
 nuxtApp.hook('page:finish', () => {
   isMobile.value = window.screen.width < 768
   const intersectionObserverCallback = (entries: IntersectionObserverEntry[]) => {
@@ -168,7 +182,7 @@ nuxtApp.hook('page:finish', () => {
   <div class="inline-block w-full bg-no-repeat bg-cover header" :style="'--real-width:'+headerWidth+';'"></div>
   <div class="relative inline-block w-full list" :style="'--real-width:'+headerWidth+';'">
     <div :class="'relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1))" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
-      <NuxtLink :to="'/detail?id=' + item.id">
+      <NuxtLink :to="'/detail?id=' + item.id" @click="recordClickItem(item)">
       <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
       <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
       <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1))">N0.{{ isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1) }}</div>

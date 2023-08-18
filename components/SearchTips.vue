@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { AreaListItem } from '~/types/areaListItem'
+
 // 导入搜索输入历史记录存储
 import { useSearchInputHistoryStore } from '~/pinia/searchInputHistory'
 
@@ -7,6 +9,8 @@ import { useSearchHistoryStore } from '~/pinia/searchHistory'
 
 // 导入用户信息存储
 import { useUserInfoStore } from "~/pinia/userInfo"
+
+import { generateCompanyShortName } from '~/utils/generateCompanyShortName'
 
 const nuxtApp = useNuxtApp()
 
@@ -23,6 +27,15 @@ const emit = defineEmits([
   'gotoLogin',
   'gotoSearch',
 ])
+
+const areaList = ref<AreaListItem[]>([])
+
+const { data, pending, error, refresh } = await useFetch('/api/areaData')
+
+if (data.value) {
+  let areaData: AreaListItem[] = JSON.parse(JSON.stringify(data.value.result))
+  areaList.value = areaData;
+}
 
 // 实例化搜索输入历史记录存储
 const searchInputHistoryStore = useSearchInputHistoryStore()
@@ -70,6 +83,7 @@ function regenerateWhatYouWantSearchList(name?: string, page?: number, offset?: 
   .then(res => new Promise(resolve => resolve(res.data.value)))
   .then(async res => {
     let res1 = res as {data: string[], offset: number, page: number, total_page: number}
+    if (!res1 || !res1.data) return false
     whatYouWantSearchList.value = res1.data
     whatYouWantSearchPage.value = res1.page
     whatYouWantSearchTotalPage.value = res1.total_page
@@ -237,7 +251,10 @@ nuxtApp.hook("page:finish", () => {
         <h1 class="text-sm pb-2 search-history-box-title">历史记录</h1>
         <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
           <li class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in searchHistoryStore.getList()">
-            <img class="w-8 h-8 object-cover search-history-list-item-logo" :src="item.logo" />
+            <img v-if="item.logo&&item.logo.length>0" class="w-8 h-8 object-cover search-history-list-item-logo" :src="item.logo" />
+            <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" style="background-color: rgb(238,238,238);">
+              <span :class="'font-sans '+(Math.round(generateCompanyShortName(item.name, areaList).replace('\n','').length/2)==2?'text-xs':'text-xl')+' font-extrabold'" style="color: rgb(153,153,153);">{{ generateCompanyShortName(item.name, areaList) }}</span>
+            </div>
             <span class="text-sm pl-1 search-history-list-item-name">{{ item.name }}</span>
             <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
               <svg class="w-2 h-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
