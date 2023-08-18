@@ -168,6 +168,7 @@ nuxtApp.hook('page:finish', () => {
   <div class="inline-block w-full bg-no-repeat bg-cover header" :style="'--real-width:'+headerWidth+';'"></div>
   <div class="relative inline-block w-full list" :style="'--real-width:'+headerWidth+';'">
     <div :class="'relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1))" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
+      <NuxtLink :to="'/detail?id=' + item.id">
       <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
       <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
       <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1))">N0.{{ isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1) }}</div>
@@ -184,6 +185,7 @@ nuxtApp.hook('page:finish', () => {
         <div class="relative hidden md:inline-block">投诉:{{ item.complaint_count }}</div>
       </div>
       <div class="absolute inline-block text-xs md:text-sm item-third_line">地址:{{ item.address }}</div>
+      </NuxtLink>
     </div>
   </div>
   <div :class="'relative ' + (!isHasMoreRankList || currentPage > totalPages || isRankListPending ? 'hidden' : 'inline-flex') + ' md:hidden flex-row justify-center items-center w-full py-1 mt-4 load-more-tips'" style="color: rgb(151,151,151);">
