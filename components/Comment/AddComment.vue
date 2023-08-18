@@ -56,7 +56,8 @@ const submitComment = () => {
     return;  // 如果文件正在上传，不继续执行
   } else {
     console.log(props.store.$state);
-    console.log('提交评论');
+    console.log('提交评论之后的操作');
+    props.store.addFeedback();
   }
 };
 

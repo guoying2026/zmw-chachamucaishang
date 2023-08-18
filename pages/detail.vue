@@ -283,7 +283,7 @@
         </div>
         <NoDetail v-if="company_comment_count < 0"></NoDetail>
         <div class="tab_3_space_2" v-else>
-          <CommentList></CommentList>
+          <CommentList :store="commentStore"></CommentList>
         </div>
       </div>
       <div class="tab_3_space_right">
@@ -579,13 +579,19 @@
 <script setup lang="ts">
 import { ref} from 'vue';
 import { useTabItemStore } from "~/pinia/tabItem";
-import {useAddCommentStore} from "~/pinia/add/addComment";
 
 import {BaiduMap} from "vue-baidu-map-3x";
 import AddComment from "~/components/Comment/AddComment.vue";
 const tabItemStore = useTabItemStore();
+import {useFeedbackProcessStore} from "~/pinia/feedbackProcessStore";
+import {useCommentStore} from "~/pinia/commentStore";
+
 //添加评论
-const addCommentStore = useAddCommentStore();
+const addCommentStore = useFeedbackProcessStore();
+const commentStore = useCommentStore();
+console.log('请进来');
+addCommentStore.setType('comment');
+console.log(addCommentStore.type);
 
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
