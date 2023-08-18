@@ -167,6 +167,12 @@ if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string
     currentPage.value = 1
     isReloadSearchResultList.value = false
     searchResultListRefresh()
+    useHead({
+      title: newProps + ' - 搜索结果',
+    })
+  })
+  useHead({
+    title: route.query.search + ' - 搜索结果',
   })
 }
 
