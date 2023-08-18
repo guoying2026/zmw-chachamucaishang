@@ -72,7 +72,7 @@ function rankListChangedHandle (newProps: any) {
       comment_count: Number(item.comment_count),
       ask_count: Number(item.ask_count),
       complaint_count: Number(item.complaint_count),
-      range: '脚墩、托盘、胶合板',
+      range: item.business_scope,
     }
   })
   if (window.screen.width < 768) {
