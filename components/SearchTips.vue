@@ -250,7 +250,7 @@ nuxtApp.hook("page:finish", () => {
       <div v-if="searchHistoryStore.getList().length > 0" class="inline-flex flex-col p-2 mt-2 search-history-box">
         <h1 class="text-sm pb-2 search-history-box-title">历史记录</h1>
         <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
-          <li class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in searchHistoryStore.getList()">
+          <li @click.stop="isShowSearchHistoryListDelete?'':$emit('gotoSearch',item.name)" :class="'relative inline-flex flex-row items-center mt-4 first-of-type:mt-0' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
             <img v-if="item.logo&&item.logo.length>0" class="w-8 h-8 object-cover search-history-list-item-logo" :src="item.logo" />
             <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" style="background-color: rgb(238,238,238);">
               <span :class="'font-sans '+(Math.round(generateCompanyShortName(item.name, areaList).replace('\n','').length/2)==2?'text-xs':'text-xl')+' font-extrabold'" style="color: rgb(153,153,153);">{{ generateCompanyShortName(item.name, areaList) }}</span>
