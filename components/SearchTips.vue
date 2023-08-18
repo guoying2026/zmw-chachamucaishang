@@ -175,8 +175,15 @@ watch(() => props.searchValue, (newProps) => {
   regenerateWhatYouWantSearchList(newProps, 1, 0)
 })
 
+if (props.searchValue) {
+  scrollGenerateSearchInputWordBox()
+  regenerateWhatYouWantSearchList(props.searchValue, 1, 0)
+} else {
+  scrollGenerateSearchInputWordBox()
+  regenerateWhatYouWantSearchList()
+}
+
 nuxtApp.hook("page:finish", () => {
-  regenerateWhatYouWantSearchList();
   if(window.screen.width < 768) {
     dealSearchTipsAreaExpanded();
   }
