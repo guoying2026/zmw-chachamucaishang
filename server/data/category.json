@@ -50,6 +50,314 @@
               {
                 "name": "毛地板",
                 "isAlias": true
+              },
+              {
+                "name" : "方形实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "长方形实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "切割形状实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "定制形状实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "自然色实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "深色实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "白色实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "浅色实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "经过处理实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "染色实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "多样色实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "五层实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "七层实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "三层实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "九层及以上实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "层压板",
+                "isAlias": false
+              },
+              {
+                "name" : "橡木实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "胡桃木实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "榉木实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "橡木实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "榉木实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "松木实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "樱桃木实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "枫木实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "胡桃木实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "榆木实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "桦木实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "红松实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "干燥实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "光滑实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "上光复合板",
+                "isAlias": false
+              },
+              {
+                "name" : "漆涂实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "漂白面多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "烟熏实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "炭化复合板",
+                "isAlias": false
+              },
+              {
+                "name" : "老化实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "单向实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "单向复合板",
+                "isAlias": false
+              },
+              {
+                "name" : "交叉实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "交叉复合板",
+                "isAlias": false
+              },
+              {
+                "name" : "对角实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "对角复合板",
+                "isAlias": false
+              },
+              {
+                "name" : "一等品实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "二等品实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "三等品实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "稳定型实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "抗变形多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "高强度实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "耐久型多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "涂装木皮饰面板",
+                "isAlias": false
+              },
+              {
+                "name" : "贴膜金属装饰板",
+                "isAlias": false
+              },
+              {
+                "name" : "免漆木饰面板",
+                "isAlias": false
+              },
+              {
+                "name" : "科定板",
+                "isAlias": false
+              },
+              {
+                "name" : "实木饰面板",
+                "isAlias": false
+              },
+              {
+                "name" : "环保型实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "绿色板材",
+                "isAlias": false
+              },
+              {
+                "name" : "无污染板材",
+                "isAlias": false
+              },
+              {
+                "name" : "生态板",
+                "isAlias": false
+              },
+              {
+                "name" : "E0实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "E1级实木多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "防潮多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "酚醛防水板",
+                "isAlias": false
+              },
+              {
+                "name" : "海洋胶合板",
+                "isAlias": false
+              },
+              {
+                "name" : "家具板",
+                "isAlias": false
+              },
+              {
+                "name" : "家装多层板",
+                "isAlias": false
+              },
+              {
+                "name" : "海洋板",
+                "isAlias": false
+              },
+              {
+                "name" : "家具级胶合板",
+                "isAlias": false
+              },
+              {
+                "name" : "沙发板",
+                "isAlias": false
+              },
+              {
+                "name" : "贴皮板",
+                "isAlias": false
+              },
+              {
+                "name" : "手工椴木三合板",
+                "isAlias": false
+              },
+              {
+                "name" : "玩具板",
+                "isAlias": false
+              },
+              {
+                "name" : "桦木胶合板",
+                "isAlias": false
+              },
+              {
+                "name" : "多层阻燃板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "阻燃",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name" : "阻燃多层板",
+                        "isAlias": false
+                      },
+                      {
+                        "name" : "防火多层板",
+                        "isAlias": false
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -68,6 +376,282 @@
               {
                 "name": "直条板",
                 "isAlias": true
+              },
+              {
+                "name": "方形直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "长方形直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "条形直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "不规则形状直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "自然色实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "浅色实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "深色实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "多色实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "平板直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "三维直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "缝隙直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "复合直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "单层实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "双层实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "多层实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "硬木实木直拼板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "橡木硬木实木直拼板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "胡桃木硬木实木直拼板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "榉木硬木实木直拼板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "软木实木直拼板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "松木软木实木直拼板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "杉木软木实木直拼板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "桦木软木实木直拼板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "复合实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "人工板材实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "辐射松木板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "辐射松直拼板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "桐木直拼板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "泡桐家具板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "实木装修板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "杨木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "杉木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "优质桧木板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "香柏木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "环保家具板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "红樱桃直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "樟子松直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "橡树直拼板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "实木红橡直拼板",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "家具橱柜装修板",
+                        "isAlias": false
+                      }
+                    ]
+                  },
+                  {
+                    "name": "实木白橡直拼板",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "家具板",
+                        "isAlias": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "铁杉原木直拼板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "家具板材",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "榆木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "新西兰松木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "香杉木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "红胡桃直拼板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "奥古曼直拼板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "砂光实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "打磨实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "涂漆实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "染色实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "一等实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "二等实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "三等实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "四等实木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "工程直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "艺术直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "拼花直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "薄木直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "实木单面直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "双面直拼板",
+                "isAlias": false
+              },
+              {
+                "name": "多面直拼板",
+                "isAlias": false
               }
             ]
           }
@@ -112,6 +696,90 @@
               {
                 "name": "托盘角墩",
                 "isAlias": true
+              },
+              {
+                "name": "正方体胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "长方体胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "黑色建筑模板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "白色胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "多层脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "多层板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "建筑模板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "家具板胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "模板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "旧模板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "松木胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "杨木胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "环保胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "强力胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "无拼接胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "开槽脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "去漆胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "免蒸熏胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "贴面脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "无毛边胶合板脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "无杂色胶合板脚墩",
+                "isAlias": false
               }
             ]
           },
@@ -146,6 +814,106 @@
               {
                 "name": "锯末脚墩",
                 "isAlias": true
+              },
+              {
+                "name": "锯末脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "木屑脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "刨花脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "刨花木屑脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "木屑材质刨花墩",
+                "isAlias": false
+              },
+              {
+                "name": "刨花木脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "刨花墩",
+                "isAlias": false
+              },
+              {
+                "name": "锯末木脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "木屑木脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "松木屑刨花脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "松木屑脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "杂木屑刨花脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "杂木屑脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "免蒸熏刨花墩",
+                "isAlias": false
+              },
+              {
+                "name": "木托盘脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "免蒸熏刨花木墩",
+                "isAlias": false
+              },
+              {
+                "name": "免蒸熏刨花脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "高密度刨花脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "有孔刨花脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "高密度刨花墩",
+                "isAlias": false
+              },
+              {
+                "name": "有孔刨花墩",
+                "isAlias": false
+              },
+              {
+                "name": "无孔刨花脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "无孔刨花墩",
+                "isAlias": false
+              },
+              {
+                "name": "有孔脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "无孔脚墩",
+                "isAlias": false
               }
             ]
           },
@@ -200,6 +968,70 @@
               {
                 "name": "支撑木",
                 "isAlias": true
+              },
+              {
+                "name": "托盘实木脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "松木脚墩",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "松木墩",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "桦木脚墩",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "桦木墩",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "杨木脚墩",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "杨木墩",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "欧标实木脚墩",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "欧标脚墩",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "四面见线实木脚墩",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "四面见线脚墩",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "防霉实木脚墩",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "防霉脚墩",
+                    "isAlias": true
+                  }
+                ]
               }
             ]
           },
@@ -274,6 +1106,42 @@
               {
                 "name": "木垫",
                 "isAlias": true
+              },
+              {
+                "name": "家具脚",
+                "isAlias": false
+              },
+              {
+                "name": "建筑支撑柱",
+                "isAlias": false
+              },
+              {
+                "name": "装饰柱",
+                "isAlias": false
+              },
+              {
+                "name": "地板托板",
+                "isAlias": false
+              },
+              {
+                "name": "硬木杂木脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "软木杂木脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "四面见线杂木脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "足尺杂木脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "无毛边杂木脚墩",
+                "isAlias": false
               }
             ]
           },
@@ -312,6 +1180,92 @@
               {
                 "name": "贴面胶合板脚墩",
                 "isAlias": true
+              },
+              {
+                "name": "家具脚",
+                "isAlias": false
+              },
+              {
+                "name": "橱柜脚",
+                "isAlias": false
+              },
+              {
+                "name": "展示架脚",
+                "isAlias": false
+              },
+              {
+                "name": "地板脚垫",
+                "isAlias": false
+              },
+              {
+                "name": "装饰脚垫",
+                "isAlias": false
+              },
+              {
+                "name": "台面脚",
+                "isAlias": false
+              },
+              {
+                "name": "柜脚",
+                "isAlias": false
+              },
+              {
+                "name": "座椅脚",
+                "isAlias": false
+              },
+              {
+                "name": "全注胶贴面脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "贴面木脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "雕刻贴面脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "染色贴面脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "漆面贴面脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "烤漆贴面脚墩",
+                "isAlias": false
+              },
+              {
+                "name": "优质贴面脚墩",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "精品级贴面脚墩",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "一般贴面脚墩",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "标准级贴面脚墩",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "低质量贴面脚墩",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "经济型贴面脚墩",
+                    "isAlias": true
+                  }
+                ]
               }
             ]
           }
@@ -324,7 +1278,294 @@
           {
             "name": "木片",
             "isAlias": false,
-            "childs": []
+            "childs": [
+              {
+                "name": "毛片",
+                "isAlias": false
+              },
+              {
+                "name": "净片",
+                "isAlias": false
+              },
+              {
+                "name": "树根料",
+                "isAlias": false
+              },
+              {
+                "name": "纯干片",
+                "isAlias": false
+              },
+              {
+                "name": "旧木片",
+                "isAlias": false
+              },
+              {
+                "name": "切片",
+                "isAlias": false
+              },
+              {
+                "name": "木碎",
+                "isAlias": false
+              },
+              {
+                "name": "有杂质木片",
+                "isAlias": false
+              },
+              {
+                "name": "杂质少木片",
+                "isAlias": false
+              },
+              {
+                "name": "白木片",
+                "isAlias": false
+              },
+              {
+                "name": "普通木片",
+                "isAlias": false
+              },
+              {
+                "name": "工艺木片",
+                "isAlias": false
+              },
+              {
+                "name": "燃料木片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "烧火料",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "硅厂炼硅木片",
+                "isAlias": false
+              },
+              {
+                "name": "拆迁料木片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "拆迁废模板木片",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "家具下脚料",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "多层板粉碎木片",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "桉木片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "桉木净片",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "桉树木片",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "桉树碎",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "桉木毛片",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "桉木枝桠材",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "桉树木心片",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "松木片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "马尾松木片",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "松木净片",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "樟子松切片",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "松木烧火材",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "加勒比松木片",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "杉木片",
+                "isAlias": false
+              },
+              {
+                "name": "合欢木碎木片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "相思木片",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "杨木片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "杨木净片",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "杨木白皮片",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "杨木轴心片",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "纯干杨木片",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "果木片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "苹果木片",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "荔枝木碎",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "肉桂木片",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "橡胶木木片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "橡胶木净片",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "杂木片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "杂木毛片",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "硬杂木片",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "杂木枝桠材",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "樟树木片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "香樟木毛片",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "杏木片",
+                "isAlias": false
+              },
+              {
+                "name": "红木片",
+                "isAlias": false
+              },
+              {
+                "name": "柳木片",
+                "isAlias": false
+              },
+              {
+                "name": "枣木片",
+                "isAlias": false
+              },
+              {
+                "name": "白蜡片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "白蜡净片",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "法桐净片",
+                "isAlias": false
+              },
+              {
+                "name": "构木净片",
+                "isAlias": false
+              },
+              {
+                "name": "榉木木片",
+                "isAlias": false
+              },
+              {
+                "name": "桂树片",
+                "isAlias": false
+              },
+              {
+                "name": "绿化木木片",
+                "isAlias": false
+              },
+              {
+                "name": "枝桠柴",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "枝桠木片",
+                    "isAlias": true
+                  }
+                ]
+              }
+            ]
           },
           {
             "name": "木方",
@@ -365,6 +1606,492 @@
               {
                 "name": "木龙骨",
                 "isAlias": true
+              },
+              {
+                "name": "白木方",
+                "isAlias": false
+              },
+              {
+                "name": "黄木方",
+                "isAlias": false
+              },
+              {
+                "name": "红木方",
+                "isAlias": false
+              },
+              {
+                "name": "黑木方",
+                "isAlias": false
+              },
+              {
+                "name": "棕木方",
+                "isAlias": false
+              },
+              {
+                "name": "实心木方",
+                "isAlias": false
+              },
+              {
+                "name": "中空木方",
+                "isAlias": false
+              },
+              {
+                "name": "组合木方",
+                "isAlias": false
+              },
+              {
+                "name": "层积木方",
+                "isAlias": false
+              },
+              {
+                "name": "优质木方",
+                "isAlias": false
+              },
+              {
+                "name": "一般木方",
+                "isAlias": false
+              },
+              {
+                "name": "次品木方",
+                "isAlias": false
+              },
+              {
+                "name": "混杂木方",
+                "isAlias": false
+              },
+              {
+                "name": "松木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "白松木方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "松方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "松木条",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "落叶松木方",
+                    "isAlias": true,
+                    "childs": [
+                      {
+                        "name": "阔叶松木方",
+                        "isAlias": false
+                      },
+                      {
+                        "name": "红松木方",
+                        "isAlias": false
+                      }
+                    ]
+                  },
+                  {
+                    "name": "新西兰松木方",
+                    "isAlias": true,
+                    "childs": [
+                      {
+                        "name": "菲律宾松木方",
+                        "isAlias": false
+                      },
+                      {
+                        "name": "菲松木方",
+                        "isAlias": false,
+                        "childs": [
+                          {
+                            "name": "菲松木条",
+                            "isAlias": true
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "松木大方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "桦木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "桦木条",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "桦方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "榉木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "榉方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "榉木条",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "橡木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "橡方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "橡木条",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "枫木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "枫方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "枫木条",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "柚木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "柚方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "柚木条",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "花旗松木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "优质松方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "洋松木方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "洋松方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "洋松木条",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "杉木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "云杉木方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "樟子松木方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "樟杉方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "樟杉木方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "樟杉木板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "铁杉木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "铁山木条",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "铁杉方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "椴木木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "椴方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "椴木条",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "樟木木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "香樟木木方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "桉木木方",
+                "isAlias": false
+              },
+              {
+                "name": "家具木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "家具板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "家具方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "木家具用方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "建筑木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "建筑方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "工程方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "结构方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "工程木方",
+                    "isAlias": true,
+                    "childs": [
+                      {
+                        "name": "工地方木",
+                        "isAlias": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "支模木方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "拼板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "建筑垫木木方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "包装木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "包装方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "包装材料方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "LVL木方",
+                    "isAlias": true,
+                    "childs": [
+                      {
+                        "name": "LVL免蒸熏板条",
+                        "isAlias": true
+                      },
+                      {
+                        "name": "免蒸熏木方",
+                        "isAlias": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "机械包装木方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "物流包装木条",
+                    "isAlias": true,
+                    "childs": [
+                      {
+                        "name": "打包木条",
+                        "isAlias": true
+                      },
+                      {
+                        "name": "固定木架",
+                        "isAlias": true
+                      },
+                      {
+                        "name": "木料",
+                        "isAlias": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "包装边框木方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "装饰木方",
+                "isAlias": false
+              },
+              {
+                "name": "托盘料",
+                "isAlias": false
+              },
+              {
+                "name": "沥青料",
+                "isAlias": false
+              },
+              {
+                "name": "防腐料",
+                "isAlias": false
+              },
+              {
+                "name": "锯切木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "锯切方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "干燥木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "干燥方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "烘干木方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "手工雕刻木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "雕刻方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "雕刻木方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "CNC加工木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "CNC方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "数控木方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "刨光木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "刨光方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "平滑木方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "防腐木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "防腐方",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "拼接木方",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "拼接方",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "拼花木方",
+                    "isAlias": true
+                  }
+                ]
               }
             ]
           },
@@ -399,6 +2126,304 @@
               {
                 "name": "木柱子",
                 "isAlias": true
+              },
+              {
+                "name": "采掘坑木",
+                "isAlias": false
+              },
+              {
+                "name": "房建檩条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "建筑木桩",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "古建柱子料",
+                    "isAlias": true,
+                    "childs": [
+                      {
+                        "name": "凉亭横梁木",
+                        "isAlias": true
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "河道工程",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "防汛木桩",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "装饰柱",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "装修立柱",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "特级原木",
+                "isAlias": false
+              },
+              {
+                "name": "针叶树加工用原木",
+                "isAlias": false
+              },
+              {
+                "name": "阔叶树加工用原木",
+                "isAlias": false
+              },
+              {
+                "name": "薪炭材",
+                "isAlias": false
+              },
+              {
+                "name": "长原木",
+                "isAlias": false
+              },
+              {
+                "name": "中长原木",
+                "isAlias": false
+              },
+              {
+                "name": "短原木",
+                "isAlias": false
+              },
+              {
+                "name": "粗径木",
+                "isAlias": false
+              },
+              {
+                "name": "大径木",
+                "isAlias": false
+              },
+              {
+                "name": "中径木",
+                "isAlias": false
+              },
+              {
+                "name": "小径木",
+                "isAlias": false
+              },
+              {
+                "name": "细径木",
+                "isAlias": false
+              },
+              {
+                "name": "国产原木",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "杉木",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "柳杉",
+                        "isAlias": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "杨木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "松木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "桉木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "桐木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "柏木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "枫木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "香樟木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "西南桦",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "核桃木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "梨木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "红木",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "俄罗斯材",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "白松",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "樟子松",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "落叶松",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "红松",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "辐射松",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "桦木",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "其他原木",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "竹子",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "欧洲材",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "橡木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "云杉",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "东南亚材",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "马六甲",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "花梨木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "柚木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "斯温漆木",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "斯文漆木",
+                        "isAlias": true
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "非洲材",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "红酸枝",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "桃花芯",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "沙比利",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "奥古曼",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "缅茄",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "北美材",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "加松",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "SPF",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "白橡",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "白蜡",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "榉木",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "黑胡桃",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "防腐木桩",
+                "isAlias": false
+              },
+              {
+                "name": "高硬度风化立柱",
+                "isAlias": false
               }
             ]
           },
@@ -441,6 +2466,136 @@
               {
                 "name": "木边角料",
                 "isAlias": true
+              },
+              {
+                "name": "不规则木片",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "牌子料",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "板料",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "不规则木块",
+                "isAlias": false
+              },
+              {
+                "name": "带皮料",
+                "isAlias": false
+              },
+              {
+                "name": "实木边角料",
+                "isAlias": false
+              },
+              {
+                "name": "人造板边角料",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "边角板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "多层板边角板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "刨花板边角板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "名贵木料",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "紫檀木边角料",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "黄檀木边角料",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "鸡翅木边角料",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "黑胡桃木边角料",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "黄花梨木边角料",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "平价木料",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "红心枣木边角料",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "樟子松边角料",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "杂木边角料",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "荔枝木边角料",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "干料边角料",
+                "isAlias": false
+              },
+              {
+                "name": "抛光边角料",
+                "isAlias": false
+              },
+              {
+                "name": "毛料边角料",
+                "isAlias": false
+              },
+              {
+                "name": "废木料",
+                "isAlias": false
+              },
+              {
+                "name": "废实木材",
+                "isAlias": false
+              },
+              {
+                "name": "DIY边角料",
+                "isAlias": false
+              },
+              {
+                "name": "雕刻",
+                "isAlias": false
+              },
+              {
+                "name": "家具厂边角料",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "家具下脚料",
+                    "isAlias": true
+                  }
+                ]
               }
             ]
           },
@@ -455,6 +2610,270 @@
               {
                 "name": "面皮",
                 "isAlias": true
+              },
+              {
+                "name": "长方形木皮",
+                "isAlias": false
+              },
+              {
+                "name": "长条形木皮",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "封边条木皮",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "手工编织木皮",
+                "isAlias": false
+              },
+              {
+                "name": "原木色木皮",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "本色木皮",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "科技木皮",
+                "isAlias": false
+              },
+              {
+                "name": "白皮",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "大白面皮",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "染色木皮",
+                "isAlias": false
+              },
+              {
+                "name": "天然木皮",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "实木木皮",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "科技木皮",
+                "isAlias": false
+              },
+              {
+                "name": "染色木皮",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "染色树瘤木皮",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "榆木木皮",
+                "isAlias": false
+              },
+              {
+                "name": "胡桃木木皮",
+                "isAlias": false
+              },
+              {
+                "name": "杨木木皮",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "杨木单板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "桦木木皮",
+                "isAlias": false
+              },
+              {
+                "name": "橡木木皮",
+                "isAlias": false
+              },
+              {
+                "name": "楸木木皮",
+                "isAlias": false
+              },
+              {
+                "name": "水曲柳木皮",
+                "isAlias": false
+              },
+              {
+                "name": "白栓木木皮",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "白蜡木皮",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "柚木木皮",
+                "isAlias": false
+              },
+              {
+                "name": "松木木皮",
+                "isAlias": false
+              },
+              {
+                "name": "竹木实木皮",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "竹皮",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "白橡山纹木皮",
+                "isAlias": false
+              },
+              {
+                "name": "柚木直纹木皮",
+                "isAlias": false
+              },
+              {
+                "name": "柚木花纹木皮",
+                "isAlias": false
+              },
+              {
+                "name": "白桦山纹木皮",
+                "isAlias": false
+              },
+              {
+                "name": "直纹木皮",
+                "isAlias": false
+              },
+              {
+                "name": "雀眼木皮",
+                "isAlias": false
+              },
+              {
+                "name": "花纹山木皮",
+                "isAlias": false
+              },
+              {
+                "name": "大张宽幅科技木皮",
+                "isAlias": false
+              },
+              {
+                "name": "封边条木皮",
+                "isAlias": false
+              },
+              {
+                "name": "烟熏木皮",
+                "isAlias": false
+              },
+              {
+                "name": "拼花木皮",
+                "isAlias": false
+              },
+              {
+                "name": "漂白木皮",
+                "isAlias": false
+              },
+              {
+                "name": "湿皮",
+                "isAlias": false
+              },
+              {
+                "name": "薄皮",
+                "isAlias": false
+              },
+              {
+                "name": "夹芯皮",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "皮中皮",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "夹心皮",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "碳化木皮",
+                "isAlias": false
+              },
+              {
+                "name": "侧压木皮",
+                "isAlias": false
+              },
+              {
+                "name": "平压木皮",
+                "isAlias": false
+              },
+              {
+                "name": "旋切木皮",
+                "isAlias": false
+              },
+              {
+                "name": "弦切木皮",
+                "isAlias": false
+              },
+              {
+                "name": "悬切木皮",
+                "isAlias": false
+              },
+              {
+                "name": "精皮",
+                "isAlias": false
+              },
+              {
+                "name": "上色性好木皮",
+                "isAlias": false
+              },
+              {
+                "name": "抗弯性强木皮",
+                "isAlias": false
+              },
+              {
+                "name": "环保木皮",
+                "isAlias": false
+              },
+              {
+                "name": "家具装饰木皮",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "家具贴面皮",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "木饰面",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "贴面皮",
+                "isAlias": false
+              },
+              {
+                "name": "饰面皮",
+                "isAlias": false
               }
             ]
           },
@@ -493,6 +2912,144 @@
               {
                 "name": "木颗粒",
                 "isAlias": true
+              },
+              {
+                "name": "片状木屑",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "粉碎料",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "有机覆盖物",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "超细木屑",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "木粉",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "锯末",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "刨片状木屑",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "刨花木屑",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "白色木屑",
+                "isAlias": false
+              },
+              {
+                "name": "黄色木屑",
+                "isAlias": false
+              },
+              {
+                "name": "深黄色木屑",
+                "isAlias": false
+              },
+              {
+                "name": "染色木屑",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "彩色有机覆盖物",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "刨花木屑",
+                "isAlias": false
+              },
+              {
+                "name": "锯末粉",
+                "isAlias": false
+              },
+              {
+                "name": "木糠",
+                "isAlias": false
+              },
+              {
+                "name": "白杨木木屑",
+                "isAlias": false
+              },
+              {
+                "name": "松木木屑",
+                "isAlias": false
+              },
+              {
+                "name": "桦木木屑",
+                "isAlias": false
+              },
+              {
+                "name": "果木木屑",
+                "isAlias": false
+              },
+              {
+                "name": "杂木屑",
+                "isAlias": false
+              },
+              {
+                "name": "发酵木屑",
+                "isAlias": false
+              },
+              {
+                "name": "染色木屑",
+                "isAlias": false
+              },
+              {
+                "name": "造纸木屑",
+                "isAlias": false
+              },
+              {
+                "name": "宠物垫料木屑",
+                "isAlias": false
+              },
+              {
+                "name": "种植发酵木屑",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "有机覆盖物",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "食用菌木屑",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "锯末有机土",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "香菇料",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "填充木屑",
+                "isAlias": false
+              },
+              {
+                "name": "生物质科技制作木屑",
+                "isAlias": false
               }
             ]
           }
@@ -545,6 +3102,166 @@
               {
                 "name": "木料",
                 "isAlias": true
+              },
+              {
+                "name": "长条",
+                "isAlias": false
+              },
+              {
+                "name": "原木色长料",
+                "isAlias": false
+              },
+              {
+                "name": "涂料色长料",
+                "isAlias": false
+              },
+              {
+                "name": "实木长料",
+                "isAlias": false
+              },
+              {
+                "name": "马占木长料",
+                "isAlias": false
+              },
+              {
+                "name": "松木长料",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "辐射松长料",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "樟子松长料",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "桦木长料",
+                "isAlias": false
+              },
+              {
+                "name": "沙比利长料",
+                "isAlias": false
+              },
+              {
+                "name": "乌檀木长料",
+                "isAlias": false
+              },
+              {
+                "name": "柏木长料",
+                "isAlias": false
+              },
+              {
+                "name": "榉木长料",
+                "isAlias": false
+              },
+              {
+                "name": "杉木长料",
+                "isAlias": false
+              },
+              {
+                "name": "桐木长料",
+                "isAlias": false
+              },
+              {
+                "name": "硬杂木长料",
+                "isAlias": false
+              },
+              {
+                "name": "桉木长料",
+                "isAlias": false
+              },
+              {
+                "name": "实木长料",
+                "isAlias": false
+              },
+              {
+                "name": "芯方条",
+                "isAlias": false
+              },
+              {
+                "name": "规格长料",
+                "isAlias": false
+              },
+              {
+                "name": "统货长料",
+                "isAlias": false
+              },
+              {
+                "name": "烘干料",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "烘干实木料",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "自然风干",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "风干长料",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "开条",
+                "isAlias": false
+              },
+              {
+                "name": "精品长木料",
+                "isAlias": false
+              },
+              {
+                "name": "四面见线",
+                "isAlias": false
+              },
+              {
+                "name": "防腐长木料",
+                "isAlias": false
+              },
+              {
+                "name": "家私料",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "家具料",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "床板料",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "DIY手工原料",
+                "isAlias": false
+              },
+              {
+                "name": "工艺品实木原料",
+                "isAlias": false
+              },
+              {
+                "name": "卡板料长条",
+                "isAlias": false
+              },
+              {
+                "name": "工程方条",
+                "isAlias": false
+              },
+              {
+                "name": "废木料长料",
+                "isAlias": false
+              },
+              {
+                "name": "老木料",
+                "isAlias": false
               }
             ]
           },
@@ -595,6 +3312,88 @@
               {
                 "name": "小木条",
                 "isAlias": true
+              },
+              {
+                "name": "原木色短料",
+                "isAlias": false
+              },
+              {
+                "name": "实木短料",
+                "isAlias": false
+              },
+              {
+                "name": "杂木短料",
+                "isAlias": false
+              },
+              {
+                "name": "松木短料",
+                "isAlias": false
+              },
+              {
+                "name": "榉木短料",
+                "isAlias": false
+              },
+              {
+                "name": "杉木短料",
+                "isAlias": false
+              },
+              {
+                "name": "黑胡桃短料",
+                "isAlias": false
+              },
+              {
+                "name": "炭化短料",
+                "isAlias": false
+              },
+              {
+                "name": "抛光短料",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "刨光短料",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "烘干短料",
+                "isAlias": false
+              },
+              {
+                "name": "无节短料",
+                "isAlias": false
+              },
+              {
+                "name": "规格短料",
+                "isAlias": false
+              },
+              {
+                "name": "统货短料",
+                "isAlias": false
+              },
+              {
+                "name": "火车底板",
+                "isAlias": false
+              },
+              {
+                "name": "托盘料",
+                "isAlias": false
+              },
+              {
+                "name": "家具料",
+                "isAlias": false
+              },
+              {
+                "name": "床子短料",
+                "isAlias": false
+              },
+              {
+                "name": "二手短料",
+                "isAlias": false
+              },
+              {
+                "name": "处理短料",
+                "isAlias": false
               }
             ]
           }
@@ -651,6 +3450,482 @@
               {
                 "name": "禾香板",
                 "isAlias": true
+              },
+              {
+                "name": "中纤板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name" : "高密度纤维板",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "重质纤维板",
+                        "isAlias": true
+                      },
+                      {
+                        "name": "硬质纤维板",
+                        "isAlias": true
+                      }
+                    ]
+                  },
+                  {
+                    "name" : "中密度纤维板",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "标准密度纤维板",
+                        "isAlias": true
+                      }
+                    ]
+                  },
+                  {
+                    "name" : "低密度纤维板",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "轻质纤维板",
+                        "isAlias": true
+                      },
+                      {
+                        "name": "膨胀纤维板",
+                        "isAlias": true
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "松树密度板",
+                "isAlias": false
+              },
+              {
+                "name": "杉木密度板",
+                "isAlias": false
+              },
+              {
+                "name": "桉树密度板",
+                "isAlias": false
+              },
+              {
+                "name": "桦树密度板",
+                "isAlias": false
+              },
+              {
+                "name": "柳树密度板",
+                "isAlias": false
+              },
+              {
+                "name": "干法密度板",
+                "isAlias": false
+              },
+              {
+                "name": "湿法密度板",
+                "isAlias": false
+              },
+              {
+                "name": "烤漆密度板",
+                "isAlias": false
+              },
+              {
+                "name": "贴膜密度板",
+                "isAlias": false
+              },
+              {
+                "name": "镀铝密度板",
+                "isAlias": false
+              },
+              {
+                "name": "防火密度板",
+                "isAlias": false
+              },
+              {
+                "name": "仿木密度板",
+                "isAlias": false
+              },
+              {
+                "name": "特种密度板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "防潮密度板",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "防潮板",
+                        "isAlias": true
+                      },
+                      {
+                        "name": "防潮纤维板",
+                        "isAlias": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "防火密度板",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "防火板",
+                        "isAlias": true
+                      },
+                      {
+                        "name": "耐火板",
+                        "isAlias": true
+                      },
+                      {
+                        "name": "阻燃密度板",
+                        "isAlias": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "防菌密度板",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "防霉板",
+                        "isAlias": true
+                      },
+                      {
+                        "name": "抗菌板",
+                        "isAlias": true
+                      },
+                      {
+                        "name": "防菌板材",
+                        "isAlias": true
+                      }
+                    ]
+                  },
+                  {
+                    "name": "E0级环保密度板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "装饰密度板",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "贴面密度板",
+                        "isAlias": false,
+                        "childs": [
+                          {
+                            "name": "薄木贴面板",
+                            "isAlias": true
+                          },
+                          {
+                            "name": "木皮密度板",
+                            "isAlias": true
+                          }
+                        ]
+                      },
+                      {
+                        "name": "烤漆密度板",
+                        "isAlias": false,
+                        "childs": [
+                          {
+                            "name": "漆面密度板",
+                            "isAlias": true
+                          },
+                          {
+                            "name": "喷漆密度板",
+                            "isAlias": true
+                          }
+                        ]
+                      },
+                      {
+                        "name": "UV涂层密度板",
+                        "isAlias": false,
+                        "childs": [
+                          {
+                            "name": "UV板",
+                            "isAlias": true
+                          },
+                          {
+                            "name": "UV板材",
+                            "isAlias": true
+                          }
+                        ]
+                      },
+                      {
+                        "name": "热压贴膜密度板",
+                        "isAlias": false,
+                        "childs": [
+                          {
+                            "name": "贴膜密度板",
+                            "isAlias": true
+                          },
+                          {
+                            "name": "仿木纹密度板",
+                            "isAlias": true
+                          }
+                        ]
+                      },
+                      {
+                        "name": "石纹密度板",
+                        "isAlias": false,
+                        "childs": [
+                          {
+                            "name": "仿石板",
+                            "isAlias": true
+                          },
+                          {
+                            "name": "石纹板",
+                            "isAlias": true
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "超薄密度板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "吸音密度板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "全密度型密度板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "均质密度板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "分层密度板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "三层密度板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "面层密度板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "中间层密度板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "底层密度板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "复合密度板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "复合板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "PVC复合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "木质纤维密度板",
+                "isAlias": false
+              },
+              {
+                "name": "草质纤维密度板",
+                "isAlias": false
+              },
+              {
+                "name": "软硬结合密度板",
+                "isAlias": false
+              },
+              {
+                "name": "平面密度板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "平面纤维板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "一般密度板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "平面木纤维板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "平面密度纤维板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "普通密度平板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "曲面密度板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "弯曲板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "弯曲纤维板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "曲面纤维板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "弯曲密度纤维板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "弯曲建筑板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "弯曲装饰板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "弯曲家具板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "长条形密度板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "条状密度板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "窗花密度板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "装饰条板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "边框条板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "护墙板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "定制形状密度板",
+                "isAlias": false
+              },
+              {
+                "name": "常规颜色密度板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "白色密度板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "黑色密度板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "灰色密度板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "棕色密度板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "定制颜色密度板",
+                "isAlias": false
+              },
+              {
+                "name": "家具制造密度板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "铰接板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "表面板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "贴面板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "膨胀板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "地板基材",
+                "isAlias": false
+              },
+              {
+                "name": "门板基材",
+                "isAlias": false
+              },
+              {
+                "name": "电子线路板",
+                "isAlias": false
+              },
+              {
+                "name": "镂铣板",
+                "isAlias": false
+              },
+              {
+                "name": "防潮板",
+                "isAlias": false
+              },
+              {
+                "name": "线条板",
+                "isAlias": false
+              },
+              {
+                "name": "相框背板",
+                "isAlias": false
+              },
+              {
+                "name": "E0级密度板",
+                "isAlias": false
+              },
+              {
+                "name": "E1级密度板",
+                "isAlias": false
+              },
+              {
+                "name": "E2级密度板",
+                "isAlias": false
+              },
+              {
+                "name": "三聚氰胺板",
+                "isAlias": false
               }
             ]
           },
@@ -697,6 +3972,386 @@
               {
                 "name": "条子板",
                 "isAlias": true
+              },
+              {
+                "name": "夹芯胶合板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "细木工板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "蜂窝板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "复合胶合板",
+                "isAlias": false
+              },
+              {
+                "name": "室外用胶合板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "I类耐沸水/耐气候胶合板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "室内用胶合板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "II类胶合板/耐水胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "III类胶合板/耐潮胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "IV类胶合板/不耐潮胶合板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "砂光胶合板",
+                "isAlias": false
+              },
+              {
+                "name": "刮光胶合板",
+                "isAlias": false
+              },
+              {
+                "name": "贴面胶合板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "装饰单板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "木纹纸",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "浸渍纸",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "塑料",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "树脂胶膜",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "金属薄片材料",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "未处理过的胶合板",
+                "isAlias": false
+              },
+              {
+                "name": "处理过的胶合板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "防腐胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "阻燃胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "树脂处理",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "免蒸熏胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "胶合板模板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "平面胶合板",
+                "isAlias": false
+              },
+              {
+                "name": "成型胶合板",
+                "isAlias": false
+              },
+              {
+                "name": "普通胶合板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "薄胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "三合板/3层胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "五合板/5层胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "七合板/7层胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "九合板/9层胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "多层板/11层以上胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "奇数板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "椴木胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "桦木胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "杨木胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "松木胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "楸木胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "水曲柳木胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "进口原木胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "阔叶树材胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "针叶树材胶合板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "特种胶合板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "细木工板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "装饰胶合板",
+                    "isAlias": false,
+                    "childs": [
+                      {
+                        "name": "装饰单板贴面胶合板",
+                        "isAlias": false,
+                        "childs": [
+                          {
+                            "name": "天然木质单板饰面板",
+                            "isAlias": false
+                          },
+                          {
+                            "name": "人造薄木饰面板",
+                            "isAlias": false
+                          },
+                          {
+                            "name": "微薄木贴面板",
+                            "isAlias": false,
+                            "childs": [
+                              {
+                                "name": "花樟树瘤板",
+                                "isAlias": false
+                              },
+                              {
+                                "name": "树根板",
+                                "isAlias": false
+                              },
+                              {
+                                "name": "枫木树瘤板",
+                                "isAlias": false
+                              },
+                              {
+                                "name": "栓木树瘤板",
+                                "isAlias": false
+                              },
+                              {
+                                "name": "花梨树瘤板",
+                                "isAlias": false
+                              },
+                              {
+                                "name": "白杨树瘤板",
+                                "isAlias": false
+                              },
+                              {
+                                "name": "单面装饰单板贴面胶合板",
+                                "isAlias": false
+                              },
+                              {
+                                "name": "双面装饰单板贴面胶合板",
+                                "isAlias": false
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "不饱和聚酯树脂装饰胶合板",
+                        "isAlias": false,
+                        "childs": [
+                          {
+                            "name": "保丽板",
+                            "isAlias": true
+                          }
+                        ]
+                      },
+                      {
+                        "name": "浮雕胶合板",
+                        "isAlias": false
+                      },
+                      {
+                        "name": "直接印刷胶合板",
+                        "isAlias": false
+                      }
+                    ]
+                  },
+                  {
+                    "name": "科技木胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "竹胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "木材层级塑料板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "阻燃胶合板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "耐磨胶合板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "结构胶合板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "单板层积材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "集成材",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "家具板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "沙发板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "包装箱板",
+                "isAlias": false
+              },
+              {
+                "name": "托盘板",
+                "isAlias": false
+              },
+              {
+                "name": "洞板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "毛皮板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "光板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "全脸芯胶合板",
+                "isAlias": false
+              },
+              {
+                "name": "半连芯胶合板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "半芯板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "整芯胶合板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "整芯板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "E0级胶合板",
+                "isAlias": false
+              },
+              {
+                "name": "E1级胶合板",
+                "isAlias": false
+              },
+              {
+                "name": "E2级胶合板",
+                "isAlias": false
               }
             ]
           },
@@ -770,6 +4425,248 @@
               {
                 "name": "可饰面定向结构刨花板",
                 "isAlias": true
+              },
+              {
+                "name": "平面刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "花纹刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "网格刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "波浪刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "方格刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "椭圆刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "空心刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "原色刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "白色刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "黑色刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "灰色刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "木色刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "彩色刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "自然色刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "薄板刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "厚板刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "强化刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "纤维刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "木制刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "胶合刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "水泥刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "铝制刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "超薄刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "松木刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "杉木刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "桦木刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "枫木刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "橡木刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "桃花心木刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "单层刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "双层刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "多层刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "加工刨花板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "涂覆刨花板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "热压刨花板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "防腐刨花板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "防潮刨花板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "防火刨花板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "原生刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "方向刨花板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "定向刨花板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "OSB板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "层积木板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "随机刨花板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "LSB板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "一等品刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "二等品刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "三等品刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "环保刨花板",
+                "isAlias": false
+              },
+              {
+                "name": "未饰面刨花板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "砂光刨花板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "未砂光刨花板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "饰面刨花板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "浸渍纸饰面刨花板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "装饰层压板饰面刨花板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "单板饰面刨花板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "表面涂饰刨花板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "PVC饰面刨花板",
+                    "isAlias": false
+                  }
+                ]
               }
             ]
           },
@@ -880,6 +4777,266 @@
                     "isAlias": false
                   }
                 ]
+              },
+              {
+                "name": "圆柱模板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "建筑圆柱",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "平板模板",
+                "isAlias": false
+              },
+              {
+                "name": "弯曲模板",
+                "isAlias": false
+              },
+              {
+                "name": "曲线模板",
+                "isAlias": false
+              },
+              {
+                "name": "阶梯模板",
+                "isAlias": false
+              },
+              {
+                "name": "定制模板",
+                "isAlias": false
+              },
+              {
+                "name": "弧形模板",
+                "isAlias": false
+              },
+              {
+                "name": "井模板",
+                "isAlias": false
+              },
+              {
+                "name": "异形模板",
+                "isAlias": false
+              },
+              {
+                "name": "原色建筑模板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "原木色模板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "原色模板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "染色建筑模板",
+                "isAlias": false
+              },
+              {
+                "name": "透明涂层建筑模板",
+                "isAlias": false
+              },
+              {
+                "name": "传统木建筑模板",
+                "isAlias": false
+              },
+              {
+                "name": "钢模板",
+                "isAlias": false
+              },
+              {
+                "name": "铝合金模板",
+                "isAlias": false
+              },
+              {
+                "name": "塑料模板",
+                "isAlias": false
+              },
+              {
+                "name": "复合模板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "大型钢木(竹)组合模板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "胶合板建筑模板",
+                "isAlias": false
+              },
+              {
+                "name": "墙模板",
+                "isAlias": false
+              },
+              {
+                "name": "梁模板",
+                "isAlias": false
+              },
+              {
+                "name": "柱模板",
+                "isAlias": false
+              },
+              {
+                "name": "地板模板",
+                "isAlias": false
+              },
+              {
+                "name": "楼梯模板",
+                "isAlias": false
+              },
+              {
+                "name": "隧道模板",
+                "isAlias": false
+              },
+              {
+                "name": "桥梁模板",
+                "isAlias": false
+              },
+              {
+                "name": "混凝土管道模板",
+                "isAlias": false
+              },
+              {
+                "name": "建筑定型模板",
+                "isAlias": false
+              },
+              {
+                "name": "柳木建筑模板",
+                "isAlias": false
+              },
+              {
+                "name": "松木建筑模板",
+                "isAlias": false
+              },
+              {
+                "name": "桉木建筑模板",
+                "isAlias": false
+              },
+              {
+                "name": "桦木建筑模板",
+                "isAlias": false
+              },
+              {
+                "name": "杨木建筑模板",
+                "isAlias": false
+              },
+              {
+                "name": "硬木建筑模板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "橡木建筑模板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "胡桃木建筑模板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "樟木建筑模板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "实木模板",
+                "isAlias": false
+              },
+              {
+                "name": "细木工板模板",
+                "isAlias": false
+              },
+              {
+                "name": "胶合板模板",
+                "isAlias": false
+              },
+              {
+                "name": "三层板模板",
+                "isAlias": false
+              },
+              {
+                "name": "集成模板",
+                "isAlias": false
+              },
+              {
+                "name": "工字钢模板",
+                "isAlias": false
+              },
+              {
+                "name": "铝木复合模板",
+                "isAlias": false
+              },
+              {
+                "name": "木墙模板",
+                "isAlias": false
+              },
+              {
+                "name": "地板模板",
+                "isAlias": false
+              },
+              {
+                "name": "梁模板",
+                "isAlias": false
+              },
+              {
+                "name": "柱模板",
+                "isAlias": false
+              },
+              {
+                "name": "预制模板",
+                "isAlias": false
+              },
+              {
+                "name": "可调模板",
+                "isAlias": false
+              },
+              {
+                "name": "组合式钢模板",
+                "isAlias": false
+              },
+              {
+                "name": "锯切模板",
+                "isAlias": false
+              },
+              {
+                "name": "镂空模板",
+                "isAlias": false
+              },
+              {
+                "name": "打孔模板",
+                "isAlias": false
+              },
+              {
+                "name": "刨光模板",
+                "isAlias": false
+              },
+              {
+                "name": "防腐模板",
+                "isAlias": false
+              },
+              {
+                "name": "喷漆模板",
+                "isAlias": false
+              },
+              {
+                "name": "单层建筑模板",
+                "isAlias": false
+              },
+              {
+                "name": "双层建筑模板",
+                "isAlias": false
+              },
+              {
+                "name": "多层建筑模板",
+                "isAlias": false
               }
             ]
           },
@@ -902,6 +5059,266 @@
               {
                 "name": "木工板",
                 "isAlias": true
+              },
+              {
+                "name": "松木细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "桦木细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "柳木细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "枫木细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "橡木细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "杨木细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "泡桐木细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "非定向细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "定向细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "板芯",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "实心细木工板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "空心细木工板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "板芯拼接细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "不胶拼板芯细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "涂覆细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "装饰细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "压纹细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "雕刻细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "砂光细木工板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "单面砂光细木工板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "两面砂光细木工板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "不砂光细木工板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "三层细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "五层细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "多层细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "单层细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "双层细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "颗粒木材细木工板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "松木细木工板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "桦木细木工板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "柳木细木工板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "花生壳细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "稻壳细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "竹材颗粒细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "废旧纸张颗粒细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "草木颗粒细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "纤维细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "原色细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "深色细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "浅色细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "颜色涂覆细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "矩形细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "方形细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "家具细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "建筑细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "包装细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "装饰细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "工艺品细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "普通细木工板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "超薄板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "薄板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "标准版",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "厚板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "单层细木工板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "两层细木工板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "多层细木工板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "装饰细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "防潮细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "火烟毒细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "耐火细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "高密度细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "室内细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "室外细木工板",
+                "isAlias": false
               }
             ]
           },
@@ -956,6 +5373,678 @@
                     "isAlias": false
                   }
                 ]
+              },
+              {
+                "name": "单指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "单指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "单指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "双指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "双指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "双指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "多指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "多指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "多指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "斜指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "斜指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "斜指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "T型指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "T型指接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "榫槽指接板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "直指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "直指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "直指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "波浪指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "波浪指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "波浪指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "弧型指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "弧形指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "弧形指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "V型指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "V型指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "V型指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "曲线指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "曲线指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "曲线指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "原木指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "原木指接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "天然指接板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "白色指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "白色指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "白色指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "黑色指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "黑色指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "黑色指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "咖色指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "咖色指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "咖色指胶合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "仿木指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "仿木色指板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "仿木色色指胶合板合板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "实木指接板",
+                "isAlias": false
+              },
+              {
+                "name": "人造木指接板",
+                "isAlias": false
+              },
+              {
+                "name": "竹制指接板",
+                "isAlias": false
+              },
+              {
+                "name": "松木指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "白松指接板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "北欧松指接板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "西伯利亚松指接板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "榉木指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "白榉指接板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "红榉指接板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "欧洲榉指接板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "橡胶木指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "白橡指接板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "红橡指接板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "欧洲橡指接板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "杉木指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "香杉木指接板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "枫木指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "硬枫指接板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "软枫指接板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "桦木指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "白桦指接板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "黑桦指接板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "蒙古桦指接板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "樟木指接板",
+                "isAlias": false
+              },
+              {
+                "name": "樱桃木指接板",
+                "isAlias": false
+              },
+              {
+                "name": "预处理指接板",
+                "isAlias": false
+              },
+              {
+                "name": "防水指接板",
+                "isAlias": false
+              },
+              {
+                "name": "防火指接板",
+                "isAlias": false
+              },
+              {
+                "name": "防腐指接板",
+                "isAlias": false
+              },
+              {
+                "name": "涂漆指接板",
+                "isAlias": false
+              },
+              {
+                "name": "防腐指接板",
+                "isAlias": false
+              },
+              {
+                "name": "原生指接板",
+                "isAlias": false
+              },
+              {
+                "name": "生态指接板",
+                "isAlias": false
+              },
+              {
+                "name": "平抛指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "平板指接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "平面指接板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "砂光指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "砂光板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "抛光指接板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "喷漆指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "喷涂板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "涂漆指接板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "热转印指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "热转印板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "热印指接板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "油漆指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "油漆板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "涂漆指板",
+                    "isAlias": true
+                  } 
+                ]
+              },
+              {
+                "name": "热压指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "热压板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "热压指板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "有节指接板",
+                "isAlias": false
+              },
+              {
+                "name": "无节指接板",
+                "isAlias": false
+              },
+              {
+                "name": "横向排列指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "横向指接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "横向接插板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "横向拼接板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "纵向排列指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "纵向指接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "纵向拼接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "纵向接插板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "斜向排列指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "斜向指接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "斜向拼接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "斜向接插板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "点阵排列指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "点阵指接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "点阵接插板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "点阵拼接板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "高密度指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "密集指接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "高强度指接板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "吸音指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "隔音指接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "隔音吸音指接板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "耐磨指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "抗磨指接板",
+                    "isAlias": true
+                  },
+                  {
+                    "name": "耐磨性指接板",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "单层指接板",
+                "isAlias": false
+              },
+              {
+                "name": "三层指接板",
+                "isAlias": false
+              },
+              {
+                "name": "多层指接板",
+                "isAlias": false
+              },
+              {
+                "name": "细木工板",
+                "isAlias": false
+              },
+              {
+                "name": "家具制造指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "桌椅板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "柜体板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "床架板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "建筑装饰指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "地板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "吊顶板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "墙板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "门板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "包装运输指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "托盘板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "包装板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "工业应用指接板",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "模板",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "木制模具板",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "有节指接板",
+                "isAlias": false
+              },
+              {
+                "name": "无节指接板",
+                "isAlias": false
+              },
+              {
+                "name": "饰面板",
+                "isAlias": false
+              },
+              {
+                "name": "E0级指接板",
+                "isAlias": false
+              },
+              {
+                "name": "E1级指接板",
+                "isAlias": false
+              },
+              {
+                "name": "E2级指接板",
+                "isAlias": false
               }
             ]
           }
@@ -1024,6 +6113,412 @@
           {
             "name": "复合托盘",
             "isAlias": true
+          },
+          {
+            "name": "原木色托盘",
+            "isAlias": false
+          },
+          {
+            "name": "深色托盘",
+            "isAlias": false
+          },
+          {
+            "name": "黑色托盘",
+            "isAlias": false
+          },
+          {
+            "name": "浅色托盘",
+            "isAlias": false
+          },
+          {
+            "name": "白色托盘",
+            "isAlias": false
+          },
+          {
+            "name": "单面托盘",
+            "isAlias": false
+          },
+          {
+            "name": "双面托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "双面单用型",
+                "isAlias": false
+              },
+              {
+                "name": "双面双用型",
+                "isAlias": false
+              }
+            ]
+          },
+          {
+            "name": "一体托盘",
+            "isAlias": false
+          },
+          {
+            "name": "可拆卸托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "可拆卸木托盘",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "带侧板托盘",
+            "isAlias": false
+          },
+          {
+            "name": "定制托盘",
+            "isAlias": false
+          },
+          {
+            "name": "箱式托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "固定箱式托盘",
+                "isAlias": false
+              },
+              {
+                "name": "折叠箱式托盘",
+                "isAlias": false
+              }
+            ]
+          },
+          {
+            "name": "轮式托盘",
+            "isAlias": false
+          },
+          {
+            "name": "日字型木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "九脚日字形托盘",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "田字型木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "田字型木托盘",
+                "isAlias": true
+              },
+              {
+                "name": "网格田字木托盘",
+                "isAlias": true
+              },
+              {
+                "name": "九脚田字型托盘",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "川字型木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "川字型木托盘",
+                "isAlias": true
+              },
+              {
+                "name": "平板托盘",
+                "isAlias": true
+              },
+              {
+                "name": "九脚川字型托盘",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "三方木托盘",
+            "isAlias": false
+          },
+          {
+            "name": "单面进叉托盘",
+            "isAlias": false
+          },
+          {
+            "name": "双面进叉托盘",
+            "isAlias": false
+          },
+          {
+            "name": "四面进叉托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "四面进叉实木卡板",
+                "isAlias": true
+              },
+              {
+                "name": "四面进叉卡板",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "不可进叉托盘",
+            "isAlias": false
+          },
+          {
+            "name": "实木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "杨木木托盘",
+                "isAlias": false
+              },
+              {
+                "name": "桦木木托盘",
+                "isAlias": false
+              },
+              {
+                "name": "松木木托盘",
+                "isAlias": false
+              },
+              {
+                "name": "硬杂木木托盘",
+                "isAlias": false
+              },
+              {
+                "name": "桉木木托盘",
+                "isAlias": false
+              }
+            ]
+          },
+          {
+            "name": "胶合板托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "胶合板卡板",
+                "isAlias": true
+              },
+              {
+                "name": "夹板托盘",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "木质托盘",
+            "isAlias": false
+          },
+          {
+            "name": "木墩实木卡板",
+            "isAlias": false
+          },
+          {
+            "name": "旧木托盘",
+            "isAlias": false
+          },
+          {
+            "name": "二手木托盘",
+            "isAlias": false
+          },
+          {
+            "name": "全新木托盘",
+            "isAlias": false
+          },
+          {
+            "name": "九成新木托盘",
+            "isAlias": false
+          },
+          {
+            "name": "美标卡板",
+            "isAlias": false
+          },
+          {
+            "name": "欧标卡板",
+            "isAlias": false
+          },
+          {
+            "name": "高承载木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "重型铺满木方托盘",
+                "isAlias": true
+              },
+              {
+                "name": "密板叉车板",
+                "isAlias": true
+              },
+              {
+                "name": "实木卡板",
+                "isAlias": true
+              },
+              {
+                "name": "加固卡板",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "免蒸熏木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "免蒸熏盏板",
+                "isAlias": true
+              },
+              {
+                "name": "免蒸熏托盘",
+                "isAlias": true
+              },
+              {
+                "name": "蒸熏卡板",
+                "isAlias": true
+              },
+              {
+                "name": "消毒盏板",
+                "isAlias": true
+              },
+              {
+                "name": "免蒸熏胶合板托盘",
+                "isAlias": true
+              },
+              {
+                "name": "熏蒸木栈板",
+                "isAlias": true
+              },
+              {
+                "name": "消毒卡板",
+                "isAlias": true
+              },
+              {
+                "name": "胶合满板卡板",
+                "isAlias": true
+              },
+              {
+                "name": "蒸熏托盘",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "环保木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "环保卡板",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "防潮木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "防潮垫板",
+                "isAlias": true
+              },
+              {
+                "name": "防潮卡板",
+                "isAlias": true
+              },
+              {
+                "name": "防潮托盘",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "车间木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "叉车板",
+                "isAlias": true
+              },
+              {
+                "name": "叉车托盘",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "仓库木托盘",
+            "isAlias": false
+          },
+          {
+            "name": "物流木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "物流栈板",
+                "isAlias": true
+              },
+              {
+                "name": "周转木栈板",
+                "isAlias": true
+              },
+              {
+                "name": "周转木托盘",
+                "isAlias": true
+              },
+              {
+                "name": "周转木盏板",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "露营营地木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "帐篷托盘",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "广场演讲木托盘",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "活动地台板",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "EPAL热处理木托盘",
+            "isAlias": false
+          },
+          {
+            "name": "DB去皮木托盘",
+            "isAlias": false
+          },
+          {
+            "name": "HT热处理木托盘",
+            "isAlias": false
+          },
+          {
+            "name": "涂漆木托盘",
+            "isAlias": false
+          },
+          {
+            "name": "轻型托盘",
+            "isAlias": false
+          },
+          {
+            "name": "中型托盘",
+            "isAlias": false
+          },
+          {
+            "name": "重型托盘",
+            "isAlias": false
           }
         ]
       },
@@ -1054,6 +6549,482 @@
           {
             "name": "木板箱",
             "isAlias": true
+          },
+          {
+            "name": "立方体木箱",
+            "isAlias": false
+          },
+          {
+            "name": "方形木箱",
+            "isAlias": false
+          },
+          {
+            "name": "长方体木箱",
+            "isAlias": false
+          },
+          {
+            "name": "圆形木箱",
+            "isAlias": false
+          },
+          {
+            "name": "椭圆形木箱",
+            "isAlias": false
+          },
+          {
+            "name": "不规则型木箱",
+            "isAlias": false
+          },
+          {
+            "name": "原色木箱",
+            "isAlias": false
+          },
+          {
+            "name": "深色木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "深棕色木箱",
+                "isAlias": true
+              },
+              {
+                "name": "深红色木箱",
+                "isAlias": true
+              },
+              {
+                "name": "深黑色木箱",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "浅色木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "浅棕色木箱",
+                "isAlias": true
+              },
+              {
+                "name": "浅灰色木箱",
+                "isAlias": true
+              },
+              {
+                "name": "浅白色木箱",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "多色木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "彩色木箱",
+                "isAlias": true
+              },
+              {
+                "name": "渐变色木箱",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "平板木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "板式木箱",
+                "isAlias": true
+              },
+              {
+                "name": "托盘箱",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "框架木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "框式木箱",
+                "isAlias": true
+              },
+              {
+                "name": "骨架箱",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "箱盒式木箱",
+            "isAlias": false
+          },
+          {
+            "name": "折叠式木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "卡扣木箱",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "拼接式木箱",
+            "isAlias": false
+          },
+          {
+            "name": "组合式木箱",
+            "isAlias": false
+          },
+          {
+            "name": "嵌套式木箱",
+            "isAlias": false
+          },
+          {
+            "name": "无档木箱",
+            "isAlias": false
+          },
+          {
+            "name": "立档木箱",
+            "isAlias": false
+          },
+          {
+            "name": "横档木箱",
+            "isAlias": false
+          },
+          {
+            "name": "内档木箱",
+            "isAlias": false
+          },
+          {
+            "name": "框档木箱",
+            "isAlias": false
+          },
+          {
+            "name": "可拆卸木箱",
+            "isAlias": false
+          },
+          {
+            "name": "实木木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "天然木箱",
+                "isAlias": true
+              },
+              {
+                "name": "实木包装箱",
+                "isAlias": true
+              },
+              {
+                "name": "天然木质箱",
+                "isAlias": true
+              },
+              {
+                "name": "木制包装箱",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "胶合板木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "胶合板箱",
+                "isAlias": true
+              },
+              {
+                "name": "胶合板包装箱",
+                "isAlias": true
+              },
+              {
+                "name": "胶合板质箱",
+                "isAlias": true
+              },
+              {
+                "name": "免整熏木箱",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "纤维板木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "纤维板箱",
+                "isAlias": true
+              },
+              {
+                "name": "纤维板包装箱",
+                "isAlias": true
+              },
+              {
+                "name": "纤维质箱",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "刨花板木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "刨花板箱",
+                "isAlias": true
+              },
+              {
+                "name": "刨花板包装箱",
+                "isAlias": true
+              },
+              {
+                "name": "刨花板质箱",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "密度板木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "密度板箱",
+                "isAlias": true
+              },
+              {
+                "name": "密度板包装箱",
+                "isAlias": true
+              },
+              {
+                "name": "密度板质箱",
+                "isAlias": true
+              }
+            ]
+          },
+          {
+            "name": "组合材料木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "混合材料箱",
+                "isAlias": false
+              },
+              {
+                "name": "复合材料箱",
+                "isAlias": false
+              },
+              {
+                "name": "多层材料箱",
+                "isAlias": false
+              }
+            ]
+          },
+          {
+            "name": "松木箱",
+            "isAlias": false
+          },
+          {
+            "name": "橡木箱",
+            "isAlias": false
+          },
+          {
+            "name": "榉木箱",
+            "isAlias": false
+          },
+          {
+            "name": "桃花心木箱",
+            "isAlias": false
+          },
+          {
+            "name": "楠木箱",
+            "isAlias": false
+          },
+          {
+            "name": "樱桃木箱",
+            "isAlias": false
+          },
+          {
+            "name": "单层木箱",
+            "isAlias": false
+          },
+          {
+            "name": "双层木箱",
+            "isAlias": false
+          },
+          {
+            "name": "多层木箱",
+            "isAlias": false
+          },
+          {
+            "name": "折叠木箱",
+            "isAlias": false
+          },
+          {
+            "name": "组合式木箱",
+            "isAlias": false
+          },
+          {
+            "name": "小型木箱",
+            "isAlias": false
+          },
+          {
+            "name": "中型木箱",
+            "isAlias": false
+          },
+          {
+            "name": "大型木箱",
+            "isAlias": false
+          },
+          {
+            "name": "未处理木箱",
+            "isAlias": false
+          },
+          {
+            "name": "防腐处理木箱",
+            "isAlias": false
+          },
+          {
+            "name": "防水处理木箱",
+            "isAlias": false
+          },
+          {
+            "name": "防火处理木箱",
+            "isAlias": false
+          },
+          {
+            "name": "防霉处理木箱",
+            "isAlias": false
+          },
+          {
+            "name": "蒸熏木箱",
+            "isAlias": false
+          },
+          {
+            "name": "免蒸熏木箱",
+            "isAlias": false
+          },
+          {
+            "name": "优质木箱",
+            "isAlias": false
+          },
+          {
+            "name": "一般质量木箱",
+            "isAlias": false
+          },
+          {
+            "name": "外观特殊木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "雕刻木箱",
+                "isAlias": false
+              },
+              {
+                "name": "镶嵌木箱",
+                "isAlias": false
+              }
+            ]
+          },
+          {
+            "name": "低质量木箱",
+            "isAlias": false
+          },
+          {
+            "name": "定制木箱",
+            "isAlias": false
+          },
+          {
+            "name": "防潮木箱",
+            "isAlias": false
+          },
+          {
+            "name": "防火木箱",
+            "isAlias": false
+          },
+          {
+            "name": "防震木箱",
+            "isAlias": false
+          },
+          {
+            "name": "防腐木箱",
+            "isAlias": false
+          },
+          {
+            "name": "环保木箱",
+            "isAlias": false
+          },
+          {
+            "name": "重型木箱",
+            "isAlias": false
+          },
+          {
+            "name": "免蒸熏出口木箱",
+            "isAlias": false
+          },
+          {
+            "name": "包装木箱",
+            "isAlias": false
+          },
+          {
+            "name": "储物木箱",
+            "isAlias": false
+          },
+          {
+            "name": "展示木箱",
+            "isAlias": false
+          },
+          {
+            "name": "装饰木箱",
+            "isAlias": false
+          },
+          {
+            "name": "工具木箱",
+            "isAlias": false
+          },
+          {
+            "name": "农业木箱",
+            "isAlias": false,
+            "childs": [
+              {
+                "name": "蔬菜木箱",
+                "isAlias": false
+              },
+              {
+                "name": "水果木箱",
+                "isAlias": false
+              }
+            ]
+          },
+          {
+            "name": "家具木箱",
+            "isAlias": false
+          },
+          {
+            "name": "艺术木箱",
+            "isAlias": false
+          },
+          {
+            "name": "周转木箱",
+            "isAlias": false
+          },
+          {
+            "name": "A型封闭箱",
+            "isAlias": false
+          },
+          {
+            "name": "B型花格板",
+            "isAlias": false
+          },
+          {
+            "name": "C型胶合板封闭箱",
+            "isAlias": false
+          },
+          {
+            "name": "钢边木箱",
+            "isAlias": false
           }
         ]
       },
@@ -1088,6 +7059,132 @@
               {
                 "name": "锯末脚",
                 "isAlias": true
+              },
+              {
+                "name": "洁白刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "原木色刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "染色刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "防火涂层色刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "刨花",
+                "isAlias": false
+              },
+              {
+                "name": "木屑刨花长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "木屑长条",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "锯末刨花长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "锯末长条",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "锯沫刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "松木刨花长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "松木屑刨花长条",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "杂木刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "杨木刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "云杉木刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "桦木刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "杉木刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "聚氨酯胶刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "酚醛胶刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "聚胺脂胶刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "聚醛胶刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "定制刨花长条",
+                "isAlias": false
+              },
+              {
+                "name": "蒸熏刨花长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "免蒸熏刨花长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "出口免检刨花长条",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "有无孔刨花长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "有空刨花长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "无孔刨花长条",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "有无毛边",
+                "isAlias": false
               }
             ]
           },
@@ -1156,6 +7253,160 @@
               {
                 "name": "胶合板小长条",
                 "isAlias": true
+              },
+              {
+                "name": "白色胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "红色胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "黑色胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "建筑模板胶合板长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "模板条",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "胶合板胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "夹板胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "杨木胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "桉木胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "杂木胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "聚氨酯胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "酚醛胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "无拼接胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "高密度胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "贴面胶合板长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "双贴面胶合板长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "贴面胶合板长条",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "蒸熏胶合板长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "免蒸熏胶合板长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "免捡胶合板长条",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "顺向胶合板长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "LVL顺向胶合板条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "顺向胶合板条",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "整芯胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "人工钉胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "装修胶合板长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "内架夹板沙发条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "沙发条",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "光伏专用胶合板板条/拉条",
+                "isAlias": false
+              },
+              {
+                "name": "二手胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "废模板长条",
+                "isAlias": false
+              },
+              {
+                "name": "二手胶合板条子",
+                "isAlias": false
+              },
+              {
+                "name": "全新胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "薄板胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "粒芯胶合板长条",
+                "isAlias": false
+              },
+              {
+                "name": "纤维胶合板长条",
+                "isAlias": false
               }
             ]
           },
@@ -1190,6 +7441,228 @@
               {
                 "name": "杂木方条",
                 "isAlias": true
+              },
+              {
+                "name": "白色杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "黑色杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "红色杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "黄色杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "褐色杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "灰色杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "绿色杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "实心杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "空心杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "多层杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "组合杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "夹层杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "软木杂木长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "松木杂木长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "杉木杂木长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "桦木杂木长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "榆木杂木长条",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "硬木杂木长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "橡木杂木长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "胡桃木杂木长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "榉木杂木长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "柚木杂木长条",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "进口木材杂木长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "樱桃木杂木长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "枫木杂木长条",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "胡桃木杂木长条",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "实木拼接长条",
+                "isAlias": false
+              },
+              {
+                "name": "复合杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "压花杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "烧制杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "烟熏杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "平刨杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "烘干杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "环保长条",
+                "isAlias": false
+              },
+              {
+                "name": "热压长条",
+                "isAlias": false
+              },
+              {
+                "name": "结构杂木长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "柱材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "梁材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "桁架材",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "家具杂木长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "桌腿材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "扶手材",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "装饰杂木长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "墙板材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "地板材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "饰面材",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "工艺品杂木长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "雕刻材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "手工艺品材",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "通货杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "定尺杂木长条",
+                "isAlias": false
+              },
+              {
+                "name": "精品杂木长条",
+                "isAlias": false
               }
             ]
           },
@@ -1244,6 +7717,210 @@
               {
                 "name": "实木托盘料",
                 "isAlias": true
+              },
+              {
+                "name": "白色实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "黑色实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "自然色实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "混色实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "原木色实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "实心实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "空心实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "多层实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "夹板实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "实木复合长条",
+                "isAlias": false
+              },
+              {
+                "name": "橡木长条",
+                "isAlias": false
+              },
+              {
+                "name": "胡桃木长条",
+                "isAlias": false
+              },
+              {
+                "name": "樱桃木长条",
+                "isAlias": false
+              },
+              {
+                "name": "枫木长条",
+                "isAlias": false
+              },
+              {
+                "name": "桃花心木长条",
+                "isAlias": false
+              },
+              {
+                "name": "榉木长条",
+                "isAlias": false
+              },
+              {
+                "name": "松木长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "松木条子",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "桦木长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "桦木条子",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "杨木长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "杨木条子",
+                    "isAlias": true
+                  }
+                ]
+              },
+              {
+                "name": "杉木长条",
+                "isAlias": false
+              },
+              {
+                "name": "家具制造实木长条",
+                "isAlias": false,
+                "childs": [
+                  {
+                    "name": "桌腿材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "椅背材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "扶手材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "地板材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "柜门材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "面板材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "边框材",
+                    "isAlias": false
+                  },
+                  {
+                    "name": "抽屉材",
+                    "isAlias": false
+                  }
+                ]
+              },
+              {
+                "name": "室内装饰实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "建筑结构实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "门窗制造实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "零售、商业空间实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "手工艺品实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "实木挤压长条",
+                "isAlias": false
+              },
+              {
+                "name": "实木拉伸长条",
+                "isAlias": false
+              },
+              {
+                "name": "实木压缩长条",
+                "isAlias": false
+              },
+              {
+                "name": "实木刨削长条",
+                "isAlias": false
+              },
+              {
+                "name": "实木拼接长条",
+                "isAlias": false
+              },
+              {
+                "name": "四面见线实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "聚胺酯粘合实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "酚醛粘合实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "环氧树脂粘合实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "聚氨酯粘合实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "乳胶粘合实木长条",
+                "isAlias": false
+              },
+              {
+                "name": "定制规格实木长条",
+                "isAlias": false
               }
             ]
           }
