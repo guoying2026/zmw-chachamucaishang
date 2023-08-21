@@ -211,7 +211,7 @@ export const generateCompanyShortName = (name: string): string => {
   // 特殊符号
   let symbols = ['（', '(']
 
-  let nameMinLength = 1
+  let nameMinLength = 3
 
   if (!name) return ''
 

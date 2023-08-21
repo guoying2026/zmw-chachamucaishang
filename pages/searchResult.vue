@@ -717,6 +717,7 @@ nuxtApp.hook('page:finish', () => {
 </script>
 
 <template>
+  <ClientOnly>
   <!-- 移动端筛选 -->
   <div class="fixed md:hidden w-full z-10 select-none">
     <!-- 顶部的筛选和排序 -->
@@ -741,11 +742,13 @@ nuxtApp.hook('page:finish', () => {
       </div>
     </div>
   </div>
+  </ClientOnly>
   <!-- pc端筛选 -->
-  <div class="hidden md:flex flex-col w-full lg:w-3/4 lg:mx-auto py-4 rounded-xl select-none select-box-pc">
-    <div class="px-4 text-lg pb-2 mb-2 border-b border-solid border-gray-950">筛选条件</div>
+  <ClientOnly>
+  <div class="hidden md:flex flex-col w-full lg:w-3/4 lg:mx-auto py-4 rounded-2xl select-none select-box-pc">
+    <div class="px-4 text-lg pb-4 mb-3 border-b border-solid border-gray-950">筛选条件</div>
     <!-- 已选条件 -->
-    <div :class="'relative inline-flex flex-row justify-start ' + (isCanMultiSelectProvince?'items-start':'items-center') + ' w-full text-sm px-4 pb-2 mb-2 border-b border-solid border-gray-950 transition-all'">
+    <div :class="'relative inline-flex flex-row justify-start ' + (isCanMultiSelectProvince?'items-start':'items-center') + ' w-full text-sm px-4 pb-3 mb-3 border-b border-solid border-gray-950 transition-all'">
       <div :class="'inline-flex py-0.5 whitespace-nowrap select-item-title' + (areaList.filter(item=>item.is_selected).length>0?' font-orange':'')">已选条件</div>
       <!-- 多选地区条件下 -->
       <div v-if="isCanMultiSelectProvince" class="relative inline-flex flex-row w-full h-auto">
@@ -884,6 +887,8 @@ nuxtApp.hook('page:finish', () => {
       </div>
     </div>
   </div>
+  </ClientOnly>
+  <ClientOnly>
   <div class="inline-block md:block w-full lg:w-3/4 min-h-screen mt-1 md:mt-0 lg:mx-auto text-sm">
     <div class="px-4 py-2 mt-10 md:mt-0 search_find_num_tips">为你找到了<span class="mx-1 font-orange">{{ totalCountOfSearchResult }}</span>条相关结果</div>
     <!-- 搜索结果列表 -->
@@ -960,12 +965,16 @@ nuxtApp.hook('page:finish', () => {
           </div>
         </div>
       </NuxtLink>
-      <div :class="'relative ' + (!isHasMoreSearchResultList || currentPage > totalPages || isSearchResultListPending ? 'hidden' : 'inline-flex') + ' md:hidden flex-row justify-center items-center py-1 mt-4 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item load-more-tips'" style="color: rgb(151,151,151);">
-        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg>
-        <span>加载中...</span>
-      </div>
+      <ClientOnly>
+        <div :class="'relative ' + (!isHasMoreSearchResultList || currentPage > totalPages || isSearchResultListPending ? 'hidden' : 'inline-flex') + ' md:hidden flex-row justify-center items-center py-1 mt-4 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item load-more-tips'" style="color: rgb(151,151,151);">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg>
+          <span>加载中...</span>
+        </div>
+      </ClientOnly>
     </div>
   </div>
+  </ClientOnly>
+  <ClientOnly>
   <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">
     <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage > 1" @click="jumpToPrevPage">上一页</div>
     <template v-if="totalPages <= paginationSize">
@@ -1010,7 +1019,9 @@ nuxtApp.hook('page:finish', () => {
     </div>
     <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage < totalPages" @click="jumpToNextPage">下一页</div>
   </div>
+  </ClientOnly>
   <!-- 电话号码展示弹窗 -->
+  <ClientOnly>
   <div @click.stop="hidePhonePopup" :class="'fixed ' + (isShowPhonePopup ? 'left-0 top-0' : 'left-1/2 top-1/2') + ' inline-flex justify-center items-center ' + (isShowPhonePopup ? 'w-full h-full' : 'w-0 h-0') + ' bg-black bg-opacity-50 transition-all'">
     <div @click.stop="false" :class="'inline-flex flex-col w-3/4 md:w-1/2 lg:w-1/3 ' + (isShowPhonePopup ? 'max-h-screen' : 'max-h-0') + ' min-h-max px-2 ' + (isShowPhonePopup ? 'py-4' : 'py-0') + ' bg-white text-black rounded-xl overflow-hidden shadow transition-all'">
       <div class="relative inline-flex justify-center items-center text-xl font-bold">
@@ -1022,7 +1033,9 @@ nuxtApp.hook('page:finish', () => {
       </div>
     </div>
   </div>
+  </ClientOnly>
   <!-- 获取定位权限询问弹窗 -->
+  <ClientOnly>
   <div @click.stop="hideAskForGetPositionPopup" :class="'fixed ' + (isShowAskForGetPositionPopup ? 'left-0 top-0' : 'left-1/2 top-1/2') + ' inline-flex justify-center items-center ' + (isShowAskForGetPositionPopup ? 'w-full h-full' : 'w-0 h-0') + ' bg-black bg-opacity-50 transition-all'">
     <div @click.stop="false" :class="'inline-flex flex-col w-4/5 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5 ' + (isShowAskForGetPositionPopup ? 'max-h-screen' : 'max-h-0') + ' min-h-max px-2 ' + (isShowAskForGetPositionPopup ? 'py-4' : 'py-0') + ' bg-white text-black rounded-xl overflow-hidden shadow transition-all'">
       <div class="relative inline-flex justify-center items-center text-base md:text-xl font-medium">
@@ -1042,6 +1055,7 @@ nuxtApp.hook('page:finish', () => {
       </div>
     </div>
   </div>
+  </ClientOnly>
 </template>
 
 <style scoped>
@@ -1121,6 +1135,12 @@ nuxtApp.hook('page:finish', () => {
 @media (max-width: 767px) {
   .search_find_num_tips {
     background-color: rgb(18,18,19);
+  }
+}
+
+@media (min-width: 1024px) {
+  .search_find_num_tips {
+    margin-top: calc(100vw / 1920 * 32);
   }
 }
 
