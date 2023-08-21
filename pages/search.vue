@@ -10,8 +10,6 @@ import { useSearchHistoryStore } from '~/pinia/searchHistory'
 // 导入用户信息存储
 import { useUserInfoStore } from "~/pinia/userInfo"
 
-import { generateCompanyShortName } from '~/utils/generateCompanyShortName'
-
 const route = useRoute()
 
 const router = useRouter()
@@ -20,12 +18,9 @@ const nuxtApp = useNuxtApp()
 
 const areaList = ref<AreaListItem[]>([])
 
-const { data, pending, error, refresh } = await useFetch('/api/areaData')
-
-if (data.value) {
-  let areaData: AreaListItem[] = JSON.parse(JSON.stringify(data.value.result))
-  areaList.value = areaData;
-}
+const {
+  data: areaListData
+} = useNuxtData('areaDataList').data.value ? useNuxtData('areaDataList') : useLazyAsyncData('areaDataList', () => $fetch('/api/areaData'))
 
 // 实例化搜索输入历史记录存储
 const searchInputHistoryStore = useSearchInputHistoryStore()
@@ -222,6 +217,21 @@ function cancelButtonHandle() {
   router.back();
 }
 
+function areaListDataChangedHandle(newProps: any) {
+  let res = JSON.parse(JSON.stringify(newProps)) as {
+    code: number,
+    message: string,
+    result?: AreaListItem[],
+  }
+  if (!res || res.code != 200 || !res.result) return;
+  let areaData: AreaListItem[] = res.result ? res.result : []
+  areaList.value = areaData
+}
+
+areaListDataChangedHandle(areaListData.value)
+
+watch(() => areaListData.value, areaListDataChangedHandle)
+
 watch(() => searchInputText.value, (newProps) => {
   regenerateWhatYouWantSearchList(newProps, 1, 0)
 })
@@ -303,7 +313,7 @@ nuxtApp.hook("page:finish", () => {
           <li @click.stop="isShowSearchHistoryListDelete?'':searchInputHistoryListItemClickHandle(item.name)" :class="'relative inline-flex flex-row items-center mt-4' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
             <img v-if="item.logo&&item.logo.length>0" class="w-8 h-8 object-cover search-history-list-item-logo" :src="item.logo" />
             <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" style="background-color: #262626;">
-              <span :class="'font-sans '+(Math.round(generateCompanyShortName(item.name, areaList).replace('\n','').length/2)==2?'text-xs':'text-xl')+' font-extrabold'" style="color: #999;">{{ generateCompanyShortName(item.name, areaList) }}</span>
+              <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2?'text-xs':'text-xl')+' font-extrabold'" style="color: #999;">{{ item.short_name?item.short_name:'' }}</span>
             </div>
             <span class="text-sm pl-1 search-history-list-item-name">{{ item.name }}</span>
             <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">

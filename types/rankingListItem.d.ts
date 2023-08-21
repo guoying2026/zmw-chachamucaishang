@@ -9,4 +9,5 @@ export type RankingListItem = {
   comment_count: number;
   ask_count: number;
   complaint_count: number;
+  short_name: string;
 };

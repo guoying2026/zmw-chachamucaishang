@@ -33,6 +33,10 @@ export default defineEventHandler(async (e) => {
     })
     let res = await data.json() as {status: number, message: string, data?: any, current_page?: number, page_size?: number, total_page?: number, total_size?: number}
     if (res.status != 1000) throw new Error(res.message)
+    res.data = res.data.map((item:any) => {
+      item.short_name = generateCompanyShortName(item.company_name)
+      return item
+    })
     return {
       code: 200,
       message: res.message,

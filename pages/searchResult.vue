@@ -6,8 +6,6 @@ import { SearchResultListItem } from '~/types/searchResultListItem'
 // 导入搜索历史记录存储
 import { useSearchHistoryStore } from '~/pinia/searchHistory'
 
-import { generateCompanyShortName } from '~/utils/generateCompanyShortName'
-
 const route = useRoute()
 
 const nuxtApp = useNuxtApp()
@@ -35,50 +33,9 @@ const areaList = ref<AreaListItem[]>([{
   is_show: true,
 }]);
 
-const { data, pending, error, refresh } = await useFetch('/api/areaData')
-
-if (data.value) {
-  let areaData: AreaListItem[] = JSON.parse(JSON.stringify(data.value.result))
-  // 添加“全(省/市/自治区)”
-  areaData = areaData.map((item: AreaListItem) => {
-    let end = '';
-    if (item.name.includes('自治区')) {
-      end = '全自治区';
-    } else if (item.name.includes('市')) {
-      end = '全市';
-    } else {
-      end = '全省';
-    }
-    item.childs.unshift({
-      code: item.code,
-      name: item.name + end,
-      childs: [],
-      is_selected: false,
-      is_show: true,
-    });
-    item.is_show = true;
-    item.childs = item.childs.map(subitem => {
-      subitem.is_show = true;
-      return subitem;
-    });
-    return item;
-  });
-  // 添加“全国”
-  areaData.unshift({
-    code: 0,
-    name: '全国',
-    childs: [{
-      code: 0,
-      name: '全国',
-      childs: [],
-      is_selected: false,
-      is_show: true,
-    }],
-    is_selected: false,
-    is_show: true,
-  });
-  areaList.value = areaData;
-}
+const {
+  data: areaListData
+} = useNuxtData('areaDataList').data.value ? useNuxtData('areaDataList') : useLazyAsyncData('areaDataList', () => $fetch('/api/areaData'))
 
 const isShowAreaSelect = ref<boolean>(false)
 
@@ -147,6 +104,55 @@ const {
     page_size: pageSize.value,
   }
 }))
+
+function areaListDataChangedHandle(newProps: any) {
+  let res = JSON.parse(JSON.stringify(newProps)) as {
+    code: number,
+    message: string,
+    result?: AreaListItem[],
+  }
+  if (!res || res.code != 200 || !res.result) return;
+  let areaData: AreaListItem[] = res.result ? res.result : []
+  // 添加“全(省/市/自治区)”
+  areaData = areaData.map((item: AreaListItem) => {
+    let end = '';
+    if (item.name.includes('自治区')) {
+      end = '全自治区';
+    } else if (item.name.includes('市')) {
+      end = '全市';
+    } else {
+      end = '全省';
+    }
+    item.childs.unshift({
+      code: item.code,
+      name: item.name + end,
+      childs: [],
+      is_selected: false,
+      is_show: true,
+    });
+    item.is_show = true;
+    item.childs = item.childs.map(subitem => {
+      subitem.is_show = true;
+      return subitem;
+    });
+    return item;
+  });
+  // 添加“全国”
+  areaData.unshift({
+    code: 0,
+    name: '全国',
+    childs: [{
+      code: 0,
+      name: '全国',
+      childs: [],
+      is_selected: false,
+      is_show: true,
+    }],
+    is_selected: false,
+    is_show: true,
+  });
+  areaList.value = areaData;
+}
 
 function searchResultListChangedHandle (newProps: any) {
   isReloadSearchResultList.value = true
@@ -678,11 +684,16 @@ function hideAskForGetPositionPopup() {
 
 function recordClickItem(item: SearchResultListItem) {
   searchHistoryStore.add({
-    id: item.id,
+    id: Number(item.id),
     name: item.company_name,
     logo: item.company_img,
+    short_name: item.short_name,
   })
 }
+
+areaListDataChangedHandle(areaListData.value)
+
+watch(() => areaListData.value, areaListDataChangedHandle)
 
 nuxtApp.hook('page:finish', () => {
   isMobile.value = window.screen.width < 768
@@ -883,7 +894,7 @@ nuxtApp.hook('page:finish', () => {
         <div class="inline-flex flex-row px-4">
           <img v-if="item.company_img && typeof item.company_img == 'string' && item.company_img.length > 0" class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md" :src="item.company_img" />
           <div v-else class="inline-flex justify-center items-center w-8 h-8 md:w-24 md:h-24 text-center rounded-md select-none whitespace-pre" style="background-color: rgb(44,45,55);">
-            <span :class="'font-sans '+(Math.round(generateCompanyShortName(item.company_name, areaList).replace('\n','').length/2)==2?'text-xs md:text-4xl':'text-xl md:text-7xl')+' font-extrabold'">{{ generateCompanyShortName(item.company_name, areaList) }}</span>
+            <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2?'text-xs md:text-4xl':'text-xl md:text-7xl')+' font-extrabold'">{{ item.short_name?item.short_name:'' }}</span>
           </div>
           <div class="inline-flex flex-row items-center w-11/12 md:w-10/12 h-full pl-2 md:pl-4">
             <span class=" max-w-max md:text-2xl md:font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{ item.company_name }}</span>

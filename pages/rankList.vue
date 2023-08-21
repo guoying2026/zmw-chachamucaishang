@@ -68,18 +68,12 @@ function rankListChangedHandle (newProps: any) {
   }
   if (!res || res.code != 200 || !res.result) return;
   let temp = res.result.data.map(item => {
-    return {
-      id: Number(item.id),
-      credit_code: item.credit_code,
-      score: Number(item.score),
-      company_name: item.company_name,
-      corporation: item.corporation,
-      address: item.address,
-      comment_count: Number(item.comment_count),
-      ask_count: Number(item.ask_count),
-      complaint_count: Number(item.complaint_count),
-      range: item.business_scope,
-    }
+    item.id = Number(item.id)
+    item.score = Number(item.score)
+    item.comment_count = Number(item.comment_count)
+    item.ask_count = Number(item.ask_count)
+    item.complaint_count = Number(item.complaint_count)
+    return item
   })
   if (window.screen.width < 768) {
     list.value = list.value.concat(temp)
@@ -151,9 +145,10 @@ function changeRankDigitsToElClass(rankNum: number) {
 
 function recordClickItem(item: RankingListItem) {
   searchHistoryStore.add({
-    id: item.id,
+    id: Number(item.id),
     name: item.company_name,
     logo: '',
+    short_name: item.short_name,
   })
 }
 
