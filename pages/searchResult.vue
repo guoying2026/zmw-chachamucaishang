@@ -37,7 +37,7 @@ const areaList = ref<AreaListItem[]>([{
 
 const {
   data: areaListData
-} = useLazyAsyncData('areaDataList', () => $fetch('/api/areaData'))
+} = useNuxtData('areaDataList').data.value ? useNuxtData('areaDataList') : useLazyAsyncData('areaDataList', () => $fetch('/api/areaData'))
 
 const isShowAreaSelect = ref<boolean>(false)
 

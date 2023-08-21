@@ -20,12 +20,9 @@ const nuxtApp = useNuxtApp()
 
 const areaList = ref<AreaListItem[]>([])
 
-const { data, pending, error, refresh } = await useFetch('/api/areaData')
-
-if (data.value) {
-  let areaData: AreaListItem[] = JSON.parse(JSON.stringify(data.value.result))
-  areaList.value = areaData;
-}
+const {
+  data: areaListData
+} = useNuxtData('areaDataList').data.value ? useNuxtData('areaDataList') : useLazyAsyncData('areaDataList', () => $fetch('/api/areaData'))
 
 // 实例化搜索输入历史记录存储
 const searchInputHistoryStore = useSearchInputHistoryStore()
@@ -221,6 +218,21 @@ function gotoSearch() {
 function cancelButtonHandle() {
   router.back();
 }
+
+function areaListDataChangedHandle(newProps: any) {
+  let res = JSON.parse(JSON.stringify(newProps)) as {
+    code: number,
+    message: string,
+    result?: AreaListItem[],
+  }
+  if (!res || res.code != 200 || !res.result) return;
+  let areaData: AreaListItem[] = res.result ? res.result : []
+  areaList.value = areaData
+}
+
+areaListDataChangedHandle(areaListData.value)
+
+watch(() => areaListData.value, areaListDataChangedHandle)
 
 watch(() => searchInputText.value, (newProps) => {
   regenerateWhatYouWantSearchList(newProps, 1, 0)
