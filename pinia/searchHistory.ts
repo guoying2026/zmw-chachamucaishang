@@ -31,10 +31,7 @@ export const useSearchHistoryStore = defineStore('searchHistoryStore', () => {
     let _list = list.value;
     if (item.id === 0) return;
     if (isNaN(item.id)) return;
-    let listIdArr = _list.map(item => item.id);
-    if (listIdArr.indexOf(item.id) > -1) {
-      _list.splice(listIdArr.indexOf(item.id), 1);
-    }
+    _list = _list.filter(item1 => Number(item1.id) != Number(item.id))
     if (_list.length >= maxCount) {
       _list = _list.splice(0, maxCount - 1)
     }
