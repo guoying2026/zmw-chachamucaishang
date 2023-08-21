@@ -96,10 +96,10 @@ useHead({
     <!-- 顶部标题 -->
     <h1 class="text-5xl md:text-6xl 2xl:text-8xl text-center font-extrabold tracking-widest top-title">查查木材商</h1>
     <!-- 顶部副标题 -->
-    <p class="text-sm sm:text-base md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap">助力检索木材交易隐患，降低木材交易风险</p>
+    <p class="text-sm sm:text-base md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap top-subtitle">助力检索木材交易隐患，降低木材交易风险</p>
     <!-- 搜索框 -->
     <div class="relative inline-flex justify-center w-full md:w-96 2xl:w-1/3 text-base search-box">
-      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-4 text-sm md:text-base text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
+      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-4 text-sm md:text-base xl:text-xl text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
       <!-- 搜索图标 -->
       <svg class="absolute left-3 hidden md:inline-block w-5 h-14 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
       <!-- 叉叉图标 -->
@@ -119,24 +119,24 @@ useHead({
       <div class="inline-flex flex-col items-center justify-center w-1/5">
         <img class="w-10 xl:w-12 2xl:w-14" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image78d4ecfb51b36699a32eab989bf5d4b3.png" />
         <div class="relative inline-flex flex-col items-center justify-center w-full h-14">
-          <p class="absolute opacity-100 h-10 text-center text-base mt-2">问答</p>
-          <p class="absolute opacity-0 h-10 text-center text-xs mt-2 select-none">提出您的问题，了解关于商家的问题及解答</p>
+          <p class="absolute opacity-100 h-10 text-center text-base xl:text-xl 2xl:text-2xl mt-2">问答</p>
+          <p class="absolute opacity-0 h-10 text-center text-xs xl:text-lg 2xl:text-xl mt-2 select-none">提出问题，了解商家详情</p>
         </div>
       </div>
       <!-- 评论 -->
       <div class="inline-flex flex-col items-center justify-center w-1/5">
         <img class="w-10 xl:w-12 2xl:w-14" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5206a70a10664e3094ca56f7b5daa4d0.png" />
         <div class="relative inline-flex flex-col items-center justify-center w-full h-14">
-          <p class="absolute opacity-100 h-10 text-center text-base mt-2">评论</p>
-          <p class="absolute opacity-0 h-10 text-center text-xs mt-2 select-none">提出您的问题，了解关于商家的问题及解答</p>
+          <p class="absolute opacity-100 h-10 text-center text-base xl:text-xl 2xl:text-2xl mt-2">评论</p>
+          <p class="absolute opacity-0 h-10 text-center text-xs xl:text-lg 2xl:text-xl mt-2 select-none">评论商家，浏览商家口碑</p>
         </div>
       </div>
       <!-- 投诉 -->
       <div class="inline-flex flex-col items-center justify-center w-1/5">
         <img class="w-10 xl:w-12 2xl:w-14" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image3db75212dbc6abcdcda9d72349d98b1e.png" />
         <div class="relative inline-flex flex-col items-center justify-center w-full h-14">
-          <p class="absolute opacity-100 h-10 text-center text-base mt-2">投诉</p>
-          <p class="absolute opacity-0 h-10 text-center text-xs mt-2 select-none">提出您的问题，了解关于商家的问题及解答</p>
+          <p class="absolute opacity-100 h-10 text-center text-base xl:text-xl 2xl:text-2xl mt-2">投诉</p>
+          <p class="absolute opacity-0 h-10 text-center text-xs xl:text-lg 2xl:text-xl mt-2 select-none">投诉商家，警示踩雷踩坑</p>
         </div>
       </div>
     </div>
@@ -194,6 +194,10 @@ useHead({
   .top-title {
     margin-top: calc(100vw / 1920 * 195);
   }
+  .top-subtitle {
+    margin-top: calc(100vw / 1920 * 36);
+    margin-bottom: calc(100vw / 1920 * 52);
+  }
   .search-box {
     min-width: 24rem;
     width: calc(100vw / 1920 * 584);
@@ -204,6 +208,10 @@ useHead({
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   transition: all 0s 150ms;
+}
+
+.search-text::placeholder {
+  color: #999;
 }
 
 .search-icon {
@@ -279,6 +287,8 @@ useHead({
 
 .bottom-bg-pc {
   width: calc(100vw / 1920 * 1256);
+  height: calc(100vw / 1920 * 293);
+  margin-top: calc(100vw / 1920 * 140);
 }
 
 .bottom-bg-pc > div:not(:last-of-type) {
