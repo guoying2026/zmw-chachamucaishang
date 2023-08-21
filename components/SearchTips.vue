@@ -225,15 +225,15 @@ nuxtApp.hook("page:finish", () => {
   <!-- 输入框下方的弹出框 -->
   <div :class="'fixed left-0 top-0 w-screen h-0 ' + (props.zIndex && typeof props.zIndex == 'string' && props.zIndex.trim().length > 0 ? props.zIndex : 'z-0') + ' search-tips-area-cover'"></div>
   <div @click.stop="false" :class="'absolute ' + (props.top && typeof props.top == 'string' && props.top.trim().length > 0 ? props.top + ' ' : '') + 'left-0 inline-flex ' + (props.width && typeof props.width == 'string' && props.width.trim().length > 0 ? props.width + ' ' : '') + 'max-h-0 overflow-hidden bg-white text-black transition-all search-tips-area' + (props.class&&typeof props.class=='string'&&props.class.trim().length>0?' '+props.class:'')" :style="(props.zIndex && typeof props.zIndex == 'string' && props.zIndex.trim().length > 0 ? 'z-index:' + (Number(props.zIndex.trim().replace('z-','')) + 1) + ';' : '') + (props.style&&typeof props.style == 'string'&&props.style.length>0?props.style:'')">
-    <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
-    <div v-if="!userInfoStore.isLoggedIn() && props.searchValue?.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-full px-10 py-4">
+    <!-- 未登录、未输入任何搜索内容 -->
+    <div v-if="!userInfoStore.isLoggedIn() && props.searchValue?.trim() === ''" class="inline-flex flex-col justify-center items-center w-full h-full px-10 py-4">
       <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
       <p class="text-xs whitespace-nowrap mt-1 goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
       <button @click.stop="$emit('gotoLogin')" class="text-sm px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
     </div>
 
-    <!-- 未输入任何搜索内容、有搜索历史记录 -->
-    <div v-if="props.searchValue?.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-full px-2 py-1">
+    <!-- 已登录，未输入任何搜索内容、有搜索历史记录 -->
+    <div v-if="userInfoStore.isLoggedIn() && props.searchValue?.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-full px-2 py-1">
       <!-- 输入历史记录 -->
       <div class="inline-flex flex-row items-center justify-between w-full search-input-history-box">
         <ul :class="'inline-flex flex-row text-xs list-none pb-1 pt-1 overflow-x-scroll search-input-history-list'">
