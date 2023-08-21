@@ -300,10 +300,10 @@
             <div class="tab_3_space_4_2">
               <div class="comment_item little_item">
                 <div class="comment_item_1">
-                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
-                  <figcaption class="avatar-name__name margin-10-left">
-                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
-                  </figcaption>
+                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+                  <div class="avatar-name__name margin-10-left">
+                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Tireder</strong>
+                  </div>
                 </div>
                 <div class="comment_item_2">
                   <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
@@ -314,10 +314,10 @@
               </div>
               <div class="comment_item little_item">
                 <div class="comment_item_1">
-                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
-                  <figcaption class="avatar-name__name margin-10-left">
-                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
-                  </figcaption>
+                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+                  <div class="avatar-name__name margin-10-left">
+                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Tireder</strong>
+                  </div>
                 </div>
                 <div class="comment_item_2">
                   <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
@@ -339,10 +339,10 @@
             <div class="tab_3_space_4_2">
               <div class="comment_item little_item">
                 <div class="comment_item_1">
-                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
-                  <figcaption class="avatar-name__name margin-10-left">
-                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
-                  </figcaption>
+                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+                  <div class="avatar-name__name margin-10-left">
+                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Tireder</strong>
+                  </div>
                 </div>
                 <div class="comment_item_2">
                   <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
@@ -353,10 +353,10 @@
               </div>
               <div class="comment_item little_item">
                 <div class="comment_item_1">
-                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
-                  <figcaption class="avatar-name__name margin-10-left">
-                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
-                  </figcaption>
+                  <img class="avatar-name__img" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+                  <div class="avatar-name__name margin-10-left">
+                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Tireder</strong>
+                  </div>
                 </div>
                 <div class="comment_item_2">
                   <p class="margin-10-top ">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
@@ -463,7 +463,7 @@
         </div>
         <div class="second_2_left_item">
           <div class="second_2_left_2">
-            <img class="second_2_left_2_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e9a1e1da-d6e0-4c64-b332-46fd243749db.png"/>
+            <img class="second_2_left_2_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e9a1e1da-d6e0-4c64-b332-46fd243749db.png" alt="头像"/>
             <div class="second_2_left_2_right">
               <text class="second_2_left_2_right_1">网友</text>
             </div>
@@ -473,7 +473,7 @@
         </div>
         <div class="second_2_left_item">
           <div class="second_2_left_2">
-            <img class="second_2_left_2_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e9a1e1da-d6e0-4c64-b332-46fd243749db.png"/>
+            <img class="second_2_left_2_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e9a1e1da-d6e0-4c64-b332-46fd243749db.png" alt="头像"/>
             <div class="second_2_left_2_right">
               <text class="second_2_left_2_right_1">网友</text>
             </div>
@@ -492,7 +492,7 @@
         <div class="question_item_display">
             <div class="question_item_1_display">
               <div class="avatar-wrapper">
-                <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+                <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
                 <span class="question-icon orange-bg">问</span>
               </div>
               <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
@@ -502,7 +502,7 @@
         <div class="answer_item_display">
           <div class="answer_item_1_display">
             <div class="avatar-wrapper">
-              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
               <span class="question-icon red-bg">答</span>
             </div>
             <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
@@ -577,18 +577,20 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref} from 'vue';
-import { useTabItemStore } from "~/pinia/tabItem";
-
 import {BaiduMap} from "vue-baidu-map-3x";
 import AddComment from "~/components/Comment/AddComment.vue";
+import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
 import {useFeedbackProcessStore} from "~/pinia/feedbackProcessStore";
+const addCommentStore = useFeedbackProcessStore();
 import {useCommentStore} from "~/pinia/commentStore";
+const commentStore = useCommentStore();
+import Tag from "~/components/Tag.vue";
+import CommentList from "~/components/Comment/CommentList.vue";
+import NoDetail from "~/components/NoDetail.vue";
+import ComplaintList from "~/components/Complaint/ComplaintList.vue";
 
 //添加评论
-const addCommentStore = useFeedbackProcessStore();
-const commentStore = useCommentStore();
 console.log('请进来');
 addCommentStore.setType('comment');
 console.log(addCommentStore.type);
@@ -1057,37 +1059,6 @@ const answer_question_count = 886;
 }
 .second .second_2 .second_2_left .second_2_left_item .second_2_left_2 .second_2_left_2_right .second_2_left_2_right_1{
   font-size: 14px;
-}
-.second .second_2 .second_2_left .second_2_left_items{
-  display: flex;
-  flex-direction: column;
-}
-.second .second_2 .second_2_left .second_2_left_items .second_2_left_items_top{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-end;
-  margin-top: 20px;
-}
-.second .second_2 .second_2_left .second_2_left_items .second_2_left_items_top .second_2_left_items_top_1{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2px 3px 2px 2px;
-  background-color: #FF8C1B;
-  color: #fff;
-  border-radius: 5px;
-  font-size: 12px;
-}
-.second .second_2 .second_2_left .second_2_left_items .second_2_left_items_top .second_2_left_items_top_2{
-  margin-left: 10px;
-}
-.second .second_2 .second_2_left .second_2_left_items .second_2_left_items_bottom{
-  background: #008aff;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 10px;
-  /*background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_0efc2dc0-ef82-4dad-b906-10772e2f93f0.png");*/
 }
 .second .second_2 .second_2_left_1_margin{
   margin-top: 15px;
