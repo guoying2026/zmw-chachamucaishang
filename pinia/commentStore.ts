@@ -105,8 +105,50 @@ export const useCommentStore = defineStore('commentStore', {
                     commentToUpdate.dislikes++;
                 }
             }
-            console.log(this.comments[index].currentUserReaction);
-            console.log(this.comments[index]);
         },
+        updateReplyReaction(this: CommentStore, index: number,replyIndex: number, newReaction: Reaction) {
+            console.log('执行updateReplyReaction');
+            console.log(newReaction);
+
+            // 获取特定索引处的回复对象
+            const replyToUpdate = this.comments[index].replies[replyIndex];
+
+            if (replyToUpdate) {
+                // 更新回复对象的用户点赞状态和数量
+                switch(replyToUpdate.currentUserReaction) {
+                    case 'liked':
+                        if (newReaction === 'liked') {
+                            replyToUpdate.currentUserReaction = 'none';
+                            replyToUpdate.likes--;
+                        } else if (newReaction === 'disliked') {
+                            replyToUpdate.currentUserReaction = 'disliked';
+                            replyToUpdate.likes--;
+                            replyToUpdate.dislikes++;
+                        }
+                        break;
+
+                    case 'disliked':
+                        if (newReaction === 'liked') {
+                            replyToUpdate.currentUserReaction = 'liked';
+                            replyToUpdate.likes++;
+                            replyToUpdate.dislikes--;
+                        } else if (newReaction === 'disliked') {
+                            replyToUpdate.currentUserReaction = 'none';
+                            replyToUpdate.dislikes--;
+                        }
+                        break;
+
+                    case 'none':
+                        if (newReaction === 'liked') {
+                            replyToUpdate.currentUserReaction = 'liked';
+                            replyToUpdate.likes++;
+                        } else if (newReaction === 'disliked') {
+                            replyToUpdate.currentUserReaction = 'disliked';
+                            replyToUpdate.dislikes++;
+                        }
+                        break;
+                }
+            }
+        }
     },
 });
