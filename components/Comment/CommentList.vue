@@ -13,7 +13,7 @@
           <text class=" time grey-color">{{comment.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" commentOrReply="comment"></LikeSwitch>
-            <AddComment title-box="我要回复" company-name="张珊珊木材加工厂" placeholder-text="我们鼓励真实有帮助的回复" submit-text="发布回复" comment-or-reply="commentReply">
+            <AddComment company-name="张姗姗木材加工厂" type="commentReply">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left grey-color">回复</text>
@@ -36,7 +36,7 @@
               <text class=" time grey-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" commentOrReply="reply"></LikeSwitch>
-                <AddComment :index="index" title-box="我要回复" company-name="张珊珊木材加工厂" placeholder-text="我们鼓励真实有帮助的回复" submit-text="发布回复" comment-or-reply="commentReply">
+                <AddComment :index="index" company-name="张姗姗木材加工厂" type="commentReply">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left grey-color">回复</text>
@@ -46,7 +46,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>1
     </div>
   </div>
 </template>

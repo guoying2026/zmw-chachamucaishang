@@ -273,7 +273,7 @@
         <div class="tab_3_space_1">
           <text>全部评价（{{company_comment_count}}）</text>
           <!-- 引用子组件并传递属性和监听事件 -->
-          <AddComment :key="'main-comment'" titleBox="我要评论" company-name="张珊珊木材加工厂" placeholder-text="我们鼓励真实有帮助的评论" submit-text="发布评论" comment-or-reply="comment">
+          <AddComment company-name="张珊珊木材加工厂" type="comment">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -375,7 +375,12 @@
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
           <text>全部问答</text>
-          <Tag tag="我要提问" number="41" color="orange_linear"></Tag>
+          <AddComment company-name="张珊珊木材加工厂" type="question">
+            <!-- 定义插槽内容 -->
+            <template #trigger>
+              <Tag tag="我要提问" number="41" color="orange_linear"></Tag>
+            </template>
+          </AddComment>
         </div>
         <NoDetail tag="我要提问" text="没有问答" v-if="answer_question_count < 0"></NoDetail>
         <div class="tab_4_space_2" v-else>
@@ -726,7 +731,7 @@ const answer_question_count = 886;
 }
 .tab_4_space_3{
   width: 90%;
-  margin-top: 80px;
+  margin-top: 64px;
   background: #582D06;
   border-radius: 10px;
   height: auto;

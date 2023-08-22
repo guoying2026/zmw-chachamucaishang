@@ -30,17 +30,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineProps,watch } from 'vue';
+import {ref, defineProps, watch, onMounted} from 'vue';
 import { FeedbackProcessStore} from "~/types/commentStore";
 import {useFeedbackProcessStore} from "~/pinia/feedbackProcessStore";
 const addStore = useFeedbackProcessStore(); // 这里使用随机字符串作为ID，确保每次创建的状态都是独立的
 
 // 接收父组件传递的show属性
 const props = defineProps({
-  titleBox: {
-    type: String,
-    default: '我要评论',
-  },
   index: {
     type: [Number,String],
     default: 0,
@@ -49,28 +45,60 @@ const props = defineProps({
     type: String,
     default: '张姗姗木材加工厂',
   },
-  placeholderText: {
-    type: String,
-    default: '我们鼓励真实有帮助的评价'
-  },
-  submitText: {
-    type: String,
-    default: '发布评论'
-  },
-  commentOrReply: {
+  type: {
     type: String,
     required: true,
-    validator: (value: string) => ['comment', 'commentReply'].includes(value)
+    validator: (value: string) => ['comment', 'commentReply','question','answer','complaint','complaintReply'].includes(value)
   }
 });
 const anonymity = ref(false)
+
+// title-box="我要回复"  placeholder-text="我们鼓励真实有帮助的回复" submit-text="发布回复"
 watch(() => anonymity.value, (newVal) => {
   addStore.setAnonymity(newVal);
+});
+onMounted(()=>{
+  const titleBox = ref('')
+  const placeholderText = ref('')
+  const submitText = ref('')
+  console.log("Type Prop:", props.type);
+  switch(props.type){
+    case 'comment':
+      titleBox.value = "我要评论";
+      placeholderText.value = "我们鼓励真实有帮助的评论";
+      submitText.value = "发布评论";
+      break;
+    case 'commentReply':
+      titleBox.value = "我要回复";
+      placeholderText.value = "我们鼓励真实有帮助的回复";
+      submitText.value = "发布回复";
+      break;
+    case 'complaint':
+      titleBox.value = "我要投诉";
+      placeholderText.value = "我们鼓励真实有帮助的投诉";
+      submitText.value = "发布投诉";
+      break;
+    case 'complaintReply':
+      titleBox.value = '我要回复';
+      placeholderText.value = "我们鼓励真实有帮助的回复";
+      submitText.value = "发布回复";
+      break;
+    case 'question':
+      titleBox.value = '我要提问';
+      placeholderText.value = "我们鼓励真实有帮助的提问";
+      submitText.value = "发布提问";
+      break;
+    case 'answer':
+      titleBox.value = '我要回答';
+      placeholderText.value = "我们鼓励真实有帮助的回答";
+      submitText.value = "发布回答";
+      break;
+  }
 });
 const handleComment = () => {
   addStore.openCommentBox();
   addStore.setIndex(props.index);
-  addStore.setType(props.commentOrReply);
+  addStore.setType(props.type);
 }
 const submitComment = () => {
   console.log('点动了吗');
