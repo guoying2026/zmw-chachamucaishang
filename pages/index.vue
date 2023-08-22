@@ -193,14 +193,17 @@ useHead({
 @media (min-width: 768px) {
   .top-title {
     margin-top: calc(100vw / 1920 * 195);
+    font-size: calc(100vw / 1920 * 88);
   }
   .top-subtitle {
     margin-top: calc(100vw / 1920 * 36);
     margin-bottom: calc(100vw / 1920 * 52);
+    font-size: calc(100vw / 1920 * 34);
   }
   .search-box {
     min-width: 24rem;
     width: calc(100vw / 1920 * 584);
+    font-size: calc(100vw / 1920 * 20);
   }
 }
 
