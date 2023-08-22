@@ -49,9 +49,15 @@ const props = defineProps({
   }
 });
 // 计算属性来决定显示哪些数据
-const displayData = props.commentOrReply === 'comment'
-    ? props.store.comments[props.index]
-    : props.store.comments[props.index].replies[props.replyIndex];
+// 修改为计算属性
+const displayData = computed(() => {
+  return props.commentOrReply === 'comment'
+      ? props.store.comments[props.index]
+      : props.store.comments[props.index].replies[props.replyIndex];
+});
+// const displayData = props.commentOrReply === 'comment'
+//     ? props.store.comments[props.index]
+//     : props.store.comments[props.index].replies[props.replyIndex];
 
 
 const toggleCurrentUserReaction = (newReaction: Reaction) => {
