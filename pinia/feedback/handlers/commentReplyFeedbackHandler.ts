@@ -1,15 +1,17 @@
 import {FeedbackData} from "~/types/feedback";
 import {FeedbackHandler} from "~/pinia/feedback/handlers/FeedbackHandler";
 import {useCommentStore} from "~/pinia/commentStore";
-import {Comment} from "@/types/commentType";
+import {Reply} from "@/types/commentType";
+import {CommentStore} from "~/types/commentStore";
 
 export const commentReplyFeedbackHandler: FeedbackHandler = {
     handle(data: FeedbackData) {
         // 处理主评论提交的逻辑
         console.log('处理回复主评论提交逻辑');
-        const commentStore = useCommentStore();
+        const commentStore:CommentStore = useCommentStore();
         console.log(data);
-        let obj:Comment = {
+        console.log(data.index);
+        let obj:Reply = {
             "user_id": 1,
             "user": "Marcin Tireder",
             "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
@@ -19,10 +21,8 @@ export const commentReplyFeedbackHandler: FeedbackHandler = {
             "dislikes": 0,
             "currentUser": 1,
             "currentUserReaction": 'none',
-            "replies": []
         };
-        commentStore.addComment(obj);
-
+        commentStore.addCommentReply(data.index,obj);
         console.log(commentStore.comments);
     }
 }

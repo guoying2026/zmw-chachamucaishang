@@ -4,25 +4,26 @@ import {FeedbackData, StoreOptions} from "~/types/feedback";
 // @ts-ignore
 import { serviceContainer } from '~/pinia/feedback/FeedbackServiceContainer';
 
+const initialState = () => ({
+    show: false,
+    fileList: [] as any[],
+    fileBeingUploaded: false,
+    textareaValue: '',
+    anonymity: false,
+    type: '',
+    index: 0,
+})
 export const useFeedbackProcessStore = defineStore('feedbackProcessStore', {
-    state: () => {
-        return {
-            show: false,
-            fileList: [] as any[],
-            fileBeingUploaded: false,
-            textareaValue: '',
-            anonymity: false,
-            feedbackData: [] as FeedbackData[],
-            type: ''
-        }
-    },
+    state: initialState,
     actions: {
-        openCommentBox() {
-            console.log('openCommentBox is called');
+        openCommentBox(type?: string) {
             this.show = true;
         },
         closeCommentBox() {
             this.show = false;
+        },
+        setIndex(index: number){
+            this.index = index;
         },
         setType(value: string){
             this.type = value;
@@ -39,22 +40,27 @@ export const useFeedbackProcessStore = defineStore('feedbackProcessStore', {
         setTextareaValue(value: string) {
             this.textareaValue = value;
         },
-        clearAll() {
-            this.fileList = [];
-            this.textareaValue = '';
-            this.fileBeingUploaded = false;
+        // 这个方法会将状态重置为初始值
+        resetState() {
+            // 使用 Object.assign() 来确保我们重置每个属性，而不是直接重新赋值整个 state 对象
+            Object.assign(this, initialState());
         },
         addFeedback() {
             console.log('进来addFeedback');
             console.log(this.type);
+            //如果没有传递 type 参数（即 type 为 undefined）并且 this.type 的值为空字符串，则给出一个警告并退出函数。
+            if (!this.type && this.type === '') {
+                console.warn('Warning: You must provide a type value!');
+                return;
+            }
             const handler = serviceContainer.getHandler(this.type);
             console.log(handler);
             if (handler) {
                 console.log('实例化容器成功');
                 console.log(this.$state);
                 handler.handle(this.$state);
-                this.feedbackData.push(this.$state);
                 this.closeCommentBox();
+                this.resetState();
             }
         }
     },

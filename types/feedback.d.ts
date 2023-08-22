@@ -16,4 +16,5 @@ export interface FeedbackData {
     fileBeingUploaded: boolean;
     anonymity: boolean;      // 反馈是否匿名
     show: boolean;
+    index: Number;
 }

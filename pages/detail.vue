@@ -273,11 +273,11 @@
         <div class="tab_3_space_1">
           <text>全部评价（{{company_comment_count}}）</text>
           <!-- 引用子组件并传递属性和监听事件 -->
-          <AddComment :store="addCommentStore">
+          <AddComment :store="addCommentStore" title-box="我要评论" company-name="张珊珊木材加工厂" placeholder-text="我们鼓励真实有帮助的评论" submit-text="发布评论">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <!-- Tag组件，当点击时触发openCommentBox方法 -->
-              <Tag tag="写评论" number="41" color="orange_linear" @click="addCommentStore.openCommentBox"></Tag>
+              <Tag tag="写评论" number="41" color="orange_linear" @click="handleComment"></Tag>
             </template>
           </AddComment>
         </div>
@@ -583,6 +583,7 @@ import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
 import {useFeedbackProcessStore} from "~/pinia/feedbackProcessStore";
 const addCommentStore = useFeedbackProcessStore();
+//添加评论
 import {useCommentStore} from "~/pinia/commentStore";
 const commentStore = useCommentStore();
 import Tag from "~/components/Tag.vue";
@@ -590,10 +591,10 @@ import CommentList from "~/components/Comment/CommentList.vue";
 import NoDetail from "~/components/NoDetail.vue";
 import ComplaintList from "~/components/Complaint/ComplaintList.vue";
 
-//添加评论
-console.log('请进来');
-addCommentStore.setType('comment');
-console.log(addCommentStore.type);
+const handleComment = () => {
+  addCommentStore.openCommentBox();
+  addCommentStore.setType('comment');
+}
 
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;

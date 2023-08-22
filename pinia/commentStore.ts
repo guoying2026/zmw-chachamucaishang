@@ -1,7 +1,7 @@
 // commentStore.ts
 import { defineStore } from 'pinia';
-import { UseCommentStore } from '@/types/commentStore';
-import {Reaction,Comment} from "~/types/commentType";
+import { CommentStore } from '@/types/commentStore';
+import {Reaction, Comment, Reply} from "~/types/commentType";
 
 export const useCommentStore = defineStore('commentStore', {
     state: () => {
@@ -60,11 +60,17 @@ export const useCommentStore = defineStore('commentStore', {
 
     //方法
     actions: {
-        addComment(this: UseCommentStore, comment: Comment) {
+        addComment(this: CommentStore, comment: Comment) {
             this.comments.unshift(comment);
         },
+        addCommentReply(this: CommentStore, index: number, commentReply: Reply){
+            console.log('reply');
+            console.log(index);
+            console.log(this.comments[index]);
+            this.comments[index].replies.unshift(commentReply);
+        },
         // 更新评论的点赞状态和当前用户
-        updateCommentReaction(this: UseCommentStore,index: string | number, newReaction: Reaction) {
+        updateCommentReaction(this: CommentStore,index: number, newReaction: Reaction) {
             console.log('执行updateCommentReaction');
             console.log(newReaction);
             // 获取特定索引处的评论对象

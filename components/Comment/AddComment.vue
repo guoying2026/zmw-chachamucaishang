@@ -7,21 +7,21 @@
     <div class="overlay" v-if="store.show" @click="store.closeCommentBox">
       <div class="add-box" @click.stop>
         <img class="close-box" @click="store.closeCommentBox" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_574ad6b3-3918-4434-babf-0fd2db4a90a5.png" alt="关闭按钮">
-        <h1>我要评论</h1>
+        <h1>{{titleBox}}</h1>
         <!-- 文本域用于输入评论 -->
         <div class="add-box-2">
-          <text>评论商家：张家港木业有限公司</text>
+          <text>评论商家：{{companyName}}</text>
           <el-checkbox v-model="anonymity">匿名评价</el-checkbox>
         </div>
         <Textarea
-            placeholderText="我们鼓励真实有帮助的评价"
+            :placeholderText="placeholderText"
             :store="store"
         />
         <FileUpload
             :store="store"
         />
         <div class="add-box-3">
-          <Tag color="orange" tag="发布评论" @click="submitComment"></Tag>
+          <Tag color="orange" :tag="submitText" @click="submitComment"></Tag>
         </div>
       </div>
     </div>
@@ -30,14 +30,37 @@
 
 <script lang="ts" setup>
 import { ref, defineProps,watch } from 'vue';
+import { FeedbackProcessStore} from "~/types/commentStore";
 
 // 接收父组件传递的show属性
 const props = defineProps({
-  store:{
-    type: Object,
+  store: {
+    type: Object as () => FeedbackProcessStore,
     required: true
+  },
+  index: {
+    type: [String,Number],
+    default: 0,
+  },
+  titleBox: {
+    type: String,
+    default: '我要评论',
+  },
+  companyName: {
+    type: String,
+    default: '张姗姗木材加工厂',
+  },
+  placeholderText: {
+    type: String,
+    default: '我们鼓励真实有帮助的评价'
+  },
+  submitText: {
+    type: String,
+    default: '发布评论'
   }
 });
+console.log('传进来的index');
+console.log(props.index);
 const anonymity = ref(false)
 console.log(props.store);
 watch(() => anonymity.value, (newVal) => {
