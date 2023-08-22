@@ -273,7 +273,7 @@
         <div class="tab_3_space_1">
           <text>全部评价（{{company_comment_count}}）</text>
           <!-- 引用子组件并传递属性和监听事件 -->
-          <AddComment :store="addCommentStore" title-box="我要评论" company-name="张珊珊木材加工厂" placeholder-text="我们鼓励真实有帮助的评论" submit-text="发布评论">
+          <AddComment :key="'main-comment'" :store="addCommentStore" titleBox="我要评论" companyName="张珊珊木材加工厂" placeholderText="我们鼓励真实有帮助的评论" submitText="发布评论">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -283,7 +283,7 @@
         </div>
         <NoDetail v-if="company_comment_count < 0"></NoDetail>
         <div class="tab_3_space_2" v-else>
-          <CommentList :store="commentStore"></CommentList>
+          <CommentList :key="'comment-list'" :store="commentStore"></CommentList>
         </div>
       </div>
       <div class="tab_3_space_right">
@@ -582,7 +582,7 @@ import AddComment from "~/components/Comment/AddComment.vue";
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
 import {useFeedbackProcessStore} from "~/pinia/feedbackProcessStore";
-const addCommentStore = useFeedbackProcessStore();
+const addCommentStore = useFeedbackProcessStore(); // 这里使用随机字符串作为ID，确保每次创建的状态都是独立的
 //添加评论
 import {useCommentStore} from "~/pinia/commentStore";
 const commentStore = useCommentStore();
@@ -598,7 +598,6 @@ const handleComment = () => {
 
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
-  console.log(tabItemStore.tabItem);
 }
 
 const ready = ({ BMap , map }: { BMap: any, map: any })=>{

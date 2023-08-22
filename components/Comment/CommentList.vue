@@ -67,6 +67,7 @@ const props = defineProps({
 });
 
 const addStore = useFeedbackProcessStore();
+console.log(addStore.id);
 const handleCommentReply = (index: number) => {
   addStore.openCommentBox();
   addStore.setIndex(index);

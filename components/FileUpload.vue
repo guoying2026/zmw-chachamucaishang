@@ -44,17 +44,13 @@ const dialogImageUrl = ref('');
 const dialogVisible = ref(false);
 
 const handleChange = async (uploadFile: any) => {
-  console.log('在执行handleChange');
-  console.log(uploadFile);
   if (uploadFile.status == 'ready') {
     props.store?.setFileBeingUploaded(true);
   }
 
   const res = await getAnswerOssSignatureApi({type: 'sell_img'});
-  console.log(res);
   if (res.status === 1000) {
     const post = res.data;
-    console.log(post);
     post.host = handeSrcHttpsUtil(post.host);
     const fileKey = `${post.dir}_pc_image_${guidUtil()}.png`;
     const fileUrl = `${post.host}/${fileKey}`;
@@ -71,7 +67,6 @@ const handleChange = async (uploadFile: any) => {
     formData.append('signature', post.signature);
     formData.append('file', uploadFile.raw);
     const result = await pushAnswerOssApi(post.host, formData);
-    console.log(result);
     // Check if the result is an object (parsed from JSON) and has a status of 200
     if (typeof result === 'object' && result.status === 200) {
       submitFileList.value.push({[fileRawUid]: fileUrl});

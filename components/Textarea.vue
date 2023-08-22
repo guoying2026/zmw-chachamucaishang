@@ -30,9 +30,7 @@ const props = defineProps({
 });
 const localTextareaValue = ref('');
 watch(() => localTextareaValue.value, (newVal) => {
-  console.log('localTextareaValue changed:', newVal);
   props.store?.setTextareaValue(newVal);
-  console.log('Child store instance:', props.store);
 });
 
 </script>

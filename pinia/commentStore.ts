@@ -64,15 +64,10 @@ export const useCommentStore = defineStore('commentStore', {
             this.comments.unshift(comment);
         },
         addCommentReply(this: CommentStore, index: number, commentReply: Reply){
-            console.log('reply');
-            console.log(index);
-            console.log(this.comments[index]);
             this.comments[index].replies.unshift(commentReply);
         },
         // 更新评论的点赞状态和当前用户
         updateCommentReaction(this: CommentStore,index: number, newReaction: Reaction) {
-            console.log('执行updateCommentReaction');
-            console.log(newReaction);
             // 获取特定索引处的评论对象
             const commentToUpdate = this.comments[index];
             if (commentToUpdate) {
@@ -107,9 +102,6 @@ export const useCommentStore = defineStore('commentStore', {
             }
         },
         updateReplyReaction(this: CommentStore, index: number,replyIndex: number, newReaction: Reaction) {
-            console.log('执行updateReplyReaction');
-            console.log(newReaction);
-
             // 获取特定索引处的回复对象
             const replyToUpdate = this.comments[index].replies[replyIndex];
 

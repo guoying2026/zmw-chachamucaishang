@@ -9,8 +9,6 @@ export const commentReplyFeedbackHandler: FeedbackHandler = {
         // 处理主评论提交的逻辑
         console.log('处理回复主评论提交逻辑');
         const commentStore:CommentStore = useCommentStore();
-        console.log(data);
-        console.log(data.index);
         let obj:Reply = {
             "user_id": 1,
             "user": "Marcin Tireder",
@@ -23,6 +21,5 @@ export const commentReplyFeedbackHandler: FeedbackHandler = {
             "currentUserReaction": 'none',
         };
         commentStore.addCommentReply(data.index,obj);
-        console.log(commentStore.comments);
     }
 }

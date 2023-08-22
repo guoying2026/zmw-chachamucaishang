@@ -59,17 +59,11 @@ const props = defineProps({
     default: '发布评论'
   }
 });
-console.log('传进来的index');
-console.log(props.index);
 const anonymity = ref(false)
-console.log(props.store);
 watch(() => anonymity.value, (newVal) => {
-  console.log(newVal);
   props.store.setAnonymity(newVal);
-  console.log(props.store.anonymity);
 });
 const submitComment = () => {
-  console.log("提交评论");
   if(props.store.fileBeingUploaded){
     ElMessage({
       showClose: true,
@@ -78,8 +72,6 @@ const submitComment = () => {
     })
     return;  // 如果文件正在上传，不继续执行
   } else {
-    console.log(props.store.$state);
-    console.log('提交评论之后的操作');
     props.store.addFeedback();
   }
 };

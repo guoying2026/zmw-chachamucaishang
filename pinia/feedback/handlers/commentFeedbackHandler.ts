@@ -7,9 +7,7 @@ import { CommentStore } from "@/types/commentStore";
 export const commentFeedbackHandler: FeedbackHandler = {
     handle(data: FeedbackData) {
         // 处理主评论提交的逻辑
-        console.log('处理主评论提交逻辑');
         const commentStore:CommentStore = useCommentStore();
-        console.log(data);
         let obj:Comment = {
             "user_id": 1,
             "user": "Marcin Tireder",
@@ -23,7 +21,5 @@ export const commentFeedbackHandler: FeedbackHandler = {
             "replies": []
             };
         commentStore.addComment(obj);
-
-        console.log(commentStore.comments);
     }
 }

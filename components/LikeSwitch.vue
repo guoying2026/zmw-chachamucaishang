@@ -53,15 +53,11 @@ const displayData = props.commentOrReply === 'comment'
     ? props.store.comments[props.index]
     : props.store.comments[props.index].replies[props.replyIndex];
 
-console.log(displayData);
 
 const toggleCurrentUserReaction = (newReaction: Reaction) => {
-  console.log('进来toggleCurrentUserReaction');
   if (props.commentOrReply === 'comment') {
-    console.log('评论点赞处理');
     props.store.updateCommentReaction(props.index, newReaction);
   } else {
-    console.log('回复点赞处理');
     props.store.updateReplyReaction(props.index, props.replyIndex, newReaction);
   }
 };
