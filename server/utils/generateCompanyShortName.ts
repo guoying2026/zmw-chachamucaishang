@@ -88,6 +88,8 @@ export const generateCompanyShortName = (name: string): string => {
     "木业部",
     "经营部",
     "门市部",
+    "总公司",
+    "分公司",
     "经销处",
     "购销站",
     "收购站",
@@ -104,6 +106,9 @@ export const generateCompanyShortName = (name: string): string => {
     "收购",
     "商行",
     "加工",
+    "工业",
+    "公司",
+    "建材",
     "木材",
     "木屑",
     "木片",
@@ -271,7 +276,7 @@ export const generateCompanyShortName = (name: string): string => {
   }
 
   companySuffixes.forEach(item => {
-    if (name == item || name.includes("\n")) return false
+    if (name == item || name.includes("\n") || name.length <= 2) return false
     if (name.endsWith(item)) {
       name = name.substring(0, name.length - item.length) + "\n" + item
       return false

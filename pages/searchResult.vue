@@ -897,9 +897,9 @@ nuxtApp.hook('page:finish', () => {
       <NuxtLink :to="'/detail?id=' + item.id" @click="recordClickItem(item)" class="relative inline-flex flex-col py-4 mt-4 first-of-type:mt-0 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item" v-for="(item, index) in searchResultList">
         <!-- 搜索结果项 - 第一行 -->
         <div class="inline-flex flex-row px-4">
-          <img v-if="item.company_img && typeof item.company_img == 'string' && item.company_img.length > 0" class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md" :src="item.company_img" />
-          <div v-else class="inline-flex justify-center items-center w-8 h-8 md:w-24 md:h-24 text-center rounded-md select-none whitespace-pre" style="background-color: rgb(44,45,55);">
-            <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs md:text-4xl':'text-xl md:text-7xl')+' font-extrabold'">{{ item.short_name?item.short_name:'' }}</span>
+          <img v-if="item.company_img && typeof item.company_img == 'string' && item.company_img.length > 0" class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md search-list-item-logo" :src="item.company_img" />
+          <div v-else class="inline-flex justify-center items-center w-8 h-8 md:w-24 md:h-24 text-center rounded-md select-none whitespace-pre search-list-item-logo" style="background-color: rgb(44,45,55);">
+            <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs md:text-4xl word-logo-multi-words':'text-xl md:text-7xl word-logo-one-word')+' font-extrabold'">{{ item.short_name?item.short_name:'' }}</span>
           </div>
           <div class="inline-flex flex-row items-center w-11/12 md:w-10/12 h-full pl-2 md:pl-4">
             <span class=" max-w-max md:text-2xl md:font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{ item.company_name }}</span>
@@ -1244,6 +1244,20 @@ nuxtApp.hook('page:finish', () => {
 
   .search-list-item > div:not(:first-of-type,:last-of-type) {
     color: rgb(151,151,151);
+  }
+
+  .search-list-item-logo {
+    width: calc(100vw / 1920 * 88);
+    height: calc(100vw / 1920 * 88);
+  }
+
+  .word-logo-one-word {
+    font-size: calc(100vw / 1920 * 72);
+  }
+
+  .word-logo-multi-words {
+    font-size: calc(100vw / 1920 * 36);
+    line-height: calc(100vw / 1920 * 40);
   }
 }
 </style>

@@ -467,8 +467,23 @@ nuxtApp.hook("page:finish", () => {
 }
 
 @media (min-width: 768px) {
+  .search-tips-area {
+    font-size: calc(100vw / 1920 * 16);
+  }
   .search-tips-area.in-header {
     width: calc(100% - 4rem);
+  }
+  .goto-login-and-get-detail-search-result-tips {
+    font-size: calc(100vw / 1920 * 16);
+    margin-top: calc(100vw / 1920 * 16);
+  }
+  .goto-login-button {
+    width: calc(100vw / 1920 * 100);
+    height: calc(100vw / 1920 * 34);
+    font-size: calc(100vw / 1920 * 18);
+  }
+  .search-input-history-list-item {
+    height: calc(100vw / 1920 * 28);
   }
 }
 </style>

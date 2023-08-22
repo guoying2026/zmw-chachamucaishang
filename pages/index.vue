@@ -203,6 +203,10 @@ useHead({
   .search-box {
     min-width: 24rem;
     width: calc(100vw / 1920 * 584);
+    height: calc(100vw / 1920 * 60);
+    font-size: calc(100vw / 1920 * 20);
+  }
+  .bottom-bg-pc > div p {
     font-size: calc(100vw / 1920 * 20);
   }
 }
