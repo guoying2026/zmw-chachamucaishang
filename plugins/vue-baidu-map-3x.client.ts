@@ -21,6 +21,7 @@ export default defineNuxtPlugin({
             // 在此可以进行一些当应用被创建时的操作，如果有需要的话
             serviceContainer.registerHandler('comment', commentFeedbackHandler);
             serviceContainer.registerHandler('commentReply', commentReplyFeedbackHandler);
+            console.log(serviceContainer);
             console.log(`Handler for 'comment' registered successfully.`);
         }
     }

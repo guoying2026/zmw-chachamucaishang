@@ -24,16 +24,15 @@
 
 <script lang="ts" setup>
 import { defineProps } from 'vue';
-import { CommentStore } from "~/types/commentStore";
 import {Reaction} from "~/types/commentType";
 
+import {CommentStore} from "@/types/commentStore";
+import {useCommentStore} from "~/pinia/commentStore";
+
+const commentStore:CommentStore = useCommentStore();
 
 // 接收父组件传递的show属性
 const props = defineProps({
-  store:{
-    type: Object as () => CommentStore,
-    required: true
-  },
   index:{
     type: [Number,String],
     required: true
@@ -52,19 +51,19 @@ const props = defineProps({
 // 修改为计算属性
 const displayData = computed(() => {
   return props.commentOrReply === 'comment'
-      ? props.store.comments[props.index]
-      : props.store.comments[props.index].replies[props.replyIndex];
+      ? commentStore.comments[props.index]
+      : commentStore.comments[props.index].replies[props.replyIndex];
 });
 // const displayData = props.commentOrReply === 'comment'
-//     ? props.store.comments[props.index]
-//     : props.store.comments[props.index].replies[props.replyIndex];
+//     ? commentStore.comments[props.index]
+//     : commentStore.comments[props.index].replies[props.replyIndex];
 
 
 const toggleCurrentUserReaction = (newReaction: Reaction) => {
   if (props.commentOrReply === 'comment') {
-    props.store.updateCommentReaction(props.index, newReaction);
+    commentStore.updateCommentReaction(props.index, newReaction);
   } else {
-    props.store.updateReplyReaction(props.index, props.replyIndex, newReaction);
+    commentStore.updateReplyReaction(props.index, props.replyIndex, newReaction);
   }
 };
 </script>

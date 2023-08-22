@@ -1,12 +1,13 @@
 <template>
   <div>
     <!-- 插槽用于放置触发按钮 -->
-    <slot name="trigger"></slot>
-
+    <div @click="handleComment">
+      <slot name="trigger"></slot>
+    </div>
     <!-- 如果internalShow为真，显示遮罩层和评论框 -->
-    <div class="overlay" v-if="store.show" @click="store.closeCommentBox">
+    <div class="overlay" v-if="addStore.show" @click="addStore.closeCommentBox">
       <div class="add-box" @click.stop>
-        <img class="close-box" @click="store.closeCommentBox" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_574ad6b3-3918-4434-babf-0fd2db4a90a5.png" alt="关闭按钮">
+        <img class="close-box" @click="addStore.closeCommentBox" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_574ad6b3-3918-4434-babf-0fd2db4a90a5.png" alt="关闭按钮">
         <h1>{{titleBox}}</h1>
         <!-- 文本域用于输入评论 -->
         <div class="add-box-2">
@@ -15,10 +16,10 @@
         </div>
         <Textarea
             :placeholderText="placeholderText"
-            :store="store"
+            :store="addStore"
         />
         <FileUpload
-            :store="store"
+            :store="addStore"
         />
         <div class="add-box-3">
           <Tag color="orange" :tag="submitText" @click="submitComment"></Tag>
@@ -31,20 +32,18 @@
 <script lang="ts" setup>
 import { ref, defineProps,watch } from 'vue';
 import { FeedbackProcessStore} from "~/types/commentStore";
+import {useFeedbackProcessStore} from "~/pinia/feedbackProcessStore";
+const addStore = useFeedbackProcessStore(); // 这里使用随机字符串作为ID，确保每次创建的状态都是独立的
 
 // 接收父组件传递的show属性
 const props = defineProps({
-  store: {
-    type: Object as () => FeedbackProcessStore,
-    required: true
-  },
-  index: {
-    type: [String,Number],
-    default: 0,
-  },
   titleBox: {
     type: String,
     default: '我要评论',
+  },
+  index: {
+    type: [Number,String],
+    default: 0,
   },
   companyName: {
     type: String,
@@ -57,14 +56,26 @@ const props = defineProps({
   submitText: {
     type: String,
     default: '发布评论'
+  },
+  commentOrReply: {
+    type: String,
+    required: true,
+    validator: (value: string) => ['comment', 'commentReply'].includes(value)
   }
 });
 const anonymity = ref(false)
 watch(() => anonymity.value, (newVal) => {
-  props.store.setAnonymity(newVal);
+  addStore.setAnonymity(newVal);
 });
+const handleComment = () => {
+  addStore.openCommentBox();
+  addStore.setIndex(props.index);
+  addStore.setType(props.commentOrReply);
+}
 const submitComment = () => {
-  if(props.store.fileBeingUploaded){
+  console.log('点动了吗');
+
+  if(addStore.fileBeingUploaded){
     ElMessage({
       showClose: true,
       message: '文件正在上传中，请稍后再试',
@@ -72,7 +83,8 @@ const submitComment = () => {
     })
     return;  // 如果文件正在上传，不继续执行
   } else {
-    props.store.addFeedback();
+    console.log('劲来回复');
+    addStore.addFeedback();
   }
 };
 

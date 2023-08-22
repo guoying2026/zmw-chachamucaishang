@@ -25,7 +25,7 @@ export const useFeedbackProcessStore = defineStore({
         closeCommentBox() {
             this.show = false;
         },
-        setIndex(index: number){
+        setIndex(index: number|string){
             this.index = index;
         },
         setType(value: string){
@@ -49,16 +49,21 @@ export const useFeedbackProcessStore = defineStore({
             Object.assign(this, initialState(this.id));
         },
         addFeedback() {
+            console.log('jinglaile');
             //如果没有传递 type 参数（即 type 为 undefined）并且 this.type 的值为空字符串，则给出一个警告并退出函数。
             if (!this.type && this.type === '') {
                 console.warn('Warning: You must provide a type value!');
                 return;
             }
+            console.log(this.type);
             const handler = serviceContainer.getHandler(this.type);
+            console.log(handler);
             if (handler) {
                 handler.handle(this.$state);
                 this.closeCommentBox();
                 this.resetState();
+            } else {
+                console.log('不能处理回复内容');
             }
         }
     },

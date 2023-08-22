@@ -11,6 +11,6 @@ export interface FeedbackData {
     fileBeingUploaded: boolean;
     anonymity: boolean;              // 反馈是否匿名
     show: boolean;
-    index: number;                   // 注意，我改成了number（小写），因为TypeScript中的数字类型是小写的。
+    index: number|string;                   // 注意，我改成了number（小写），因为TypeScript中的数字类型是小写的。
     type: string;                   // 添加这行
 }

@@ -273,11 +273,11 @@
         <div class="tab_3_space_1">
           <text>全部评价（{{company_comment_count}}）</text>
           <!-- 引用子组件并传递属性和监听事件 -->
-          <AddComment :key="'main-comment'" :store="addCommentStore" titleBox="我要评论" companyName="张珊珊木材加工厂" placeholderText="我们鼓励真实有帮助的评论" submitText="发布评论">
+          <AddComment :key="'main-comment'" titleBox="我要评论" company-name="张珊珊木材加工厂" placeholder-text="我们鼓励真实有帮助的评论" submit-text="发布评论" comment-or-reply="comment">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <!-- Tag组件，当点击时触发openCommentBox方法 -->
-              <Tag tag="写评论" number="41" color="orange_linear" @click="handleComment"></Tag>
+              <Tag tag="写评论" number="41" color="orange_linear"></Tag>
             </template>
           </AddComment>
         </div>
@@ -581,8 +581,6 @@ import {BaiduMap} from "vue-baidu-map-3x";
 import AddComment from "~/components/Comment/AddComment.vue";
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
-import {useFeedbackProcessStore} from "~/pinia/feedbackProcessStore";
-const addCommentStore = useFeedbackProcessStore(); // 这里使用随机字符串作为ID，确保每次创建的状态都是独立的
 //添加评论
 import {useCommentStore} from "~/pinia/commentStore";
 const commentStore = useCommentStore();
@@ -591,10 +589,6 @@ import CommentList from "~/components/Comment/CommentList.vue";
 import NoDetail from "~/components/NoDetail.vue";
 import ComplaintList from "~/components/Complaint/ComplaintList.vue";
 
-const handleComment = () => {
-  addCommentStore.openCommentBox();
-  addCommentStore.setType('comment');
-}
 
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
