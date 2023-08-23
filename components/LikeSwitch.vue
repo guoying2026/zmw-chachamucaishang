@@ -51,38 +51,29 @@ const currentHandler = computed(() => {
   if (!handler) {
     throw new Error(`Handler not found for feedback type: ${props.feedbackType}`);
   }
-  console.log(handler);
   return handler;
 });
 
 const displayData = computed(() => {
-  console.log("props.feedbackType:", props.feedbackType);
-  console.log("props.index:", props.index);
-  console.log("props.replyIndex:", props.replyIndex);
 
   let data;
   if (['commentReply', 'answer', 'complaintReply'].includes(props.feedbackType)) {
     // 如果handler有getReply方法
     const replyHandler = currentHandler.value as unknown as ReplyFeedbackHandler;
-    console.log("replyHandler:", replyHandler);
     if ("getReply" in replyHandler) {
       data = replyHandler.getReply(props.index, props.replyIndex);
-      console.log("Reply data:", data);
     } else {
       throw new Error("getReply method is not available on the handler.");
     }
   } else {
     // 如果handler有get方法
     const mainHandler = currentHandler.value as unknown as MainFeedbackHandler;
-    console.log("mainHandler:", mainHandler);
     if ("get" in mainHandler) {
       data = mainHandler.get(props.index);
-      console.log("Main data:", data);
     } else {
       throw new Error("get method is not available on the handler.");
     }
   }
-  console.log(data);
   return data;
 });
 

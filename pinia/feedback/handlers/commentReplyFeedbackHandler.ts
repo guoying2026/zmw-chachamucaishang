@@ -22,6 +22,7 @@ export const commentReplyFeedbackHandler: FeedbackHandler & ReplyFeedbackHandler
             "dislikes": 0,
             "currentUser": 1,
             "currentUserReaction": 'none',
+            "image": data.fileList.map(item => Object.values(item)[0] as string),
         };
         commentStore.addCommentReply(data.index,obj);
     },

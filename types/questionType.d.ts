@@ -11,7 +11,7 @@ export interface Answer {
     dislikes: number;
     currentUser: number;
     currentUserReaction: Reaction;
-    image: [];
+    image: String[];
 }
 
 // 单个评论的类型定义
@@ -25,6 +25,6 @@ export interface Question {
     dislikes: number;
     currentUser: number;
     currentUserReaction: Reaction;
-    image: [],
+    image: String[];
     answer_list: Answer[];
 }

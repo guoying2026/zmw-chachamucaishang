@@ -9,6 +9,8 @@ import {handleAnonymity} from "~/utils/handler";
 export const commentFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
     add(data: FeedbackData) {
         // 处理主评论提交的逻辑
+        console.log('处理主评论提交逻辑');
+        console.log(data.fileList);
         const commentStore = useCommentStore();
         let user = handleAnonymity(data.anonymity,"Marcin Tireder");
         let obj:Comment = {
@@ -21,6 +23,7 @@ export const commentFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
             "dislikes": 0,
             "currentUser": 1,
             "currentUserReaction": 'none',
+            "image": data.fileList.map(item => Object.values(item)[0] as string),
             "replies": []
             };
         commentStore.addComment(obj);

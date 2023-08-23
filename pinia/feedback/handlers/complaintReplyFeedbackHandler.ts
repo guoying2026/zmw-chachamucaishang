@@ -23,6 +23,7 @@ export const complaintReplyFeedbackHandler: FeedbackHandler & ReplyFeedbackHandl
             "dislikes": 0,
             "currentUser": 1,
             "currentUserReaction": 'none',
+            "image": data.fileList.map(item => Object.values(item)[0] as string),
         };
         complaintStore.addComplaintReply(data.index,obj);
     },

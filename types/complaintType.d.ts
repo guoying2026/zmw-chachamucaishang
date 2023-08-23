@@ -11,7 +11,7 @@ export interface Reply {
     dislikes: number;
     currentUser: number;
     currentUserReaction: Reaction;
-    image:[];
+    image: String[];
 }
 
 
@@ -26,6 +26,6 @@ export interface Complaint {
     dislikes: number;
     currentUser: number;
     currentUserReaction: Reaction;
-    image: [];
+    image: String[];
     replies: Reply[];
 }

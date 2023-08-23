@@ -22,6 +22,7 @@ export const questionFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
             "dislikes": 0,
             "currentUser": 1,
             "currentUserReaction": 'none',
+            "image": data.fileList.map(item => Object.values(item)[0] as string),
             "answer_list": []
         };
         questionStore.addQuestion(obj);

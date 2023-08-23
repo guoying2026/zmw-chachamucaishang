@@ -105,7 +105,7 @@ const currentHandler = computed(() => {
   if (!handler) {
     throw new Error(`Handler not found for feedback type: ${props.feedbackType}`);
   }
-  console.log(handler);
+  // console.log(handler);
   return handler;
 });
 
@@ -119,7 +119,7 @@ const submitComment = () => {
     })
     return;  // 如果文件正在上传，不继续执行
   } else {
-    console.log('劲来回复');
+    console.log('提交评论');
     currentHandler.value.add(state.value);
     closeCommentBox();
   }

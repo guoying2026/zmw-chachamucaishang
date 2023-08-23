@@ -21,7 +21,8 @@ export const complaintFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
             "dislikes": 0,
             "currentUser": 1,
             "currentUserReaction": 'none',
-            "replies": []
+            "image": data.fileList.map(item => Object.values(item)[0] as string),
+            "replies": [],
         };
         complaintStore.addComplaint(obj);
     },
