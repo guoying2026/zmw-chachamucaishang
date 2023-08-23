@@ -6,7 +6,7 @@ import { ComplaintStore } from "@/types/complaintStore";
 
 export const complaintFeedbackHandler: FeedbackHandler = {
     add(data: FeedbackData) {
-        // 处理主评论提交的逻辑
+        // 处理主投诉提交的逻辑
         const complaintStore:ComplaintStore = useComplaintStore();
         let obj:Complaint = {
             "user_id": 1,

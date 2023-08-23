@@ -6,8 +6,8 @@ import {ComplaintStore} from "~/types/complaintStore";
 
 export const complaintReplyFeedbackHandler: FeedbackHandler = {
     add(data: FeedbackData) {
-        // 处理主评论提交的逻辑
-        console.log('处理回复主评论提交逻辑');
+        // 处理主投诉回复提交的逻辑
+        console.log('处理回复主投诉提交逻辑');
         const complaintStore:ComplaintStore = useComplaintStore();
         let obj:Reply = {
             "user_id": 1,
