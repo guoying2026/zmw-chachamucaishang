@@ -71,6 +71,9 @@ export const generateCompanyShortName = (name: string): string => {
     "有限公司",
     "集团",
     "木材制材厂",
+    "胶合板厂",
+    "人造板厂",
+    "指接板厂",
     "木板皮厂",
     "旋木皮厂",
     "木材公司",
@@ -102,6 +105,7 @@ export const generateCompanyShortName = (name: string): string => {
     "胶合板",
     "包装箱",
     "市场",
+    "门市",
     "商店",
     "收购",
     "商行",
@@ -241,18 +245,18 @@ export const generateCompanyShortName = (name: string): string => {
       if (name.length > nameMinLength && name.startsWith(prefix) && name.substring(prefix.length).length > 0) name = name.substring(prefix.length)
     })
 
-    // 处理结尾前缀，例如：有限公司
-    companySuffixes.forEach(prefix => {
-      if (name.length > nameMinLength && name.startsWith(prefix) && name.substring(prefix.length).length > 0) name = name.substring(prefix.length)
+    // 处理结尾后缀，例如：有限公司
+    companySuffixes.forEach(suffix => {
+      if (name.length > nameMinLength && name.endsWith(suffix) && name.substring(0, name.length - suffix.length).length > 0) name = name.substring(0, name.length - suffix.length)
     })
 
     companySuffixes.forEach(contain => {
       if (name.length > nameMinLength && name.includes(contain) && !name.endsWith(contain) && name.replace(contain, '').length > 0) name = name.replace(contain, '')
     })
 
-    // 处理结尾后缀，例如：有限公司
-    companySuffixes.forEach(suffix => {
-      if (name.length > nameMinLength && name.endsWith(suffix) && name.substring(0, name.length - suffix.length).length > 0) name = name.substring(0, name.length - suffix.length)
+    // 处理结尾前缀，例如：有限公司
+    companySuffixes.forEach(prefix => {
+      if (name.length > nameMinLength && name.startsWith(prefix) && name.substring(prefix.length).length > 0) name = name.substring(prefix.length)
     })
 
     // 处理特殊符号
@@ -269,6 +273,14 @@ export const generateCompanyShortName = (name: string): string => {
     })
 
     citySuffixes.forEach(contain => {
+      if (name.length > contain.length && name.includes(contain) && name.replace(contain, '').length > 0) name = name.replace(contain, '')
+    })
+
+    countySuffixes.forEach(contain => {
+      if (name.length > contain.length && name.includes(contain) && name.replace(contain, '').length > 0) name = name.replace(contain, '')
+    })
+
+    townSuffixes.forEach(contain => {
       if (name.length > contain.length && name.includes(contain) && name.replace(contain, '').length > 0) name = name.replace(contain, '')
     })
 

@@ -123,50 +123,85 @@ onMounted(() => {
   searchInputFocusAndBlurHandle();
 })
 
-nuxtApp.hook('page:finish', () => {
+function changeHeaderWhiteSpaceStyleHandle() {
   let headerEl = document.querySelector('.header');
   let headerWhiteSpaceEl = document.querySelector('.header_white_space');
   if (headerEl && headerWhiteSpaceEl) {
     headerWhiteSpaceEl.setAttribute('style', 'height: ' + getComputedStyle(headerEl).height + ';');
   }
+}
+
+function changeSearchBoxStyleHandle() {
+  let searchTextEl = document.querySelector('.search-text')
+  let clearIconEl = document.querySelector('.search-box svg:nth-of-type(2)')
+  let searchTipsAreaEl = document.querySelector('.search-tips-area')
+  if (searchTextEl && clearIconEl) {
+    let searchTextStyle = getComputedStyle(searchTextEl)
+    let clearIconStyle = getComputedStyle(clearIconEl)
+    clearIconEl.setAttribute('style', 'color: rgb(153,153,153);right: unset;left: calc((' + searchTextStyle.width + ' - ' + searchTextStyle.paddingRight + ') + ((' + searchTextStyle.paddingRight + ' - ' + clearIconStyle.width + ') / 2));')
+  }
+  if (searchTextEl && searchTipsAreaEl) {
+    searchTipsAreaEl.setAttribute('style', 'width: ' + getComputedStyle(searchTextEl).width + ';')
+  }
+}
+
+onMounted(() => {
+  changeHeaderWhiteSpaceStyleHandle();
   searchInputFocusAndBlurHandle();
   window.addEventListener('resize', () => {
-    let headerEl = document.querySelector('.header');
-    let headerWhiteSpaceEl = document.querySelector('.header_white_space');
-    if (headerEl && headerWhiteSpaceEl) {
-      headerWhiteSpaceEl.setAttribute('style', 'height: ' + getComputedStyle(headerEl).height + ';');
-    }
+    changeHeaderWhiteSpaceStyleHandle();
     searchInputFocusAndBlurHandle();
+    if (window.screen.width >= 768) {
+      changeSearchBoxStyleHandle();
+    }
   });
+  if (window.screen.width >= 768) {
+    changeSearchBoxStyleHandle();
+  }
+})
+
+nuxtApp.hook('page:finish', () => {
+  changeHeaderWhiteSpaceStyleHandle();
+  searchInputFocusAndBlurHandle();
+  window.addEventListener('resize', () => {
+    changeHeaderWhiteSpaceStyleHandle();
+    searchInputFocusAndBlurHandle();
+    if (window.screen.width >= 768) {
+      changeSearchBoxStyleHandle();
+    }
+  });
+  if (window.screen.width >= 768) {
+    changeSearchBoxStyleHandle();
+  }
 })
 </script>
 
 <template>
   <ClientOnly>
   <div class="fixed inline-flex flex-row justify-start md:justify-center items-center w-full h-14 xl:h-20 bg-black pb-2 md:pt-1 md:pb-1 z-30 header">
-    <div class="inline-flex flex-row justify-start md:justify-center items-center w-full h-14 xl:h-20 bg-black z-30">
+    <div class="inline-flex flex-row justify-start md:justify-between items-center w-full h-14 xl:h-20 bg-black z-30">
       <!-- 查查木材商图标 -->
-      <NuxtLink to="/" class="grow md:grow-0">
-        <img class="block md:hidden h-6 object-contain" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imageee2c089b91ece3372b37b7ea820936fe.png" />
-        <img class="hidden md:block h-8 xl:h-14 object-contain" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagef6dd0552bbc692e03c05de8bd0b26610.png" />
+      <NuxtLink to="/" class="">
+        <img class="block md:hidden h-6 object-contain header-logo" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imageee2c089b91ece3372b37b7ea820936fe.png" />
+        <img class="hidden md:block h-8 xl:h-14 object-contain header-logo" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagef6dd0552bbc692e03c05de8bd0b26610.png" />
       </NuxtLink>
       <!-- 搜索框 -->
-      <div class="relative grow lg:grow-0 inline-flex md:justify-evenly items-center w-full xl:h-14 md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
+      <div class="relative inline-flex md:justify-evenly items-center w-full xl:h-14 md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
         <input class="w-full md:w-80 xl:h-10 px-5 py-1 md:px-0 md:py-0 md:pr-8 text-xs md:text-sm md:bg-transparent text-inherit md:text-white rounded-2xl md:rounded transition-all search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
         <svg class="absolute md:hidden left-1 inline-block w-4 h-4 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
         <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute right-1 md:right-20 w-4 h-4 cursor-pointer" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
-        <button @click.stop="searchButtonHandle" class="hidden md:inline-block xl:h-10 text-sm md:text-base px-2 py-1 rounded search-button">查一下</button>
+        <button @click.stop="searchButtonHandle" class="hidden md:inline-block xl:h-10 text-sm md:text-base px-2 py-1 whitespace-nowrap rounded search-button">查一下</button>
         <ClientOnly>
           <SearchTips @gotoLogin="openLoginPopup" @gotoSearch="searchInputHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-6 md:top-10 xl:top-14" width="w-full md:w-80" zIndex="-z-10" class="in-header" />
         </ClientOnly>
       </div>
-      <div v-if="userInfoStore.isLoggedIn()" @click.stop="isShowUserInfoPopup = !isShowUserInfoPopup" :class="'grow md:grow-0 ' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' w-9 md:w-auto xl:w-16 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 xl:ml-4 rounded cursor-pointer'">
-        <img class="h-6 md:h-8 xl:h-14 object-contain" :src="userInfoStore.getAvatar()"/>
+      <div v-if="userInfoStore.isLoggedIn()" @click.stop="isShowUserInfoPopup = !isShowUserInfoPopup" :class="'' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' w-9 md:w-auto xl:w-16 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 xl:ml-4 rounded cursor-pointer'">
+        <img class="h-6 md:h-8 xl:h-14 object-contain user-header" :src="userInfoStore.getAvatar()"/>
       </div>
       <ClientOnly v-else>
-        <button @click="openLoginPopup" :class="'grow md:grow-0 ' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 my-1 border border-solid rounded goto-login-button'">登录/注册</button>
+        <button @click="openLoginPopup" :class="'' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 my-1 border border-solid rounded goto-login-button'">登录/注册</button>
       </ClientOnly>
-      <button @click="searchInputBlurHandle" :class="'grow md:grow-0 ' + (isSearchInputFocusing ? 'inline-block md:hidden' : 'hidden') + ' h-8 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 ml-2 md:ml-10 border border-dashed goto-login-button border-transparent'">取消</button>
+      <button @click="searchInputBlurHandle" :class="'' + (isSearchInputFocusing ? 'inline-block md:hidden' : 'hidden') + ' h-8 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 ml-2 md:ml-10 border border-dashed goto-login-button border-transparent'">取消</button>
     </div>
   </div>
   <!-- 用户登录之后 点击头像弹出的信息框 -->
@@ -206,6 +241,12 @@ nuxtApp.hook('page:finish', () => {
 }
 
 @media (min-width: 768px) {
+  .header > div {
+    width: 100%;
+  }
+  .header .search-box {
+    width: 100%;
+  }
   .header .search-text {
     width: calc(100% - 4rem);
   }
@@ -216,14 +257,36 @@ nuxtApp.hook('page:finish', () => {
     height: calc(100vw / 1920 * 112);
   }
   .header > div {
-    width: calc(100vw / 4 * 3);
+    width: calc(100vw / 1920 * 1084);
     height: calc(100vw / 1920 * 112);
   }
-  .header > div > div:nth-of-type(1) {
-    width: calc(100% - 18rem);
+  .header .header-logo {
+    width: calc(100vw / 1920 * 246);
+    height: calc(100vw / 1920 * 48);
+  }
+  .header .search-box {
+    width: calc(100vw / 1920 * 599);
+    height: calc(100vw / 1920 * 50);
   }
   .header .search-text {
     width: calc(100% - 4rem);
+  }
+  .header .search-button {
+    height: calc(100vw / 1920 * 42);
+    font-size: calc(100vw / 1920 * 20);
+    line-height: calc(100vw / 1920 * 20);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .header .user-header {
+    width: calc(100vw / 1920 * 52);
+    height: calc(100vw / 1920 * 52);
+  }
+
+  .goto-login-button {
+    font-size: calc(100vw / 1920 * 20);
+    line-height: calc(100vw / 1920 * 20);
+    padding: calc(100vw / 1920 * 10);
   }
 }
 

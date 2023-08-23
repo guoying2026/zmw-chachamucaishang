@@ -511,7 +511,7 @@ nuxtApp.hook('page:finish', () => {
     top: calc((var(--real-width) / 12 * 11) / 1258 * 53);
     width: calc((var(--real-width) / 12 * 11) / 1258 * 55);
     height: calc((var(--real-width) / 12 * 11) / 1258 * 55);
-    font-size: calc(100vw / 1920 * 50);
+    font-size: calc(100vw / 1920 * 40);
   }
 
   .item .rank_num {
@@ -563,6 +563,16 @@ nuxtApp.hook('page:finish', () => {
     top: calc((var(--real-width) / 12 * 11) / 1258 * 121);
     left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
     font-size: calc(100vw / 1920 * 18);
+  }
+
+  .pagination {
+    font-size: calc(100vw / 1920 * 16);
+  }
+
+  .pagination .page-button,
+  .pagination .jump-to input,
+  .pagination .jump-to button {
+    padding: calc(100vw / 1920 * 13) calc(100vw / 1920 * 14);
   }
 }
 </style>

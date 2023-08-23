@@ -99,7 +99,7 @@ useHead({
     <p class="text-sm sm:text-base md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap top-subtitle">助力检索木材交易隐患，降低木材交易风险</p>
     <!-- 搜索框 -->
     <div class="relative inline-flex justify-center w-full md:w-96 2xl:w-1/3 text-base search-box">
-      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-4 text-sm md:text-base xl:text-xl text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
+      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-10 text-sm md:text-base xl:text-xl text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
       <!-- 搜索图标 -->
       <svg class="absolute left-3 hidden md:inline-block w-5 h-14 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
       <!-- 叉叉图标 -->
@@ -190,27 +190,6 @@ useHead({
   margin-top: calc(100vw / 750 * 285);
 }
 
-@media (min-width: 768px) {
-  .top-title {
-    margin-top: calc(100vw / 1920 * 195);
-    font-size: calc(100vw / 1920 * 88);
-  }
-  .top-subtitle {
-    margin-top: calc(100vw / 1920 * 36);
-    margin-bottom: calc(100vw / 1920 * 52);
-    font-size: calc(100vw / 1920 * 34);
-  }
-  .search-box {
-    min-width: 24rem;
-    width: calc(100vw / 1920 * 584);
-    height: calc(100vw / 1920 * 60);
-    font-size: calc(100vw / 1920 * 20);
-  }
-  .bottom-bg-pc > div p {
-    font-size: calc(100vw / 1920 * 20);
-  }
-}
-
 .search-text {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -257,13 +236,6 @@ useHead({
 
 .clear-icon {
   right: calc(100vw / 750 * 138);
-}
-
-@media (min-width: 768px) {
-  .clear-icon {
-    left: 74%;
-    right: unset;
-  }
 }
 
 .search-text:focus-visible ~ .search-tips-area,
@@ -392,5 +364,49 @@ useHead({
 
 .help-list img {
   width: 2rem;
+}
+
+@media (min-width: 768px) {
+  .top-title {
+    margin-top: calc(100vw / 1920 * 195);
+    font-size: calc(100vw / 1920 * 88);
+  }
+  .top-subtitle {
+    margin-top: calc(100vw / 1920 * 36);
+    margin-bottom: calc(100vw / 1920 * 52);
+    font-size: calc(100vw / 1920 * 34);
+  }
+  .search-box {
+    min-width: calc(211px + (100vw / 1920 * 96));
+    width: calc(100vw / 1920 * 584);
+    height: calc(100vw / 1920 * 60);
+    font-size: calc(100vw / 1920 * 20);
+  }
+  .search-text {
+    min-width: 210px;
+    width: calc(100vw / 1920 * 488);
+    height: calc(100vw / 1920 * 60);
+    padding: 0 calc(100vw / 1920 * 35);
+    font-size: calc(100vw / 1920 * 20);
+  }
+  .search-icon,
+  .clear-icon {
+    width: calc(100vw / 1920 * 20);
+    height: calc(100vw / 1920 * 60);
+  }
+  .search-icon {
+    left: calc(100vw / 1920 * 14);
+  }
+  .clear-icon {
+    right: calc(100vw / 1920 * 110);
+  }
+  .search-button {
+    width: calc(100vw / 1920 * 96);
+    height: calc(100vw / 1920 * 60);
+    font-size: calc(100vw / 1920 * 20);
+  }
+  .bottom-bg-pc > div p {
+    font-size: calc(100vw / 1920 * 20);
+  }
 }
 </style>
