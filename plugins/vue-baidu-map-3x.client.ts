@@ -6,6 +6,8 @@ import { commentFeedbackHandler } from '~/pinia/feedback/handlers/commentFeedbac
 import { commentReplyFeedbackHandler } from '~/pinia/feedback/handlers/commentReplyFeedbackHandler';
 import {questionFeedbackHandler} from "~/pinia/feedback/handlers/questionFeedbackHandler";
 import {answerFeedbackHandler} from "~/pinia/feedback/handlers/answerFeedbackHandler";
+import {complaintFeedbackHandler} from "~/pinia/feedback/handlers/complaintFeedbackHandler";
+import {complaintReplyFeedbackHandler} from "~/pinia/feedback/handlers/complaintReplyFeedbackHandler";
 
 export default defineNuxtPlugin({
     name: 'vue-baidu-map-3x',
@@ -25,6 +27,8 @@ export default defineNuxtPlugin({
             serviceContainer.registerHandler('commentReply', commentReplyFeedbackHandler);
             serviceContainer.registerHandler('question', questionFeedbackHandler);
             serviceContainer.registerHandler('answer', answerFeedbackHandler);
+            serviceContainer.registerHandler('complaint', complaintFeedbackHandler);
+            serviceContainer.registerHandler('complaintReply', complaintReplyFeedbackHandler);
             console.log(serviceContainer);
             console.log(`Handler for 'comment' registered successfully.`);
         }

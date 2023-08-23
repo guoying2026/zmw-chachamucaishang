@@ -437,7 +437,6 @@
       <div class="tab_5_space_left"></div>
       <div class="tab_5_space_middle">
         <ComplaintList></ComplaintList>
-        <NoDetail tag="我要投诉" text="没有投诉"></NoDetail>
       </div>
       <div class="tab_5_space_right">
         <div class="tab_5_space_3">
