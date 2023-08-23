@@ -59,7 +59,7 @@ export const useFeedbackProcessStore = defineStore({
             const handler = serviceContainer.getHandler(this.type);
             console.log(handler);
             if (handler) {
-                handler.handle(this.$state);
+                handler.add(this.$state);
                 this.closeCommentBox();
                 this.resetState();
             } else {

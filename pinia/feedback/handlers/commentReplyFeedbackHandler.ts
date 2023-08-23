@@ -5,7 +5,7 @@ import {Reply} from "@/types/commentType";
 import {CommentStore} from "~/types/commentStore";
 
 export const commentReplyFeedbackHandler: FeedbackHandler = {
-    handle(data: FeedbackData) {
+    add(data: FeedbackData) {
         // 处理主评论提交的逻辑
         console.log('处理回复主评论提交逻辑');
         const commentStore:CommentStore = useCommentStore();

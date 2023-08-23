@@ -15,14 +15,15 @@
         <div class="question_item_3">
           <text class=" time grey-color">{{question.time}}</text>
           <div class="question_item_4">
-            <div class="question_item_4_s s_1">
-              <svg t="1691744480998" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7486" width="200" height="200"><path d="M889.6 396.8l-281.6 0c25.6-134.4 76.8-300.8-32-352-115.2-51.2-121.6 19.2-134.4 134.4-12.8 121.6-192 249.6-192 249.6l0 563.201 608 0c83.2-38.4 134.4-377.6 160-499.2s-128-96-128-96zM0 428.8l179.201 0 0 569.6-179.201 0 0-569.6z" fill="#ffffff" p-id="7487"></path></svg>
-              <text class="margin-10-left grey-color">{{question.likes}}</text>
-            </div>
-            <div class="question_item_4_s s_2">
-              <svg t="1691744322247" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4418" width="200" height="200"><path d="M0.324216 544.126266V99.856667c0-42.502075 34.439126-76.943007 76.950232-76.943007h69.252138v597.416871l-69.252138 0.727905C34.779598 621.060242 0.324216 586.621116 0.324216 544.126266zM906.401774 701.805334c-101.960909-0.643013-203.927236-1.295057-305.889952-1.936264 14.372063 50.5578 21.64389 95.465755 21.64389 135.014667 0 89.738243-78.615563 177.607053-157.128172 166.202603-69.225045-10.057012-76.829216-69.88612-76.829216-144.858545v-67.689761c0-86.871778-72.916951-160.897746-157.451485-169.040169l-11.119068 0.106567V22.915466h602.566394c56.362979 0 104.7768 40.090776 115.278141 95.47298 28.068601 148.097091 56.146233 296.181539 84.21664 444.269599 12.045656 63.672736-29.79715 125.053384-93.46808 137.09904a116.62016 116.62016 0 0 1-21.819092 2.048249z" fill="#ffffff" p-id="4419" data-spm-anchor-id="a313x.search_index.0.i8.81863a81qlwlOT" class="selected"></path></svg>
-              <text class="margin-10-left grey-color">{{question.dislikes}}</text>
-            </div>
+            <LikeSwitch :index="index" commentOrReply="comment"></LikeSwitch>
+<!--            <div class="question_item_4_s s_1">-->
+<!--              <svg t="1691744480998" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7486" width="200" height="200"><path d="M889.6 396.8l-281.6 0c25.6-134.4 76.8-300.8-32-352-115.2-51.2-121.6 19.2-134.4 134.4-12.8 121.6-192 249.6-192 249.6l0 563.201 608 0c83.2-38.4 134.4-377.6 160-499.2s-128-96-128-96zM0 428.8l179.201 0 0 569.6-179.201 0 0-569.6z" fill="#ffffff" p-id="7487"></path></svg>-->
+<!--              <text class="margin-10-left grey-color">{{question.likes}}</text>-->
+<!--            </div>-->
+<!--            <div class="question_item_4_s s_2">-->
+<!--              <svg t="1691744322247" class="icon grey-color" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4418" width="200" height="200"><path d="M0.324216 544.126266V99.856667c0-42.502075 34.439126-76.943007 76.950232-76.943007h69.252138v597.416871l-69.252138 0.727905C34.779598 621.060242 0.324216 586.621116 0.324216 544.126266zM906.401774 701.805334c-101.960909-0.643013-203.927236-1.295057-305.889952-1.936264 14.372063 50.5578 21.64389 95.465755 21.64389 135.014667 0 89.738243-78.615563 177.607053-157.128172 166.202603-69.225045-10.057012-76.829216-69.88612-76.829216-144.858545v-67.689761c0-86.871778-72.916951-160.897746-157.451485-169.040169l-11.119068 0.106567V22.915466h602.566394c56.362979 0 104.7768 40.090776 115.278141 95.47298 28.068601 148.097091 56.146233 296.181539 84.21664 444.269599 12.045656 63.672736-29.79715 125.053384-93.46808 137.09904a116.62016 116.62016 0 0 1-21.819092 2.048249z" fill="#ffffff" p-id="4419" data-spm-anchor-id="a313x.search_index.0.i8.81863a81qlwlOT" class="selected"></path></svg>-->
+<!--              <text class="margin-10-left grey-color">{{question.dislikes}}</text>-->
+<!--            </div>-->
             <text class="margin-20-left grey-color">回答</text>
           </div>
         </div>
@@ -65,6 +66,7 @@
 import 'assets/css/question.scss'
 import {useQuestionStore} from "~/pinia/questionStore";
 import {QuestionStore} from "~/types/questionStore";
+import LikeSwitch from "~/components/LikeSwitch.vue";
 
 const questionStore:QuestionStore = useQuestionStore();
 </script>

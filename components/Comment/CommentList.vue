@@ -46,7 +46,7 @@
             </div>
           </div>
         </div>
-      </div>1
+      </div>
     </div>
   </div>
 </template>

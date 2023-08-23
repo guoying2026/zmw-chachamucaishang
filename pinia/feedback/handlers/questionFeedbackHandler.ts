@@ -5,7 +5,7 @@ import {Question} from "@/types/questionType";
 import { QuestionStore } from "@/types/questionStore";
 
 export const questionFeedbackHandler: FeedbackHandler = {
-    handle(data: FeedbackData) {
+    add(data: FeedbackData) {
         // 处理提交提问的逻辑
         console.log('提交提问');
         const questionStore:QuestionStore = useQuestionStore();
