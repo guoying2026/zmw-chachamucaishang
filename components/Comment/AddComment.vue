@@ -57,10 +57,10 @@ const anonymity = ref(false)
 watch(() => anonymity.value, (newVal) => {
   addStore.setAnonymity(newVal);
 });
+const titleBox = ref('')
+const placeholderText = ref('')
+const submitText = ref('')
 onMounted(()=>{
-  const titleBox = ref('')
-  const placeholderText = ref('')
-  const submitText = ref('')
   console.log("Type Prop:", props.type);
   switch(props.type){
     case 'comment':

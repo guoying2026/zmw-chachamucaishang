@@ -20,6 +20,6 @@ export const answerFeedbackHandler: FeedbackHandler = {
             "currentUser": 1,
             "currentUserReaction": 'none',
         };
-        questionStore.addQuestionReply(data.index,obj);
+        questionStore.addAnswer(data.index,obj);
     }
 }
