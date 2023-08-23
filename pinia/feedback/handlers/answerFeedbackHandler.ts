@@ -1,10 +1,12 @@
-import {FeedbackData} from "~/types/feedback";
+import {FeedbackData, Reaction} from "~/types/feedback";
 import {FeedbackHandler} from "~/pinia/feedback/handlers/FeedbackHandler";
-import {useQuestionStore} from "~/pinia/questionStore";
 import {Answer} from "@/types/questionType";
 import {QuestionStore} from "~/types/questionStore";
+import {useQuestionStore} from "~/pinia/questionStore";
+import {ReplyFeedbackHandler} from "~/pinia/feedback/handlers/ReplyFeedbackHandler";
 
-export const answerFeedbackHandler: FeedbackHandler = {
+
+export const answerFeedbackHandler: FeedbackHandler & ReplyFeedbackHandler = {
     add(data: FeedbackData) {
         // 处理主评论提交的逻辑
         console.log('处理提交回答逻辑');
@@ -21,5 +23,13 @@ export const answerFeedbackHandler: FeedbackHandler = {
             "currentUserReaction": 'none',
         };
         questionStore.addAnswer(data.index,obj);
+    },
+    getReply(index: number|string, replyIndex: number | string){
+        const questionStore= useQuestionStore();
+        return questionStore.getAnswer(index,replyIndex);
+    },
+    updateReplyReaction(index: number|string,replyIndex: number | string, newReaction: Reaction){
+        const questionStore= useQuestionStore();
+        return questionStore.updateAnswerReaction(index,replyIndex,newReaction);
     }
 }

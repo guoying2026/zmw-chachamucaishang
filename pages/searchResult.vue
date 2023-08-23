@@ -222,7 +222,7 @@ function jumpToNextPage() {
 
 /**
  * 跳转到指定的页码
- * @param page 
+ * @param page
  */
 function jumpToPage(page: number) {
   if (page < 1) page = 1
@@ -304,7 +304,7 @@ function hideAreaSelect() {
 
 /**
  * 改变区域选择的省份的高亮选项
- * @param index 
+ * @param index
  */
 function changeAreaFirstSelectedIndex(index: number) {
   areaFirstSelectedIndex.value = index;
@@ -315,7 +315,7 @@ function changeAreaFirstSelectedIndex(index: number) {
 
 /**
  * 改变区域选择的地级市的高亮选项
- * @param index 
+ * @param index
  */
 function changeAreaSecondSelectedIndex(index: number) {
   areaSecondSelectedIndex.value = index;
@@ -328,7 +328,7 @@ function changeAreaSecondSelectedIndex(index: number) {
 
 /**
  * 区域筛选弹出框的勾选或取消勾选省份
- * @param index 
+ * @param index
  */
 function changeAreaFirstIsSelected(index: number) {
   // 关闭“离我最近”功能
@@ -357,7 +357,7 @@ function changeAreaFirstIsSelected(index: number) {
 
 /**
  * 区域筛选弹出框的勾选或取消勾选地级市
- * @param index 
+ * @param index
  */
 function changeAreaSecondIsSelected(index: number) {
   // 关闭“离我最近”功能
@@ -425,7 +425,7 @@ function changeIsCanMultiSelectProvince() {
 
 /**
  * 加密手机号码
- * @param phone 
+ * @param phone
  */
 function encryptPhone(phone: string | number | string[]) {
   if (typeof phone === 'object' && phone instanceof Array) {
@@ -454,7 +454,7 @@ function hidePhonePopup() {
 
 /**
  * 移动端的显示更多手机号码的处理事件
- * @param index 
+ * @param index
  */
 function showAllPhone(index: number) {
   showPhoneIndex.value = index;
@@ -463,7 +463,7 @@ function showAllPhone(index: number) {
 
 /**
  * pc端的显示更多手机号码的处理事件
- * @param index 
+ * @param index
  */
 function showPhonePopupByPc(index: number) {
   searchResultList.value = searchResultList.value.map((_item, _index) => {
@@ -479,7 +479,7 @@ function showPhonePopupByPc(index: number) {
 
 /**
  * pc端的隐藏更多手机号码的处理事件
- * @param index 
+ * @param index
  */
 function hidePhonePopupByPc() {
   searchResultList.value = searchResultList.value.map((item, index) => {
@@ -490,7 +490,7 @@ function hidePhonePopupByPc() {
 
 /**
  * pc端的显示更多手机号码的处理事件
- * @param index 
+ * @param index
  */
 function showAllPhoneByPc(index: number) {
   showPhonePopupByPc(index);
@@ -545,7 +545,7 @@ function clearAllMultiSelectCityIsSelected() {
 
 /**
  * pc端单选地区的点击省份的处理事件
- * @param index 
+ * @param index
  */
 function changeAreaListProvinceIsSelectedWithOnlyOne(index: number) {
   // 关闭“离我最近”功能
@@ -583,7 +583,7 @@ function changeAreaListProvinceIsSelectedWithOnlyOne(index: number) {
 
 /**
  * pc端单选地区的点击地级市的处理事件
- * @param index 
+ * @param index
  */
 function changeAreaListCityIsSelectedWithOnlyOne(index: number) {
   // 关闭“离我最近”功能
@@ -1129,7 +1129,7 @@ nuxtApp.hook('page:finish', () => {
 }
 
 .area-select-box > div:last-of-type div.selected {
-  
+
 }
 
 .search_find_num_tips {

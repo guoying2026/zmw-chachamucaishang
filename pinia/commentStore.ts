@@ -1,7 +1,8 @@
 // commentStore.ts
 import { defineStore } from 'pinia';
 import { CommentStore } from '@/types/commentStore';
-import {Reaction, Comment, Reply} from "~/types/commentType";
+import {Reaction} from "~/types/feedback";
+import {Comment, Reply} from "~/types/commentType";
 
 export const useCommentStore = defineStore('commentStore', {
     state: () => {
@@ -63,11 +64,17 @@ export const useCommentStore = defineStore('commentStore', {
         addComment(this: CommentStore, comment: Comment) {
             this.comments.unshift(comment);
         },
-        addCommentReply(this: CommentStore, index: number, commentReply: Reply){
+        addCommentReply(this: CommentStore, index: number | string, commentReply: Reply){
             this.comments[index].replies.unshift(commentReply);
         },
+        getComment(this: CommentStore, index: number | string){
+            return this.comments[index];
+        },
+        getReply(this: CommentStore, index: number | string, replyIndex: number | string){
+            return this.comments[index].replies[replyIndex];
+        },
         // 更新评论的点赞状态和当前用户
-        updateCommentReaction(this: CommentStore,index: number, newReaction: Reaction) {
+        updateCommentReaction(this: CommentStore,index: number | string, newReaction: Reaction) {
             // 获取特定索引处的评论对象
             const commentToUpdate = this.comments[index];
             if (commentToUpdate) {
@@ -101,7 +108,7 @@ export const useCommentStore = defineStore('commentStore', {
                 }
             }
         },
-        updateReplyReaction(this: CommentStore, index: number,replyIndex: number, newReaction: Reaction) {
+        updateReplyReaction(this: CommentStore, index: number | string,replyIndex: number | string, newReaction: Reaction) {
             // 获取特定索引处的回复对象
             const replyToUpdate = this.comments[index].replies[replyIndex];
 

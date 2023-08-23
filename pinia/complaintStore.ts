@@ -1,7 +1,9 @@
 // complaintStore.ts
 import { defineStore } from 'pinia';
 import { ComplaintStore } from '~/types/complaintStore';
-import {Reaction, Complaint, Reply} from "~/types/complaintType";
+import { Complaint, Reply} from "~/types/complaintType";
+import {Reaction} from "~/types/feedback";
+
 
 export const useComplaintStore = defineStore('complaintStore', {
     state: () => {
@@ -63,11 +65,17 @@ export const useComplaintStore = defineStore('complaintStore', {
         addComplaint(this: ComplaintStore, complaint: Complaint) {
             this.complaints.unshift(complaint);
         },
-        addComplaintReply(this: ComplaintStore, index: number, complaintReply: Reply){
+        addComplaintReply(this: ComplaintStore, index: number | string, complaintReply: Reply){
             this.complaints[index].replies.unshift(complaintReply);
         },
+        getComplaint(this: ComplaintStore, index: number | string){
+            return this.complaints[index];
+        },
+        getComplaintReply(this: ComplaintStore, index: number | string, replyIndex: number | string){
+            return this.complaints[index].replies[replyIndex];
+        },
         // 更新评论的点赞状态和当前用户
-        updateComplaintReaction(this: ComplaintStore,index: number, newReaction: Reaction) {
+        updateComplaintReaction(this: ComplaintStore,index: number | string, newReaction: Reaction) {
             // 获取特定索引处的评论对象
             const complaintToUpdate = this.complaints[index];
             if (complaintToUpdate) {
@@ -101,7 +109,7 @@ export const useComplaintStore = defineStore('complaintStore', {
                 }
             }
         },
-        updateReplyReaction(this: ComplaintStore, index: number,replyIndex: number, newReaction: Reaction) {
+        updateReplyReaction(this: ComplaintStore, index: number | string,replyIndex: number | string, newReaction: Reaction) {
             // 获取特定索引处的回复对象
             const replyToUpdate = this.complaints[index].replies[replyIndex];
 

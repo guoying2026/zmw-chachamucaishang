@@ -15,7 +15,7 @@
         <div class="comment_item_3">
           <text class=" time grey-color">{{complaint.time}}</text>
           <div class="comment_item_4">
-            <LikeSwitch :index="index" commentOrReply="comment"></LikeSwitch>
+            <LikeSwitch :index="index" feedbackType="complaint"></LikeSwitch>
             <AddComment company-name="张姗姗木材加工厂" type="complaintReply">
               <!-- 定义插槽内容 -->
               <template #trigger>
@@ -38,7 +38,7 @@
             <div class="reply_item_3">
               <text class=" time grey-color">{{reply.time}}</text>
               <div class="reply_item_4">
-                <LikeSwitch :index="index" :replyIndex="replyIndex" commentOrReply="reply"></LikeSwitch>
+                <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="complaintReply"></LikeSwitch>
                 <AddComment :index="index" company-name="张姗姗木材加工厂" type="complaintReply">
                   <!-- 定义插槽内容 -->
                   <template #trigger>

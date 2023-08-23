@@ -24,12 +24,11 @@
 
 <script lang="ts" setup>
 import { defineProps } from 'vue';
-import {Reaction} from "~/types/commentType";
+import {Reaction} from "~/types/feedback";
 
-import {CommentStore} from "@/types/commentStore";
-import {useCommentStore} from "~/pinia/commentStore";
-
-const commentStore:CommentStore = useCommentStore();
+import {serviceContainer} from "~/pinia/feedback/FeedbackServiceContainer";
+import {ReplyFeedbackHandler} from "~/pinia/feedback/handlers/ReplyFeedbackHandler";
+import {MainFeedbackHandler} from "~/pinia/feedback/handlers/MainFeedbackHandler";
 
 // 接收父组件传递的show属性
 const props = defineProps({
@@ -41,31 +40,76 @@ const props = defineProps({
     type: [Number,String],
     default: 0
   },
-  commentOrReply: {
+  feedbackType: {
     type: String,
     required: true,
-    validator: (value: string) => ['comment', 'reply'].includes(value)
+    validator: (value: string) => ['comment', 'commentReply', 'question', 'answer', 'complaint','complaintReply'].includes(value)
   }
 });
-// 计算属性来决定显示哪些数据
-// 修改为计算属性
-const displayData = computed(() => {
-  return props.commentOrReply === 'comment'
-      ? commentStore.comments[props.index]
-      : commentStore.comments[props.index].replies[props.replyIndex];
+const currentHandler = computed(() => {
+  const handler = serviceContainer.getHandler(props.feedbackType);
+  if (!handler) {
+    throw new Error(`Handler not found for feedback type: ${props.feedbackType}`);
+  }
+  console.log(handler);
+  return handler;
 });
-// const displayData = props.commentOrReply === 'comment'
-//     ? commentStore.comments[props.index]
-//     : commentStore.comments[props.index].replies[props.replyIndex];
+
+const displayData = computed(() => {
+  console.log("props.feedbackType:", props.feedbackType);
+  console.log("props.index:", props.index);
+  console.log("props.replyIndex:", props.replyIndex);
+
+  let data;
+  if (['commentReply', 'answer', 'complaintReply'].includes(props.feedbackType)) {
+    // 如果handler有getReply方法
+    const replyHandler = currentHandler.value as unknown as ReplyFeedbackHandler;
+    console.log("replyHandler:", replyHandler);
+    if ("getReply" in replyHandler) {
+      data = replyHandler.getReply(props.index, props.replyIndex);
+      console.log("Reply data:", data);
+    } else {
+      throw new Error("getReply method is not available on the handler.");
+    }
+  } else {
+    // 如果handler有get方法
+    const mainHandler = currentHandler.value as unknown as MainFeedbackHandler;
+    console.log("mainHandler:", mainHandler);
+    if ("get" in mainHandler) {
+      data = mainHandler.get(props.index);
+      console.log("Main data:", data);
+    } else {
+      throw new Error("get method is not available on the handler.");
+    }
+  }
+  console.log(data);
+  return data;
+});
 
 
 const toggleCurrentUserReaction = (newReaction: Reaction) => {
-  if (props.commentOrReply === 'comment') {
-    commentStore.updateCommentReaction(props.index, newReaction);
+  if (['commentReply', 'answer', 'complaintReply'].includes(props.feedbackType)) {
+    // 使用unknown作为中间类型进行断言
+    const replyHandler = currentHandler.value as unknown as ReplyFeedbackHandler;
+
+    if ("updateReplyReaction" in replyHandler) {
+       replyHandler.updateReplyReaction(props.index, props.replyIndex, newReaction);
+    } else {
+      throw new Error("updateReplyReaction method is not available on the handler.");
+    }
   } else {
-    commentStore.updateReplyReaction(props.index, props.replyIndex, newReaction);
+    // 使用unknown作为中间类型进行断言
+    const mainHandler = currentHandler.value as unknown as MainFeedbackHandler;
+
+    if ("updateReaction" in mainHandler) {
+      mainHandler.updateReaction(props.index, newReaction);
+    } else {
+      throw new Error("updateReaction method is not available on the handler.");
+    }
   }
 };
+
+
 </script>
 
 <style scoped>

@@ -3,6 +3,7 @@ export interface FeedbackHandler {
     addFeedback(data: FeedbackData): void;
     // 可能还有其他的方法，根据你的需求来。
 }
+export type Reaction = 'none' | 'liked' | 'disliked';
 
 export interface FeedbackData {
     id: string;

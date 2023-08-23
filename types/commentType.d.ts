@@ -13,9 +13,6 @@ export interface Reply {
     currentUserReaction: Reaction;
 }
 
-// 用户的点赞反应类型
-export type Reaction = 'none' | 'liked' | 'disliked';
-
 // 单个评论的类型定义
 export interface Comment {
     user_id: number;

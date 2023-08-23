@@ -2,12 +2,13 @@ import {FeedbackData} from "~/types/feedback";
 import {FeedbackHandler} from "~/pinia/feedback/handlers/FeedbackHandler";
 import {useCommentStore} from "~/pinia/commentStore";
 import {Comment} from "@/types/commentType";
-import { CommentStore } from "@/types/commentStore";
+import {Reaction} from "~/types/feedback";
+import {MainFeedbackHandler} from "~/pinia/feedback/handlers/MainFeedbackHandler";
 
-export const commentFeedbackHandler: FeedbackHandler = {
+export const commentFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
     add(data: FeedbackData) {
         // 处理主评论提交的逻辑
-        const commentStore:CommentStore = useCommentStore();
+        const commentStore = useCommentStore();
         let obj:Comment = {
             "user_id": 1,
             "user": "Marcin Tireder",
@@ -21,5 +22,13 @@ export const commentFeedbackHandler: FeedbackHandler = {
             "replies": []
             };
         commentStore.addComment(obj);
+    },
+    get(index: number | string){
+        const commentStore= useCommentStore();
+        return commentStore.getComment(index);
+    },
+    updateReaction(index: number | string, newReaction: Reaction){
+        const commentStore= useCommentStore();
+        return commentStore.updateCommentReaction(index,newReaction);
     }
 }

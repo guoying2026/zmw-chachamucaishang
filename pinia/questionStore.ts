@@ -1,7 +1,9 @@
 // questionStore.ts
 import { defineStore } from 'pinia';
 import { QuestionStore } from '@/types/questionStore';
-import {Reaction, Question, Answer} from "~/types/questionType";
+import {Question, Answer} from "~/types/questionType";
+import {Reaction} from "~/types/feedback";
+import {CommentStore} from "~/types/commentStore";
 
 export const useQuestionStore = defineStore('questionStore', {
     state: () => {
@@ -63,11 +65,17 @@ export const useQuestionStore = defineStore('questionStore', {
         addQuestion(this: QuestionStore, question: Question) {
             this.questions.unshift(question);
         },
-        addAnswer(this: QuestionStore, index: number, answer: Answer){
+        addAnswer(this: QuestionStore, index: number | string, answer: Answer){
             this.questions[index].answer_list.unshift(answer);
         },
+        getQuestion(this: QuestionStore, index: number | string){
+            return this.questions[index];
+        },
+        getAnswer(this: QuestionStore, index: number | string, replyIndex: number | string){
+            return this.questions[index].answer_list[replyIndex];
+        },
         // 更新评论的点赞状态和当前用户
-        updateQuestionReaction(this: QuestionStore,index: number, newReaction: Reaction) {
+        updateQuestionReaction(this: QuestionStore,index: number | string, newReaction: Reaction) {
             // 获取特定索引处的评论对象
             const questionToUpdate = this.questions[index];
             if (questionToUpdate) {
@@ -101,7 +109,7 @@ export const useQuestionStore = defineStore('questionStore', {
                 }
             }
         },
-        updateAnswerReaction(this: QuestionStore, index: number,replyIndex: number, newReaction: Reaction) {
+        updateAnswerReaction(this: QuestionStore, index: number | string,replyIndex: number | string, newReaction: Reaction) {
             // 获取特定索引处的回复对象
             const replyToUpdate = this.questions[index].answer_list[replyIndex];
 
