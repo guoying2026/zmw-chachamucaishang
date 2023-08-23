@@ -18,19 +18,19 @@
 </template>
 <script lang="ts" setup>
 import { defineProps } from 'vue';
+import { defineEmits } from 'vue';
+
+// 1. Define emit function
+const emit = defineEmits();
 const props = defineProps({
   placeholderText: {
     type: String,
     default: ''
   },
-  store:{
-    type: Object,
-    required: true
-  }
 });
 const localTextareaValue = ref('');
 watch(() => localTextareaValue.value, (newVal) => {
-  props.store?.setTextareaValue(newVal);
+  emit("update:value", newVal);
 });
 
 </script>

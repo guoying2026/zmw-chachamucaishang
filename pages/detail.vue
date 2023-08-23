@@ -272,14 +272,13 @@
       <div class="tab_3_space_middle">
         <div class="tab_3_space_1">
           <text>全部评价（{{company_comment_count}}）</text>
-          <!-- 引用子组件并传递属性和监听事件 -->
-          <AddComment company-name="张珊珊木材加工厂" type="comment">
+          <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedbackType="comment">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <!-- Tag组件，当点击时触发openCommentBox方法 -->
               <Tag tag="写评论" number="41" color="orange_linear"></Tag>
             </template>
-          </AddComment>
+          </AddForm>
         </div>
         <NoDetail v-if="company_comment_count < 0"></NoDetail>
         <div class="tab_3_space_2" v-else>
@@ -375,12 +374,12 @@
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
           <text>全部问答</text>
-          <AddComment company-name="张珊珊木材加工厂" type="question">
+          <AddForm title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <Tag tag="我要提问" number="41" color="orange_linear"></Tag>
             </template>
-          </AddComment>
+          </AddForm>
         </div>
         <NoDetail tag="我要提问" text="没有问答" v-if="answer_question_count < 0"></NoDetail>
         <div class="tab_4_space_2" v-else>
@@ -589,9 +588,9 @@ const tabItemStore = useTabItemStore();
 import {useCommentStore} from "~/pinia/commentStore";
 const commentStore = useCommentStore();
 import Tag from "~/components/Tag.vue";
-import CommentList from "~/components/Comment/CommentList.vue";
+import CommentList from "~/components/CommentList.vue";
 import NoDetail from "~/components/NoDetail.vue";
-import ComplaintList from "~/components/Complaint/ComplaintList.vue";
+import ComplaintList from "~/components/ComplaintList.vue";
 
 
 const switchTab = (item :number) => {

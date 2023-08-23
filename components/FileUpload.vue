@@ -29,8 +29,10 @@
 import { ref,defineProps } from 'vue';
 import { getAnswerOssSignatureApi, pushAnswerOssApi } from "~/server/api/ossUploadFile.post";
 import { handeSrcHttpsUtil, guidUtil } from "~/utils/httpReplace";
+import { defineEmits } from 'vue';
 
-
+// 1. Define emit function
+const emit = defineEmits();
 const props = defineProps({
   store:{
     type: Object,
@@ -45,7 +47,8 @@ const dialogVisible = ref(false);
 
 const handleChange = async (uploadFile: any) => {
   if (uploadFile.status == 'ready') {
-    props.store?.setFileBeingUploaded(true);
+    // props.store?.setFileBeingUploaded(true);
+    emit('uploading', true);  // 发送上传开始的状态
   }
 
   const res = await getAnswerOssSignatureApi({type: 'sell_img'});
@@ -70,18 +73,21 @@ const handleChange = async (uploadFile: any) => {
     // Check if the result is an object (parsed from JSON) and has a status of 200
     if (typeof result === 'object' && result.status === 200) {
       submitFileList.value.push({[fileRawUid]: fileUrl});
-      props.store?.setFileList(submitFileList.value);
-      props.store?.setFileBeingUploaded(false);
+      // props.store?.setFileList(submitFileList.value);
+      emit('update:fileList', submitFileList.value);
+      // props.store?.setFileBeingUploaded(false);
+      emit('uploading', false);  // 发送上传开始的状态
     } else {
       handleRemove(uploadFile);
-      props.store?.setFileBeingUploaded(false);
+      // props.store?.setFileBeingUploaded(false);
+      emit('uploading', false);  // 发送上传结束的状态
     }
   }
 };
 
 const handleRemove = (file: any): void => {
   submitFileList.value = submitFileList.value.filter(item => !item[file.raw.uid]);
-  props.store.setFileList(submitFileList.value);
+  // props.store.setFileList(submitFileList.value);
 };
 
 const handlePictureCardPreview = (file: any): void => {

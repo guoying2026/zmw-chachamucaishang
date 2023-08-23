@@ -5,8 +5,7 @@ import {FeedbackData, StoreOptions} from "~/types/feedback";
 // @ts-ignore
 import { serviceContainer } from '~/pinia/feedback/FeedbackServiceContainer';
 
-const initialState = (id: string = uuidv4()): FeedbackData => ({
-    id,
+const initialState = (): FeedbackData => ({
     show: false,
     fileList: [] as any[],
     fileBeingUploaded: false,
@@ -46,7 +45,7 @@ export const useFeedbackProcessStore = defineStore({
         // 这个方法会将状态重置为初始值
         resetState() {
             // 使用 Object.assign() 来确保我们重置每个属性，而不是直接重新赋值整个 state 对象
-            Object.assign(this, initialState(this.id));
+            Object.assign(this, initialState());
         },
         addFeedback() {
             console.log('jinglaile');

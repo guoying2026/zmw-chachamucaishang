@@ -13,12 +13,12 @@
           <text class=" time grey-color">{{comment.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-            <AddComment company-name="张姗姗木材加工厂" type="commentReply">
+            <AddForm title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left grey-color">回复</text>
               </template>
-            </AddComment>
+            </AddForm>
           </div>
         </div>
       </div>
@@ -36,12 +36,12 @@
               <text class=" time grey-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
-                <AddComment :index="index" company-name="张姗姗木材加工厂" type="commentReply">
+                <AddForm title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left grey-color">回复</text>
                   </template>
-                </AddComment>
+                </AddForm>
               </div>
             </div>
           </div>
@@ -51,11 +51,12 @@
   </div>
 </template>
 <script lang="ts" setup>
-import '~/assets/css/comment.scss'
+import 'assets/css/comment.scss'
 import LikeSwitch from "~/components/LikeSwitch.vue";
 import AddComment from "~/components/Comment/AddComment.vue";
-import {CommentStore} from "@/types/commentStore";
+import {CommentStore} from "~/types/commentStore";
 import {useCommentStore} from "~/pinia/commentStore";
+import Tag from "~/components/Tag.vue";
 
 const commentStore:CommentStore = useCommentStore();
 
