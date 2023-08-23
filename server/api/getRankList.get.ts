@@ -1,3 +1,8 @@
+import {
+  generateCompanyShortName,
+  getRegionNameByAddress
+} from "../utils/areaUtil"
+
 export default defineEventHandler(async (e) => {
   try {
     // 判断是否有传入query
@@ -28,6 +33,9 @@ export default defineEventHandler(async (e) => {
     if (res.status != 1000) throw new Error(res.message)
     if (res.data) res.data.data = res.data.data.map(item => {
       item.short_name = generateCompanyShortName(item.company_name)
+      let regionObj = getRegionNameByAddress(item.address)
+      item.province = regionObj[0].name
+      item.region = regionObj
       return item
     })
     return {

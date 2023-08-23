@@ -14,6 +14,8 @@ const router = useRouter()
 
 const nuxtApp = useNuxtApp()
 
+const isMobile = ref<boolean>(false)
+
 // 实例化搜索输入历史记录存储
 const searchInputHistoryStore = useSearchInputHistoryStore()
 
@@ -79,15 +81,20 @@ function gotoLogin() {
  */
 function gotoSearch() {
   // TODO 调用搜索api
-  if (searchInputText.value.trim() === '') {
-    router.push('/search');
-    return;
-  }
+  if (searchInputText.value.trim() === '') searchInputText.value = '木材'
   router.push('/searchResult?search=' + searchInputText.value);
+}
+
+function searchBoxClickHandle() {
+  router.push('/search');
 }
 
 useHead({
   title: '查查木材商',
+})
+
+nuxtApp.hook('page:finish', () => {
+  isMobile.value = window.screen.width <= 767
 })
 </script>
 
@@ -96,10 +103,10 @@ useHead({
     <!-- 顶部标题 -->
     <h1 class="text-5xl md:text-6xl 2xl:text-8xl text-center font-extrabold tracking-widest top-title">查查木材商</h1>
     <!-- 顶部副标题 -->
-    <p class="text-sm sm:text-base md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-center font-medium tracking-widest m-8 mx-auto whitespace-nowrap top-subtitle">助力检索木材交易隐患，降低木材交易风险</p>
+    <p class="text-sm sm:text-base md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-center font-medium tracking-widest m-4 mb-8 mx-auto whitespace-nowrap top-subtitle">助力检索木材交易隐患，降低木材交易风险</p>
     <!-- 搜索框 -->
-    <div class="relative inline-flex justify-center w-full md:w-96 2xl:w-1/3 text-base search-box">
-      <input class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-10 text-sm md:text-base xl:text-xl text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
+    <div @click.stop="isMobile?searchBoxClickHandle():''" class="relative inline-flex justify-center w-full md:w-96 2xl:w-1/3 text-base search-box">
+      <input :disabled="isMobile" class="w-4/5 h-14 p-4 px-2 md:pl-10 pr-5 text-sm md:text-base xl:text-xl bg-white text-black search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
       <!-- 搜索图标 -->
       <svg class="absolute left-3 hidden md:inline-block w-5 h-14 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
       <!-- 叉叉图标 -->
@@ -107,7 +114,7 @@ useHead({
       <ClientOnly>
         <SearchTips @gotoLogin="gotoLogin" @gotoSearch="searchInputHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-14" width="w-4/5" zIndex="z-10" />
       </ClientOnly>
-      <button class="w-1/5 h-14 search-button" @click.stop="searchButtonHandle">查一下</button>
+      <button class="w-1/5 h-14 search-button" @click.stop="isMobile?searchBoxClickHandle():searchButtonHandle()">查一下</button>
     </div>
     <!-- pc端底部导航栏 -->
     <div class="hidden md:inline-flex justify-between w-11/12 lg:w-4/5 xl:w-2/3 mt-14 p-4 bottom-bg bottom-bg-pc">
@@ -363,7 +370,14 @@ useHead({
 }
 
 .help-list img {
-  width: 2rem;
+  width: 2.5rem;
+}
+
+@media (max-width: 769px) {
+  .help-list p {
+    font-size: 0.8rem;
+    text-align: center;
+  }
 }
 
 @media (min-width: 768px) {

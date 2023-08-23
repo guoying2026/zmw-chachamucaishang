@@ -906,7 +906,7 @@ nuxtApp.hook('page:finish', () => {
             <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs md:text-4xl word-logo-multi-words':'text-xl md:text-7xl word-logo-one-word')+' font-extrabold'">{{ item.short_name?item.short_name:'' }}</span>
           </div>
           <div class="inline-flex flex-row items-center w-11/12 md:w-10/12 h-full pl-2 md:pl-4">
-            <span class=" max-w-max md:text-2xl md:font-bold whitespace-nowrap overflow-hidden text-ellipsis search-list-item-title">{{ item.company_name }}</span>
+            <span class=" max-w-max text-base md:text-2xl md:font-bold whitespace-nowrap overflow-hidden text-ellipsis search-list-item-title">{{ item.company_name }}</span>
             <span :class="'inline-block w-max h-max px-1 ml-2 text-xs border border-solid border-current rounded whitespace-nowrap ' + (item.operation_state=='存续'?'cunxu':'') + (item.operation_state=='在业'?'zaiye':'') + (item.operation_state=='开业'?'kaiye':'') + (item.operation_state=='注销'?'zhuxiao':'') + (item.operation_state=='吊销'?'diaoxiao':'') + (item.operation_state=='迁出'?'qianchu':'') + (item.operation_state=='迁入'?'qianru':'') + (item.operation_state=='停业'?'tingye':'') + (item.operation_state=='清算'?'qingsuan':'')">{{ item.operation_state }}</span>
           </div>
         </div>
@@ -956,9 +956,9 @@ nuxtApp.hook('page:finish', () => {
           </div>
         </div>
         <!-- 搜索结果项 - 第三行 -->
-        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-solid">地址：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.address && item.address.length > 0 ? item.address : '-' }}</span></div>
+        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-t md:border-t-0 border-solid" style="border-color: #3c3c3c;">地址：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.address && item.address.length > 0 ? item.address : '-' }}</span></div>
         <!-- 搜索结果项 - 第四行 -->
-        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-solid">经营范围：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.business_scope && item.business_scope.length > 0 ? item.business_scope : '-' }}</span></div>
+        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-t md:border-t-0 border-solid" style="border-color: #3c3c3c;">经营范围：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.business_scope && item.business_scope.length > 0 ? item.business_scope : '-' }}</span></div>
         <div class="absolute">
           <div @click.stop.prevent="hidePhonePopupByPc" :class="'fixed ' + (item.is_show_phone_popup ? 'left-0 top-0 w-full h-full' : 'left-1/2 top-1/2 w-0 h-0') + ' overflow-hidden z-10 cursor-default transition-all'"></div>
           <div @click.stop.prevent="false" :class="'absolute left-32 top-24 inline-flex w-44 ' + (item.is_show_phone_popup ? 'max-h-screen p-2' : 'max-h-0 p-0') + ' bg-white overflow-hidden z-20 rounded-lg shadow shadow-black cursor-default transition-all'">

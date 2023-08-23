@@ -2,6 +2,8 @@ import * as fs from 'node:fs'
 
 import * as process from 'node:process'
 
+import treeTool from 'tree-tool'
+
 const provinces = fs.readFileSync(process.cwd() + '/server/data/province.json', {
   encoding: 'utf-8',
 })
@@ -23,127 +25,180 @@ provincesArr.forEach((province, index) => {
   })
 })
 
-export const generateCompanyShortName = (name: string): string => {
-  const nations = ['壮族', '藏族', '裕固族', '彝族', '瑶族', '锡伯族', '乌孜别克族', '维吾尔族', '佤族', '土家族', '土族', '塔塔尔族', '塔吉克族', '水族', '畲族', '撒拉族', '羌族', '普米族', '怒族', '纳西族', '仫佬族', '苗族', '蒙古族', '门巴族', '毛南族', '满族', '珞巴族', '僳僳族', '黎族', '拉祜族', '柯尔克孜族', '景颇族', '京族', '基诺族', '回族', '赫哲族', '哈萨克族', '哈尼族', '仡佬族', '高山族', '鄂温克族', '俄罗斯族', '鄂伦春族', '独龙族', '东乡族', '侗族', '德昂族', '傣族', '达斡尔族', '朝鲜族', '布依族', '布朗族', '保安族', '白族', '阿昌族', '汉族']
-  const companySuffixes = [
-    "企业管理咨询有限责任公司",
-    "企业管理咨询责任有限公司",
-    "信息科技有限责任公司",
-    "信息科技责任有限公司",
-    "管理咨询责任有限公司",
-    "管理咨询有限责任公司",
-    "企业管理咨询有限公司",
-    "信息技术有限责任公司",
-    "信息技术责任有限公司",
-    "劳务派遣服务有限公司",
-    "劳务派遣有限责任公司",
-    "劳务派遣有限公司",
-    "科技股份有限公司",
-    "科技有限责任公司",
-    "科技责任有限公司",
-    "信息科技有限公司",
-    "网络科技有限公司",
-    "咨询有限责任公司",
-    "咨询责任有限公司",
-    "管理咨询有限公司",
-    "信息技术有限公司",
-    "技术有限责任公司",
-    "技术责任有限公司",
-    "管理有限责任公司",
-    "管理责任有限公司",
-    "科技服务有限公司",
-    "食品发展有限公司",
-    "食品集团有限公司",
-    "集团股份有限公司",
-    "食品有限公司",
-    "实业有限公司",
-    "集团有限公司",
-    "责任有限公司",
-    "有限责任公司",
-    "股份有限公司",
-    "科技有限公司",
-    "信息有限公司",
-    "咨询有限公司",
-    "技术有限公司",
-    "管理有限公司",
-    "发展有限公司",
-    "投资公司",
-    "有限公司",
-    "集团",
-    "木材制材厂",
-    "胶合板厂",
-    "人造板厂",
-    "指接板厂",
-    "木板皮厂",
-    "旋木皮厂",
-    "木材公司",
-    "建筑模板",
-    "木材厂",
-    "木材站",
-    "钢材店",
-    "制材厂",
-    "加工厂",
-    "旋皮厂",
-    "加工场",
-    "加工处",
-    "加工店",
-    "加工部",
-    "木业部",
-    "经营部",
-    "门市部",
-    "总公司",
-    "分公司",
-    "经销处",
-    "购销站",
-    "收购站",
-    "木板皮",
-    "干木皮",
-    "湿木皮",
-    "旋木皮",
-    "人造板",
-    "指接板",
-    "胶合板",
-    "包装箱",
-    "市场",
-    "门市",
-    "商店",
-    "收购",
-    "商行",
-    "加工",
-    "工业",
-    "公司",
-    "建材",
-    "木材",
-    "木屑",
-    "木片",
-    "木料",
-    "木皮",
-    "木方",
-    "木板",
-    "长条",
-    "托盘",
-    "木箱",
-    "长料",
-    "短料",
-    "脚墩",
-    "实木",
-    "杂木",
-    "木箱",
-    "贴面",
-    "刨花",
-    "厂",
-    "站",
-    "店",
-    "部",
-    "处",
-  ]
+const nations = ['壮族', '藏族', '裕固族', '彝族', '瑶族', '锡伯族', '乌孜别克族', '维吾尔族', '佤族', '土家族', '土族', '塔塔尔族', '塔吉克族', '水族', '畲族', '撒拉族', '羌族', '普米族', '怒族', '纳西族', '仫佬族', '苗族', '蒙古族', '门巴族', '毛南族', '满族', '珞巴族', '僳僳族', '黎族', '拉祜族', '柯尔克孜族', '景颇族', '京族', '基诺族', '回族', '赫哲族', '哈萨克族', '哈尼族', '仡佬族', '高山族', '鄂温克族', '俄罗斯族', '鄂伦春族', '独龙族', '东乡族', '侗族', '德昂族', '傣族', '达斡尔族', '朝鲜族', '布依族', '布朗族', '保安族', '白族', '阿昌族', '汉族']
+const companySuffixes = [
+  "企业管理咨询有限责任公司",
+  "企业管理咨询责任有限公司",
+  "信息科技有限责任公司",
+  "信息科技责任有限公司",
+  "管理咨询责任有限公司",
+  "管理咨询有限责任公司",
+  "企业管理咨询有限公司",
+  "信息技术有限责任公司",
+  "信息技术责任有限公司",
+  "劳务派遣服务有限公司",
+  "劳务派遣有限责任公司",
+  "劳务派遣有限公司",
+  "科技股份有限公司",
+  "科技有限责任公司",
+  "科技责任有限公司",
+  "信息科技有限公司",
+  "网络科技有限公司",
+  "咨询有限责任公司",
+  "咨询责任有限公司",
+  "管理咨询有限公司",
+  "信息技术有限公司",
+  "技术有限责任公司",
+  "技术责任有限公司",
+  "管理有限责任公司",
+  "管理责任有限公司",
+  "科技服务有限公司",
+  "食品发展有限公司",
+  "食品集团有限公司",
+  "集团股份有限公司",
+  "食品有限公司",
+  "实业有限公司",
+  "集团有限公司",
+  "责任有限公司",
+  "有限责任公司",
+  "股份有限公司",
+  "科技有限公司",
+  "信息有限公司",
+  "咨询有限公司",
+  "技术有限公司",
+  "管理有限公司",
+  "发展有限公司",
+  "投资公司",
+  "有限公司",
+  "集团",
+  "木材制材厂",
+  "胶合板厂",
+  "人造板厂",
+  "指接板厂",
+  "木板皮厂",
+  "旋木皮厂",
+  "木材公司",
+  "建筑模板",
+  "木材厂",
+  "木材站",
+  "钢材店",
+  "制材厂",
+  "加工厂",
+  "旋皮厂",
+  "加工场",
+  "加工处",
+  "加工店",
+  "加工部",
+  "木业部",
+  "经营部",
+  "门市部",
+  "总公司",
+  "分公司",
+  "经销处",
+  "购销站",
+  "收购站",
+  "木板皮",
+  "干木皮",
+  "湿木皮",
+  "旋木皮",
+  "人造板",
+  "指接板",
+  "胶合板",
+  "包装箱",
+  "市场",
+  "门市",
+  "商店",
+  "收购",
+  "商行",
+  "加工",
+  "工业",
+  "公司",
+  "建材",
+  "木材",
+  "木屑",
+  "木片",
+  "木料",
+  "木皮",
+  "木方",
+  "木板",
+  "长条",
+  "托盘",
+  "木箱",
+  "长料",
+  "短料",
+  "脚墩",
+  "实木",
+  "杂木",
+  "木箱",
+  "贴面",
+  "刨花",
+  "厂",
+  "站",
+  "店",
+  "部",
+  "处",
+]
 
+const provinceSuffixes = ['市', '省', '自治区', '特别行政区', '维吾尔']
+const citySuffixes = ['高新区', '新区', '区', '市', '盟', '自治州', '地区', '县']
+const countySuffixes = ['转型综合改革示范区', '高新技术产业开发区', '旅游度假区', '飞地经济区', '循环化工园区', '专利技术园区', '经济开发区', '风景名胜区', '工业园区', '果树农场', '管理区', '管委会', '市辖区', '高新区', '经济区', '自治县', '自治旗', '农场', '矿区', '新区', '新城', '左旗', '中旗', '右旗', '前旗', '后旗', '左翼', '中翼', '右翼', '前翼', '后翼', '街道', '区', '县', '市', '旗', '镇', '乡']
+const townSuffixes = ['地区', '街道', '乡', '镇', '区', '管理委员会']
+
+/**
+ * 还没有转为ts
+ * 相似度对比
+ * @param s 文本1
+ * @param t 文本2
+ * @param f 小数位精确度，默认2位
+ * @returns {string|number|*} 百分数前的数值，最大100. 比如 ：90.32
+ */
+/* function similar(s, t, f) {
+ if (!s || !t) {
+   return 0
+ }
+ if(s === t){
+   return 100;
+ }
+ var l = s.length > t.length ? s.length : t.length
+ var n = s.length
+ var m = t.length
+ var d = []
+ f = f || 2
+ var min = function (a, b, c) {
+   return a < b ? (a < c ? a : c) : (b < c ? b : c)
+ }
+ var i, j, si, tj, cost
+ if (n === 0) return m
+ if (m === 0) return n
+ for (i = 0; i <= n; i++) {
+   d[i] = []
+   d[i][0] = i
+ }
+ for (j = 0; j <= m; j++) {
+   d[0][j] = j
+ }
+ for (i = 1; i <= n; i++) {
+   si = s.charAt(i - 1)
+   for (j = 1; j <= m; j++) {
+     tj = t.charAt(j - 1)
+     if (si === tj) {
+       cost = 0
+     } else {
+       cost = 1
+     }
+     d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)
+   }
+ }
+ let res = (1 - d[n][m] / l) *100
+ return res.toFixed(f)
+} */
+
+export const generateCompanyShortName = (name: string): string => {
   // 省份前缀
   let province: string[] = JSON.parse(JSON.stringify(areaList.map(item => item.name)))
-  let provinceSuffixes = ['市', '省', '自治区', '特别行政区', '维吾尔']
-  provinceSuffixes = provinceSuffixes.concat(nations)
+  let provinceSuffixes1 = provinceSuffixes.concat(nations)
   province = province.concat(province.map(item => {
-    provinceSuffixes.forEach(subitem => {
+    provinceSuffixes1.forEach(subitem => {
       if (item.length - subitem.length <= 1) return false
       if (item.endsWith(subitem)) item = item.substring(0, item.length - subitem.length)
     })
@@ -159,10 +214,9 @@ export const generateCompanyShortName = (name: string): string => {
       city.push(subitem.name)
     })
   })
-  let citySuffixes = ['高新区', '新区', '区', '市', '盟', '自治州', '地区', '县']
-  citySuffixes = citySuffixes.concat(nations)
+  let citySuffixes1 = citySuffixes.concat(nations)
   city = city.concat(city.map(item => {
-    citySuffixes.forEach(subitem => {
+    citySuffixes1.forEach(subitem => {
       if (subitem.endsWith('行政区划')) return false
       if (item.length - subitem.length <= 1) return false
       if (item.endsWith(subitem)) item = item.substring(0, item.length - subitem.length)
@@ -182,10 +236,9 @@ export const generateCompanyShortName = (name: string): string => {
       })
     })
   })
-  let countySuffixes = ['转型综合改革示范区', '高新技术产业开发区', '旅游度假区', '飞地经济区', '循环化工园区', '专利技术园区', '经济开发区', '风景名胜区', '工业园区', '果树农场', '管理区', '管委会', '市辖区', '高新区', '经济区', '自治县', '自治旗', '农场', '矿区', '新区', '新城', '左旗', '中旗', '右旗', '前旗', '后旗', '左翼', '中翼', '右翼', '前翼', '后翼', '街道', '区', '县', '市', '旗', '镇', '乡']
-  countySuffixes = countySuffixes.concat(nations)
+  let countySuffixes1 = countySuffixes.concat(nations)
   county = county.concat(county.map(item => {
-    countySuffixes.forEach(subitem => {
+    countySuffixes1.forEach(subitem => {
       if (item.length - subitem.length <= 1) return false
       if (item.endsWith(subitem)) item = item.substring(0, item.length - subitem.length)
     })
@@ -207,10 +260,9 @@ export const generateCompanyShortName = (name: string): string => {
       })
     })
   })
-  let townSuffixes = ['地区', '街道', '乡', '镇', '区', '管理委员会']
-  townSuffixes = townSuffixes.concat(nations)
+  let townSuffixes1 = townSuffixes.concat(nations)
   town = town.concat(town.map(item => {
-    townSuffixes.forEach(subitem => {
+    townSuffixes1.forEach(subitem => {
       if (item.length - subitem.length <= 1) return false
       if (item.endsWith(subitem)) item = item.substring(0, item.length - subitem.length)
     })
@@ -268,19 +320,19 @@ export const generateCompanyShortName = (name: string): string => {
       }
     })
 
-    provinceSuffixes.forEach(contain => {
+    provinceSuffixes1.forEach(contain => {
       if (name.length > contain.length && name.includes(contain) && name.replace(contain, '').length > 0) name = name.replace(contain, '')
     })
 
-    citySuffixes.forEach(contain => {
+    citySuffixes1.forEach(contain => {
       if (name.length > contain.length && name.includes(contain) && name.replace(contain, '').length > 0) name = name.replace(contain, '')
     })
 
-    countySuffixes.forEach(contain => {
+    countySuffixes1.forEach(contain => {
       if (name.length > contain.length && name.includes(contain) && name.replace(contain, '').length > 0) name = name.replace(contain, '')
     })
 
-    townSuffixes.forEach(contain => {
+    townSuffixes1.forEach(contain => {
       if (name.length > contain.length && name.includes(contain) && name.replace(contain, '').length > 0) name = name.replace(contain, '')
     })
 
@@ -310,4 +362,23 @@ export const generateCompanyShortName = (name: string): string => {
   }
 
   return name
+}
+
+export const getRegionNameByAddress = (name: string): any => {
+  let instance = treeTool.createInstance({
+    id: 'code',
+    children: 'childs',
+  })
+  return instance.filter(areaList, (node: any) => {
+    if ([5002].includes(node.code)) return false
+    if (node.code.toString().length == 2) {
+      if (name.includes(node.name)) return true
+      if (name.includes(node.name.replace(new RegExp('((' + provinceSuffixes.join(')|(') + '))$'),''))) return true
+    }
+    if (node.code.toString().length == 4) {
+      if (name.includes(node.name)) return true
+      if (name.includes(node.name.replace(new RegExp('((' + citySuffixes.join(')|(') + '))$'),''))) return true
+    }
+    return node.name.includes(name) || name.includes(node.name)
+  })
 }
