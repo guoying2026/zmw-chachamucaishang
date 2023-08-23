@@ -9,6 +9,24 @@
       </div>
       <div class="comment_item_2">
         <p class="margin-10-top ">{{comment.content}}</p>
+        <el-row :gutter="8" v-if="comment.image.length" class="margin-10-bottom row-image-box">
+          <el-col
+              v-for="(itemImage, indexImage) in comment.image"
+              :key="indexImage"
+              :span="8"
+              :md="8"
+          >
+            <el-image
+                :hide-on-click-modal=true
+                :src="itemImage"
+                class="image_list"
+                fit="cover"
+                :zoom-rate="1.2"
+                :preview-src-list="comment.image"
+                :initial-index="Number(indexImage)"
+                lazy />
+          </el-col>
+        </el-row>
         <div class="comment_item_3">
           <text class=" time grey-color">{{comment.time}}</text>
           <div class="comment_item_4">
@@ -32,8 +50,26 @@
           </div>
           <div class="reply_item_2">
             <p class="margin-10-top">{{reply.content}}</p>
+            <el-row :gutter="8" v-if="reply.image.length" class="margin-10-bottom row-image-box">
+              <el-col
+                  v-for="(itemReplyImage, indexReplyImage) in reply.image"
+                  :key="indexReplyImage"
+                  :span="8"
+                  :md="8"
+              >
+                <el-image
+                    :hide-on-click-modal=true
+                    :src="itemReplyImage"
+                    class="image_list"
+                    fit="cover"
+                    :zoom-rate="1.2"
+                    :preview-src-list="reply.image"
+                    :initial-index="Number(indexReplyImage)"
+                    lazy />
+              </el-col>
+            </el-row>
             <div class="reply_item_3">
-              <text class=" time grey-color">{{reply.time}}</text>
+              <text class="time grey-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
                 <AddForm title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">

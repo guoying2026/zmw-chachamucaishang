@@ -12,6 +12,24 @@
       </div>
       <div class="question_item_2">
         <p class="margin-10-top ">{{question.question}}</p>
+        <el-row :gutter="8" v-if="question.image.length" class="margin-10-bottom row-image-box">
+          <el-col
+              v-for="(itemImage, indexImage) in question.image"
+              :key="indexImage"
+              :span="8"
+              :md="8"
+          >
+            <el-image
+                :hide-on-click-modal=true
+                :src="itemImage"
+                class="image_list"
+                fit="cover"
+                :zoom-rate="1.2"
+                :preview-src-list="question.image"
+                :initial-index="Number(indexImage)"
+                lazy />
+          </el-col>
+        </el-row>
         <div class="question_item_3">
           <text class=" time grey-color">{{question.time}}</text>
           <div class="question_item_4">
@@ -39,10 +57,28 @@
           </div>
           <div class="answer_item_2">
             <p class="margin-10-top">{{answer.answer}}</p>
+            <el-row :gutter="8" v-if="answer.image.length" class="margin-10-bottom row-image-box">
+              <el-col
+                  v-for="(itemReplyImage, indexReplyImage) in answer.image"
+                  :key="indexReplyImage"
+                  :span="8"
+                  :md="8"
+              >
+                <el-image
+                    :hide-on-click-modal=true
+                    :src="itemReplyImage"
+                    class="image_list"
+                    fit="cover"
+                    :zoom-rate="1.2"
+                    :preview-src-list="answer.image"
+                    :initial-index="Number(indexReplyImage)"
+                    lazy />
+              </el-col>
+            </el-row>
             <div class="answer_item_3">
               <text class=" time grey-color">{{answer.time}}</text>
               <div class="answer_item_4">
-                <LikeSwitch :index="index" :replyIndex="answerIndex" feedbackType="answer"></LikeSwitch>
+                <LikeSwitch :index="index" :answerIndex="answerIndex" feedbackType="answer"></LikeSwitch>
               </div>
             </div>
           </div>

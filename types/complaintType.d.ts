@@ -11,10 +11,9 @@ export interface Reply {
     dislikes: number;
     currentUser: number;
     currentUserReaction: Reaction;
+    image:[];
 }
 
-// 用户的点赞反应类型
-export type Reaction = 'none' | 'liked' | 'disliked';
 
 // 单个评论的类型定义
 export interface Complaint {
@@ -27,5 +26,6 @@ export interface Complaint {
     dislikes: number;
     currentUser: number;
     currentUserReaction: Reaction;
+    image: [];
     replies: Reply[];
 }

@@ -11,6 +11,7 @@ export interface Reply {
     dislikes: number;
     currentUser: number;
     currentUserReaction: Reaction;
+    image: [];
 }
 
 // 单个评论的类型定义
@@ -24,5 +25,6 @@ export interface Comment {
     dislikes: number;
     currentUser: number;
     currentUserReaction: Reaction;
+    image: [];
     replies: Reply[];
 }

@@ -1,5 +1,5 @@
 <template>
-  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png"/>
+  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_reply_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png" alt="背景"/>
   <NoDetail tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
 
   <div class="comment" v-else>
@@ -12,6 +12,24 @@
       </div>
       <div class="comment_item_2">
         <p class="margin-10-top ">{{complaint.content}}</p>
+        <el-row :gutter="8" v-if="complaint.image.length" class="margin-10-bottom row-image-box">
+          <el-col
+              v-for="(itemImage, indexImage) in complaint.image"
+              :key="indexImage"
+              :span="8"
+              :md="8"
+          >
+            <el-image
+                :hide-on-click-modal=true
+                :src="itemImage"
+                class="image_list"
+                fit="cover"
+                :zoom-rate="1.2"
+                :preview-src-list="complaint.image"
+                :initial-index="Number(indexImage)"
+                lazy />
+          </el-col>
+        </el-row>
         <div class="comment_item_3">
           <text class=" time grey-color">{{complaint.time}}</text>
           <div class="comment_item_4">
@@ -35,6 +53,24 @@
           </div>
           <div class="reply_item_2">
             <p class="margin-10-top">{{reply.content}}</p>
+            <el-row :gutter="8" v-if="reply.image.length" class="margin-10-bottom row-image-box">
+              <el-col
+                  v-for="(itemReplyImage, indexReplyImage) in reply.image"
+                  :key="indexReplyImage"
+                  :span="8"
+                  :md="8"
+              >
+                <el-image
+                    :hide-on-click-modal=true
+                    :src="itemReplyImage"
+                    class="image_list"
+                    fit="cover"
+                    :zoom-rate="1.2"
+                    :preview-src-list="reply.image"
+                    :initial-index="Number(indexReplyImage)"
+                    lazy />
+              </el-col>
+            </el-row>
             <div class="reply_item_3">
               <text class=" time grey-color">{{reply.time}}</text>
               <div class="reply_item_4">
@@ -55,7 +91,6 @@
 </template>
 <script setup lang="ts">
 import LikeSwitch from "~/components/LikeSwitch.vue";
-import AddComment from "~/components/Comment/AddComment.vue";
 import NoDetail from "~/components/NoDetail.vue";
 import {ComplaintStore} from "~/types/complaintStore";
 import {useComplaintStore} from "~/pinia/complaintStore";
