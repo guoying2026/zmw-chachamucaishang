@@ -4,15 +4,17 @@ import {useCommentStore} from "~/pinia/commentStore";
 import {Reply} from "@/types/commentType";
 import {CommentStore} from "~/types/commentStore";
 import {ReplyFeedbackHandler} from "~/pinia/feedback/handlers/ReplyFeedbackHandler";
+import {handleAnonymity} from "~/utils/handler";
 
 export const commentReplyFeedbackHandler: FeedbackHandler & ReplyFeedbackHandler = {
     add(data: FeedbackData) {
         // 处理主评论提交的逻辑
         console.log('处理回复主评论提交逻辑');
         const commentStore:CommentStore = useCommentStore();
+        let user = handleAnonymity(data.anonymity,"Marcin Tireder");
         let obj:Reply = {
             "user_id": 1,
-            "user": "Marcin Tireder",
+            "user": user,
             "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
             "content": data.textareaValue,
             "time": "2020-08-09 12:12:30",
