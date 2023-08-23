@@ -22,4 +22,5 @@ export type SearchResultListItem = {
   company_img: string;
   credit_score: string | number;
   is_show_phone_popup: boolean;
+  short_name: string;
 };

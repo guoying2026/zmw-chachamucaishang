@@ -34,8 +34,9 @@ const isShowUserInfoPopup = ref<boolean>(false)
  */
 function searchButtonHandle() {
   searchTextRef.value.blur()
-  if (searchInputText.value.trim() === '') {
-    router.push('/search');
+  if (searchInputText.value.trim() === '') searchInputText.value = '木材'
+  if (route.path == '/searchResult' && route.query.search == searchInputText.value) {
+    refreshNuxtData('searchResultList')
     return;
   }
   if (route.path == '/searchResult' && route.query.search == searchInputText.value) {
@@ -120,9 +121,6 @@ onMounted(() => {
     headerWhiteSpaceEl.setAttribute('style', 'height: ' + getComputedStyle(headerEl).height + ';');
   }
   searchInputFocusAndBlurHandle();
-  window.onresize = () => {
-    searchInputFocusAndBlurHandle();
-  };
 })
 
 nuxtApp.hook('page:finish', () => {
@@ -132,33 +130,38 @@ nuxtApp.hook('page:finish', () => {
     headerWhiteSpaceEl.setAttribute('style', 'height: ' + getComputedStyle(headerEl).height + ';');
   }
   searchInputFocusAndBlurHandle();
-  window.onresize = () => {
+  window.addEventListener('resize', () => {
+    let headerEl = document.querySelector('.header');
+    let headerWhiteSpaceEl = document.querySelector('.header_white_space');
+    if (headerEl && headerWhiteSpaceEl) {
+      headerWhiteSpaceEl.setAttribute('style', 'height: ' + getComputedStyle(headerEl).height + ';');
+    }
     searchInputFocusAndBlurHandle();
-  };
+  });
 })
 </script>
 
 <template>
   <ClientOnly>
-  <div class="fixed inline-flex flex-row justify-start md:justify-center items-center w-full h-14 bg-black pb-2 md:pt-1 md:pb-1 z-30 header">
-    <div class="inline-flex flex-row justify-start md:justify-center items-center w-full h-14 bg-black z-30">
+  <div class="fixed inline-flex flex-row justify-start md:justify-center items-center w-full h-14 xl:h-20 bg-black pb-2 md:pt-1 md:pb-1 z-30 header">
+    <div class="inline-flex flex-row justify-start md:justify-center items-center w-full h-14 xl:h-20 bg-black z-30">
       <!-- 查查木材商图标 -->
       <NuxtLink to="/" class="grow md:grow-0">
         <img class="block md:hidden h-6 object-contain" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imageee2c089b91ece3372b37b7ea820936fe.png" />
-        <img class="hidden md:block h-8 object-contain" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagef6dd0552bbc692e03c05de8bd0b26610.png" />
+        <img class="hidden md:block h-8 xl:h-14 object-contain" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagef6dd0552bbc692e03c05de8bd0b26610.png" />
       </NuxtLink>
       <!-- 搜索框 -->
-      <div class="relative grow lg:grow-0 inline-flex md:justify-evenly items-center w-full md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
-        <input class="w-full md:w-80 px-5 py-1 md:px-0 md:py-0 md:pr-6 text-xs md:text-sm md:bg-transparent text-inherit md:text-white rounded-2xl md:rounded transition-all search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
+      <div class="relative grow lg:grow-0 inline-flex md:justify-evenly items-center w-full xl:h-14 md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
+        <input class="w-full md:w-80 xl:h-10 px-5 py-1 md:px-0 md:py-0 md:pr-8 text-xs md:text-sm md:bg-transparent text-inherit md:text-white rounded-2xl md:rounded transition-all search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
         <svg class="absolute md:hidden left-1 inline-block w-4 h-4 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
-        <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute right-1 md:right-16 w-4 h-4 cursor-pointer" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
-        <button @click.stop="searchButtonHandle" class="hidden md:inline-block text-sm px-2 py-1 rounded search-button">查一下</button>
+        <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute right-1 md:right-20 w-4 h-4 cursor-pointer" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+        <button @click.stop="searchButtonHandle" class="hidden md:inline-block xl:h-10 text-sm md:text-base px-2 py-1 rounded search-button">查一下</button>
         <ClientOnly>
-          <SearchTips @gotoLogin="openLoginPopup" @gotoSearch="searchInputHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-6 md:top-9" width="w-full md:w-80" zIndex="-z-10" class="in-header" />
+          <SearchTips @gotoLogin="openLoginPopup" @gotoSearch="searchInputHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-6 md:top-10 xl:top-14" width="w-full md:w-80" zIndex="-z-10" class="in-header" />
         </ClientOnly>
       </div>
-      <div v-if="userInfoStore.isLoggedIn()" @click.stop="isShowUserInfoPopup = !isShowUserInfoPopup" :class="'grow md:grow-0 ' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' w-9 md:w-auto text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 rounded cursor-pointer'">
-        <img class="h-6 md:h-8" :src="userInfoStore.getAvatar()"/>
+      <div v-if="userInfoStore.isLoggedIn()" @click.stop="isShowUserInfoPopup = !isShowUserInfoPopup" :class="'grow md:grow-0 ' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' w-9 md:w-auto xl:w-16 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 xl:ml-4 rounded cursor-pointer'">
+        <img class="h-6 md:h-8 xl:h-14 object-contain" :src="userInfoStore.getAvatar()"/>
       </div>
       <ClientOnly v-else>
         <button @click="openLoginPopup" :class="'grow md:grow-0 ' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 my-1 border border-solid rounded goto-login-button'">登录/注册</button>
@@ -167,7 +170,7 @@ nuxtApp.hook('page:finish', () => {
     </div>
   </div>
   <!-- 用户登录之后 点击头像弹出的信息框 -->
-  <div @click.stop="isShowUserInfoPopup = false" :class="'fixed top-0 left-0 inline-block w-screen ' + (isShowUserInfoPopup ? 'h-screen' : 'h-0') + ' z-20 overflow-hidden transition-all'">
+  <div @click.stop="isShowUserInfoPopup = false" :class="'fixed top-0 left-0 inline-block w-screen ' + (isShowUserInfoPopup ? 'h-screen' : 'h-0') + ' z-30 overflow-hidden transition-all'">
     <!-- 移动端 -->
     <div @click.stop="false" :class="'absolute top-14 inline-flex md:hidden flex-row justify-between items-center w-full ' + (isShowUserInfoPopup ? 'h-14' : 'h-0') + ' text-white text-sm px-2 overflow-hidden transition-all select-none'" style="background-color: rgb(29,29,29);">
       <div>账号:{{ encryptPhone(userInfoStore.getPhone()) }}</div>
@@ -177,7 +180,7 @@ nuxtApp.hook('page:finish', () => {
       </div>
     </div>
     <!-- PC端 -->
-    <div @click.stop="false" :class="'absolute top-14 hidden md:inline-flex flex-col w-80 ' + (isShowUserInfoPopup ? ' h-40' : 'h-0') + ' text-balck text-sm bg-white overflow-hidden rounded-lg z-40 transition-all select-none pc-userinfo-popup'">
+    <div @click.stop="false" :class="'absolute top-14 xl:top-28 hidden md:inline-flex flex-col w-80 ' + (isShowUserInfoPopup ? ' h-40' : 'h-0') + ' text-balck text-sm bg-white overflow-hidden rounded-lg z-40 transition-all select-none pc-userinfo-popup'">
       <div class="relative inline-flex flex-row justify-start items-center h-2/3 px-2 bg-contain bg-no-repeat bg-left-top text-white" style="background-image: url('https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image89118683d5ee913bc2614edd9f196d26.png');">
         <img class="relative bottom-1.5 w-14 mr-2" :src="userInfoStore.getAvatar()"/>
         <span class="relative bottom-1.5">{{ encryptPhone(userInfoStore.getPhone()) }}</span>
@@ -209,8 +212,12 @@ nuxtApp.hook('page:finish', () => {
 }
 
 @media (min-width: 1024px) {
+  .header {
+    height: calc(100vw / 1920 * 112);
+  }
   .header > div {
     width: calc(100vw / 4 * 3);
+    height: calc(100vw / 1920 * 112);
   }
   .header > div > div:nth-of-type(1) {
     width: calc(100% - 18rem);

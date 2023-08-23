@@ -3,6 +3,9 @@ import { AreaListItem } from '~/types/areaListItem'
 
 import { SearchResultListItem } from '~/types/searchResultListItem'
 
+// 导入搜索历史记录存储
+import { useSearchHistoryStore } from '~/pinia/searchHistory'
+
 const route = useRoute()
 
 const nuxtApp = useNuxtApp()
@@ -12,6 +15,9 @@ useHead({
 })
 
 const isMobile = ref<boolean>(false)
+
+// 实例化搜索历史记录存储
+const searchHistoryStore = useSearchHistoryStore()
 
 const areaList = ref<AreaListItem[]>([{
   code: 0,
@@ -27,50 +33,9 @@ const areaList = ref<AreaListItem[]>([{
   is_show: true,
 }]);
 
-const { data, pending, error, refresh } = await useFetch('/api/areaData')
-
-if (data.value) {
-  let areaData: AreaListItem[] = JSON.parse(JSON.stringify(data.value.result))
-  // 添加“全(省/市/自治区)”
-  areaData = areaData.map((item: AreaListItem) => {
-    let end = '';
-    if (item.name.includes('自治区')) {
-      end = '全自治区';
-    } else if (item.name.includes('市')) {
-      end = '全市';
-    } else {
-      end = '全省';
-    }
-    item.childs.unshift({
-      code: item.code,
-      name: item.name + end,
-      childs: [],
-      is_selected: false,
-      is_show: true,
-    });
-    item.is_show = true;
-    item.childs = item.childs.map(subitem => {
-      subitem.is_show = true;
-      return subitem;
-    });
-    return item;
-  });
-  // 添加“全国”
-  areaData.unshift({
-    code: 0,
-    name: '全国',
-    childs: [{
-      code: 0,
-      name: '全国',
-      childs: [],
-      is_selected: false,
-      is_show: true,
-    }],
-    is_selected: false,
-    is_show: true,
-  });
-  areaList.value = areaData;
-}
+const {
+  data: areaListData
+} = useNuxtData('areaDataList').data.value ? useNuxtData('areaDataList') : useLazyAsyncData('areaDataList', () => $fetch('/api/areaData'))
 
 const isShowAreaSelect = ref<boolean>(false)
 
@@ -124,6 +89,8 @@ watch(() => intersectionObserver.value, (newProps) => {
 
 const isReloadSearchResultList = ref<boolean>(true)
 
+const isHasMoreSearchResultList = ref<boolean>(true)
+
 const {
   pending: isSearchResultListPending,
   data: searchResultListData,
@@ -138,6 +105,55 @@ const {
   }
 }))
 
+function areaListDataChangedHandle(newProps: any) {
+  let res = JSON.parse(JSON.stringify(newProps)) as {
+    code: number,
+    message: string,
+    result?: AreaListItem[],
+  }
+  if (!res || res.code != 200 || !res.result) return;
+  let areaData: AreaListItem[] = res.result ? res.result : []
+  // 添加“全(省/市/自治区)”
+  areaData = areaData.map((item: AreaListItem) => {
+    let end = '';
+    if (item.name.includes('自治区')) {
+      end = '全自治区';
+    } else if (item.name.includes('市')) {
+      end = '全市';
+    } else {
+      end = '全省';
+    }
+    item.childs.unshift({
+      code: item.code,
+      name: item.name + end,
+      childs: [],
+      is_selected: false,
+      is_show: true,
+    });
+    item.is_show = true;
+    item.childs = item.childs.map(subitem => {
+      subitem.is_show = true;
+      return subitem;
+    });
+    return item;
+  });
+  // 添加“全国”
+  areaData.unshift({
+    code: 0,
+    name: '全国',
+    childs: [{
+      code: 0,
+      name: '全国',
+      childs: [],
+      is_selected: false,
+      is_show: true,
+    }],
+    is_selected: false,
+    is_show: true,
+  });
+  areaList.value = areaData;
+}
+
 function searchResultListChangedHandle (newProps: any) {
   isReloadSearchResultList.value = true
   let res1 = newProps as {code: number, message: string, result?: {current_page: number, data: any[], page_size: number, total_page: number, total_size: number}}
@@ -149,6 +165,9 @@ function searchResultListChangedHandle (newProps: any) {
     currentPage.value = res1.result.current_page
     pageSize.value = res1.result.page_size
     totalPages.value = res1.result.total_page
+    if (res1.result.current_page == res1.result.total_page) {
+      isHasMoreSearchResultList.value = false
+    }
   }
 }
 
@@ -162,8 +181,18 @@ if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string
     currentPage.value = 1
     isReloadSearchResultList.value = false
     searchResultListRefresh()
+    useHead({
+      title: newProps + ' - 搜索结果',
+    })
+  })
+  useHead({
+    title: route.query.search + ' - 搜索结果',
   })
 }
+
+searchResultListChangedHandle(searchResultListData.value)
+
+watch(() => searchResultListData.value, searchResultListChangedHandle)
 
 searchResultListChangedHandle(searchResultListData.value)
 
@@ -657,6 +686,19 @@ function hideAskForGetPositionPopup() {
   isShowAskForGetPositionPopup.value = false;
 }
 
+function recordClickItem(item: SearchResultListItem) {
+  searchHistoryStore.add({
+    id: Number(item.id),
+    name: item.company_name,
+    logo: item.company_img,
+    short_name: item.short_name,
+  })
+}
+
+areaListDataChangedHandle(areaListData.value)
+
+watch(() => areaListData.value, areaListDataChangedHandle)
+
 nuxtApp.hook('page:finish', () => {
   isMobile.value = window.screen.width < 768
   const intersectionObserverCallback = (entries: IntersectionObserverEntry[]) => {
@@ -679,6 +721,7 @@ nuxtApp.hook('page:finish', () => {
 </script>
 
 <template>
+  <ClientOnly>
   <!-- 移动端筛选 -->
   <div class="fixed md:hidden w-full z-10 select-none">
     <!-- 顶部的筛选和排序 -->
@@ -703,11 +746,13 @@ nuxtApp.hook('page:finish', () => {
       </div>
     </div>
   </div>
+  </ClientOnly>
   <!-- pc端筛选 -->
-  <div class="hidden md:flex flex-col w-full lg:w-3/4 lg:mx-auto py-4 rounded-xl select-none select-box-pc">
-    <div class="px-4 text-lg pb-2 mb-2 border-b border-solid border-gray-950">筛选条件</div>
+  <ClientOnly>
+  <div class="hidden md:flex flex-col w-full lg:w-3/4 lg:mx-auto py-4 rounded-2xl select-none select-box-pc">
+    <div class="px-4 text-lg pb-4 mb-3 border-b border-solid border-gray-950">筛选条件</div>
     <!-- 已选条件 -->
-    <div :class="'relative inline-flex flex-row justify-start ' + (isCanMultiSelectProvince?'items-start':'items-center') + ' w-full text-sm px-4 pb-2 mb-2 border-b border-solid border-gray-950 transition-all'">
+    <div :class="'relative inline-flex flex-row justify-start ' + (isCanMultiSelectProvince?'items-start':'items-center') + ' w-full text-sm px-4 pb-3 mb-3 border-b border-solid border-gray-950 transition-all'">
       <div :class="'inline-flex py-0.5 whitespace-nowrap select-item-title' + (areaList.filter(item=>item.is_selected).length>0?' font-orange':'')">已选条件</div>
       <!-- 多选地区条件下 -->
       <div v-if="isCanMultiSelectProvince" class="relative inline-flex flex-row w-full h-auto">
@@ -846,15 +891,20 @@ nuxtApp.hook('page:finish', () => {
       </div>
     </div>
   </div>
+  </ClientOnly>
+  <ClientOnly>
   <div class="inline-block md:block w-full lg:w-3/4 min-h-screen mt-1 md:mt-0 lg:mx-auto text-sm">
     <div class="px-4 py-2 mt-10 md:mt-0 search_find_num_tips">为你找到了<span class="mx-1 font-orange">{{ totalCountOfSearchResult }}</span>条相关结果</div>
     <!-- 搜索结果列表 -->
     <div class="inline-flex flex-col w-full search-result-list">
       <!-- 搜索结果项 -->
-      <NuxtLink :to="'/detail?id=' + item.id" class="relative inline-flex flex-col py-4 mt-4 first-of-type:mt-0 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item" v-for="(item, index) in searchResultList">
+      <NuxtLink :to="'/detail?id=' + item.id" @click="recordClickItem(item)" class="relative inline-flex flex-col py-4 mt-4 first-of-type:mt-0 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item" v-for="(item, index) in searchResultList">
         <!-- 搜索结果项 - 第一行 -->
         <div class="inline-flex flex-row px-4">
-          <img class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md" :src="item.company_img" />
+          <img v-if="item.company_img && typeof item.company_img == 'string' && item.company_img.length > 0" class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md search-list-item-logo" :src="item.company_img" />
+          <div v-else class="inline-flex justify-center items-center w-8 h-8 md:w-24 md:h-24 text-center rounded-md select-none whitespace-pre search-list-item-logo" style="background-color: rgb(44,45,55);">
+            <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs md:text-4xl word-logo-multi-words':'text-xl md:text-7xl word-logo-one-word')+' font-extrabold'">{{ item.short_name?item.short_name:'' }}</span>
+          </div>
           <div class="inline-flex flex-row items-center w-11/12 md:w-10/12 h-full pl-2 md:pl-4">
             <span class=" max-w-max md:text-2xl md:font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{ item.company_name }}</span>
             <span :class="'inline-block w-max h-max px-1 ml-2 text-xs border border-solid border-current rounded whitespace-nowrap ' + (item.operation_state=='存续'?'cunxu':'') + (item.operation_state=='在业'?'zaiye':'') + (item.operation_state=='开业'?'kaiye':'') + (item.operation_state=='注销'?'zhuxiao':'') + (item.operation_state=='吊销'?'diaoxiao':'') + (item.operation_state=='迁出'?'qianchu':'') + (item.operation_state=='迁入'?'qianru':'') + (item.operation_state=='停业'?'tingye':'') + (item.operation_state=='清算'?'qingsuan':'')">{{ item.operation_state }}</span>
@@ -919,12 +969,16 @@ nuxtApp.hook('page:finish', () => {
           </div>
         </div>
       </NuxtLink>
-      <div :class="'relative ' + (currentPage > totalPages || isSearchResultListPending ? 'hidden' : 'inline-flex') + ' md:hidden flex-row justify-center items-center py-1 mt-4 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item load-more-tips'" style="color: rgb(151,151,151);">
-        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg>
-        <span>加载中...</span>
-      </div>
+      <ClientOnly>
+        <div :class="'relative ' + (!isHasMoreSearchResultList || currentPage > totalPages || isSearchResultListPending ? 'hidden' : 'inline-flex') + ' md:hidden flex-row justify-center items-center py-1 mt-4 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl search-list-item load-more-tips'" style="color: rgb(151,151,151);">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg>
+          <span>加载中...</span>
+        </div>
+      </ClientOnly>
     </div>
   </div>
+  </ClientOnly>
+  <ClientOnly>
   <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">
     <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage > 1" @click="jumpToPrevPage">上一页</div>
     <template v-if="totalPages <= paginationSize">
@@ -969,7 +1023,9 @@ nuxtApp.hook('page:finish', () => {
     </div>
     <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage < totalPages" @click="jumpToNextPage">下一页</div>
   </div>
+  </ClientOnly>
   <!-- 电话号码展示弹窗 -->
+  <ClientOnly>
   <div @click.stop="hidePhonePopup" :class="'fixed ' + (isShowPhonePopup ? 'left-0 top-0' : 'left-1/2 top-1/2') + ' inline-flex justify-center items-center ' + (isShowPhonePopup ? 'w-full h-full' : 'w-0 h-0') + ' bg-black bg-opacity-50 transition-all'">
     <div @click.stop="false" :class="'inline-flex flex-col w-3/4 md:w-1/2 lg:w-1/3 ' + (isShowPhonePopup ? 'max-h-screen' : 'max-h-0') + ' min-h-max px-2 ' + (isShowPhonePopup ? 'py-4' : 'py-0') + ' bg-white text-black rounded-xl overflow-hidden shadow transition-all'">
       <div class="relative inline-flex justify-center items-center text-xl font-bold">
@@ -981,7 +1037,9 @@ nuxtApp.hook('page:finish', () => {
       </div>
     </div>
   </div>
+  </ClientOnly>
   <!-- 获取定位权限询问弹窗 -->
+  <ClientOnly>
   <div @click.stop="hideAskForGetPositionPopup" :class="'fixed ' + (isShowAskForGetPositionPopup ? 'left-0 top-0' : 'left-1/2 top-1/2') + ' inline-flex justify-center items-center ' + (isShowAskForGetPositionPopup ? 'w-full h-full' : 'w-0 h-0') + ' bg-black bg-opacity-50 transition-all'">
     <div @click.stop="false" :class="'inline-flex flex-col w-4/5 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5 ' + (isShowAskForGetPositionPopup ? 'max-h-screen' : 'max-h-0') + ' min-h-max px-2 ' + (isShowAskForGetPositionPopup ? 'py-4' : 'py-0') + ' bg-white text-black rounded-xl overflow-hidden shadow transition-all'">
       <div class="relative inline-flex justify-center items-center text-base md:text-xl font-medium">
@@ -1001,6 +1059,7 @@ nuxtApp.hook('page:finish', () => {
       </div>
     </div>
   </div>
+  </ClientOnly>
 </template>
 
 <style scoped>
@@ -1083,6 +1142,12 @@ nuxtApp.hook('page:finish', () => {
   }
 }
 
+@media (min-width: 1024px) {
+  .search_find_num_tips {
+    margin-top: calc(100vw / 1920 * 32);
+  }
+}
+
 .search-list-item {
   background-color: rgb(27,27,27);
 }
@@ -1114,7 +1179,9 @@ nuxtApp.hook('page:finish', () => {
 .to-cancel-multi-select-province,
 .search-list-item > div:nth-of-type(2) > div > span:nth-of-type(1),
 .search-list-item > div:nth-of-type(3),
-.search-list-item > div:nth-of-type(4) {
+.search-list-item > div:nth-of-type(4),
+.search-list-item > div:nth-of-type(5),
+.search-list-item > div:nth-of-type(6) {
   color: rgb(151,151,151);
 }
 
@@ -1181,6 +1248,20 @@ nuxtApp.hook('page:finish', () => {
 
   .search-list-item > div:not(:first-of-type,:last-of-type) {
     color: rgb(151,151,151);
+  }
+
+  .search-list-item-logo {
+    width: calc(100vw / 1920 * 88);
+    height: calc(100vw / 1920 * 88);
+  }
+
+  .word-logo-one-word {
+    font-size: calc(100vw / 1920 * 72);
+  }
+
+  .word-logo-multi-words {
+    font-size: calc(100vw / 1920 * 36);
+    line-height: calc(100vw / 1920 * 40);
   }
 }
 </style>

@@ -1,73 +1,127 @@
-/* 
-  ●原木、锯材、木制品
-  ●木材+
-    木材仓储、木材加工、木材研发、木材检测、木材及制品、木材销售、木材组件加工、木材收购、木材采运、木材经营、木材下角料、
-  ●木皮+
-    木皮加工、木皮染色、木皮生产、装饰木皮（又称薄木贴面板）、
-  ●木质+
-    木质容器、木质型材、木质片材、木质板材、木质胶合板、木质包装箱
-  ●木塑+
-    木塑复合材料
-    建筑用木料、木托盘、木柱、木梁、木条、木桩、木板、木方、科技木、实木、原木、木片、
-  ●刨花墩
-  ●板+
-    板材、板皮、单板、单层板、多层板、贴面板、人造板、建筑模板、
-    单板层积材（单板层积材的生产工艺过程与胶合板生产过程大体相同，层积材和胶合板最大的区别是单板的排布组坯，单板层积材由单板层积组胚胶合而成，是替代锯材为目标而加工的产品，节选自《机电产品木包装系统设计》）、
-    木工板、
-    木芯板（室内装饰书籍说：大芯板，也可以叫做细木工板）、
-    生态板、
-    指接板（室内装饰书籍说：也可以叫做机拼实木板）、
-    胶合板（室内装饰书籍说：也可以叫夹板）、
-    薄木贴面板（室内装饰书籍说：也可以叫装饰木皮，它是胶合板的一种，一般分为天然板与科技板两种。）
-    纤维板（也可以叫密度板）【拓展品种有装饰纤维板、波纹板、吸声板、刨花板（室内装饰书籍说：也可以叫微粒板，也可以叫庶渣板，也有进口高档产品称为定向刨花板、欧松板）】、
-    木地板（分类有实木地板【国产阔叶材地板、国产针叶材地板、进口材地板】，实木复合木地板）
-  ●材+
-    集成材、板材、锯材 */
-const originArr = [
-  '原木', '锯材', '木制品',
-  '木材仓储', '木材加工', '木材研发', '木材检测', '木材及制品', '木材销售', '木材组件加工', '木材收购', '木材采运', '木材经营', '木材下角料',
-  '木皮加工', '木皮染色', '木皮生产', '装饰木皮', '薄木贴面板',
-  '木质容器', '木质型材', '木质片材', '木质板材', '木质胶合板', '木质包装箱',
-  '木塑复合材料',
-  '建筑用木料', '木托盘', '木柱', '木梁', '木条', '木桩', '木板', '木方', '科技木', '实木', '原木', '木片',
-  '刨花墩',
-  '板材', '板皮', '单板', '单层板', '多层板', '贴面板', '人造板', '建筑模板',
-  '单板层积材',
-  '木工板',
-  '木芯板', '大芯板', '细木工板',
-  '生态板',
-  '指接板', '机拼实木板',
-  '胶合板', '夹板',
-  '薄木贴面板', '装饰木皮', '天然板', '科技板',
-  '纤维板', '密度板', '装饰纤维板', '波纹板', '吸声板', '刨花板', '微粒板', '庶渣板', '定向刨花板', '欧松板',
-  '木地板', '实木地板', '国产阔叶材地板', '国产针叶材地板', '进口材地板', '实木复合木地板',
-  '集成材', '板材', '锯材',
-]
+import * as fs from 'node:fs'
 
-const uniqueArr = [...new Set(originArr)]
+import * as path from 'node:path'
 
+import treeTool from 'tree-tool'
+
+import { Category } from '~/types/category'
+
+let category = [] as Category[]
+
+// 每次查找时，最终返回的条数
 const size = 4
 
-const getListByRandom = (arr: any[], size: number, excludes?: (typeof arr)) => {
-  let ret = [] as (typeof arr)
-  for (let i = 0; i < size; i++) {
-    let index = Math.floor(Math.random() * arr.length)
-    let item = arr[index]
-    if (ret.includes(item) || (excludes && excludes.length > 0 && excludes.includes(item))) {
-      i--
-      continue
-    }
-    ret.push(item)
-  }
-  return ret
-}
+// 不作为返回结果的名称
+const notAddedKeyword = ['其他品类']
 
-const queryValue2Arr = (queryValue: string, separator?: string) => {
+// 默认的搜索内容
+const defaultSearchKeyword = '木材'
+
+/** 
+ * 把字符串分割为数组
+ */ 
+const str2Arr = (queryValue: string, separator?: string): string[] => {
   if (!separator || separator.length == 0) separator = ' '
   return queryValue.trim().replaceAll(separator + separator, separator).split(separator)
 }
 
-const shuffle = (arr: any[]) => {
+/**
+ * 给分类标注上标识(id、parentId)
+ */
+const makeIdAndPId = (arr: Category[], pId?: string): Category[] => {
+  arr = arr.map((item, index) => {
+    let currentId: string = (index + 1).toString()
+
+    if (pId) {
+      item.parentId = pId
+      currentId = pId + '-' + (index + 1).toString()
+    }
+
+    item.id = currentId
+
+    if (item.childs) item.childs = makeIdAndPId(item.childs, currentId)
+
+    return item
+  })
+
+  return arr
+}
+
+/**
+ * 搜索函数，返回符合搜索要求的字符串数组
+ */
+const search = (name: string): string[] => {
+  let ret = [] as string[]
+
+  let instance = treeTool.createInstance({
+    pid: 'parentId',
+    children: 'childs',
+  })
+
+  // 如果当前的搜索词为空白，则返回顶级分类
+  if (name.trim() == '') name = defaultSearchKeyword
+
+  // 查找“当前搜索词”所在的节点
+  let allNodes = instance.findNodeAll(category, (node: Category) => node.name.includes(name) || name.includes(node.name)) as Category[]
+
+  // 如果有该节点为别名节点，则查找“父节点”和“同为别名的兄弟节点”
+  allNodes.forEach(item => {
+    if (!item.isAlias) return false
+
+    // 获取该节点的父节点
+    let pNode = instance.findNode(category, (node: Category) => node.id == item.parentId) as Category
+
+    // 把父节点加入到返回结果中
+    if (!notAddedKeyword.includes(pNode.name)) {
+      ret.push(pNode.name)
+    }
+
+    if (!pNode.childs) return false
+
+    // 如果父节点有别名节点，则把别名节点也加入到返回结果中
+    pNode.childs.forEach(subitem => {
+      if (notAddedKeyword.includes(subitem.name)) {
+        if (!subitem.childs) return false
+        subitem.childs.forEach(subitem1 => {
+          if (subitem1.isAlias) ret.push(subitem1.name)
+        })
+      }
+
+      if (subitem.isAlias) ret.push(subitem.name)
+    })
+  })
+
+  // 如果有子节点，则查找子节点
+  allNodes.forEach(item => {
+    if (!item.childs) return false
+
+    item.childs.forEach(subitem => {
+      // 过滤掉无意义分类
+      if (notAddedKeyword.includes(subitem.name)) {
+        if (!subitem.childs) return false
+        subitem.childs.forEach(subitem1 => {
+          ret.push(subitem1.name)
+        })
+        return false
+      }
+
+      ret.push(subitem.name)
+    })
+  })
+
+  // 数组去重
+  ret = [...new Set(ret)]
+
+  // 如果返回的内容空白，则直接搜索顶级分类
+  if (ret.length == 0) ret = search(defaultSearchKeyword)
+
+  return ret
+}
+
+/**
+ * 打乱数组的排序
+ */
+const shuffle = (arr: any[]): (typeof arr) => {
   let len = arr.length
   for (let i = 0; i < len - 1; i++) {
     let index = parseInt((Math.random() * (len - i)).toString())
@@ -78,24 +132,26 @@ const shuffle = (arr: any[]) => {
   return arr
 }
 
+// 读取分类文件，并赋值到变量
+fs.readFile(path.normalize(process.cwd() + '/server/data/category.json'),{
+  encoding: 'utf-8'
+},(err, res) => {
+  if (err) return false
+
+  // 过滤掉空白字符
+  res = res.replaceAll(/\s/g, '')
+
+  // 转换为json
+  category = JSON.parse(res)
+
+  // 添加上标识
+  category = makeIdAndPId(category)
+})
+
 export default defineEventHandler(async (e) => {
   try {
     let query = getQuery(e)
     if (!query) throw new Error("缺少参数")
-
-    let name = (query.name ? query.name : '') as string
-
-    let nameArr = queryValue2Arr(name)
-
-    // 如果没有传入name参数，则随机取4个，并且不重复
-    if (!name || typeof name != 'string' || name.trim().length == 0 || nameArr.length == 0) {
-      return {
-        page: 1,
-        total_page: 1,
-        offset: 0,
-        data: getListByRandom(uniqueArr, size)
-      }
-    }
 
     // 定义页码
     let page = 1
@@ -105,17 +161,16 @@ export default defineEventHandler(async (e) => {
     let offset = 0
     if (query.offset && !isNaN(Number(query.offset))) offset = Number(query.offset) as number
 
+    let name = (query.name ? query.name : '') as string
+
+    let nameArr = str2Arr(name)
+
     let ret = [] as string[]
 
     // 搜索并添加能够匹配到的关键词
     nameArr.forEach(name => {
-      uniqueArr.forEach((item: string) => {
-        // 已经添加过的就不再重复添加
-        if (ret.includes(item)) return false
-        // 匹配的要求是任意一方包含了另一方
-        if (!item.includes(name) && !name.includes(item)) return false
-        ret.push(item)
-      })
+      let filteredArr = search(name)
+      ret = ret.concat(filteredArr)
     })
 
     // 根据页码和偏移量提取
@@ -131,11 +186,12 @@ export default defineEventHandler(async (e) => {
     }
 
     // 如果搜索词匹配不到关键词，则随机给出
-    if (ret1.length == 0) ret1 = getListByRandom(uniqueArr, size)
+    if (ret1.length == 0) ret1 = shuffle(search(defaultSearchKeyword)).splice(0, size)
 
     // 如果匹配到的数量不够数，则随机抽取到指定个数
     if (ret1.length < size) {
-      let temp =getListByRandom(uniqueArr, size - ret1.length, ret1)
+      let temp = shuffle(search(defaultSearchKeyword))
+      temp = temp.filter(item => !ret1.includes(item)).splice(0, size - ret1.length)
       ret1 = ret1.concat(temp)
     }
 
@@ -148,6 +204,7 @@ export default defineEventHandler(async (e) => {
       page: page,
       total_page: totalPage,
       offset: offset,
+      key: name,
       data: ret1,
     }
   } catch (e) {

@@ -14,25 +14,7 @@ for (let i = 0; i < provincesArr.length; i++) {
     encoding: 'utf-8',
   }, (err, res) => {
     let res1 = JSON.parse(res)
-    provincesArr[i].is_selected = false
-    provincesArr[i].is_show = true
-    if ([11,12,31,50].includes(code)) {
-      provincesArr[i].childs = res1.map((item:any) => {
-        return item.childs.map((subitem:any) => {
-          delete subitem.childs
-          subitem.is_selected = false
-          subitem.is_show = true
-          return subitem
-        })
-      }).flat(1)
-    } else {
-      provincesArr[i].childs = res1.map((item:any) => {
-        delete item.childs
-        item.is_selected = false
-        item.is_show = true
-        return item
-      })
-    }
+    provincesArr[i].childs = res1
   })
 }
 const areaData = {code: 200, message: '请求成功', result: provincesArr}

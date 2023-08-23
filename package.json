@@ -12,7 +12,8 @@
     "@nuxt/devtools": "latest",
     "@types/node": "latest",
     "@types/uuid": "^9.0.2",
-    "nuxt": "latest"
+    "nuxt": "latest",
+    "tree-tool": "^1.1.8"
   },
   "dependencies": {
     "@element-plus/nuxt": "^1.0.5",
