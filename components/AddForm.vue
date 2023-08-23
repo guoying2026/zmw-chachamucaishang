@@ -12,7 +12,7 @@
         <!-- 文本域用于输入评论 -->
         <div class="add-box-2">
           <text>{{titleBox}}商家：{{companyName}}</text>
-          <el-checkbox v-model="state.anonymity">匿名评价</el-checkbox>
+          <el-checkbox v-model="state.anonymity">匿名{{titleBox}}</el-checkbox>
         </div>
         <Textarea
             :placeholderText="placeholderText"
