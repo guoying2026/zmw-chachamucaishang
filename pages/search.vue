@@ -210,7 +210,8 @@ function gotoLogin() {
  */
 function gotoSearch() {
   // TODO 调用搜索api
-  router.push('/searchResult')
+  if (searchInputText.value.trim() === '') searchInputText.value = '木材'
+  router.push('/searchResult?search=' + searchInputText.value)
 }
 
 function cancelButtonHandle() {
@@ -252,6 +253,7 @@ nuxtApp.hook("page:finish", () => {
 
 <template>
   <div class="inline-flex flex-col w-screen h-screen contain">
+    <ClientOnly>
     <div class="fixed top-0 z-50 inline-flex flex-row justify-between items-center w-full px-2 pt-6 search-input-box">
       <input class="w-10/12 md:w-11/12 h-8 text-sm pl-6 pr-5 text-black search-input" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @focus="scrollGenerateSearchInputWordBox" @change="scrollGenerateSearchInputWordBox" @keyup="scrollGenerateSearchInputWordBox" @keyup.enter="gotoSearch" />
       <!-- 搜索图标 -->
@@ -260,14 +262,20 @@ nuxtApp.hook("page:finish", () => {
       <svg @click="clearSearchInputText" v-if="searchInputText.length > 0" class="absolute hidden w-4 h-8 clear-icon" style="color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
       <button @click="cancelButtonHandle" class="w-2/12 md:w-1/12 text-base font-normal cancel-button">取消</button>
     </div>
-    <!-- 未登录、未输入任何搜索内容、没有搜索历史记录 -->
-    <div v-if="!userInfoStore.isLoggedIn() && searchInputText.trim() === '' && searchInputHistoryStore.getList().length === 0" class="inline-flex flex-col justify-center items-center w-full h-auto px-10 py-4 mt-14 search-tips-area">
+    </ClientOnly>
+
+    <!-- 未登录、未输入任何搜索内容 -->
+    <ClientOnly>
+    <div v-if="!userInfoStore.isLoggedIn() && searchInputText.trim() === ''" class="inline-flex flex-col justify-center items-center w-full h-auto px-10 py-4 mt-14 search-tips-area">
       <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
       <p class="text-xs whitespace-nowrap mt-1 goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
       <button @click="gotoLogin" class="text-sm px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
     </div>
-    <!-- 未输入任何搜索内容、有搜索历史记录 -->
-    <div v-if="searchInputText.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-auto px-2 py-1 mt-14 bg-black search-tips-area">
+    </ClientOnly>
+
+    <!-- 已登录，未输入任何搜索内容、有搜索历史记录 -->
+    <ClientOnly>
+    <div v-if="userInfoStore.isLoggedIn() && searchInputText.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-auto px-2 py-1 mt-14 bg-black search-tips-area">
       <!-- 搜索历史 -->
       <div v-if="searchInputHistoryStore.getList().length > 0" class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 search-input-history">
         <div class="inline-flex flex-row justify-between items-center">
@@ -293,8 +301,9 @@ nuxtApp.hook("page:finish", () => {
           </li>
         </ul>
       </div>
+      <div v-if="searchInputHistoryStore.getList().length > 0 && searchHistoryStore.getList().length > 0" class="inline-block w-full h-2 bg-black"></div>
       <!-- 历史记录 -->
-      <div v-if="searchHistoryStore.getList().length > 0" class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 mt-5 search-history">
+      <div v-if="searchHistoryStore.getList().length > 0" class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 search-history">
         <div class="sticky top-14 inline-flex flex-row justify-between items-center z-10 search-history-header">
           <span class="text-sm font-normal search-input-history-title">历史记录</span>
           <template v-if="isShowSearchHistoryListDelete">
@@ -323,7 +332,10 @@ nuxtApp.hook("page:finish", () => {
         </ul>
       </div>
     </div>
-    <!-- 已输入任何搜索内容 或者 已登录但未(已登录、未输入任何搜索内容，并且没有搜索历史记录)输入任何搜索内容 -->
+    </ClientOnly>
+
+    <!-- 已输入任何搜索内容 或者 (已登录、未输入任何搜索内容，并且没有搜索历史记录) -->
+    <ClientOnly>
     <div v-if="searchInputText.trim() !== '' || (userInfoStore.isLoggedIn() && searchInputText.trim() == '' && searchInputHistoryStore.getList().length == 0 && searchHistoryStore.getList().length == 0)" class="inline-flex flex-col w-full h-auto px-2 py-1 mt-14 bg-black search-tips-area">
       <!-- 猜你想搜 -->
       <div class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 search-input-history">
@@ -337,8 +349,9 @@ nuxtApp.hook("page:finish", () => {
           <li @click="searchInputHistoryListItemClickHandle(item)" class="relative inline-flex justify-center items-center px-4 py-0 5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in whatYouWantSearchList"><span>{{ item }}</span></li>
         </ul>
       </div>
+      <div v-if="whatYouWantSearchList.length > 0 && searchInputText.trim() !== ''" class="inline-block w-full h-2 bg-black"></div>
       <!-- 相关企业 -->
-      <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 mt-5 related-enterprises">
+      <div v-if="searchInputText.trim() !== ''" class="inline-flex flex-col w-screen h-auto px-2 py-5 -ml-2 related-enterprises">
         <div class="sticky top-14 inline-flex flex-row justify-between items-center z-10 related-enterprises-header">
           <span class="text-sm font-normal search-input-history-title">相关企业</span>
         </div>
@@ -350,7 +363,9 @@ nuxtApp.hook("page:finish", () => {
         </ul>
       </div>
     </div>
+    </ClientOnly>
   </div>
+
   <!-- 登录弹窗 -->
   <LoginPopup v-if="isShowLogin" @close="hideLoginPopup" />
 </template>
@@ -385,6 +400,10 @@ input:focus-visible {
 .cancel-button {
   font-family: Source Han Sans CN;
   color: #FF9B40;
+}
+
+.search-tips-area {
+  background-color: #121212;
 }
 
 .goto-login-and-get-detail-search-result-tips,

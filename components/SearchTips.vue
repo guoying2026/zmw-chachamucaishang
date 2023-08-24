@@ -229,7 +229,7 @@ nuxtApp.hook("page:finish", () => {
     <div v-if="!userInfoStore.isLoggedIn() && props.searchValue?.trim() === ''" class="inline-flex flex-col justify-center items-center w-full h-full px-10 py-4">
       <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
       <p class="text-xs md:text-base whitespace-nowrap mt-1 goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
-      <button @click.stop="$emit('gotoLogin')" class="text-sm md:text-lg px-3 py-1 text-white mt-4 goto-login-button">登录试试</button>
+      <button @click.stop="$emit('gotoLogin')" class="text-sm md:text-lg px-3 py-1 text-white mt-4 whitespace-nowrap goto-login-button">登录试试</button>
     </div>
 
     <!-- 已登录，未输入任何搜索内容、有搜索历史记录 -->
@@ -262,7 +262,7 @@ nuxtApp.hook("page:finish", () => {
         <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
           <li @click.stop="isShowSearchHistoryListDelete?'':$emit('gotoSearch',item.name)" :class="'relative inline-flex flex-row items-center mt-4 first-of-type:mt-0' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
             <img v-if="item.logo&&item.logo.length>0" class="w-9 h-9 object-cover search-history-list-item-logo" :src="item.logo" />
-            <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre" style="background-color: rgb(238,238,238);">
+            <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre search-history-list-item-logo" style="background-color: rgb(238,238,238);">
               <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold'" style="color: rgb(153,153,153);">{{ item.short_name?item.short_name:'' }}</span>
             </div>
             <span class="text-sm md:text-base pl-1 search-history-list-item-name">{{ item.name }}</span>
@@ -280,7 +280,7 @@ nuxtApp.hook("page:finish", () => {
           </div>
         </template>
         <template v-else>
-          <button @click.stop="showSearchHistoryListDelete" class="inline-flex flex-row justify-center items-center w-20 md:w-24">
+          <button @click.stop="showSearchHistoryListDelete" class="inline-flex flex-row justify-center items-center w-20 md:w-24 clear-search-history-button">
             <svg class="w-4 md:w-6 clear-search-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
             <span class="text-sm md:text-base clear-search-history-button-text">删除历史</span>
           </button>
@@ -311,7 +311,7 @@ nuxtApp.hook("page:finish", () => {
         </ul>
       </div>
       <!-- 登录提示 -->
-      <div v-if="!userInfoStore.isLoggedIn()" class="text-xs md:text-base text-center mt-1">
+      <div v-if="!userInfoStore.isLoggedIn()" class="text-xs md:text-base text-center mt-1 goto-login-and-get-detail-search-result-tips1">
         <button @click.stop="$emit('gotoLogin')" class="goto-login-button1">立即登录</button>
         <span>获取更精准的关键词匹配结果</span>
       </div>
@@ -473,17 +473,77 @@ nuxtApp.hook("page:finish", () => {
   .search-tips-area.in-header {
     width: calc(100% - 4rem);
   }
+  .search-tips-area:not(.in-header) {
+    top: calc(100vw / 1920 * 59);
+    min-width: 210px;
+    width: calc(100vw / 1920 * 488);
+  }
   .goto-login-and-get-detail-search-result-tips {
     font-size: calc(100vw / 1920 * 16);
     margin-top: calc(100vw / 1920 * 16);
   }
+  .goto-login-and-get-detail-search-result-tips1 {
+    font-size: calc(100vw / 1920 * 14);
+  }
   .goto-login-button {
-    width: calc(100vw / 1920 * 100);
-    height: calc(100vw / 1920 * 34);
+    width: auto;
+    height: auto;
     font-size: calc(100vw / 1920 * 18);
+    line-height: calc(100vw / 1920 * 36);
+    padding: calc(100vw / 1920 * 8) calc(100vw / 1920 * 10);
+  }
+  .clear-search-history-button {
+    width: auto;
+    height: auto;
+  }
+  .search-history-box-title,
+  .search-history-list-item-name,
+  .clear-search-history-button-text,
+  .guess-what-you-want-to-search-tips,
+  .related-enterprises-box-title,
+  .related-enterprises-list-item-name,
+  .clear-all-search-history-button,
+  .finish-clear-search-history-button,
+  .clear-all-search-input-history-button,
+  .finish-clear-search-input-history-button {
+    font-size: calc(100vw / 1920 * 16);
+  }
+  .clear-search-history-button {
+    width: max-content;
+    height: min-content;
+  }
+  .clear-search-history-button-icon,
+  .clear-search-history-button-icon svg,
+  .clear-search-input-history-button-icon {
+    width: calc(100vw / 1920 * 32);
+    height: calc(100vw / 1920 * 32);
+  }
+  .search-input-history-list {
+    font-size: calc(100vw / 1920 * 14);
   }
   .search-input-history-list-item {
-    height: calc(100vw / 1920 * 28);
+    height: auto;
+    padding-top: calc(100vw / 1920 * 2);
+    padding-bottom: calc(100vw / 1920 * 2);
+  }
+}
+@media (min-width: 1024px) {
+  .search-tips-area.in-header {
+    top: calc(100vw / 1920 * 50);
+  }
+  .clear-search-history-button-icon,
+  .clear-search-history-button-icon svg,
+  .clear-search-input-history-button-icon {
+    width: calc(100vw / 1920 * 30);
+    height: calc(100vw / 1920 * 30);
+  }
+}
+@media (min-width: 1280px) {
+  .clear-search-history-button-icon,
+  .clear-search-history-button-icon svg,
+  .clear-search-input-history-button-icon {
+    width: calc(100vw / 1920 * 20);
+    height: calc(100vw / 1920 * 20);
   }
 }
 </style>

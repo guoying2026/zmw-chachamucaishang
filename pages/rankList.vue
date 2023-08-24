@@ -181,11 +181,13 @@ nuxtApp.hook('page:finish', () => {
       <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
       <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
       <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1))">N0.{{ isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1) }}</div>
-      <div class="absolute inline-block text-xs md:text-base item-title">{{ item.company_name }}</div>
-      <div class="absolute inline-flex flex-row justify-between items-center text-xs md:text-sm whitespace-nowrap pr-4 item-sec_line">
+      <div class="absolute inline-block text-sm md:text-base item-title">{{ item.company_name }}</div>
+      <div class="absolute inline-flex flex-row justify-between items-center text-xs md:text-sm whitespace-nowrap pr-4 overflow-x-hidden text-ellipsis item-sec_line">
         <div class="relative">法人:{{ item.corporation }}</div>
-        <div class="inline-flex justify-center items-center separator-wrap">|</div>
-        <div class="relative">经营范围:{{ item.range }}</div>
+        <div class="inline-flex md:hidden justify-center items-center separator-wrap">|</div>
+        <div class="relative md:hidden">{{ item.province }}{{ ['北京市', '北京', '天津市', '天津', '上海市', '上海', '重庆市', '重庆'].includes(item.province) ? item.district : item.city }}</div>
+        <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
+        <div class="hidden md:block relative overflow-x-hidden text-ellipsis">经营范围:{{ item.business_scope }}</div>
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
         <div class="relative hidden md:inline-block">评论:{{ item.comment_count }}</div>
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
@@ -193,7 +195,8 @@ nuxtApp.hook('page:finish', () => {
         <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
         <div class="relative hidden md:inline-block">投诉:{{ item.complaint_count }}</div>
       </div>
-      <div class="absolute inline-block text-xs md:text-sm item-third_line">地址:{{ item.address }}</div>
+      <div class="absolute hidden md:inline-block text-xs md:text-sm item-third_line">地址:{{ item.address }}</div>
+      <div class="absolute inline-block md:hidden text-xs md:text-sm item-third_line">经营范围:{{ item.business_scope }}</div>
       </NuxtLink>
     </div>
   </div>
@@ -403,6 +406,10 @@ nuxtApp.hook('page:finish', () => {
   text-overflow: ellipsis;
 }
 
+.item .item-sec_line > div:nth-of-type(5) {
+  max-width: calc(100vw / 1920 * 350);
+}
+
 .item .separator-wrap {
   width: 1px;
   height: 1rem;
@@ -511,7 +518,7 @@ nuxtApp.hook('page:finish', () => {
     top: calc((var(--real-width) / 12 * 11) / 1258 * 53);
     width: calc((var(--real-width) / 12 * 11) / 1258 * 55);
     height: calc((var(--real-width) / 12 * 11) / 1258 * 55);
-    font-size: calc(100vw / 1920 * 50);
+    font-size: calc(100vw / 1920 * 40);
   }
 
   .item .rank_num {
@@ -553,6 +560,7 @@ nuxtApp.hook('page:finish', () => {
     left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
     width: calc((var(--real-width) / 12 * 11) / 1258 * 500);
     font-size: calc(100vw / 1920 * 18);
+    line-height: calc(100vw / 1920 * 36);
   }
 
   .item .item-sec_line > div:nth-of-type(3) {
@@ -563,6 +571,17 @@ nuxtApp.hook('page:finish', () => {
     top: calc((var(--real-width) / 12 * 11) / 1258 * 121);
     left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
     font-size: calc(100vw / 1920 * 18);
+    line-height: calc(100vw / 1920 * 36);
+  }
+
+  .pagination {
+    font-size: calc(100vw / 1920 * 16);
+  }
+
+  .pagination .page-button,
+  .pagination .jump-to input,
+  .pagination .jump-to button {
+    padding: calc(100vw / 1920 * 13) calc(100vw / 1920 * 14);
   }
 }
 </style>

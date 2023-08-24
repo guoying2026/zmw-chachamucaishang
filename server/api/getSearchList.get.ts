@@ -1,3 +1,7 @@
+import {
+  generateCompanyShortName
+} from "../utils/areaUtil"
+
 export default defineEventHandler(async (e) => {
   try {
     // 判断是否有传入query
