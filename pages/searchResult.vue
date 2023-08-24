@@ -1250,8 +1250,14 @@ nuxtApp.hook('page:finish', () => {
     color: rgb(151,151,151);
   }
 
+  .search-list-item > div:not(:first-of-type),
+  .search-list-item > div:not(:first-of-type) span {
+    font-size: calc(100vw / 1920 * 14);
+    line-height: calc(100vw / 1920 * 28);
+  }
+
   .search-list-item > div:nth-of-type(3) {
-    margin-top: calc(100vw / 1920 * -40);
+    margin-top: calc(100vw / 1920 * -35);
   }
 
   .search-list-item > div:nth-of-type(3),
@@ -1277,7 +1283,12 @@ nuxtApp.hook('page:finish', () => {
 
   .search-list-item-title {
     font-size: calc(100vw / 1920 * 24);
-    line-height: calc(100vw / 1920 * 26);
+    line-height: calc(100vw / 1920 * 48);
+  }
+  .search-list-item-title + span {
+    font-size: calc(100vw / 1920 * 12);
+    line-height: unset;
+    padding: calc(100vw / 1920 * 1) calc(100vw / 1920 * 8);
   }
 }
 @media (min-width: 1024px) {
