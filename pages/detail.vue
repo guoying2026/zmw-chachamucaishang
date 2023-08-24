@@ -1,6 +1,6 @@
 <template>
   <div class="first">
-    <img class="first" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e50b0b18-3ddc-49e5-b4f7-1d24bd8e12fb.png" alt=""/>
+    <img class="first" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_ebcdb922-81c7-4be5-b4a9-be1a8aa04bdc.png" alt=""/>
   </div>
   <div class="third">
     <div class="second_1">
