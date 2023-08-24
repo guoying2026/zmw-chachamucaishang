@@ -4,13 +4,13 @@
   </div>
   <div class="third">
     <div class="second_1">
-      <text class="second_1_1">张姗姗的木材加工厂</text>
+      <text class="second_1_1">{{company_name}}</text>
       <div class="second_1_2">
         <div class="second_1_2_item">
           <div class="second_1_2_first second_1_2_item_left">
             <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e2d929f8-8994-4ba6-b731-d4779bf41cf2.png" alt=""/>
             <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_c5514216-f624-444c-bb74-24b956dfaab0.png" alt=""/>
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_63b5d737-53a8-407f-bec4-9f92e207c88c.png" alt=""/>
+            <img src="https://zhenmuwa`ng.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_63b5d737-53a8-407f-bec4-9f92e207c88c.png" alt=""/>
             <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f2fdbec2-a1bc-490d-ba2e-383830efbd3a.png" alt=""/>
           </div>
           <text class="grey-line"></text>
@@ -18,7 +18,7 @@
         </div>
         <div class="second_1_2_item">
           <div class="second_1_2_first second_1_2_item_middle">
-            <text class="second_1_2_item_middle_number">98</text>
+            <text class="second_1_2_item_middle_number">{{credit_score}}</text>
             <!--                        <div class="red_solid_circle"></div>-->
             <!--            <text class="second_1_2_item_middle_number">8</text>-->
           </div>
@@ -59,22 +59,22 @@
         </div>
         <div class="third_4_left_1_detail">
           <div class="third_4_left_1_detail_1">
-            <text>张珊珊的木材加工厂</text>
+            <text>{{company_name}}</text>
           </div>
           <div class="third_4_left_1_detail_2">
             <div class="third_4_left_1_detail_2_1">
               <div class="third_4_left_1_detail_2_1_item">
-                <text>法定代表人：张姗姗</text>
-                <text class="margin-10-top">注册时间：2022-10-09</text>
+                <text>法定代表人：{{corporation}}</text>
+                <text class="margin-10-top">注册时间：{{foundation_date}}</text>
               </div>
               <div class="third_4_left_1_detail_2_1_item">
-                <text>联系方式：139********</text>
-                <text class="margin-10-top">注册资本：89万元</text>
+                <text>联系方式：{{contact_phone}}</text>
+                <text class="margin-10-top">注册资本：{{registered_capital}}</text>
               </div>
             </div>
             <div class="third_4_left_1_detail_2_1 margin-10-top">
               <text class="third_4_left_1_detail_2_1_1">经营范围：</text>
-              <text class="third_4_left_1_detail_2_1_2">原木、锯材及木制品的销售；家居装饰；木材仓储，木材加工，木材研发，木材检测，木材及制品的展示 展销、信息咨询、技术服务 ，物流配送</text>
+              <text class="third_4_left_1_detail_2_1_2">{{business_scope}}</text>
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@
         <client-only><baidu-map class="map" :center="{lng: 118.906004, lat: 33.962873}" :zoom="5" @ready="ready" ></baidu-map></client-only>
         <div class="map_address">
           <svg class="icon" viewBox="0 0 1024 1024" width="200" height="200"><path d="M513.8 63.4C327.2 63.4 173 221.2 173 414.9c0 186.5 304.9 520.2 319.3 534.5 3.6 7.2 14.3 10.8 21.5 10.8s17.9-3.6 21.5-10.8l104-125.6C779.2 644.5 851 508.2 851 414.9c3.6-193.7-150.7-351.5-337.2-351.5z m0 513c-86.1 0-154.3-71.7-154.3-161.4s68.2-161.4 154.3-161.4S668 325.3 668 414.9s-68.1 161.5-154.2 161.5z" fill="#ffffff"></path></svg>
-          <text>沭阳县钱集镇南槽坊村村部</text>
+          <text>{{address}}</text>
         </div>
       </div>
       <img class="third_4_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_57253c6a-7053-4709-b69b-6148dca9969b.png" alt=""/>
@@ -105,63 +105,63 @@
       <table>
         <tr>
           <th>企业名称</th>
-          <td>广东广物木材产业股份有限公司</td>
+          <td>{{company_name}}</td>
           <th>统一社会信用代码</th>
-          <td>91440000079578488R</td>
+          <td>{{credit_code}}</td>
         </tr>
         <tr>
           <th>法定代表人</th>
-          <td>王磊</td>
+          <td>{{corporation}}</td>
           <th>登记状态</th>
-          <td>在营</td>
+          <td>-</td>
         </tr>
         <tr>
           <th>注册时间</th>
-          <td>2022-09-08</td>
+          <td>{{foundation_date}}</td>
           <th>注册资本</th>
-          <td>8627.98万元人民币</td>
+          <td>{{registered_capital}}人民币</td>
         </tr>
         <tr>
           <th>组织机构代码</th>
-          <td>07957848-8</td>
+          <td>{{organisation_code}}</td>
           <th>工商注册号</th>
-          <td>440000000103474</td>
+          <td>{{registration_mark}}</td>
         </tr>
         <tr>
           <th>纳税人识别号</th>
-          <td>91440000079578488R</td>
+          <td>{{taxpayer_id}}</td>
           <th>企业类型</th>
-          <td>其他股份有限公司（非上市）</td>
+          <td>{{company_sort}}</td>
         </tr>
         <tr>
           <th>营业期限</th>
-          <td>2013-10-11 至 无固定期限</td>
+          <td>-</td>
           <th>纳税人资质</th>
-          <td>增值税一般纳税人</td>
+          <td>-</td>
         </tr>
         <tr>
           <th>人员规模</th>
-          <td>少于50人</td>
+          <td>-</td>
           <th>参保人数</th>
-          <td>12</td>
+          <td>-</td>
         </tr>
         <tr>
           <th>核准日期</th>
-          <td>2023-04-17</td>
+          <td>-</td>
           <th>登记机关</th>
-          <td>广东省市场监督管理局</td>
+          <td>-</td>
         </tr>
         <tr>
           <th>联系电话</th>
-          <td>188********</td>
+          <td>{{contact_phone}}</td>
           <th>所属地区</th>
-          <td>广东省广州市黄埔区</td>
+          <td>{{province}}{{city}}{{district}}</td>
         </tr>
         <tr>
           <th>是否失信</th>
           <td>否</td>
           <th>黑名单</th>
-          <td>暂无</td>
+          <td>否</td>
         </tr>
         <tr>
           <th>处罚公示</th>
@@ -600,12 +600,51 @@ import Tag from "~/components/Tag.vue";
 import CommentList from "~/components/CommentList.vue";
 import NoDetail from "~/components/NoDetail.vue";
 import ComplaintList from "~/components/ComplaintList.vue";
+import {useShopDetails} from "~/composables/shop";
+import { useRoute } from 'vue-router';
 
+const route = useRoute();
+const query = route.query;
+console.log(query);
+const id = query.id as number|string;
+console.log(id);
+const shopDetails = useShopDetails(id);
+// 解构shopDetails，这样你就可以直接在模板中使用其属性
+const {
+  address,
+  company_name,
+  business_scope,
+  company_sort,
+  contact_phone,
+  corporation,
+  credit_code,
+  credit_score,
+  email,
+  foundation_date,
+  geohash,
+  industry,
+  lat,
+  lng,
+  operation_state,
+  organisation_code,
+  registered_capital,
+  registration_mark,
+  taxpayer_id,
+  province,
+    city,
+    district,
+  fetchShopDetails,
+} = shopDetails;
+
+
+
+onMounted(() => {
+  fetchShopDetails();
+});
 
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
 }
-
 const ready = ({ BMap , map }: { BMap: any, map: any })=>{
   // 对地图进行自定义操作
 }
