@@ -99,11 +99,31 @@ const {
 } = useLazyAsyncData('searchResultList', () => $fetch('/api/getSearchList', {
   query: {
     name: searchInputText.value,
-    area: '',
+    area: getSelectedAreaListArr(areaList.value).join('+'),
     page: isReloadSearchResultList.value ? 1 : currentPage.value,
     page_size: pageSize.value,
   }
 }))
+
+watch(() => areaList.value, (newProps) => {
+  searchResultListRefresh()
+})
+
+function getSelectedAreaListArr(newProps: AreaListItem[]): string[] {
+  let ret = [] as string[]
+  let selectedProvinceList = newProps.filter(item => item.is_selected && item.code != 0)
+  selectedProvinceList.forEach(item => {
+    let selectedCityList = item.childs.filter(subitem => subitem.is_selected && subitem.code != 0)
+    if (selectedCityList.length == 0 || selectedCityList.length == item.childs.length - 1) {
+      ret.push(item.name)
+      return false
+    }
+    selectedCityList.forEach(subitem => {
+      ret.push(subitem.name)
+    })
+  })
+  return ret
+}
 
 function areaListDataChangedHandle(newProps: any) {
   let res = JSON.parse(JSON.stringify(newProps)) as {
@@ -311,6 +331,7 @@ function changeAreaFirstSelectedIndex(index: number) {
   areaSecondSelectedIndex.value = 0;
   // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false;
+  changeAreaListProvinceIsSelectedWithOnlyOne(index);
 }
 
 /**

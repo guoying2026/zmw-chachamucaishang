@@ -24,6 +24,7 @@ export default defineEventHandler(async (e) => {
     let formData = new URLSearchParams()
     formData.append('type', '0')
     formData.append('name', name)
+    formData.append('address', area)
     formData.append('page', page.toString())
     formData.append('size', pageSize.toString())
 
