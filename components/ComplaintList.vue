@@ -1,5 +1,5 @@
 <template>
-  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_reply_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png" alt="背景"/>
+  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png" alt="背景"/>
   <NoDetail tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
 
   <div class="comment" v-else>
