@@ -204,55 +204,6 @@ const citySuffixes = ['高新区', '新区', '区', '市', '盟', '自治州', '
 const countySuffixes = ['转型综合改革示范区', '高新技术产业开发区', '旅游度假区', '飞地经济区', '循环化工园区', '专利技术园区', '经济开发区', '风景名胜区', '工业园区', '果树农场', '管理区', '管委会', '市辖区', '高新区', '经济区', '自治县', '自治旗', '农场', '矿区', '新区', '新城', '左旗', '中旗', '右旗', '前旗', '后旗', '左翼', '中翼', '右翼', '前翼', '后翼', '街道', '区', '县', '市', '旗', '镇', '乡']
 const townSuffixes = ['地区', '街道', '乡', '镇', '区', '管理委员会']
 
-/**
- * 还没有转为ts
- * 相似度对比
- * @param s 文本1
- * @param t 文本2
- * @param f 小数位精确度，默认2位
- * @returns {string|number|*} 百分数前的数值，最大100. 比如 ：90.32
- */
-/* function similar(s, t, f) {
- if (!s || !t) {
-   return 0
- }
- if(s === t){
-   return 100;
- }
- var l = s.length > t.length ? s.length : t.length
- var n = s.length
- var m = t.length
- var d = []
- f = f || 2
- var min = function (a, b, c) {
-   return a < b ? (a < c ? a : c) : (b < c ? b : c)
- }
- var i, j, si, tj, cost
- if (n === 0) return m
- if (m === 0) return n
- for (i = 0; i <= n; i++) {
-   d[i] = []
-   d[i][0] = i
- }
- for (j = 0; j <= m; j++) {
-   d[0][j] = j
- }
- for (i = 1; i <= n; i++) {
-   si = s.charAt(i - 1)
-   for (j = 1; j <= m; j++) {
-     tj = t.charAt(j - 1)
-     if (si === tj) {
-       cost = 0
-     } else {
-       cost = 1
-     }
-     d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)
-   }
- }
- let res = (1 - d[n][m] / l) *100
- return res.toFixed(f)
-} */
-
 export const generateCompanyShortName = (name: string): string => {
   // 省份前缀
   let province: string[] = JSON.parse(JSON.stringify(areaList.map(item => item.name)))
@@ -441,4 +392,20 @@ export const getRegionNameByAddress = (name: string): any => {
     }
     return node.name.includes(name) || name.includes(node.name)
   })
+}
+
+export const getRegionShortName = (name: string): string => {
+  [
+    provinceSuffixes,
+    citySuffixes,
+    countySuffixes,
+    townSuffixes,
+    nations.concat(nations.map(item => item.length > 2 ? item.replace('族', '') : item)),
+  ].forEach(regionArr => {
+    regionArr.forEach(item => {
+      if (name == item) return false
+      if (name.endsWith(item)) name = name.substring(0, name.length - item.length)
+    })
+  })
+  return name
 }

@@ -10,4 +10,7 @@ export type RankingListItem = {
   ask_count: number;
   complaint_count: number;
   short_name: string;
+  province: string;
+  city: string;
+  district: string;
 };

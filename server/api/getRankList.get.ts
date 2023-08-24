@@ -1,6 +1,6 @@
 import {
   generateCompanyShortName,
-  getRegionNameByAddress
+  getRegionShortName,
 } from "../utils/areaUtil"
 
 export default defineEventHandler(async (e) => {
@@ -33,9 +33,15 @@ export default defineEventHandler(async (e) => {
     if (res.status != 1000) throw new Error(res.message)
     if (res.data) res.data.data = res.data.data.map(item => {
       item.short_name = generateCompanyShortName(item.company_name)
-      let regionObj = getRegionNameByAddress(item.address)
-      item.province = regionObj[0].name
-      item.region = regionObj
+      if (item.province && typeof item.province == 'string' && item.province.length > 0) {
+        item.province = getRegionShortName(item.province)
+      }
+      if (item.city && typeof item.city == 'string' && item.city.length > 0) {
+        item.city = getRegionShortName(item.city)
+      }
+      if (item.district && typeof item.district == 'string' && item.district.length > 0) {
+        item.district = getRegionShortName(item.district)
+      }
       return item
     })
     return {
