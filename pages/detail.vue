@@ -36,19 +36,19 @@
     </div>
     <div class="third_2">
       <client-only>
-      <div class="third_2_space">
-        <text class="tab_" :class="tabItemStore.tabItem*1 === 0 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
-        <text>|</text>
-        <text class="tab_" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
-        <text>|</text>
-        <text class="tab_" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
-        <text>|</text>
-        <text class="tab_" :class="tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(3)">评论</text>
-        <text>|</text>
-        <text class="tab_" :class="tabItemStore.tabItem*1 === 4 ?'white-color white-underline':''" @click="switchTab(4)">问答</text>
-        <text>|</text>
-        <text class="tab_" :class="tabItemStore.tabItem*1 === 5 ?'white-color white-underline':''" @click="switchTab(5)">投诉</text>
-      </div>
+        <div class="third_2_space">
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 0 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
+          <text>|</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
+          <text>|</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
+          <text>|</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(3)">评论</text>
+          <text>|</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 4 ?'white-color white-underline':''" @click="switchTab(4)">问答</text>
+          <text>|</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 5 ?'white-color white-underline':''" @click="switchTab(5)">投诉</text>
+        </div>
       </client-only>
     </div>
     <div class="third_4" v-if="tabItemStore.tabItem*1 === 0">
@@ -78,11 +78,11 @@
             </div>
           </div>
         </div>
-<!--        <div id="container" class="third_4_left_2"></div>-->
+        <!--        <div id="container" class="third_4_left_2"></div>-->
 
         <!--                <div class="fujin"></div>-->
         <!--                <image class="third_4_left_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e8b85a02-f6f9-4f01-b4c0-92c39128fb2b.png"></image>-->
-<!--        <text class="third_4_left_3">公司地址</text>-->
+        <!--        <text class="third_4_left_3">公司地址</text>-->
         <div class="third_4_left_4">
           <div class="third_4_left_4_1">
             <img class="third_4_left_4_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_395067ed-d2f0-4c5b-b2fc-cb322af9cc75.png" alt="商家地址图标"/>
@@ -194,23 +194,23 @@
             <text>新闻</text>
           </div>
         </div>
-<!--        <div class="choose_item">-->
-<!--          <text class="choose_title">工商动态</text>-->
-<!--          <div class="choose_detail">-->
-<!--            <text>全部</text>-->
-<!--            <text>法定代表人变更</text>-->
-<!--            <text>主要成员变更</text>-->
-<!--            <text>股东变更</text>-->
-<!--            <text>大股东变更</text>-->
-<!--            <text>实际控制人变更</text>-->
-<!--            <text>最终受益人变更</text>-->
-<!--            <text>对外投资人变更</text>-->
-<!--            <text>注册资本变更</text>-->
-<!--            <text>经营范围变更</text>-->
-<!--            <text>经营状态变更</text>-->
-<!--            <text>企业名称变更变更</text>-->
-<!--          </div>-->
-<!--        </div>-->
+        <!--        <div class="choose_item">-->
+        <!--          <text class="choose_title">工商动态</text>-->
+        <!--          <div class="choose_detail">-->
+        <!--            <text>全部</text>-->
+        <!--            <text>法定代表人变更</text>-->
+        <!--            <text>主要成员变更</text>-->
+        <!--            <text>股东变更</text>-->
+        <!--            <text>大股东变更</text>-->
+        <!--            <text>实际控制人变更</text>-->
+        <!--            <text>最终受益人变更</text>-->
+        <!--            <text>对外投资人变更</text>-->
+        <!--            <text>注册资本变更</text>-->
+        <!--            <text>经营范围变更</text>-->
+        <!--            <text>经营状态变更</text>-->
+        <!--            <text>企业名称变更变更</text>-->
+        <!--          </div>-->
+        <!--        </div>-->
         <div class="choose_item">
           <text class="choose_title">时间选择</text>
           <div class="choose_detail">
@@ -457,7 +457,7 @@
     </div>
   </div>
   <div class="second" v-if="tabItemStore.tabItem*1 === 0">
-    <img class="third_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_ee681ac6-85ab-4998-bdc2-6b95352bbd49.png" alt=""/>
+    <img class="third_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1a69286f-36e4-4694-bcbb-5219a41a4d96.png" alt=""/>
     <div class="second_2">
       <div class="second_2_left">
         <div class="second_2_left_1">
@@ -471,7 +471,7 @@
               <text class="second_2_left_2_right_1">网友</text>
             </div>
           </div>
-          <text>货物出现了很严重的质量问题（缺边、毛刺、规格不一）客户没办法用这批货要求退而且
+          <text class="margin-10-top">货物出现了很严重的质量问题（缺边、毛刺、规格不一）客户没办法用这批货要求退而且
             要了货物图片，收到货实物跟图片严重不符）</text>
         </div>
         <div class="second_2_left_item">
@@ -493,14 +493,24 @@
           <!--                    <text class="size-10 grey-color">更多</text>-->
         </div>
         <div class="question_item_display">
-            <div class="question_item_1_display">
-              <div class="avatar-wrapper">
-                <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
-                <span class="question-icon orange-bg">问</span>
-              </div>
-              <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
-              <text class="little_time grey-color">2020-08-09 12:12:30</text>
+          <div class="question_item_1_display">
+            <div class="avatar-wrapper">
+              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+              <span class="question-icon orange-bg">问</span>
             </div>
+            <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+            <text class="little_time grey-color">2020-08-09 12:12:30</text>
+          </div>
+        </div>
+        <div class="answer_item_display">
+          <div class="answer_item_1_display">
+            <div class="avatar-wrapper">
+              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+              <span class="question-icon red-bg">答</span>
+            </div>
+            <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+            <text class="little_time grey-color">2020-08-09 12:12:30</text>
+          </div>
         </div>
         <div class="answer_item_display">
           <div class="answer_item_1_display">
@@ -517,11 +527,11 @@
           <Tag tag="查看全部" number="41" color="orange"></Tag>
         </div>
       </div>
-      <img class="second_2_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_32b3a7b9-6975-4544-b3cd-7c294c699f6b.png" alt=""/>
+      <img class="second_2_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_007bdf9d-c46d-4843-b154-d43b201c17f2.png" alt=""/>
     </div>
   </div>
   <div class="fourth white-color" v-if="tabItemStore.tabItem*1 === 0">
-    <img class="fourth_3" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_35896d5e-f8b3-4301-b1e0-578385e4ee7b.png" alt=""/>
+    <img class="fourth_3" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_5f1cc753-9eff-4e32-b6f7-e2fe603be30f.png" alt=""/>
     <div class="fourth_1">
       <div class="fourth_1_left">
         <img class="fourth_1_left_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f6e0be5e-570c-46f5-b946-75a8f54a7a03.png" alt=""/>
@@ -581,7 +591,6 @@
 </template>
 <script setup lang="ts">
 import {BaiduMap} from "vue-baidu-map-3x";
-import AddComment from "~/components/Comment/AddComment.vue";
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
 //添加评论
@@ -633,6 +642,7 @@ const answer_question_count = 886;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 .question_item_display,.answer_item_display{
   position: relative;
@@ -758,8 +768,8 @@ const answer_question_count = 886;
 }
 .map {
   margin-top: 10px;
-  width: 466px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
 }
 .light_brown{
   background: #684525;
@@ -964,6 +974,7 @@ const answer_question_count = 886;
   color:#707070;
   font-weight: bolder;
   font-size: 20px;
+  margin-top: 20px;
 }
 .third .second_1 .second_1_2{
   display: flex;
@@ -1016,6 +1027,7 @@ const answer_question_count = 886;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: flex-end;
   color: #fff;
   padding-bottom: 20px;
 }
@@ -1062,7 +1074,9 @@ const answer_question_count = 886;
 }
 .second .second_2 .second_2_right{
   height: 100%;
-  width: 50%;
+  width: 46%;
+  margin-left: 50px;
+  margin-bottom: 12px;
 }
 .third{
   width: 100%;
