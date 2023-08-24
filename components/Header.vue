@@ -132,6 +132,7 @@ function changeHeaderWhiteSpaceStyleHandle() {
 }
 
 function changeSearchBoxStyleHandle() {
+  let searchBoxEl = document.querySelector('.search-box')
   let searchTextEl = document.querySelector('.search-text')
   let clearIconEl = document.querySelector('.search-box svg:nth-of-type(2)')
   let searchTipsAreaEl = document.querySelector('.search-tips-area')
@@ -140,8 +141,8 @@ function changeSearchBoxStyleHandle() {
     let clearIconStyle = getComputedStyle(clearIconEl)
     clearIconEl.setAttribute('style', 'color: rgb(153,153,153);right: unset;left: calc((' + searchTextStyle.width + ' - ' + searchTextStyle.paddingRight + ') + ((' + searchTextStyle.paddingRight + ' - ' + clearIconStyle.width + ') / 2));')
   }
-  if (searchTextEl && searchTipsAreaEl) {
-    searchTipsAreaEl.setAttribute('style', 'width: ' + getComputedStyle(searchTextEl).width + ';')
+  if (searchBoxEl && searchTextEl && searchTipsAreaEl) {
+    searchTipsAreaEl.setAttribute('style', 'width: calc(' + getComputedStyle(searchTextEl).width + ' + ' + getComputedStyle(searchBoxEl).paddingLeft + ' + ' + getComputedStyle(searchBoxEl).paddingRight + ');')
   }
 }
 
@@ -270,6 +271,8 @@ nuxtApp.hook('page:finish', () => {
   }
   .header .search-text {
     width: calc(100% - 4rem);
+    font-size: calc(100vw / 1920 * 20);
+    line-height: calc(100vw / 1920 * 20);
   }
   .header .search-button {
     height: calc(100vw / 1920 * 42);
