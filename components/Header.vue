@@ -114,15 +114,6 @@ function logout() {
   isShowUserInfoPopup.value = false
 }
 
-onMounted(() => {
-  let headerEl = document.querySelector('.header');
-  let headerWhiteSpaceEl = document.querySelector('.header_white_space');
-  if (headerEl && headerWhiteSpaceEl) {
-    headerWhiteSpaceEl.setAttribute('style', 'height: ' + getComputedStyle(headerEl).height + ';');
-  }
-  searchInputFocusAndBlurHandle();
-})
-
 function changeHeaderWhiteSpaceStyleHandle() {
   let headerEl = document.querySelector('.header');
   let headerWhiteSpaceEl = document.querySelector('.header_white_space');
@@ -230,7 +221,7 @@ nuxtApp.hook('page:finish', () => {
       </div>
     </div>
   </div>
-  <div class="header_white_space"></div>
+  <div class="h-14 xl:h-20 header_white_space"></div>
   </ClientOnly>
   <!-- 登录弹窗 -->
   <LoginPopup v-if="isShowLogin" @close="hideLoginPopup" />
