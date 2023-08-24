@@ -1,8 +1,5 @@
 // ossAPI.ts
 
-// 导入必要的类型和函数
-import { ref } from 'vue';
-
 // 定义请求的基本URL，可以根据实际需求进行修改
 const BASE_URL = 'https://api.jinrongwan.cn/';
 

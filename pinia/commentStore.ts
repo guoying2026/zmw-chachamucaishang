@@ -73,6 +73,10 @@ export const useCommentStore = defineStore('commentStore', {
 
     //方法
     actions: {
+        // 设置评论的方法
+        setComments(comments: any) {
+            this.comments = comments;
+        },
         addComment(this: CommentStore, comment: Comment) {
             this.comments.unshift(comment);
         },
