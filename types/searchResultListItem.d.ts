@@ -23,4 +23,5 @@ export type SearchResultListItem = {
   credit_score: string | number;
   is_show_phone_popup: boolean;
   short_name: string;
+  word_logo_bg_color: string;
 };

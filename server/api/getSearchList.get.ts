@@ -2,6 +2,30 @@ import {
   generateCompanyShortName
 } from "../utils/areaUtil"
 
+function shuffle(arr: any[]): (typeof arr) {
+  let len = arr.length
+  for (let i = 0; i < len - 1; i++) {
+    let index = parseInt((Math.random() * (len - i)).toString())
+    let temp = arr[index]
+    arr[index] = arr[len - i - 1]
+    arr[len - i - 1] = temp
+  }
+  return arr
+}
+
+let wordLogoBgColors = [
+  '#946148',
+  '#A88847',
+  '#A88847',
+  '#6D9347',
+  '#7751A1',
+  '#925692',
+  '#9A4D4D',
+  '#4D739A',
+  '#4A9777',
+  '#6E5CAC',
+]
+
 export default defineEventHandler(async (e) => {
   try {
     // 判断是否有传入query
@@ -38,8 +62,12 @@ export default defineEventHandler(async (e) => {
     })
     let res = await data.json() as {status: number, message: string, data?: any, current_page?: number, page_size?: number, total_page?: number, total_size?: number}
     if (res.status != 1000) throw new Error(res.message)
-    res.data = res.data.map((item:any) => {
+    res.data = res.data.map((item:any, index:number) => {
+      if (index % wordLogoBgColors.length === 0) {
+        wordLogoBgColors = shuffle(wordLogoBgColors)
+      } 
       item.short_name = generateCompanyShortName(item.company_name)
+      item.word_logo_bg_color = wordLogoBgColors[index % wordLogoBgColors.length]
       return item
     })
     return {

@@ -923,7 +923,7 @@ nuxtApp.hook('page:finish', () => {
         <!-- 搜索结果项 - 第一行 -->
         <div class="inline-flex flex-row px-4">
           <img v-if="item.company_img && typeof item.company_img == 'string' && item.company_img.length > 0" class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md search-list-item-logo" :src="item.company_img" />
-          <div v-else class="inline-flex justify-center items-center w-8 h-8 md:w-24 md:h-24 text-center rounded-md select-none whitespace-pre search-list-item-logo" style="background-color: rgb(44,45,55);">
+          <div v-else class=" grow md:grow-0 inline-flex justify-center items-center w-8 h-8 md:w-24 md:h-24 text-center rounded-md select-none whitespace-pre search-list-item-logo" :style="'background-color: ' + item.word_logo_bg_color + ';'">
             <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs md:text-4xl word-logo-multi-words':'text-xl md:text-7xl word-logo-one-word')+' font-extrabold'">{{ item.short_name?item.short_name:'' }}</span>
           </div>
           <div class="inline-flex flex-row items-center w-11/12 md:w-10/12 h-full pl-2 md:pl-4">

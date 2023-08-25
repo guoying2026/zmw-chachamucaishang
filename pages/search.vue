@@ -321,8 +321,8 @@ nuxtApp.hook("page:finish", () => {
         <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
           <li @click.stop="isShowSearchHistoryListDelete?'':searchInputHistoryListItemClickHandle(item.name)" :class="'relative inline-flex flex-row items-center mt-4' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
             <img v-if="item.logo&&item.logo.length>0" class="w-8 h-8 object-cover search-history-list-item-logo" :src="item.logo" />
-            <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" style="background-color: #262626;">
-              <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold'" style="color: #999;">{{ item.short_name?item.short_name:'' }}</span>
+            <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" :style="'background-color: ' + item.word_logo_bg_color + ';'">
+              <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name?item.short_name:'' }}</span>
             </div>
             <span class="text-sm pl-1 search-history-list-item-name">{{ item.name }}</span>
             <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
