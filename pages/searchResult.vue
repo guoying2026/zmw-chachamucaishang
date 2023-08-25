@@ -713,6 +713,7 @@ function recordClickItem(item: SearchResultListItem) {
     name: item.company_name,
     logo: item.company_img,
     short_name: item.short_name,
+    word_logo_bg_color: '',
   })
 }
 
