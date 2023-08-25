@@ -752,6 +752,9 @@
   }
   .fifth{
     width: 94%;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
   }
   .fifth_1{
     display:flex;
@@ -759,7 +762,6 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    font-size: clamp(14px,1vw,16px);
   }
   .fifth_1_left img{
     width: 20px;
@@ -769,6 +771,69 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+  }
+  .fifth_2{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: space-between;
+  }
+  .fifth_2_1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #532B07;
+    padding: 10px;
+  }
+
+  .fifth_2_2{
+    background-color: #4B2604;
+    padding: 10px;
+    display: flex;          /* 使用 Flexbox 布局 */
+    flex-direction: column; /* 主轴方向从上到下 */
+    width: 100%;            /* 占据全部可用宽度 */
+  }
+  .fifth_2_2_left{
+    word-wrap: break-word;  /* 如果文本过长，允许换行 */
+    flex: 1;                /* 允许该元素扩展，占据尽可能多的空间 */
+  }
+  .fifth_2_2_right{
+    align-self: flex-end;
+    color: #E58A38;
+  }
+  .six{
+    width: 94%;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  .six_table{
+    width: 100%;
+    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .six td{
+    border: none !important;
+    padding: 10px 10px 10px 15px;
+  }
+  .six tr td:nth-child(1) {
+    background-color: #532B07;
+  }
+  .left_width_1 td:nth-child(1){
+    width: 100px;
+  }
+  .left_width_2 td:nth-child(1){
+    width: 130px;
+  }
+  .left_width_3 td:nth-child(1){
+    width: 100px;
+  }
+  /* 选择每一行的第二个td */
+  .six tr td:nth-child(2) {
+    background-color: #4B2604;
   }
 }
 </style>
@@ -884,8 +949,8 @@
       <img class="third_4_right computer" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_57253c6a-7053-4709-b69b-6148dca9969b.png" alt=""/>
       <img class="third_4_right mobile" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_86e5c509-e054-4df8-baf8-e3d9b17ce535.png" alt=""/>
     </div>
-    <img class="third_1 mobile" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
-    <div class="fifth mobile margin-10-top">
+    <img class="third_1 mobile" v-if="tabItemStore.tabItem*1 === 0" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
+    <div class="fifth mobile margin-10-top" v-if="tabItemStore.tabItem*1 === 0">
       <div class="fifth_1">
         <div class="fifth_1_left">
           <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_47dff6c4-5504-4353-b87f-8edb6fd49d9b.png" alt="">
@@ -893,11 +958,24 @@
         </div>
         <text>更多></text>
       </div>
+      <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
+        <div class="fifth_2_1">
+          <text>{{dynamic.updateTime}}</text>
+          <text>{{dynamic.type}}</text>
+          <text :class="getClass(dynamic.level)">{{dynamic.level}}</text>
+        </div>
+        <div class="fifth_2_2">
+          <div v-html="dynamic.content" class="fifth_2_2_left"></div>
+          <text class="fifth_2_2_right">详情</text>
+        </div>
+      </div>
+      <img class="margin-20-top" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_450cc483-88c5-49a4-bb46-7f3fd28ab675.png">
+      <img class="margin-20-top" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_da1a539b-ff27-42a5-bbdd-76a19574b391.png">
     </div>
     <div class="tab_0_space light_brown computer" v-if="tabItemStore.tabItem*1 === 0">
       东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。
     </div>
-    <div class="tab_1_space" v-if="tabItemStore.tabItem*1 === 1">
+    <div class="tab_1_space computer" v-if="tabItemStore.tabItem*1 === 1">
       <table>
         <tr>
           <th>企业名称</th>
@@ -975,7 +1053,103 @@
         </tr>
       </table>
     </div>
-    <div class="tab_2_space" v-if="tabItemStore.tabItem*1 === 2">
+    <div class="six mobile" v-if="tabItemStore.tabItem*1 === 1">
+      <table class="six_table left_width_1">
+      <tr>
+        <td>企业名称</td>
+        <td>{{company_name}}</td>
+      </tr>
+      <tr>
+        <td>法定代表人</td>
+        <td>{{corporation}}</td>
+      </tr>
+      <tr>
+        <td>注册时间</td>
+        <td>{{foundation_date}}</td>
+      </tr>
+      <tr>
+        <td>注册资本</td>
+        <td>{{registered_capital}}</td>
+      </tr>
+      <tr>
+        <td>登记状态</td>
+        <td>{{operation_state}}</td>
+      </tr>
+      <tr>
+        <td>企业类型</td>
+        <td>{{company_sort}}</td>
+      </tr>
+      </table>
+    </div>
+    <div class="six mobile" v-if="tabItemStore.tabItem*1 === 1">
+      <table class="six_table left_width_2">
+      <tr>
+        <td>统一社会信用代码</td>
+        <td>{{credit_code}}</td>
+      </tr>
+      <tr>
+        <td>组织机构代码</td>
+        <td>{{organisation_code}}</td>
+      </tr>
+      <tr>
+        <td>工商注册号</td>
+        <td>{{registration_mark}}</td>
+      </tr>
+      <tr>
+        <td>纳税人识别号</td>
+        <td>{{taxpayer_id}}</td>
+      </tr>
+      </table>
+    </div>
+    <div class="six mobile" v-if="tabItemStore.tabItem*1 === 1">
+      <table class="six_table left_width_3">
+      <tr>
+        <td>营业期限</td>
+        <td>2013-10-11至无固定期限</td>
+      </tr>
+      <tr>
+        <td>纳税人资质</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>人员规模</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>参保人数</td>
+        <td>-</td>
+      </tr>
+        <tr>
+          <td>核准日期</td>
+          <td>-</td>
+        </tr><tr>
+          <td>登记机关</td>
+          <td>-</td>
+        </tr><tr>
+          <td>联系电话</td>
+          <td>-</td>
+        </tr><tr>
+          <td>是否失信</td>
+          <td>-</td>
+        </tr><tr>
+          <td>黑名单</td>
+          <td>-</td>
+        </tr><tr>
+          <td>处罚公示</td>
+          <td>-</td>
+        </tr><tr>
+          <td>投诉记录</td>
+          <td>-</td>
+        </tr><tr>
+          <td>诉讼查询</td>
+          <td>-</td>
+        </tr><tr>
+          <td>经营范围</td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
+    <div class="tab_2_space computer" v-if="tabItemStore.tabItem*1 === 2">
       <div class="tab_2_space_1">
         <text>全部动态 46</text>
         <div class="horizontal_line"></div>
