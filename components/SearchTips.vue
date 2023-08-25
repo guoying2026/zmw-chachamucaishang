@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { AreaListItem } from '~/types/areaListItem'
 
+import { SearchResultListItem } from '~/types/searchResultListItem'
+
 // 导入搜索输入历史记录存储
 import { useSearchInputHistoryStore } from '~/pinia/searchInputHistory'
 
@@ -54,6 +56,34 @@ const whatYouWantSearchList = ref<string[]>([])
 const whatYouWantSearchPage = ref<number>(1)
 const whatYouWantSearchTotalPage = ref<number>(1)
 const whatYouWantSearchOffset = ref<number>(0)
+
+// 相关企业列表
+const relatedEnterpriseList = ref<SearchResultListItem[]>([])
+
+const {
+  pending: isRelatedEnterpriseListPending,
+  data: relatedEnterpriseListData,
+  error: relatedEnterpriseListError,
+  refresh: relatedEnterpriseListRefresh,
+} = useLazyAsyncData('relatedEnterpriseList', () => $fetch('/api/getRelatedEnterpriseList', {
+  query: {
+    name: props.searchValue,
+  }
+}))
+
+relatedEnterpriseListDataChangeHandle(relatedEnterpriseListData.value)
+
+watch(() => relatedEnterpriseListData.value, relatedEnterpriseListDataChangeHandle)
+
+function relatedEnterpriseListDataChangeHandle(newProps: any) {
+  let res = JSON.parse(JSON.stringify(newProps)) as {
+    code: number,
+    message: string,
+    result?: SearchResultListItem[],
+  }
+  if (!res || res.code != 200 || !res.result) return;
+  relatedEnterpriseList.value = res.result
+}
 
 /**
  * 重新生成“猜你想搜”列表数据
@@ -203,14 +233,17 @@ watch(() => areaListData.value, areaListDataChangedHandle)
 watch(() => props.searchValue, (newProps) => {
   scrollGenerateSearchInputWordBox()
   regenerateWhatYouWantSearchList(newProps, 1, 0)
+  relatedEnterpriseListRefresh()
 })
 
 if (props.searchValue) {
   scrollGenerateSearchInputWordBox()
   regenerateWhatYouWantSearchList(props.searchValue, 1, 0)
+  relatedEnterpriseListRefresh()
 } else {
   scrollGenerateSearchInputWordBox()
   regenerateWhatYouWantSearchList()
+  relatedEnterpriseListRefresh()
 }
 
 nuxtApp.hook("page:finish", () => {
@@ -304,9 +337,12 @@ nuxtApp.hook("page:finish", () => {
       <div v-if="props.searchValue?.trim() !== ''" class="inline-flex flex-col p-2 related-enterprises-box">
         <h1 class="text-xs md:text-base pb-2 related-enterprises-box-title">相关企业</h1>
         <ul class="inline-flex flex-col list-none overflow-y-scroll related-enterprises-list">
-          <li class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="n in 5">
-            <img class="w-9 h-9 object-cover related-enterprises-list-item-logo" src="" alt="" />
-            <span class="text-xs md:text-base pl-1 related-enterprises-list-item-name">杭州木材有限公司</span>
+          <li @click.stop="$emit('gotoSearch',item.company_name)" class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in relatedEnterpriseList">
+            <img v-if="item.company_img&&item.company_img.length>0" class="w-9 h-9 object-cover related-enterprises-list-item-logo" :src="item.company_img" alt="" />
+            <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre related-enterprises-list-item-logo" :style="'min-width: 2.25rem;background-color: ' + item.word_logo_bg_color + ' ;'">
+              <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name?item.short_name:'' }}</span>
+            </div>
+            <span class="text-xs md:text-base pl-1 related-enterprises-list-item-name">{{ item.company_name }}</span>
           </li>
         </ul>
       </div>

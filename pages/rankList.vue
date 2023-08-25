@@ -149,6 +149,7 @@ function recordClickItem(item: RankingListItem) {
     name: item.company_name,
     logo: '',
     short_name: item.short_name,
+    word_logo_bg_color: '',
   })
 }
 
