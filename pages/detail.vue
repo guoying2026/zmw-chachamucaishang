@@ -355,7 +355,7 @@
 .third .second_1 .second_1_1{
   color:#707070;
   font-weight: bolder;
-  font-size: clamp(14px, 1.4vw, 20px);
+  font-size: clamp(16px, 1.4vw, 20px);
   margin-top: 20px;
 }
 .third .second_1 .second_1_2{
@@ -405,7 +405,7 @@
 .second .second_2{
   width: 68%;
   margin-top: 20px;
-  margin-left: 12%;
+  margin-left: 10%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -472,11 +472,11 @@
   width: 58%;
   margin-top: 20px;
 }
-.third .third_2{
+.third_2{
   width: 58%;
   margin-top: 20px;
 }
-.third .third_2 .third_2_space{
+.third_2_space{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -642,11 +642,11 @@
   .mobile{
     display: flex !important;
   }
-  .third .third_2 {
+  .third_2 {
     width: 94%;
     margin-top: 20px;
   }
-  .third .third_2 .third_2_space{
+  .third_2_space{
     width: 100%;
   }
   .tab_{
@@ -681,7 +681,7 @@
     width: 40%;
   }
   .third .third_4 .third_4_left .third_4_left_4{
-    margin: 0 0 0 10px;
+    margin: 0;
   }
   .third .third_4 .third_4_left .third_4_left_4 .third_4_left_4_1 .third_4_left_4_1_left {
     width: 20px;
@@ -689,11 +689,12 @@
   }
   .tab_2_space, .tab_0_space, .tab_3_space_middle, .tab_4_space_middle, .tab_5_space_middle {
     margin-top: 20px;
-    width: 92%;
+    width: 94%;
     border-radius: 10px;
   }
   .light_brown[data-v-dfbaac98] {
     padding: 10px 10px 10px 10px;
+    margin-top: 10px !important;
   }
   .clamp-text {
     position: relative;
@@ -722,11 +723,52 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    color: orange;
+    color: #FF7E00;
     background-color: #684525;  /* Set this to the background color of the parent element */
     text-align: right;
     padding-left: 5px;  /* space for ellipsis */
     white-space: nowrap;
+  }
+  .third_1{
+    margin-top: 3%;
+    width: 94%;
+  }
+  .blue-tab{
+    background: linear-gradient(to bottom, #3B94F1, #095EB9);
+  }
+  .blue-underline {
+    position: relative;
+    display: inline-block;
+    font-size: 16px !important;
+  }
+  .blue-underline::after {
+    content: ''; /* 为伪元素设置内容 */
+    position: absolute;
+    bottom: -10px; /* 控制下划线与文本的距离。此处设置为5px，你可以根据需要调整 */
+    left: 0; /* 从左边开始 */
+    width: 100%; /* 下划线宽度与文本内容对齐 */
+    height: 2px; /* 设置下划线的高度 */
+    background-color: #58AAFF;
+  }
+  .fifth{
+    width: 94%;
+  }
+  .fifth_1{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: clamp(14px,1vw,16px);
+  }
+  .fifth_1_left img{
+    width: 20px;
+    height: 20px;
+  }
+  .fifth_1 .fifth_1_left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 }
 </style>
@@ -788,12 +830,16 @@
       <client-only>
         <div class="third_2_space">
           <text class="tab_" :class="tabItemStore.tabItem*1 === 0 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
-          <text>|</text>
           <text class="tab_" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
-          <text>|</text>
           <text class="tab_" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 6 ?'white-color white-underline':''" @click="switchTab(6)">口碑</text>
         </div>
       </client-only>
+    </div>
+    <div class="tab_0_space light_brown mobile" v-if="tabItemStore.tabItem*1 === 0" @click="toggleClamp">
+      <div class="clamp-text" ref="clampTextRef" :class="{'expanded': isExpanded}">
+        东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。
+      </div>
     </div>
     <div class="third_4" v-if="tabItemStore.tabItem*1 === 0">
       <div class="third_4_left white-color">
@@ -838,11 +884,18 @@
       <img class="third_4_right computer" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_57253c6a-7053-4709-b69b-6148dca9969b.png" alt=""/>
       <img class="third_4_right mobile" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_86e5c509-e054-4df8-baf8-e3d9b17ce535.png" alt=""/>
     </div>
-    <div class="tab_0_space light_brown" v-if="tabItemStore.tabItem*1 === 0" @click="toggleClamp">
-      <div class="clamp-text" ref="clampTextRef" :class="{'expanded': isExpanded}">
-        <span class="main-text">东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。</span>
-        <span class="more-text" v-if="!isExpanded">...<span class="more">更多</span></span>
+    <img class="third_1 mobile" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
+    <div class="fifth mobile margin-10-top">
+      <div class="fifth_1">
+        <div class="fifth_1_left">
+          <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_47dff6c4-5504-4353-b87f-8edb6fd49d9b.png" alt="">
+          <text class="margin-10-left">动态</text>
+        </div>
+        <text>更多></text>
       </div>
+    </div>
+    <div class="tab_0_space light_brown computer" v-if="tabItemStore.tabItem*1 === 0">
+      东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。
     </div>
     <div class="tab_1_space" v-if="tabItemStore.tabItem*1 === 1">
       <table>
@@ -972,40 +1025,11 @@
           <th>更新时间</th>
           <th>操作</th>
         </tr>
-        <tr class="table_detail">
-          <td class="green_classify">利好</td>
-          <td>中标结果</td>
-          <td class="wide-column">[终结公告]广东广物木材产业股份有限公司713.99万股</td>
-          <td>2022-12-16</td>
-          <td>详情</td>
-        </tr>
-        <tr class="table_detail">
-          <td class="pink_classify">警示</td>
-          <td>新增开庭公告</td>
-          <td class="wide-column">开庭时间：2022-10-11</td>
-          <td>2022-11-21</td>
-          <td>详情</td>
-        </tr>
-        <tr class="table_detail">
-          <td class="blue_classify">提示</td>
-          <td>新增企业公告</td>
-          <td class="wide-column">公告名称：[临时公告]广物木材:董事、监事换届公告<br/> 公告日期：2022-09-18<br/> 公告名称：[临时公告]广物木材:监事换届公告<br/>  公告日期：2022-09-18</td>
-          <td>2022-11-21</td>
-          <td>详情</td>
-        </tr>
-        <tr class="table_detail">
-          <td class="blue_classify">提示</td>
-          <td>新增企业公告</td>
-          <td class="wide-column">公告名称：[临时公告]广物木材:董事、监事换届公告<br/> 公告日期：2022-09-18<br/> 公告名称：[临时公告]广物木材:监事换届公告<br/>  公告日期：2022-09-18</td>
-          <td>2022-11-21</td>
-          <td>详情</td>
-        </tr>
-        <tr class="table_detail">
-          <td class="red_classify">高风险</td>
-          <td>被列入严重执法</td>
-          <td class="wide-column">列入原因: 未依照《企业信息公示暂行条例》第八条规定的期限公示年度报告<br/>
-            列入日期: 2021-06-11</td>
-          <td>2022-11-21</td>
+        <tr class="table_detail" v-for="(dynamic, index) in dynamicStore.dynamics">
+          <td :class="getClass(dynamic.level)">{{dynamic.level}}</td>
+          <td>{{dynamic.type}}</td>
+          <td class="wide-column">{{dynamic.content}}</td>
+          <td>{{dynamic.updateTime}}</td>
           <td>详情</td>
         </tr>
       </table>
@@ -1199,7 +1223,16 @@
       </div>
     </div>
   </div>
-  <div class="second" v-if="tabItemStore.tabItem*1 === 0">
+<!--  <div class="third_2 mobile" v-if="tabItemStore.tabItem*1 === 7">-->
+<!--    <client-only>-->
+<!--      <div class="third_2_space blue-tab">-->
+<!--        <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 3 ?'white-color blue-underline':''" @click="switchTabFame(3)">评价</text>-->
+<!--        <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 4 ?'white-color blue-underline':''" @click="switchTabFame(4)">问答</text>-->
+<!--        <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 5 ?'white-color blue-underline':''" @click="switchTabFame(5)">投诉</text>-->
+<!--      </div>-->
+<!--    </client-only>-->
+<!--  </div>-->
+  <div class="second computer" v-if="tabItemStore.tabItem*1 === 0">
     <img class="third_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1a69286f-36e4-4694-bcbb-5219a41a4d96.png" alt=""/>
     <div class="second_2">
       <div class="second_2_left">
@@ -1273,7 +1306,7 @@
       <img class="second_2_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_007bdf9d-c46d-4843-b154-d43b201c17f2.png" alt=""/>
     </div>
   </div>
-  <div class="fourth white-color" v-if="tabItemStore.tabItem*1 === 0">
+  <div class="fourth white-color computer" v-if="tabItemStore.tabItem*1 === 0">
     <img class="fourth_3" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_5f1cc753-9eff-4e32-b6f7-e2fe603be30f.png" alt=""/>
     <div class="fourth_1">
       <div class="fourth_1_left">
@@ -1291,40 +1324,11 @@
           <th>更新时间</th>
           <th>操作</th>
         </tr>
-        <tr class="table_detail">
-          <td class="green_classify">利好</td>
-          <td>中标结果</td>
-          <td class="wide-column">[终结公告]广东广物木材产业股份有限公司713.99万股</td>
-          <td>2022-12-16</td>
-          <td>详情</td>
-        </tr>
-        <tr class="table_detail">
-          <td class="pink_classify">警示</td>
-          <td>新增开庭公告</td>
-          <td class="wide-column">开庭时间：2022-10-11</td>
-          <td>2022-11-21</td>
-          <td>详情</td>
-        </tr>
-        <tr class="table_detail">
-          <td class="blue_classify">提示</td>
-          <td>新增企业公告</td>
-          <td class="wide-column">公告名称：[临时公告]广物木材:董事、监事换届公告<br/> 公告日期：2022-09-18<br/> 公告名称：[临时公告]广物木材:监事换届公告<br/>  公告日期：2022-09-18</td>
-          <td>2022-11-21</td>
-          <td>详情</td>
-        </tr>
-        <tr class="table_detail">
-          <td class="blue_classify">提示</td>
-          <td>新增企业公告</td>
-          <td class="wide-column">公告名称：[临时公告]广物木材:董事、监事换届公告<br/> 公告日期：2022-09-18<br/> 公告名称：[临时公告]广物木材:监事换届公告<br/>  公告日期：2022-09-18</td>
-          <td>2022-11-21</td>
-          <td>详情</td>
-        </tr>
-        <tr class="table_detail">
-          <td class="red_classify">高风险</td>
-          <td>被列入严重执法</td>
-          <td class="wide-column">列入原因: 未依照《企业信息公示暂行条例》第八条规定的期限公示年度报告<br/>
-            列入日期: 2021-06-11</td>
-          <td>2022-11-21</td>
+        <tr class="table_detail" v-for="(dynamic, index) in dynamicStore.dynamics">
+          <td :class="getClass(dynamic.level)">{{dynamic.level}}</td>
+          <td>{{dynamic.type}}</td>
+          <td class="wide-column">{{dynamic.content}}</td>
+          <td>{{dynamic.updateTime}}</td>
           <td>详情</td>
         </tr>
       </table>
@@ -1336,9 +1340,13 @@
 import {BaiduMap} from "vue-baidu-map-3x";
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
+import {useTabItemFameStore} from "~/pinia/tabItemFame";
+const tabItemFameStore = useTabItemFameStore();
 //添加评论
 import {useCommentStore} from "~/pinia/commentStore";
 const commentStore = useCommentStore();
+import {useDynamicStore} from "~/pinia/dynamicStore";
+const dynamicStore = useDynamicStore();
 import Tag from "~/components/Tag.vue";
 import CommentList from "~/components/CommentList.vue";
 import NoDetail from "~/components/NoDetail.vue";
@@ -1397,6 +1405,21 @@ const toggleClamp = () => {
 }
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
+}
+const switchTabFame = (item:number) => {
+  tabItemFameStore.tabItemFame = item;
+}
+const getClass = (level:string) => {
+  switch (level) {
+    case "利好":
+      return "green_classify";
+    case "警示":
+      return "pink_classify";
+    case "提示":
+      return "blue_classify";
+    case "高风险":
+      return "red_classify";
+  }
 }
 const ready = ({ BMap , map }: { BMap: any, map: any })=>{
   // 对地图进行自定义操作
