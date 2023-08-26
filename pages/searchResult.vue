@@ -6,6 +6,9 @@ import { SearchResultListItem } from '~/types/searchResultListItem'
 // 导入搜索历史记录存储
 import { useSearchHistoryStore } from '~/pinia/searchHistory'
 
+// 导入用户的权限授权操作记录
+import { useUserPermissionStore } from '~/pinia/userPermission'
+
 const route = useRoute()
 
 const nuxtApp = useNuxtApp()
@@ -18,6 +21,9 @@ const isMobile = ref<boolean>(false)
 
 // 实例化搜索历史记录存储
 const searchHistoryStore = useSearchHistoryStore()
+
+// 实例化用户的权限授权操作记录
+const userPermissionStore = useUserPermissionStore()
 
 const areaList = ref<AreaListItem[]>([{
   code: 0,
@@ -655,7 +661,27 @@ function changeToSwitchArea() {
  * pc端的“商家距离-离我最近”的处理事件
  */
 function changeToLeaveMeClosestDistance() {
-  showAskForGetPositionPopup();
+  if (!userPermissionStore.checkIsAllowed('getUserLocation')) {
+    showAskForGetPositionPopup();
+    return false;
+  }
+  getAreaInfoByIP();
+}
+
+/**
+ * 允许获取定位
+ */
+function allowGetPositionClickHandle() {
+  userPermissionStore.allow('getUserLocation')
+  getAreaInfoByIP()
+}
+
+/**
+ * 拒绝获取定位
+ */
+function denyGetPositionClickHandle() {
+  userPermissionStore.deny('getUserLocation')
+  hideAskForGetPositionPopup()
 }
 
 /**
@@ -1085,8 +1111,8 @@ nuxtApp.hook('page:finish', () => {
         <div>获取你的位置</div>
       </div>
       <div class="inline-flex flex-row justify-evenly h-full mt-4 text-base">
-        <div @click.stop="getAreaInfoByIP" class="inline-flex justify-center items-center text-base px-4 py-1 border border-solid border-current rounded cursor-pointer" style="color: #20B16A;">允许</div>
-        <div @click.stop="hideAskForGetPositionPopup" class="inline-flex justify-center items-center text-base px-4 py-1 border border-solid border-current rounded cursor-pointer" style="color: #999999;">禁止</div>
+        <div @click.stop="allowGetPositionClickHandle" class="inline-flex justify-center items-center text-base px-4 py-1 border border-solid border-current rounded cursor-pointer" style="color: #20B16A;">允许</div>
+        <div @click.stop="denyGetPositionClickHandle" class="inline-flex justify-center items-center text-base px-4 py-1 border border-solid border-current rounded cursor-pointer" style="color: #999999;">禁止</div>
       </div>
     </div>
   </div>
