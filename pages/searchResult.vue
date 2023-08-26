@@ -99,11 +99,31 @@ const {
 } = useLazyAsyncData('searchResultList', () => $fetch('/api/getSearchList', {
   query: {
     name: searchInputText.value,
-    area: '',
+    area: getSelectedAreaListArr(areaList.value).join('+'),
     page: isReloadSearchResultList.value ? 1 : currentPage.value,
     page_size: pageSize.value,
   }
 }))
+
+watch(() => areaList.value, (newProps) => {
+  searchResultListRefresh()
+})
+
+function getSelectedAreaListArr(newProps: AreaListItem[]): string[] {
+  let ret = [] as string[]
+  let selectedProvinceList = newProps.filter(item => item.is_selected && item.code != 0)
+  selectedProvinceList.forEach(item => {
+    let selectedCityList = item.childs.filter(subitem => subitem.is_selected && subitem.code != 0)
+    if (selectedCityList.length == 0 || selectedCityList.length == item.childs.length - 1) {
+      ret.push(item.name)
+      return false
+    }
+    selectedCityList.forEach(subitem => {
+      ret.push(subitem.name)
+    })
+  })
+  return ret
+}
 
 function areaListDataChangedHandle(newProps: any) {
   let res = JSON.parse(JSON.stringify(newProps)) as {
@@ -159,12 +179,21 @@ function searchResultListChangedHandle (newProps: any) {
   let res1 = newProps as {code: number, message: string, result?: {current_page: number, data: any[], page_size: number, total_page: number, total_size: number}}
   if (!res1 || res1.code != 200 || !res1.result) return;
   if (res1.result && res1.result.data) {
+    // 如果为首页(第一页)，则清除旧数据
+    if (res1.result.current_page == 1) {
+      searchResultList.value = []
+    }
     // 修改搜索结果列表数据
-    searchResultList.value = isMobile.value ? searchResultList.value.concat(res1.result.data) : res1.result.data
+    if (isMobile.value) {
+      searchResultList.value = searchResultList.value.concat(res1.result.data)
+    } else {
+      searchResultList.value = res1.result.data
+    }
     totalCountOfSearchResult.value = res1.result.total_size
     currentPage.value = res1.result.current_page
     pageSize.value = res1.result.page_size
     totalPages.value = res1.result.total_page
+    // 如果是最后一页，则不能再加载更多
     if (res1.result.current_page == res1.result.total_page) {
       isHasMoreSearchResultList.value = false
     }
@@ -311,6 +340,7 @@ function changeAreaFirstSelectedIndex(index: number) {
   areaSecondSelectedIndex.value = 0;
   // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false;
+  changeAreaListProvinceIsSelectedWithOnlyOne(index);
 }
 
 /**
@@ -692,6 +722,7 @@ function recordClickItem(item: SearchResultListItem) {
     name: item.company_name,
     logo: item.company_img,
     short_name: item.short_name,
+    word_logo_bg_color: '',
   })
 }
 
@@ -902,7 +933,7 @@ nuxtApp.hook('page:finish', () => {
         <!-- 搜索结果项 - 第一行 -->
         <div class="inline-flex flex-row px-4">
           <img v-if="item.company_img && typeof item.company_img == 'string' && item.company_img.length > 0" class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md search-list-item-logo" :src="item.company_img" />
-          <div v-else class="inline-flex justify-center items-center w-8 h-8 md:w-24 md:h-24 text-center rounded-md select-none whitespace-pre search-list-item-logo" style="background-color: rgb(44,45,55);">
+          <div v-else class="inline-flex justify-center items-center w-8 h-8 md:w-24 md:h-24 text-center rounded-md select-none whitespace-pre search-list-item-logo" :style="'min-width: 2rem;background-color: ' + item.word_logo_bg_color + ';'">
             <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs md:text-4xl word-logo-multi-words':'text-xl md:text-7xl word-logo-one-word')+' font-extrabold'">{{ item.short_name?item.short_name:'' }}</span>
           </div>
           <div class="inline-flex flex-row items-center w-11/12 md:w-10/12 h-full pl-2 md:pl-4">

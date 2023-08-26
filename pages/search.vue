@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { AreaListItem } from '~/types/areaListItem'
 
+import { SearchResultListItem } from '~/types/searchResultListItem'
+
 // 导入搜索输入历史记录存储
 import { useSearchInputHistoryStore } from '~/pinia/searchInputHistory'
 
@@ -52,6 +54,34 @@ const whatYouWantSearchList = ref<string[]>([])
 const whatYouWantSearchPage = ref<number>(1)
 const whatYouWantSearchTotalPage = ref<number>(1)
 const whatYouWantSearchOffset = ref<number>(0)
+
+// 相关企业列表
+const relatedEnterpriseList = ref<SearchResultListItem[]>([])
+
+const {
+  pending: isRelatedEnterpriseListPending,
+  data: relatedEnterpriseListData,
+  error: relatedEnterpriseListError,
+  refresh: relatedEnterpriseListRefresh,
+} = useLazyAsyncData('relatedEnterpriseList', () => $fetch('/api/getRelatedEnterpriseList', {
+  query: {
+    name: searchInputText.value,
+  }
+}))
+
+relatedEnterpriseListDataChangeHandle(relatedEnterpriseListData.value)
+
+watch(() => relatedEnterpriseListData.value, relatedEnterpriseListDataChangeHandle)
+
+function relatedEnterpriseListDataChangeHandle(newProps: any) {
+  let res = JSON.parse(JSON.stringify(newProps)) as {
+    code: number,
+    message: string,
+    result?: SearchResultListItem[],
+  }
+  if (!res || res.code != 200 || !res.result) return;
+  relatedEnterpriseList.value = res.result
+}
 
 /**
  * 重新生成“猜你想搜”列表数据
@@ -235,6 +265,7 @@ watch(() => areaListData.value, areaListDataChangedHandle)
 
 watch(() => searchInputText.value, (newProps) => {
   regenerateWhatYouWantSearchList(newProps, 1, 0)
+  relatedEnterpriseListRefresh()
 })
 
 useHead({
@@ -243,6 +274,7 @@ useHead({
 
 nuxtApp.hook("page:finish", () => {
   regenerateWhatYouWantSearchList();
+  relatedEnterpriseListRefresh();
   scrollGenerateSearchInputWordBox();
   if (route.query.search) {
     searchInputText.value = route.query.search as string;
@@ -321,8 +353,8 @@ nuxtApp.hook("page:finish", () => {
         <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
           <li @click.stop="isShowSearchHistoryListDelete?'':searchInputHistoryListItemClickHandle(item.name)" :class="'relative inline-flex flex-row items-center mt-4' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
             <img v-if="item.logo&&item.logo.length>0" class="w-8 h-8 object-cover search-history-list-item-logo" :src="item.logo" />
-            <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" style="background-color: #262626;">
-              <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold'" style="color: #999;">{{ item.short_name?item.short_name:'' }}</span>
+            <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" :style="'background-color: ' + item.word_logo_bg_color + ';'">
+              <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name?item.short_name:'' }}</span>
             </div>
             <span class="text-sm pl-1 search-history-list-item-name">{{ item.name }}</span>
             <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 h-3 p-0.5 clear-search-history-item-button">
@@ -356,9 +388,12 @@ nuxtApp.hook("page:finish", () => {
           <span class="text-sm font-normal search-input-history-title">相关企业</span>
         </div>
         <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
-          <li class="relative inline-flex flex-row items-center mt-4" v-for="n in 5">
-            <img class="w-8 h-8 object-cover search-history-list-item-logo" src="" alt="" />
-            <span class="text-sm pl-1 search-history-list-item-name">杭州木材有限公司</span>
+          <li @click="searchInputHistoryListItemClickHandle(item.company_name)" class="relative inline-flex flex-row items-center mt-4" v-for="item in relatedEnterpriseList">
+            <img v-if="item.company_img&&item.company_img.length>0" class="w-8 h-8 object-cover search-history-list-item-logo" :src="item.company_img" alt="" />
+            <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" :style="'min-width: 2rem;background-color: ' + item.word_logo_bg_color + ';'">
+              <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name?item.short_name:'' }}</span>
+            </div>
+            <span class="text-sm pl-1 search-history-list-item-name">{{ item.company_name }}</span>
           </li>
         </ul>
       </div>

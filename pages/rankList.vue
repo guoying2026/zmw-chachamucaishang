@@ -67,6 +67,10 @@ function rankListChangedHandle (newProps: any) {
     },
   }
   if (!res || res.code != 200 || !res.result) return;
+  // 如果是首页(第一页)，则清除旧数据
+  if (res.result.current_page == 1) {
+    list.value = []
+  }
   let temp = res.result.data.map(item => {
     item.id = Number(item.id)
     item.score = Number(item.score)
@@ -83,6 +87,7 @@ function rankListChangedHandle (newProps: any) {
   currentPage.value = res.result.current_page
   pageSize.value = res.result.page_size
   totalPages.value = res.result.total_page
+  // 如果是最后一页，则不能再加载更多
   if (res.result.current_page == res.result.total_page) {
     isHasMoreRankList.value = false
   }
@@ -149,6 +154,7 @@ function recordClickItem(item: RankingListItem) {
     name: item.company_name,
     logo: '',
     short_name: item.short_name,
+    word_logo_bg_color: '',
   })
 }
 
