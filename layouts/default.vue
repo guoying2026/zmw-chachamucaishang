@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Header from "~/components/Header.vue";
 
-// import TheFooter from "~~/components/layout/TheFooter.vue";
+import Footer from "~/components/Footer.vue";
 
 const route = useRoute()
 
@@ -16,6 +16,6 @@ const unShowHeaderRouteName = [
   <div>
     <Header v-if="!unShowHeaderRouteName.includes(route.name as string)" />
       <slot/>
-      <!-- <TheFooter/> -->
+      <Footer/>
   </div >
 </template>
