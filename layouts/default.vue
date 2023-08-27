@@ -10,12 +10,17 @@ const unShowHeaderRouteName = [
   "search",
 ];
 
+const unShowFooterRouteName = [
+  "index",
+  "search",
+]
+
 </script>
 
 <template>
   <div>
     <Header v-if="!unShowHeaderRouteName.includes(route.name as string)" />
       <slot/>
-      <Footer/>
+      <Footer v-if="!unShowFooterRouteName.includes(route.name as string)" />
   </div >
 </template>
