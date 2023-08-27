@@ -179,7 +179,7 @@ nuxtApp.hook('page:finish', () => {
       </NuxtLink>
       <!-- 搜索框 -->
       <div class="relative inline-flex md:justify-evenly items-center w-full xl:h-14 md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
-        <input class="w-full md:w-80 xl:h-10 px-5 py-1 md:px-0 md:py-0 md:pr-8 text-xs md:text-sm md:bg-transparent text-inherit md:text-white rounded-2xl md:rounded transition-all search-text" type="text" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
+        <input class="w-full md:w-80 xl:h-10 px-5 py-1 md:px-0 md:py-0 md:pr-8 text-xs md:text-sm md:bg-transparent text-inherit md:text-white rounded-2xl md:rounded transition-all search-text" type="search" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
         <svg class="absolute md:hidden left-1 inline-block w-4 h-4 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
         <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute right-1 md:right-20 w-4 h-4 cursor-pointer" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
         <button @click.stop="searchButtonHandle" class="hidden md:inline-block xl:h-10 text-sm md:text-base px-2 py-1 whitespace-nowrap rounded search-button">查一下</button>
@@ -321,6 +321,10 @@ nuxtApp.hook('page:finish', () => {
 
 .search-text {
   transition: all 0s 150ms;
+}
+
+.search-text::-webkit-search-cancel-button {
+  display: none;
 }
 
 .search-icon {
