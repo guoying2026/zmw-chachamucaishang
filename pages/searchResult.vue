@@ -189,6 +189,12 @@ function searchResultListChangedHandle (newProps: any) {
     if (res1.result.current_page == 1) {
       searchResultList.value = []
     }
+    if (isMobile.value && res1.result.current_page == 1) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+    }
     // 修改搜索结果列表数据
     if (isMobile.value) {
       searchResultList.value = searchResultList.value.concat(res1.result.data)
