@@ -13,3 +13,11 @@
     background: #FF834E;
     color: #fff;
 }
+.brown_btn{
+    background: #4B2604;
+    color: #fff;
+    padding: 5px 12px !important;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 10px 10px 10px 0;
+}

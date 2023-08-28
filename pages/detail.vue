@@ -835,6 +835,36 @@
   .six tr td:nth-child(2) {
     background-color: #4B2604;
   }
+  .seven{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 94%;
+  }
+  .seven:deep(.el-dropdown) {
+    --el-dropdown-menu-box-shadow: #4B2604;
+    --el-dropdown-menuItem-hover-fill: #4B2604;
+    --el-dropdown-menuItem-hover-color: #4B2604;
+    --el-dropdown-menu-index: 10;
+    display: inline-flex;
+    position: relative;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1;
+    vertical-align: top;
+  }
+  .seven:deep(.el-button){
+    background: #4B2604;
+    color: #fff;
+    border: #4B2604;
+    padding: 5px;
+    margin-top: 10px;
+  }
+  .seven:deep(.el-button:focus-visible) {
+    outline: 2px solid #4B2604;
+    outline-offset: 1px;
+  }
 }
 </style>
 <template>
@@ -1208,6 +1238,39 @@
         </tr>
       </table>
     </div>
+    <div class="seven mobile" v-if="tabItemStore.tabItem*1 === 2">
+      <Tag tag="工商" color="brown"></Tag>
+      <Tag tag="风险" color="brown"></Tag>
+      <Tag tag="经营" color="brown"></Tag>
+      <Tag tag="招投标" color="brown"></Tag>
+      <el-dropdown size="small">
+        <el-button>
+          更多类型<el-icon class="el-icon--right"><arrow-down /></el-icon>
+        </el-button>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item>Action 1</el-dropdown-item>
+            <el-dropdown-item>Action 2</el-dropdown-item>
+            <el-dropdown-item>Action 3</el-dropdown-item>
+            <el-dropdown-item>Action 4</el-dropdown-item>
+            <el-dropdown-item>Action 5</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+    </div>
+    <div class="fifth mobile" v-if="tabItemStore.tabItem*1 === 2">
+      <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
+        <div class="fifth_2_1">
+          <text>{{dynamic.updateTime}}</text>
+          <text>{{dynamic.type}}</text>
+          <text :class="getClass(dynamic.level)">{{dynamic.level}}</text>
+        </div>
+        <div class="fifth_2_2">
+          <div v-html="dynamic.content" class="fifth_2_2_left"></div>
+          <text class="fifth_2_2_right">详情</text>
+        </div>
+      </div>
+    </div>
     <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3">
       <div class="tab_3_space_left"></div>
       <div class="tab_3_space_middle">
@@ -1511,6 +1574,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ArrowDown } from '@element-plus/icons-vue'
 import {BaiduMap} from "vue-baidu-map-3x";
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
