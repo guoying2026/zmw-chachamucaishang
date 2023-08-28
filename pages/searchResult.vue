@@ -778,7 +778,7 @@ if (searchResultStore.getIsStore() && (!searchResultStore.getArea() || searchRes
 }
 
 if (searchResultStore.getIsStore()) {
-  // 如果进来搜索结果页面后，能够找到searchResult缓存数据，则有限使用缓存数据
+  // 如果进来搜索结果页面后，能够找到searchResult缓存数据，则优先使用缓存数据
   searchInputText.value = searchResultStore.getQuery()
   currentPage.value = searchResultStore.getCurrentPage()
   totalCountOfSearchResult.value = searchResultStore.getTotalCount()

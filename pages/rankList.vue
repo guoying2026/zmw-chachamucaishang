@@ -4,6 +4,9 @@ import { RankingListItem } from '~/types/rankingListItem'
 // 导入搜索历史记录存储
 import { useSearchHistoryStore } from '~/pinia/searchHistory'
 
+// 导入排行榜列表临时存储记录
+import { useRankListStore } from '~/pinia/rankListStore'
+
 const route = useRoute()
 
 const nuxtApp = useNuxtApp()
@@ -16,6 +19,9 @@ const isMobile = ref<boolean>(false)
 
 // 实例化搜索历史记录存储
 const searchHistoryStore = useSearchHistoryStore()
+
+// 实例化排行榜列表临时记录存储
+const rankListStore = useRankListStore()
 
 const headerWidth = ref<string>('100vw');
 
@@ -55,6 +61,10 @@ const {
 }))
 
 function rankListChangedHandle (newProps: any) {
+  if (rankListStore.getIsStore()) {
+    // 这里不能清除掉rankListStore，如果是从缓存读取，则不要再去请求接口了
+    return false
+  }
   let res = JSON.parse(JSON.stringify(newProps)) as {
     code: number,
     message: string,
@@ -96,6 +106,41 @@ function rankListChangedHandle (newProps: any) {
 rankListChangedHandle(rankListData.value)
 
 watch(() => rankListData.value, rankListChangedHandle)
+
+if (rankListStore.getIsStore() && !rankListStore.getList()) {
+  rankListStore.clearAll()
+}
+
+if (rankListStore.getIsStore()) {
+  // 如果进入排行榜页面之后，能够找到rankList缓存数据，则优先使用缓存数据
+  currentPage.value = rankListStore.getCurrentPage()
+  pageSize.value = rankListStore.getPageSize()
+  totalPages.value = rankListStore.getTotalPage()
+  list.value = rankListStore.getList()
+  nextTick(() => {
+    window.scrollTo({
+      top: rankListStore.getScrollTop(),
+    })
+  })
+} else {
+  // 如果没有缓存数据，则按照默认的逻辑处理
+  currentPage.value = 1
+  let res: {code?: number, message?: string, result?: {data?: []}} = rankListRefresh() as {}
+  rankListChangedHandle(res)
+}
+
+onBeforeRouteLeave((to: any, from: any, next: Function) => {
+  rankListStore.clearAll()
+  if (['detail'].includes(to.name)) {
+    // 如果访问的是detail页面，则缓存rankList的数据
+    rankListStore.setIsStore(true)
+    rankListStore.setList(list.value)
+    rankListStore.setCurrentPage(currentPage.value)
+    rankListStore.setPageSize(pageSize.value)
+    rankListStore.setTotalPage(totalPages.value)
+  }
+  next()
+})
 
 function jumpToPrevPage() {
   if (currentPage.value - 1 > 0) {
@@ -163,6 +208,7 @@ nuxtApp.hook('page:finish', () => {
   const intersectionObserverCallback = (entries: IntersectionObserverEntry[]) => {
     if (entries[0].intersectionRatio <= 0) return;
     if (currentPage.value + 1 <= totalPages.value) {
+      rankListStore.clearAll()
       currentPage.value = currentPage.value + 1
       rankListRefresh()
     }
