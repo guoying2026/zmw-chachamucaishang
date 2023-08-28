@@ -9,6 +9,9 @@ import { useSearchHistoryStore } from '~/pinia/searchHistory'
 // 导入用户的权限授权操作记录
 import { useUserPermissionStore } from '~/pinia/userPermission'
 
+// 导入搜索结果临时存储记录
+import { useSearchResultStore } from '~/pinia/searchResultStore'
+
 const route = useRoute()
 
 const nuxtApp = useNuxtApp()
@@ -24,6 +27,9 @@ const searchHistoryStore = useSearchHistoryStore()
 
 // 实例化用户的权限授权操作记录
 const userPermissionStore = useUserPermissionStore()
+
+// 实例化搜索结果临时记录存储
+const searchResultStore = useSearchResultStore()
 
 const areaList = ref<AreaListItem[]>([{
   code: 0,
@@ -81,7 +87,7 @@ const inputPage = ref<number>(currentPage.value);
 
 const isShowAskForGetPositionPopup = ref<boolean>(false)
 
-const searchInputText = ref<string>('')
+const searchInputText = ref<string>(route.query.search ? route.query.search as string : '')
 
 const intersectionObserver = ref<IntersectionObserver | null>(null)
 
@@ -132,6 +138,10 @@ function getSelectedAreaListArr(newProps: AreaListItem[]): string[] {
 }
 
 function areaListDataChangedHandle(newProps: any) {
+  if (searchResultStore.getIsStore()) {
+    // 这里不能清除掉searchResultStore，如果是从缓存读取，则不要再去请求接口了
+    return false
+  }
   let res = JSON.parse(JSON.stringify(newProps)) as {
     code: number,
     message: string,
@@ -181,6 +191,10 @@ function areaListDataChangedHandle(newProps: any) {
 }
 
 function searchResultListChangedHandle (newProps: any) {
+  if (searchResultStore.getIsStore()) {
+    // 这里不能清除掉searchResultStore，如果是从缓存读取，则不要再去请求接口了
+    return false
+  }
   isReloadSearchResultList.value = true
   let res1 = newProps as {code: number, message: string, result?: {current_page: number, data: any[], page_size: number, total_page: number, total_size: number}}
   if (!res1 || res1.code != 200 || !res1.result) return;
@@ -212,30 +226,27 @@ function searchResultListChangedHandle (newProps: any) {
   }
 }
 
-if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string' && route.query.search.trim().length > 0) {
-  searchInputText.value = route.query.search.trim()
-  currentPage.value = 1
-  isReloadSearchResultList.value = false
-  searchResultListRefresh()
-  watch(() => route.query.search as string, (newProps) => {
+// 监听url参数search的变化
+watch(() => route.query.search, (newProps) => {
+  if (typeof newProps == 'string' && newProps.trim().length > 0) {
     searchInputText.value = newProps.trim()
     currentPage.value = 1
     isReloadSearchResultList.value = false
     searchResultListRefresh()
+    watch(() => newProps as string, (newProps) => {
+      searchInputText.value = newProps.trim()
+      currentPage.value = 1
+      isReloadSearchResultList.value = false
+      searchResultListRefresh()
+      useHead({
+        title: newProps + ' - 搜索结果',
+      })
+    })
     useHead({
       title: newProps + ' - 搜索结果',
     })
-  })
-  useHead({
-    title: route.query.search + ' - 搜索结果',
-  })
-}
-
-searchResultListChangedHandle(searchResultListData.value)
-
-watch(() => searchResultListData.value, searchResultListChangedHandle)
-
-searchResultListChangedHandle(searchResultListData.value)
+  }
+})
 
 watch(() => searchResultListData.value, searchResultListChangedHandle)
 
@@ -762,11 +773,60 @@ areaListDataChangedHandle(areaListData.value)
 
 watch(() => areaListData.value, areaListDataChangedHandle)
 
+if (searchResultStore.getIsStore()) {
+  // 如果进来搜索结果页面后，能够找到searchResult缓存数据，则有限使用缓存数据
+  searchInputText.value = searchResultStore.getQuery()
+  currentPage.value = searchResultStore.getCurrentPage()
+  totalCountOfSearchResult.value = searchResultStore.getTotalCount()
+  pageSize.value = searchResultStore.getPageSize()
+  totalPages.value = searchResultStore.getTotalPage()
+  searchResultList.value = searchResultStore.getList()
+  areaList.value = searchResultStore.getArea()
+  nextTick(() => {
+    useHead({
+      title: searchResultStore.getQuery() + ' - 搜索结果',
+    })
+    window.scrollTo({
+      top: searchResultStore.getScrollTop(),
+    })
+  })
+} else {
+  // 如果没有缓存数据，则按照默认的逻辑处理
+  currentPage.value = 1
+  isReloadSearchResultList.value = false
+  if (route.query.search && typeof route.query.search == 'string' && route.query.search.trim().length > 0) {
+    searchInputText.value = route.query.search
+  }
+  let res: {code?: number, message?: string, result?: {data?: []}} = searchResultListRefresh() as {}
+  searchResultListChangedHandle(res)
+  useHead({
+    title: route.query.search + ' - 搜索结果',
+  })
+}
+
+onBeforeRouteLeave((to: any, from: any, next: Function) => {
+  searchResultStore.clearAll()
+  if (['detail'].includes(to.name)) {
+    // 如果访问的是detail页面，则缓存searchResult的数据
+    searchResultStore.setIsStore(true)
+    searchResultStore.setQuery(route.query.search as string)
+    searchResultStore.setList(searchResultList.value)
+    searchResultStore.setArea(areaList.value)
+    searchResultStore.setCurrentPage(currentPage.value)
+    searchResultStore.setPageSize(pageSize.value)
+    searchResultStore.setTotalPage(totalPages.value)
+    searchResultStore.setTotalCount(totalCountOfSearchResult.value)
+    searchResultStore.setScrollTop(window.scrollY)
+  }
+  next()
+})
+
 nuxtApp.hook('page:finish', () => {
   isMobile.value = window.screen.width < 768
   const intersectionObserverCallback = (entries: IntersectionObserverEntry[]) => {
     if (entries[0].intersectionRatio <= 0) return;
     if (currentPage.value > totalPages.value) return;
+    searchResultStore.clearAll()
     currentPage.value = currentPage.value + 1
     isReloadSearchResultList.value = false
     searchResultListRefresh()
