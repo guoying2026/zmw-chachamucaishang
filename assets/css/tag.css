@@ -13,11 +13,39 @@
     background: #FF834E;
     color: #fff;
 }
-.brown_btn{
-    background: #4B2604;
-    color: #fff;
-    padding: 5px 12px !important;
+.brown-orange_btn{
+    background: #7B3D04;
+    color: #FF9B40;
+    padding: 5px 8px !important;
     border-radius: 5px;
     font-size: 14px;
-    margin: 10px 10px 10px 0;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.brown-white_btn{
+    background: #4B2604;
+    color: #fff;
+    padding: 5px 8px !important;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    display: inline-block;
+    margin-left: 5px;
+}
+.brown-orange{
+    border-top: 6px solid #FF9B40;  /* 这里设置你想要的颜色 */
+}
+.brown-white{
+    border-top: 6px solid #fff;  /* 这里设置你想要的颜色 */
 }

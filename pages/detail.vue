@@ -831,6 +831,25 @@
   .left_width_3 td:nth-child(1){
     width: 100px;
   }
+  .eight{
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+  .left_width_4 td{
+    border: unset !important;
+    font-size: 13px;
+    padding: 10px;
+  }
+  .left_width_4 td:nth-child(1){
+    width: 40%;
+    background-color: #683A10;
+  }
+  .left_width_4 td:nth-child(2){
+    background-color: #5B3009;
+  }
   /* 选择每一行的第二个td */
   .six tr td:nth-child(2) {
     background-color: #4B2604;
@@ -838,32 +857,16 @@
   .seven{
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: flex-start;
     width: 94%;
-  }
-  .seven:deep(.el-dropdown) {
-    --el-dropdown-menu-box-shadow: #4B2604;
-    --el-dropdown-menuItem-hover-fill: #4B2604;
-    --el-dropdown-menuItem-hover-color: #4B2604;
-    --el-dropdown-menu-index: 10;
-    display: inline-flex;
-    position: relative;
-    color: #fff;
-    font-size: 14px;
-    line-height: 1;
-    vertical-align: top;
-  }
-  .seven:deep(.el-button){
-    background: #4B2604;
-    color: #fff;
-    border: #4B2604;
-    padding: 5px;
     margin-top: 10px;
   }
-  .seven:deep(.el-button:focus-visible) {
-    outline: 2px solid #4B2604;
-    outline-offset: 1px;
+  .vertical-line {
+    border-left: 2px solid #4B2604;
+    height: 30px;
+    width: 0;
+    display: inline-block;  /* 或者使用block，根据需要 */
   }
 }
 </style>
@@ -1239,26 +1242,14 @@
       </table>
     </div>
     <div class="seven mobile" v-if="tabItemStore.tabItem*1 === 2">
-      <Tag tag="工商" color="brown"></Tag>
-      <Tag tag="风险" color="brown"></Tag>
-      <Tag tag="经营" color="brown"></Tag>
-      <Tag tag="招投标" color="brown"></Tag>
-      <el-dropdown size="small">
-        <el-button>
-          更多类型<el-icon class="el-icon--right"><arrow-down /></el-icon>
-        </el-button>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>Action 1</el-dropdown-item>
-            <el-dropdown-item>Action 2</el-dropdown-item>
-            <el-dropdown-item>Action 3</el-dropdown-item>
-            <el-dropdown-item>Action 4</el-dropdown-item>
-            <el-dropdown-item>Action 5</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+      <Tag tag="工商" :color="tabItemDynamicStore.tabItem*1 === 1 ?'brown-orange':'brown-white'" @click="switchTabDynamic(1)"></Tag>
+      <Tag tag="风险" :color="tabItemDynamicStore.tabItem*1 === 2 ?'brown-orange':'brown-white'" @click="switchTabDynamic(2)"></Tag>
+      <Tag tag="经营" :color="tabItemDynamicStore.tabItem*1 === 3 ?'brown-orange':'brown-white'" @click="switchTabDynamic(3)"></Tag>
+      <Tag tag="招投标" :color="tabItemDynamicStore.tabItem*1 === 4 ?'brown-orange':'brown-white'" @click="switchTabDynamic(4)"></Tag>
+      <div class="vertical-line"></div>
+      <Tag tag="更多类型" :color="tabItemDynamicStore.tabItem*1 === 5 ?'brown-orange':'brown-white'" more="1" @click="switchTabDynamic(5)"></Tag>
     </div>
-    <div class="fifth mobile" v-if="tabItemStore.tabItem*1 === 2">
+    <div class="fifth mobile" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 !== 5">
       <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
         <div class="fifth_2_1">
           <text>{{dynamic.updateTime}}</text>
@@ -1271,6 +1262,20 @@
         </div>
       </div>
     </div>
+    <table class="eight left_width_4" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 === 5">
+      <tr>
+        <td @click="tabItemDynamicStore.tabItem*1 === 0">全部类型</td>
+        <td>xxx</td>
+      </tr>
+      <tr>
+        <td>工商</td>
+        <td>xxx</td>
+      </tr>
+      <tr>
+        <td>风险</td>
+        <td>xxx</td>
+      </tr>
+    </table>
     <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3">
       <div class="tab_3_space_left"></div>
       <div class="tab_3_space_middle">
@@ -1574,7 +1579,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ArrowDown } from '@element-plus/icons-vue'
 import {BaiduMap} from "vue-baidu-map-3x";
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
@@ -1591,6 +1595,8 @@ import NoDetail from "~/components/NoDetail.vue";
 import ComplaintList from "~/components/ComplaintList.vue";
 import {useShopDetails} from "~/composables/shop";
 import { useRoute } from 'vue-router';
+import {useTabItemDynamicStore} from "~/pinia/tabItemDynamic";
+const tabItemDynamicStore = useTabItemDynamicStore();
 
 const route = useRoute();
 const query = route.query;
@@ -1643,6 +1649,9 @@ const toggleClamp = () => {
 }
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
+}
+const switchTabDynamic = (item:number) => {
+  tabItemDynamicStore.tabItem = item;
 }
 const switchTabFame = (item:number) => {
   tabItemFameStore.tabItemFame = item;
