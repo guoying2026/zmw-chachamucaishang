@@ -644,7 +644,7 @@
   }
   .third_2 {
     width: 94%;
-    margin-top: 20px;
+    margin-top: 5px;
   }
   .third_2_space{
     width: 100%;
@@ -762,6 +762,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    font-size: 14px;
   }
   .fifth_1_left img{
     width: 20px;
@@ -831,9 +832,72 @@
   .left_width_3 td:nth-child(1){
     width: 100px;
   }
+  .eight{
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+  .left_width_4 td{
+    border: unset !important;
+    font-size: 13px;
+    padding: 10px;
+  }
+  .left_width_4 td:nth-child(1){
+    width: 40%;
+    background-color: #683A10;
+  }
+  .left_width_4 td:nth-child(2){
+    background-color: #5B3009;
+  }
   /* 选择每一行的第二个td */
   .six tr td:nth-child(2) {
     background-color: #4B2604;
+  }
+  .seven{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 94%;
+    margin-top: 10px;
+  }
+  .vertical-line {
+    border-left: 2px solid #4B2604;
+    height: 30px;
+    width: 0;
+    display: inline-block;  /* 或者使用block，根据需要 */
+  }
+  .fifth_question{
+    width: 100%;
+    background-color: #00133F;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .fifth_question_space{
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+  .question_mobile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .answer_mobile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .dark_third_bg{
+    background-color: #00113A !important;
+  }
+  .nine{
+    width: 94%;
+    margin-top: 10px;
   }
 }
 </style>
@@ -842,7 +906,7 @@
     <img class="first" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e50b0b18-3ddc-49e5-b4f7-1d24bd8e12fb.png" alt=""/>
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
-  <div class="third">
+  <div class="third" v-if="tabItemStore.tabItem*1 !== 7">
     <div class="second_1">
       <text class="second_1_1">{{company_name}}</text>
       <div class="second_1_2">
@@ -1208,6 +1272,59 @@
         </tr>
       </table>
     </div>
+    <div class="seven mobile" v-if="tabItemStore.tabItem*1 === 2">
+      <Tag tag="工商" :color="tabItemDynamicStore.tabItem*1 === 1 ?'brown-orange':'brown-white'" @click="switchTabDynamic(1)"></Tag>
+      <Tag tag="风险" :color="tabItemDynamicStore.tabItem*1 === 2 ?'brown-orange':'brown-white'" @click="switchTabDynamic(2)"></Tag>
+      <Tag tag="经营" :color="tabItemDynamicStore.tabItem*1 === 3 ?'brown-orange':'brown-white'" @click="switchTabDynamic(3)"></Tag>
+      <Tag tag="招投标" :color="tabItemDynamicStore.tabItem*1 === 4 ?'brown-orange':'brown-white'" @click="switchTabDynamic(4)"></Tag>
+      <div class="vertical-line"></div>
+      <Tag tag="更多类型" :color="tabItemDynamicStore.tabItem*1 === 5 ?'brown-orange':'brown-white'" more="1" @click="switchTabDynamic(5)"></Tag>
+    </div>
+    <div class="fifth mobile" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 !== 5">
+      <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
+        <div class="fifth_2_1">
+          <text>{{dynamic.updateTime}}</text>
+          <text>{{dynamic.type}}</text>
+          <text :class="getClass(dynamic.level)">{{dynamic.level}}</text>
+        </div>
+        <div class="fifth_2_2">
+          <div v-html="dynamic.content" class="fifth_2_2_left"></div>
+          <text class="fifth_2_2_right">详情</text>
+        </div>
+      </div>
+    </div>
+    <table class="eight left_width_4" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 === 5">
+      <tr>
+        <td @click="tabItemDynamicStore.tabItem*1 === 0">全部类型</td>
+        <td>xxx</td>
+      </tr>
+      <tr>
+        <td>工商</td>
+        <td>xxx</td>
+      </tr>
+      <tr>
+        <td>风险</td>
+        <td>xxx</td>
+      </tr>
+    </table>
+    <img class="third_1 mobile" v-if="tabItemStore.tabItem*1 === 6" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
+    <div class="fifth mobile margin-10-top" v-if="tabItemStore.tabItem*1 === 6">
+      <div class="fifth_1">
+        <div class="fifth_1_left">
+          <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_3961e5c7-53cd-4c91-b1da-92f70acf74d8.png" alt="">
+          <text class="margin-10-left">评论</text>
+        </div>
+        <text @click="switchTabFame(1)">更多></text>
+      </div>
+    </div>
+    <CommentList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></CommentList>
+    <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedbackType="comment" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+      <!-- 定义插槽内容 -->
+      <template #trigger>
+        <!-- Tag组件，当点击时触发openCommentBox方法 -->
+        <Tag tag="我要点评" color="orange_long"></Tag>
+      </template>
+    </AddForm>
     <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3">
       <div class="tab_3_space_left"></div>
       <div class="tab_3_space_middle">
@@ -1223,7 +1340,7 @@
         </div>
         <NoDetail v-if="company_comment_count < 0"></NoDetail>
         <div class="tab_3_space_2" v-else>
-          <CommentList :key="'comment-list'" :store="commentStore"></CommentList>
+          <CommentList></CommentList>
         </div>
       </div>
       <div class="tab_3_space_right">
@@ -1397,15 +1514,114 @@
       </div>
     </div>
   </div>
-<!--  <div class="third_2 mobile" v-if="tabItemStore.tabItem*1 === 7">-->
-<!--    <client-only>-->
-<!--      <div class="third_2_space blue-tab">-->
-<!--        <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 3 ?'white-color blue-underline':''" @click="switchTabFame(3)">评价</text>-->
-<!--        <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 4 ?'white-color blue-underline':''" @click="switchTabFame(4)">问答</text>-->
-<!--        <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 5 ?'white-color blue-underline':''" @click="switchTabFame(5)">投诉</text>-->
-<!--      </div>-->
-<!--    </client-only>-->
-<!--  </div>-->
+  <div class="third mobile dark_third_bg" v-if="tabItemStore.tabItem*1 === 7">
+    <div class="second_1">
+      <text class="second_1_1">{{company_name}}</text>
+      <div class="second_1_2">
+        <div class="second_1_2_item">
+          <div class="second_1_2_first second_1_2_item_left">
+            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e2d929f8-8994-4ba6-b731-d4779bf41cf2.png" alt=""/>
+            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_c5514216-f624-444c-bb74-24b956dfaab0.png" alt=""/>
+            <img src="https://zhenmuwa`ng.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_63b5d737-53a8-407f-bec4-9f92e207c88c.png" alt=""/>
+            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f2fdbec2-a1bc-490d-ba2e-383830efbd3a.png" alt=""/>
+          </div>
+          <text class="grey-line"></text>
+          <div class="second_1_2_third">勋章</div>
+        </div>
+        <div class="second_1_2_item">
+          <div class="second_1_2_first second_1_2_item_middle">
+            <text class="second_1_2_item_middle_number">{{credit_score}}</text>
+            <!--                        <div class="red_solid_circle"></div>-->
+            <!--            <text class="second_1_2_item_middle_number">8</text>-->
+          </div>
+          <text class="grey-line"></text>
+          <div class="second_1_2_third">信用分</div>
+        </div>
+        <div class="second_1_2_item">
+          <!--          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_ad66b4f5-d594-4271-0a13-2c57e718420c.png" alt=""/>-->
+          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_1d7c135f-d036-4159-bcf3-62d40562d9df.png" alt=""/>
+
+          <text class="grey-line"></text>
+          <div class="second_1_2_third">等级</div>
+        </div>
+      </div>
+    </div>
+    <div class="third_2">
+      <client-only>
+        <div class="third_2_space blue-tab">
+          <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 3 ?'white-color blue-underline':''" @click="switchTabFame(3)">评价</text>
+          <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 4 ?'white-color blue-underline':''" @click="switchTabFame(4)">问答</text>
+          <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 5 ?'white-color blue-underline':''" @click="switchTabFame(5)">投诉</text>
+        </div>
+      </client-only>
+    </div>
+    <CommentList :is-blue="true" v-if="tabItemFameStore.tabItemFame*1 === 3"></CommentList>
+    <div class="nine">
+      <ComplaintList :is-blue="true" v-if="tabItemFameStore.tabItemFame*1 === 5"></ComplaintList>
+    </div>
+  </div>
+  <div class="fifth_question" v-if="tabItemStore.tabItem*1 === 6">
+    <div class="fifth_question_space mobile">
+      <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_bcbc6a8e-60b8-4286-bef2-bf6590599e1a.png" alt="">
+      <div class="fifth_1 margin-10-top">
+        <div class="fifth_1_left">
+          <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_0700b3c4-a16a-4f4f-b849-104bd2a96638.png" alt="">
+          <text class="margin-10-left">问答</text>
+        </div>
+        <text @click="switchTabFame(2)">更多></text>
+      </div>
+      <div class="question_mobile margin-10-top">
+          <div class="avatar-wrapper">
+            <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+            <span class="question-icon orange-bg">问</span>
+          </div>
+          <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+      </div>
+      <div class="answer_mobile margin-10-top margin-10-bottom">
+          <div class="avatar-wrapper">
+            <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+            <span class="question-icon red-bg">答</span>
+          </div>
+          <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+      </div>
+      <div class="question_mobile margin-10-top">
+        <div class="avatar-wrapper">
+          <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+          <span class="question-icon orange-bg">问</span>
+        </div>
+        <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+      </div>
+      <div class="answer_mobile margin-10-top margin-10-bottom">
+        <div class="avatar-wrapper">
+          <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+          <span class="question-icon red-bg">答</span>
+        </div>
+        <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+      </div>
+    </div>
+    <AddForm title-box="提问" company-name="张珊珊木材加工厂" feedbackType="question" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+      <!-- 定义插槽内容 -->
+      <template #trigger>
+        <!-- Tag组件，当点击时触发openCommentBox方法 -->
+        <Tag tag="我要提问" color="orange_long"></Tag>
+      </template>
+    </AddForm>
+    <div class="fifth_1 margin-10-top">
+      <div class="fifth_1_left">
+        <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_10123398-f5cb-48b9-b40d-7d8cfdf4ba82.png" alt="">
+        <text class="margin-10-left">投诉</text>
+      </div>
+      <text @click="switchTabFame(3)">更多></text>
+    </div>
+    <ComplaintList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></ComplaintList>
+    <AddForm title-box="投诉" company-name="张珊珊木材加工厂" feedbackType="complaint" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+      <!-- 定义插槽内容 -->
+      <template #trigger>
+        <!-- Tag组件，当点击时触发openCommentBox方法 -->
+        <Tag tag="我要投诉" color="orange_long"></Tag>
+      </template>
+    </AddForm>
+  </div>
   <div class="second computer" v-if="tabItemStore.tabItem*1 === 0">
     <img class="third_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1a69286f-36e4-4694-bcbb-5219a41a4d96.png" alt=""/>
     <div class="second_2">
@@ -1527,6 +1743,11 @@ import NoDetail from "~/components/NoDetail.vue";
 import ComplaintList from "~/components/ComplaintList.vue";
 import {useShopDetails} from "~/composables/shop";
 import { useRoute } from 'vue-router';
+import {useTabItemDynamicStore} from "~/pinia/tabItemDynamic";
+import LikeSwitch from "~/components/LikeSwitch.vue";
+const tabItemDynamicStore = useTabItemDynamicStore();
+import { useQuestionStore } from "~/pinia/questionStore";
+const questionStore = useQuestionStore();
 
 const route = useRoute();
 const query = route.query;
@@ -1580,7 +1801,11 @@ const toggleClamp = () => {
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
 }
+const switchTabDynamic = (item:number) => {
+  tabItemDynamicStore.tabItem = item;
+}
 const switchTabFame = (item:number) => {
+  tabItemStore.tabItem = 7;
   tabItemFameStore.tabItemFame = item;
 }
 const getClass = (level:string) => {

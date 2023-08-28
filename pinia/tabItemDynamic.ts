@@ -1,10 +1,10 @@
-// tabItemFameStore.ts
+// tabItemDynamicStore.ts
 import { defineStore } from 'pinia';
 
-export const useTabItemFameStore = defineStore('tabItemFameStore', {
+export const useTabItemDynamicStore = defineStore('tabItemDynamicStore', {
     state: () => {
         return {
-            tabItemFame: 3,
+            tabItem: 0,
         }
     },
     persist: true,

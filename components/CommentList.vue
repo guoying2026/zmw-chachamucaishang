@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-    <div class="comment_item" v-for="(comment, index) in commentStore.comments">
+    <div :class="isBlue?'comment_item blue_comment':'comment_item brown_item_bg'" v-for="(comment, index) in commentStore.comments">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="comment.avatar" width="32" height="32" :alt="comment.user">
         <div class="avatar-name__name margin-10-left">
@@ -40,8 +40,8 @@
           </div>
         </div>
       </div>
-      <div class="reply" v-if="comment.replies && comment.replies.length">
-        <div class="reply_item" v-for="(reply,replyIndex) in comment.replies">
+      <div class="reply" v-if="comment.replies && comment.replies.length && isShowReply">
+        <div :class="isBlue?'blue_reply reply_item':'reply_item'" v-for="(reply,replyIndex) in comment.replies">
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
             <div class="avatar-name__name margin-10-left">
@@ -89,11 +89,18 @@
 <script lang="ts" setup>
 import 'assets/css/comment.scss'
 import LikeSwitch from "~/components/LikeSwitch.vue";
-import AddComment from "~/components/Comment/AddComment.vue";
 import {CommentStore} from "~/types/commentStore";
 import {useCommentStore} from "~/pinia/commentStore";
-import Tag from "~/components/Tag.vue";
 
 const commentStore:CommentStore = useCommentStore();
-
+const props = defineProps({
+  isShowReply:{
+    type: Boolean,
+    default: true
+  },
+  isBlue:{
+    type: Boolean,
+    default: false,
+  }
+});
 </script>
