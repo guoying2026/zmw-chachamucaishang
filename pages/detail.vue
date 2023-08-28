@@ -892,6 +892,13 @@
     flex-direction: row;
     align-items: center;
   }
+  .dark_third_bg{
+    background-color: #00113A !important;
+  }
+  .nine{
+    width: 94%;
+    margin-top: 10px;
+  }
 }
 </style>
 <template>
@@ -899,7 +906,7 @@
     <img class="first" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e50b0b18-3ddc-49e5-b4f7-1d24bd8e12fb.png" alt=""/>
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
-  <div class="third">
+  <div class="third" v-if="tabItemStore.tabItem*1 !== 7">
     <div class="second_1">
       <text class="second_1_1">{{company_name}}</text>
       <div class="second_1_2">
@@ -1307,7 +1314,7 @@
           <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_3961e5c7-53cd-4c91-b1da-92f70acf74d8.png" alt="">
           <text class="margin-10-left">评论</text>
         </div>
-        <text>更多></text>
+        <text @click="switchTabFame(1)">更多></text>
       </div>
     </div>
     <CommentList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></CommentList>
@@ -1507,6 +1514,52 @@
       </div>
     </div>
   </div>
+  <div class="third mobile dark_third_bg" v-if="tabItemStore.tabItem*1 === 7">
+    <div class="second_1">
+      <text class="second_1_1">{{company_name}}</text>
+      <div class="second_1_2">
+        <div class="second_1_2_item">
+          <div class="second_1_2_first second_1_2_item_left">
+            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e2d929f8-8994-4ba6-b731-d4779bf41cf2.png" alt=""/>
+            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_c5514216-f624-444c-bb74-24b956dfaab0.png" alt=""/>
+            <img src="https://zhenmuwa`ng.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_63b5d737-53a8-407f-bec4-9f92e207c88c.png" alt=""/>
+            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f2fdbec2-a1bc-490d-ba2e-383830efbd3a.png" alt=""/>
+          </div>
+          <text class="grey-line"></text>
+          <div class="second_1_2_third">勋章</div>
+        </div>
+        <div class="second_1_2_item">
+          <div class="second_1_2_first second_1_2_item_middle">
+            <text class="second_1_2_item_middle_number">{{credit_score}}</text>
+            <!--                        <div class="red_solid_circle"></div>-->
+            <!--            <text class="second_1_2_item_middle_number">8</text>-->
+          </div>
+          <text class="grey-line"></text>
+          <div class="second_1_2_third">信用分</div>
+        </div>
+        <div class="second_1_2_item">
+          <!--          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_ad66b4f5-d594-4271-0a13-2c57e718420c.png" alt=""/>-->
+          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_1d7c135f-d036-4159-bcf3-62d40562d9df.png" alt=""/>
+
+          <text class="grey-line"></text>
+          <div class="second_1_2_third">等级</div>
+        </div>
+      </div>
+    </div>
+    <div class="third_2">
+      <client-only>
+        <div class="third_2_space blue-tab">
+          <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 3 ?'white-color blue-underline':''" @click="switchTabFame(3)">评价</text>
+          <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 4 ?'white-color blue-underline':''" @click="switchTabFame(4)">问答</text>
+          <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 5 ?'white-color blue-underline':''" @click="switchTabFame(5)">投诉</text>
+        </div>
+      </client-only>
+    </div>
+    <CommentList :is-blue="true" v-if="tabItemFameStore.tabItemFame*1 === 3"></CommentList>
+    <div class="nine">
+      <ComplaintList :is-blue="true" v-if="tabItemFameStore.tabItemFame*1 === 5"></ComplaintList>
+    </div>
+  </div>
   <div class="fifth_question" v-if="tabItemStore.tabItem*1 === 6">
     <div class="fifth_question_space mobile">
       <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_bcbc6a8e-60b8-4286-bef2-bf6590599e1a.png" alt="">
@@ -1515,7 +1568,7 @@
           <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_0700b3c4-a16a-4f4f-b849-104bd2a96638.png" alt="">
           <text class="margin-10-left">问答</text>
         </div>
-        <text>更多></text>
+        <text @click="switchTabFame(2)">更多></text>
       </div>
       <div class="question_mobile margin-10-top">
           <div class="avatar-wrapper">
@@ -1558,7 +1611,7 @@
         <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_10123398-f5cb-48b9-b40d-7d8cfdf4ba82.png" alt="">
         <text class="margin-10-left">投诉</text>
       </div>
-      <text>更多></text>
+      <text @click="switchTabFame(3)">更多></text>
     </div>
     <ComplaintList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></ComplaintList>
     <AddForm title-box="投诉" company-name="张珊珊木材加工厂" feedbackType="complaint" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
@@ -1569,15 +1622,6 @@
       </template>
     </AddForm>
   </div>
-<!--  <div class="third_2 mobile" v-if="tabItemStore.tabItem*1 === 7">-->
-<!--    <client-only>-->
-<!--      <div class="third_2_space blue-tab">-->
-<!--        <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 3 ?'white-color blue-underline':''" @click="switchTabFame(3)">评价</text>-->
-<!--        <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 4 ?'white-color blue-underline':''" @click="switchTabFame(4)">问答</text>-->
-<!--        <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 5 ?'white-color blue-underline':''" @click="switchTabFame(5)">投诉</text>-->
-<!--      </div>-->
-<!--    </client-only>-->
-<!--  </div>-->
   <div class="second computer" v-if="tabItemStore.tabItem*1 === 0">
     <img class="third_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1a69286f-36e4-4694-bcbb-5219a41a4d96.png" alt=""/>
     <div class="second_2">
@@ -1761,6 +1805,7 @@ const switchTabDynamic = (item:number) => {
   tabItemDynamicStore.tabItem = item;
 }
 const switchTabFame = (item:number) => {
+  tabItemStore.tabItem = 7;
   tabItemFameStore.tabItemFame = item;
 }
 const getClass = (level:string) => {

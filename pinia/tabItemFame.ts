@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 export const useTabItemFameStore = defineStore('tabItemFameStore', {
     state: () => {
         return {
-            tabItemFame: 0,
+            tabItemFame: 3,
         }
     },
     persist: true,

@@ -151,13 +151,19 @@ p{
         padding: 10px;
         border-radius: 5px;
     }
+    .blue_comment{
+        background-color: #092F85;
+    }
+    .blue_reply{
+        background-color: #061D51;
+    }
     p{
         font-size: 14px !important;
     }
     .time{
         font-size: 12px !important;
     }
-    .comment_item_4{
+    .comment_item_4,.reply_item_4{
         font-size: 12px !important;
         height: 18px;
     }
@@ -181,5 +187,11 @@ p{
     }
     .avatar-name__name{
         font-size: 14px;
+    }
+    .reply_item::before{
+        border-bottom: 10px solid #061d51;
+    }
+    .grey-color{
+        color: #90A7DB !important;
     }
 }
