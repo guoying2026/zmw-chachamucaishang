@@ -1276,6 +1276,59 @@
         <td>xxx</td>
       </tr>
     </table>
+    <img class="third_1 mobile" v-if="tabItemStore.tabItem*1 === 6" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
+    <div class="fifth mobile margin-10-top" v-if="tabItemStore.tabItem*1 === 6">
+      <div class="fifth_1">
+        <div class="fifth_1_left">
+          <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_3961e5c7-53cd-4c91-b1da-92f70acf74d8.png" alt="">
+          <text class="margin-10-left">评论</text>
+        </div>
+        <text>更多></text>
+      </div>
+    </div>
+    <div class="comment">
+      <div class="comment_item" v-for="(comment, index) in commentStore.comments">
+        <div class="comment_item_1">
+          <img class="avatar-name__img" :src="comment.avatar" width="32" height="32" :alt="comment.user">
+          <div class="avatar-name__name margin-10-left">
+            <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{comment.user}}</strong>
+          </div>
+        </div>
+        <div class="comment_item_2">
+          <p class="margin-10-top ">{{comment.content}}</p>
+          <el-row :gutter="8" v-if="comment.image.length" class="margin-10-bottom row-image-box">
+            <el-col
+                v-for="(itemImage, indexImage) in comment.image"
+                :key="indexImage"
+                :span="8"
+                :md="8"
+            >
+              <el-image
+                  :hide-on-click-modal=true
+                  :src="itemImage"
+                  class="image_list"
+                  fit="cover"
+                  :zoom-rate="1.2"
+                  :preview-src-list="comment.image"
+                  :initial-index="Number(indexImage)"
+                  lazy />
+            </el-col>
+          </el-row>
+          <div class="comment_item_3">
+            <text class=" time grey-color">{{comment.time}}</text>
+            <div class="comment_item_4">
+              <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
+              <AddForm title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
+                <!-- 定义插槽内容 -->
+                <template #trigger>
+                  <text class="margin-20-left grey-color">回复</text>
+                </template>
+              </AddForm>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3">
       <div class="tab_3_space_left"></div>
       <div class="tab_3_space_middle">
@@ -1596,6 +1649,7 @@ import ComplaintList from "~/components/ComplaintList.vue";
 import {useShopDetails} from "~/composables/shop";
 import { useRoute } from 'vue-router';
 import {useTabItemDynamicStore} from "~/pinia/tabItemDynamic";
+import LikeSwitch from "~/components/LikeSwitch.vue";
 const tabItemDynamicStore = useTabItemDynamicStore();
 
 const route = useRoute();

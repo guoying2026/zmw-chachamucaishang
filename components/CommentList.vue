@@ -89,10 +89,8 @@
 <script lang="ts" setup>
 import 'assets/css/comment.scss'
 import LikeSwitch from "~/components/LikeSwitch.vue";
-import AddComment from "~/components/Comment/AddComment.vue";
 import {CommentStore} from "~/types/commentStore";
 import {useCommentStore} from "~/pinia/commentStore";
-import Tag from "~/components/Tag.vue";
 
 const commentStore:CommentStore = useCommentStore();
 
