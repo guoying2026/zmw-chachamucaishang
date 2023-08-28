@@ -6,6 +6,8 @@ import SearchTips from '~/components/SearchTips.vue'
 
 // 导入用户信息存储
 import { useUserInfoStore } from "~/pinia/userInfo"
+import { useSearchResultStore } from "~/pinia/searchResultStore"
+import { useRankListStore } from "~/pinia/rankListStore"
 
 const route = useRoute()
 
@@ -33,6 +35,8 @@ const isShowUserInfoPopup = ref<boolean>(false)
  * “查一下”按钮的点击处理事件
  */
 function searchButtonHandle() {
+  useSearchResultStore().clearAll()
+  useRankListStore().clearAll()
   searchTextRef.value.blur()
   if (searchInputText.value.trim() === '') searchInputText.value = '木材'
   if (route.path == '/searchResult' && route.query.search == searchInputText.value) {

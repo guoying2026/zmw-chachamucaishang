@@ -1,9 +1,25 @@
 <script setup lang="ts">
+import { useSearchResultStore } from "~/pinia/searchResultStore"
+
+import { useRankListStore } from "~/pinia/rankListStore"
+
 import Header from "~/components/Header.vue";
 
 import Footer from "~/components/Footer.vue";
 
 const route = useRoute()
+
+const rankListStore = useRankListStore()
+
+const searchResultStore = useSearchResultStore()
+
+if (rankListStore.getIsStore() && !rankListStore.getList()) {
+  rankListStore.clearAll()
+}
+
+if (searchResultStore.getIsStore() && (!searchResultStore.getArea() || searchResultStore.getArea().length == 0 || !searchResultStore.getList())) {
+  searchResultStore.clearAll()
+}
 
 const unShowHeaderRouteName = [
   "index",

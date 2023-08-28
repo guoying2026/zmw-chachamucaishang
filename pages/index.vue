@@ -8,6 +8,10 @@ import SearchTips from '~/components/SearchTips.vue'
 // 导入搜索输入历史记录存储
 import { useSearchInputHistoryStore } from '~/pinia/searchInputHistory'
 
+import { useSearchResultStore } from "~/pinia/searchResultStore"
+
+import { useRankListStore } from "~/pinia/rankListStore"
+
 const route = useRoute()
 
 const router = useRouter()
@@ -80,6 +84,8 @@ function gotoLogin() {
  * 前往搜索，调用搜索api
  */
 function gotoSearch() {
+  useSearchResultStore().clearAll()
+  useRankListStore().clearAll()
   // TODO 调用搜索api
   if (searchInputText.value.trim() === '') searchInputText.value = '木材'
   router.push('/searchResult?search=' + searchInputText.value);

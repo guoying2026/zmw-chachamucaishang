@@ -12,6 +12,10 @@ import { useSearchHistoryStore } from '~/pinia/searchHistory'
 // 导入用户信息存储
 import { useUserInfoStore } from "~/pinia/userInfo"
 
+import { useSearchResultStore } from "~/pinia/searchResultStore"
+
+import { useRankListStore } from "~/pinia/rankListStore"
+
 const route = useRoute()
 
 const router = useRouter()
@@ -239,6 +243,8 @@ function gotoLogin() {
  * 前往搜索，调用搜索api
  */
 function gotoSearch() {
+  useSearchResultStore().clearAll()
+  useRankListStore().clearAll()
   // TODO 调用搜索api
   if (searchInputText.value.trim() === '') searchInputText.value = '木材'
   router.push('/searchResult?search=' + searchInputText.value)
