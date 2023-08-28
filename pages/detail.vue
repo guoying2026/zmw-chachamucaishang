@@ -644,7 +644,7 @@
   }
   .third_2 {
     width: 94%;
-    margin-top: 20px;
+    margin-top: 5px;
   }
   .third_2_space{
     width: 100%;
@@ -762,6 +762,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    font-size: 14px;
   }
   .fifth_1_left img{
     width: 20px;
@@ -867,6 +868,29 @@
     height: 30px;
     width: 0;
     display: inline-block;  /* 或者使用block，根据需要 */
+  }
+  .fifth_question{
+    width: 100%;
+    background-color: #00133F;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .fifth_question_space{
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+  .question_mobile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .answer_mobile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 }
 </style>
@@ -1286,49 +1310,14 @@
         <text>更多></text>
       </div>
     </div>
-    <div class="comment">
-      <div class="comment_item" v-for="(comment, index) in commentStore.comments">
-        <div class="comment_item_1">
-          <img class="avatar-name__img" :src="comment.avatar" width="32" height="32" :alt="comment.user">
-          <div class="avatar-name__name margin-10-left">
-            <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{comment.user}}</strong>
-          </div>
-        </div>
-        <div class="comment_item_2">
-          <p class="margin-10-top ">{{comment.content}}</p>
-          <el-row :gutter="8" v-if="comment.image.length" class="margin-10-bottom row-image-box">
-            <el-col
-                v-for="(itemImage, indexImage) in comment.image"
-                :key="indexImage"
-                :span="8"
-                :md="8"
-            >
-              <el-image
-                  :hide-on-click-modal=true
-                  :src="itemImage"
-                  class="image_list"
-                  fit="cover"
-                  :zoom-rate="1.2"
-                  :preview-src-list="comment.image"
-                  :initial-index="Number(indexImage)"
-                  lazy />
-            </el-col>
-          </el-row>
-          <div class="comment_item_3">
-            <text class=" time grey-color">{{comment.time}}</text>
-            <div class="comment_item_4">
-              <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-              <AddForm title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
-                <!-- 定义插槽内容 -->
-                <template #trigger>
-                  <text class="margin-20-left grey-color">回复</text>
-                </template>
-              </AddForm>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <CommentList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></CommentList>
+    <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedbackType="comment" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+      <!-- 定义插槽内容 -->
+      <template #trigger>
+        <!-- Tag组件，当点击时触发openCommentBox方法 -->
+        <Tag tag="我要点评" color="orange_long"></Tag>
+      </template>
+    </AddForm>
     <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3">
       <div class="tab_3_space_left"></div>
       <div class="tab_3_space_middle">
@@ -1344,7 +1333,7 @@
         </div>
         <NoDetail v-if="company_comment_count < 0"></NoDetail>
         <div class="tab_3_space_2" v-else>
-          <CommentList :key="'comment-list'" :store="commentStore"></CommentList>
+          <CommentList></CommentList>
         </div>
       </div>
       <div class="tab_3_space_right">
@@ -1518,6 +1507,68 @@
       </div>
     </div>
   </div>
+  <div class="fifth_question" v-if="tabItemStore.tabItem*1 === 6">
+    <div class="fifth_question_space mobile">
+      <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_bcbc6a8e-60b8-4286-bef2-bf6590599e1a.png" alt="">
+      <div class="fifth_1 margin-10-top">
+        <div class="fifth_1_left">
+          <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_0700b3c4-a16a-4f4f-b849-104bd2a96638.png" alt="">
+          <text class="margin-10-left">问答</text>
+        </div>
+        <text>更多></text>
+      </div>
+      <div class="question_mobile margin-10-top">
+          <div class="avatar-wrapper">
+            <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+            <span class="question-icon orange-bg">问</span>
+          </div>
+          <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+      </div>
+      <div class="answer_mobile margin-10-top margin-10-bottom">
+          <div class="avatar-wrapper">
+            <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+            <span class="question-icon red-bg">答</span>
+          </div>
+          <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+      </div>
+      <div class="question_mobile margin-10-top">
+        <div class="avatar-wrapper">
+          <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+          <span class="question-icon orange-bg">问</span>
+        </div>
+        <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+      </div>
+      <div class="answer_mobile margin-10-top margin-10-bottom">
+        <div class="avatar-wrapper">
+          <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
+          <span class="question-icon red-bg">答</span>
+        </div>
+        <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
+      </div>
+    </div>
+    <AddForm title-box="提问" company-name="张珊珊木材加工厂" feedbackType="question" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+      <!-- 定义插槽内容 -->
+      <template #trigger>
+        <!-- Tag组件，当点击时触发openCommentBox方法 -->
+        <Tag tag="我要提问" color="orange_long"></Tag>
+      </template>
+    </AddForm>
+    <div class="fifth_1 margin-10-top">
+      <div class="fifth_1_left">
+        <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_10123398-f5cb-48b9-b40d-7d8cfdf4ba82.png" alt="">
+        <text class="margin-10-left">投诉</text>
+      </div>
+      <text>更多></text>
+    </div>
+    <ComplaintList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></ComplaintList>
+    <AddForm title-box="投诉" company-name="张珊珊木材加工厂" feedbackType="complaint" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+      <!-- 定义插槽内容 -->
+      <template #trigger>
+        <!-- Tag组件，当点击时触发openCommentBox方法 -->
+        <Tag tag="我要投诉" color="orange_long"></Tag>
+      </template>
+    </AddForm>
+  </div>
 <!--  <div class="third_2 mobile" v-if="tabItemStore.tabItem*1 === 7">-->
 <!--    <client-only>-->
 <!--      <div class="third_2_space blue-tab">-->
@@ -1651,6 +1702,8 @@ import { useRoute } from 'vue-router';
 import {useTabItemDynamicStore} from "~/pinia/tabItemDynamic";
 import LikeSwitch from "~/components/LikeSwitch.vue";
 const tabItemDynamicStore = useTabItemDynamicStore();
+import { useQuestionStore } from "~/pinia/questionStore";
+const questionStore = useQuestionStore();
 
 const route = useRoute();
 const query = route.query;

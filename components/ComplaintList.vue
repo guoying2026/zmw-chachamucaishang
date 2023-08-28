@@ -1,9 +1,9 @@
 <template>
-  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png" alt="背景"/>
+  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png" alt="背景" v-if="isShowReply"/>
   <NoDetail tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
 
-  <div class="comment" v-else>
-    <div class="comment_item" v-for="(complaint, index) in complaintStore.complaints">
+  <div class="comment complaint" v-else>
+    <div class="comment_item blue_item_bg" v-for="(complaint, index) in complaintStore.complaints">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="complaint.avatar" width="32" height="32" :alt="complaint.user">
         <div class="avatar-name__name margin-10-left">
@@ -43,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="reply" v-if="complaint.replies && complaint.replies.length">
+      <div class="reply" v-if="complaint.replies && complaint.replies.length && isShowReply">
         <div class="reply_item" v-for="(reply,replyIndex) in complaint.replies">
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
@@ -96,4 +96,11 @@ import {ComplaintStore} from "~/types/complaintStore";
 import {useComplaintStore} from "~/pinia/complaintStore";
 
 const complaintStore:ComplaintStore = useComplaintStore();
+
+const props = defineProps({
+  isShowReply:{
+    type: Boolean,
+    default: true
+  }
+});
 </script>

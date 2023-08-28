@@ -74,6 +74,7 @@ h4 span{
 }
 .comment{
     width: 100%;
+    flex-direction: column;
 }
 .reply_question{
     margin-left: 10%;
@@ -91,8 +92,8 @@ h4 span{
     padding: clamp(15px, 2vw, 36px) clamp(15px, 2vw, 28px) clamp(10px, 2vw, 36px) clamp(15px, 2vw, 36px);
     font-size: clamp(10px, 14.5915492958px + 0.2816901408vw, 16px);
     display: flex;
-    flex-direction: column;
     background: #562C05;
+    flex-direction: column;
     border-radius: 10px;
     margin-bottom: 15px;
 }
@@ -140,11 +141,13 @@ p{
         width: 94%;
         margin-top: 10px;
     }
+    .complaint{
+        width: 100% !important;
+    }
     .comment_item_2, .reply_item_2 {
         margin-left: 0 !important;
     }
     .comment_item{
-        background-color: #693709;
         padding: 10px;
         border-radius: 5px;
     }
@@ -157,6 +160,12 @@ p{
     .comment_item_4{
         font-size: 12px !important;
         height: 18px;
+    }
+    .brown_item_bg{
+        background-color: #693709;
+    }
+    .blue_item_bg{
+        background:#092E84;
     }
     .icon{
         width: 14px;

@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-    <div class="comment_item" v-for="(comment, index) in commentStore.comments">
+    <div class="comment_item brown_item_bg" v-for="(comment, index) in commentStore.comments">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="comment.avatar" width="32" height="32" :alt="comment.user">
         <div class="avatar-name__name margin-10-left">
@@ -40,7 +40,7 @@
           </div>
         </div>
       </div>
-      <div class="reply" v-if="comment.replies && comment.replies.length">
+      <div class="reply" v-if="comment.replies && comment.replies.length && isShowReply">
         <div class="reply_item" v-for="(reply,replyIndex) in comment.replies">
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
@@ -93,5 +93,10 @@ import {CommentStore} from "~/types/commentStore";
 import {useCommentStore} from "~/pinia/commentStore";
 
 const commentStore:CommentStore = useCommentStore();
-
+const props = defineProps({
+  isShowReply:{
+    type: Boolean,
+    default: true
+  }
+});
 </script>

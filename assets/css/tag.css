@@ -13,6 +13,13 @@
     background: #FF834E;
     color: #fff;
 }
+.orange_long_btn{
+    background: #FF834E;
+    color: #fff;
+    padding: 5px 70px;
+    border-radius: 50px;
+    font-size: 14px;
+}
 .brown-orange_btn{
     background: #7B3D04;
     color: #FF9B40;

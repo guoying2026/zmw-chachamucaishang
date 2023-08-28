@@ -6,9 +6,9 @@
           <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
           <span class="question-icon orange-bg">问</span>
         </div>
-        <figcaption class="avatar-name__name margin-10-left">
+        <div class="avatar-name__name margin-10-left">
           <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
-        </figcaption>
+        </div>
       </div>
       <div class="question_item_2">
         <p class="margin-10-top ">{{question.question}}</p>
@@ -51,9 +51,9 @@
               <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
               <span class="question-icon blue-bg">答</span>
             </div>
-            <figcaption class="avatar-name__name margin-10-left">
+            <div class="avatar-name__name margin-10-left">
               <strong class="text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
-            </figcaption>
+            </div>
           </div>
           <div class="answer_item_2">
             <p class="margin-10-top">{{answer.answer}}</p>
@@ -93,7 +93,6 @@ import 'assets/css/question.scss'
 import {useQuestionStore} from "~/pinia/questionStore";
 import {QuestionStore} from "~/types/questionStore";
 import LikeSwitch from "~/components/LikeSwitch.vue";
-import AddComment from "~/components/Comment/AddComment.vue";
 
 const questionStore:QuestionStore = useQuestionStore();
 </script>
