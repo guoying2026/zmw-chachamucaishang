@@ -162,6 +162,7 @@ function jumpToPage(page: number) {
   if (page < 1) page = 1
   if (page > totalPages.value) page = totalPages.value
   currentPage.value = page;
+  rankListStore.clearAll()
   rankListRefresh()
   window.scrollTo({
     top: 0,

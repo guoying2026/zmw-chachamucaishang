@@ -281,6 +281,7 @@ function jumpToPage(page: number) {
   if (page > totalPages.value) page = totalPages.value
   currentPage.value = page;
   isReloadSearchResultList.value = false
+  searchResultStore.clearAll()
   searchResultListRefresh()
   window.scrollTo({
     top: 0,
@@ -300,6 +301,7 @@ function jumpToInputPage() {
  * 地区名称搜索的处理事件
  */
 function filterAreaSearchHandle() {
+  searchResultStore.clearAll()
   // 如果没有输入任何关键词或关键词为空格，则所有的区域都显示
   if (areaSearchText.value.trim() == '') {
     areaList.value = areaList.value.map(item => {
@@ -344,6 +346,7 @@ function filterAreaSearchHandle() {
  * 显示区域筛选弹出框
  */
 function showAreaSelect() {
+  searchResultStore.clearAll()
   isShowAreaSelect.value = true;
 }
 
@@ -351,6 +354,7 @@ function showAreaSelect() {
  * 隐藏区域筛选弹出框
  */
 function hideAreaSelect() {
+  searchResultStore.clearAll()
   isShowAreaSelect.value = false;
 }
 
@@ -359,6 +363,7 @@ function hideAreaSelect() {
  * @param index
  */
 function changeAreaFirstSelectedIndex(index: number) {
+  searchResultStore.clearAll()
   areaFirstSelectedIndex.value = index;
   areaSecondSelectedIndex.value = 0;
   // 关闭“离我最近”功能
@@ -371,6 +376,7 @@ function changeAreaFirstSelectedIndex(index: number) {
  * @param index
  */
 function changeAreaSecondSelectedIndex(index: number) {
+  searchResultStore.clearAll()
   areaSecondSelectedIndex.value = index;
   // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false;
@@ -384,6 +390,7 @@ function changeAreaSecondSelectedIndex(index: number) {
  * @param index
  */
 function changeAreaFirstIsSelected(index: number) {
+  searchResultStore.clearAll()
   // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false
   // 获取在点击之前的选中状态
@@ -413,6 +420,7 @@ function changeAreaFirstIsSelected(index: number) {
  * @param index
  */
 function changeAreaSecondIsSelected(index: number) {
+  searchResultStore.clearAll()
   // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false
   areaList.value = areaList.value.map((_item, _index) => {
@@ -438,6 +446,7 @@ function changeAreaSecondIsSelected(index: number) {
  * 多选地区或取消多选地区的处理事件
  */
 function changeIsCanMultiSelectProvince() {
+  searchResultStore.clearAll()
   // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false
   // 修改多选或取消多选的状态
@@ -495,6 +504,7 @@ function encryptPhone(phone: string | number | string[]) {
  * 显示移动端的电话号码展示弹窗
  */
 function showPhonePopup() {
+  searchResultStore.clearAll()
   isShowPhonePopup.value = true
 }
 
@@ -502,6 +512,7 @@ function showPhonePopup() {
  * 隐藏移动端的电话号码展示弹窗
  */
 function hidePhonePopup() {
+  searchResultStore.clearAll()
   isShowPhonePopup.value = false
 }
 
@@ -510,6 +521,7 @@ function hidePhonePopup() {
  * @param index
  */
 function showAllPhone(index: number) {
+  searchResultStore.clearAll()
   showPhoneIndex.value = index;
   showPhonePopup();
 }
@@ -519,6 +531,7 @@ function showAllPhone(index: number) {
  * @param index
  */
 function showPhonePopupByPc(index: number) {
+  searchResultStore.clearAll()
   searchResultList.value = searchResultList.value.map((_item, _index) => {
     if (_index == index) {
       _item.is_show_phone_popup = true;
@@ -535,6 +548,7 @@ function showPhonePopupByPc(index: number) {
  * @param index
  */
 function hidePhonePopupByPc() {
+  searchResultStore.clearAll()
   searchResultList.value = searchResultList.value.map((item, index) => {
     item.is_show_phone_popup = false;
     return item;
@@ -546,6 +560,7 @@ function hidePhonePopupByPc() {
  * @param index
  */
 function showAllPhoneByPc(index: number) {
+  searchResultStore.clearAll()
   showPhonePopupByPc(index);
 }
 
@@ -553,6 +568,7 @@ function showAllPhoneByPc(index: number) {
  * 显示多选地区弹出框
  */
 function showMultiSelectProvincePopup() {
+  searchResultStore.clearAll()
   isShowMultiSelectProvincePopup.value = true;
   if (areaFirstSelectedIndex.value == 0 && areaSecondSelectedIndex.value == 0) {
     areaFirstSelectedIndex.value = 1;
@@ -564,6 +580,7 @@ function showMultiSelectProvincePopup() {
  * 隐藏多选地区弹出框
  */
 function hideMultiSelectProvincePopup() {
+  searchResultStore.clearAll()
   isShowMultiSelectProvincePopup.value = false;
 }
 
@@ -571,6 +588,7 @@ function hideMultiSelectProvincePopup() {
  * 清除所有的省份和地级市的选中状态
  */
 function clearAllMultiSelectProvinceIsSelected() {
+  searchResultStore.clearAll()
   isLeaveMeClosestDistance.value = false
   areaList.value = areaList.value.map(item => {
     item.is_selected = false;
@@ -586,6 +604,7 @@ function clearAllMultiSelectProvinceIsSelected() {
  * 清除所有的地级市的选中状态
  */
 function clearAllMultiSelectCityIsSelected() {
+  searchResultStore.clearAll()
   isLeaveMeClosestDistance.value = false
   areaList.value = areaList.value.map(item => {
     item.childs = item.childs.map(subitem => {
@@ -601,6 +620,7 @@ function clearAllMultiSelectCityIsSelected() {
  * @param index
  */
 function changeAreaListProvinceIsSelectedWithOnlyOne(index: number) {
+  searchResultStore.clearAll()
   // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false
   // 获取该省份再点击前的选中状态
@@ -639,6 +659,7 @@ function changeAreaListProvinceIsSelectedWithOnlyOne(index: number) {
  * @param index
  */
 function changeAreaListCityIsSelectedWithOnlyOne(index: number) {
+  searchResultStore.clearAll()
   // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false
   // 获取该地级市在点击之前的选中状态
@@ -671,6 +692,7 @@ function changeAreaListCityIsSelectedWithOnlyOne(index: number) {
  * pc端的取消“离我最近”，即pc端的“商家距离-全部”的处理事件
  */
 function changeToSwitchArea() {
+  searchResultStore.clearAll()
   isLeaveMeClosestDistance.value = false;
 }
 
@@ -678,6 +700,7 @@ function changeToSwitchArea() {
  * pc端的“商家距离-离我最近”的处理事件
  */
 function changeToLeaveMeClosestDistance() {
+  searchResultStore.clearAll()
   if (!userPermissionStore.checkIsAllowed('getUserLocation')) {
     showAskForGetPositionPopup();
     return false;
@@ -689,6 +712,7 @@ function changeToLeaveMeClosestDistance() {
  * 允许获取定位
  */
 function allowGetPositionClickHandle() {
+  searchResultStore.clearAll()
   userPermissionStore.allow('getUserLocation')
   getAreaInfoByIP()
 }
@@ -697,6 +721,7 @@ function allowGetPositionClickHandle() {
  * 拒绝获取定位
  */
 function denyGetPositionClickHandle() {
+  searchResultStore.clearAll()
   userPermissionStore.deny('getUserLocation')
   hideAskForGetPositionPopup()
 }
@@ -705,6 +730,7 @@ function denyGetPositionClickHandle() {
  * 通过ip获取当前地理位置的处理事件，即“获取定位权限询问弹窗”的“允许”的处理事件
  */
 async function getAreaInfoByIP() {
+  searchResultStore.clearAll()
   // 调用获取位置信息接口
   const url = process.env.NODE_ENV == 'production' ? '/api/getAreaInfoByIp' : '/api/getAreaInfoByIp?ip=223.104.65.74'
   const { data } = await useFetch(url)
@@ -749,6 +775,7 @@ async function getAreaInfoByIP() {
  * 显示获取定位权限询问弹窗
  */
 function showAskForGetPositionPopup() {
+  searchResultStore.clearAll()
   isShowAskForGetPositionPopup.value = true;
 }
 
@@ -756,6 +783,7 @@ function showAskForGetPositionPopup() {
  * 隐藏获取定位权限询问弹窗
  */
 function hideAskForGetPositionPopup() {
+  searchResultStore.clearAll()
   isShowAskForGetPositionPopup.value = false;
 }
 
