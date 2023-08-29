@@ -2,8 +2,6 @@ import { ref, computed } from 'vue';
 import { serviceContainer } from '~/pinia/feedback/FeedbackServiceContainer';
 
 export function addFormLogic(props: any) {
-    const placeholderText = ref('我们鼓励真实有帮助的' + props.titleBox);
-    const submitText = ref('发布' + props.titleBox);
     const show = ref(false);
 
     const state = ref({
@@ -65,8 +63,6 @@ export function addFormLogic(props: any) {
     };
 
     return {
-        placeholderText,
-        submitText,
         show,
         state,
         openCommentBox,

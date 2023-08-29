@@ -897,7 +897,7 @@
   }
   .nine{
     width: 94%;
-    margin-top: 5px;
+    margin-top: 10px;
   }
   .hover_image{
     width: 65px;
@@ -1559,17 +1559,44 @@
         </div>
       </client-only>
     </div>
-    <CommentList :is-blue="true" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentList>
-    <HoverButton>
-      <template #hoverButton>
-        <img class="hover_image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_674067de-0fa6-4a1e-bd78-9ff51400b77a.png" alt=""/>
+    <CommentListMobile :is-blue="true" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
+    <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
+      <!-- 定义插槽内容 -->
+      <template #trigger>
+        <HoverButton >
+          <template #hoverButton>
+            <img class="hover_image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_674067de-0fa6-4a1e-bd78-9ff51400b77a.png" alt=""/>
+          </template>
+        </HoverButton>
       </template>
-    </HoverButton>
-    <div class="nine">
-      <QuestionList :is-blue="true" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8"></QuestionList>
+    </AddFormMobile>
+
+    <div class="nine" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8">
+      <QuestionListMobile :is-blue="true"></QuestionListMobile>
+      <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+        <!-- 定义插槽内容 -->
+        <template #trigger>
+          <!-- 当点击时触发openCommentBox方法 -->
+          <HoverButton>
+            <template #hoverButton>
+              <img class="hover_image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_296ceba6-2d6d-4c64-bcad-6ccdf60ff96c.png" alt=""/>
+            </template>
+          </HoverButton>
+        </template>
+      </AddFormMobile>
     </div>
-    <div class="nine">
-      <ComplaintList :is-blue="true" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9"></ComplaintList>
+    <div class="nine" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9">
+      <ComplaintListMobile :is-blue="true"></ComplaintListMobile>
+      <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+        <!-- 定义插槽内容 -->
+        <template #trigger>
+          <HoverButton>
+            <template #hoverButton>
+              <img class="hover_image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_ae5c4513-e845-4bc7-bfd8-87b259c74666.png" alt=""/>
+            </template>
+          </HoverButton>
+        </template>
+      </AddFormMobile>
     </div>
   </div>
   <div class="fifth_question" v-if="tabItemStore.tabItem*1 === 3">
@@ -1758,6 +1785,7 @@ import {useTabItemDynamicStore} from "~/pinia/tabItemDynamic";
 import LikeSwitch from "~/components/LikeSwitch.vue";
 const tabItemDynamicStore = useTabItemDynamicStore();
 import { useQuestionStore } from "~/pinia/questionStore";
+import CommentListMobile from "~/components/CommentListMobile.vue";
 const questionStore = useQuestionStore();
 
 const route = useRoute();

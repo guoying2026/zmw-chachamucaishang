@@ -19,7 +19,6 @@
             @update:value="setTextareaValue"
         />
         <FileUpload
-            :store="state"
             @update:fileList="updateParentFileList"
             @uploading="setFileBeingUploaded"
         />
@@ -32,6 +31,7 @@
 </template>
 <script lang="ts" setup>
 import {addFormLogic} from "~/composables/addForm";
+import {ref} from "vue";
 
 // 接收父组件传递的show属性
 const props = defineProps({
@@ -53,9 +53,9 @@ const props = defineProps({
     validator: (value: string) => ['comment', 'commentReply', 'question', 'answer', 'complaint','complaintReply'].includes(value)
   },
 });
+const placeholderText = ref('我们鼓励真实有帮助的' + props.titleBox);
+const submitText = ref('发布' + props.titleBox);
 const {
-  placeholderText,
-  submitText,
   show,
   state,
   openCommentBox,

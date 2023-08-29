@@ -56,3 +56,8 @@
 .brown-white{
     border-top: 6px solid #fff;  /* 这里设置你想要的颜色 */
 }
+.gradient-background_btn {
+    background: linear-gradient(to right, #F09336, #EC602D);
+    padding: 10px 120px;
+    border-radius: 50px;
+}
