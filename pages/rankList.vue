@@ -521,6 +521,28 @@ nuxtApp.hook('page:finish', () => {
   border-radius: 2px;
 }
 
+@media (max-width: 374px) {
+  .item .rank_num {
+    transform: scale(0.85) translateY(-0.05rem);
+  }
+  .item .rank_num.hundred {
+    transform: scale(0.65) translateY(-0.05rem);
+  }
+
+  .item .rank_num.thousand {
+    transform: scale(0.55) translateY(-0.05rem);
+  }
+
+  .item .rank_num.ten_thousand {
+    transform: scale(0.5) translateY(-0.05rem);
+  }
+
+  .item .rank_num.one_hundred_thousand,
+  .item .rank_num.million {
+    transform: scale(0.45) translateY(-0.05rem);
+  }
+}
+
 @media (min-width: 768px) {
   .header {
     height: calc(var(--real-width) * 1026 / 1920);
