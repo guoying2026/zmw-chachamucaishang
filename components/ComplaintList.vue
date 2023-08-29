@@ -13,8 +13,8 @@
 .text-container {
   width: 60%;
   position: absolute;
-  bottom: 9%;
-  right: 5%;
+  bottom: 15%;
+  right: 6%;
   display: flex;
   justify-content: space-around;
   align-items: center;
