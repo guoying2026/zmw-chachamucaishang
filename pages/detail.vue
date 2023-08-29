@@ -941,17 +941,17 @@
     <div class="third_2 computer">
       <client-only>
         <div class="third_2_space">
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 0 || tabItemStore.tabItem*1 === 6?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 0 || tabItemStore.tabItem*1 === 6 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
           <text>|</text>
           <text class="tab_" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
           <text>|</text>
           <text class="tab_" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 3 || (tabItemFameStore.tabItemFame*1 === 3 && tabItemStore.tabItem*1 === 7) ?'white-color white-underline':''" @click="switchTab(3)">评论</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 3 || tabItemStore.tabItem*1 === 7?'white-color white-underline':''" @click="switchTab(3)">评论</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 4 || (tabItemFameStore.tabItemFame*1 === 4 && tabItemStore.tabItem*1 === 7) ?'white-color white-underline':''" @click="switchTab(4)">问答</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 8?'white-color white-underline':''" @click="switchTab(4)">问答</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 5 || (tabItemFameStore.tabItemFame*1 === 5 && tabItemStore.tabItem*1 === 7) ?'white-color white-underline':''" @click="switchTab(5)">投诉</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 9?'white-color white-underline':''" @click="switchTab(5)">投诉</text>
         </div>
       </client-only>
     </div>
@@ -1314,7 +1314,7 @@
           <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_3961e5c7-53cd-4c91-b1da-92f70acf74d8.png" alt="">
           <text class="margin-10-left">评论</text>
         </div>
-        <text @click="switchTabFame(3)">更多></text>
+        <text @click="switchTab(7)">更多></text>
       </div>
     </div>
     <CommentList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></CommentList>
@@ -1325,7 +1325,7 @@
         <Tag tag="我要点评" color="orange_long"></Tag>
       </template>
     </AddForm>
-    <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3 || (tabItemFameStore.tabItemFame*1 === 3 && tabItemStore.tabItem*1 === 7)">
+    <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3 || tabItemStore.tabItem*1 === 7">
       <div class="tab_3_space_left"></div>
       <div class="tab_3_space_middle">
         <div class="tab_3_space_1">
@@ -1427,7 +1427,7 @@
         </div>
       </div>
     </div>
-    <div class="tab_4_space" v-if="tabItemStore.tabItem*1 === 4 || (tabItemFameStore.tabItemFame*1 === 4 && tabItemStore.tabItem*1 === 7)">
+    <div class="tab_4_space" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 8">
       <div class="tab_4_space_left"></div>
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
@@ -1490,7 +1490,7 @@
         </div>
       </div>
     </div>
-    <div class="tab_5_space" v-if="tabItemStore.tabItem*1 === 5 || (tabItemFameStore.tabItemFame*1 === 5 && tabItemStore.tabItem*1 === 7)">
+    <div class="tab_5_space" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 9">
       <div class="tab_5_space_left"></div>
       <div class="tab_5_space_middle">
         <ComplaintList></ComplaintList>
@@ -1549,15 +1549,15 @@
     <div class="third_2">
       <client-only>
         <div class="third_2_space blue-tab">
-          <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 3 ?'white-color blue-underline':''" @click="switchTabFame(3)">评价</text>
-          <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 4 ?'white-color blue-underline':''" @click="switchTabFame(4)">问答</text>
-          <text class="tab_" :class="tabItemFameStore.tabItemFame*1 === 5 ?'white-color blue-underline':''" @click="switchTabFame(5)">投诉</text>
+          <text class="tab_" :class="(tabItemStore.tabItem*1 === 3 || tabItemStore.tabItem*1 === 7)?'white-color blue-underline':''" @click="switchTab(7)">评价</text>
+          <text class="tab_" :class="(tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 8) ?'white-color blue-underline':''" @click="switchTab(8)">问答</text>
+          <text class="tab_" :class="(tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 9) ?'white-color blue-underline':''" @click="switchTab(9)">投诉</text>
         </div>
       </client-only>
     </div>
-    <CommentList :is-blue="true" v-if="tabItemFameStore.tabItemFame*1 === 3"></CommentList>
+    <CommentList :is-blue="true" v-if="tabItemStore.tabItem*1 === 3 || tabItemStore.tabItem*1 === 7"></CommentList>
     <div class="nine">
-      <ComplaintList :is-blue="true" v-if="tabItemFameStore.tabItemFame*1 === 5"></ComplaintList>
+      <ComplaintList :is-blue="true" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 9"></ComplaintList>
     </div>
   </div>
   <div class="fifth_question" v-if="tabItemStore.tabItem*1 === 6">
@@ -1568,7 +1568,7 @@
           <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_0700b3c4-a16a-4f4f-b849-104bd2a96638.png" alt="">
           <text class="margin-10-left">问答</text>
         </div>
-        <text @click="switchTabFame(4)">更多></text>
+        <text @click="switchTab(8)">更多></text>
       </div>
       <div class="question_mobile margin-10-top">
           <div class="avatar-wrapper">
@@ -1611,7 +1611,7 @@
         <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_10123398-f5cb-48b9-b40d-7d8cfdf4ba82.png" alt="">
         <text class="margin-10-left">投诉</text>
       </div>
-      <text @click="switchTabFame(5)">更多></text>
+      <text @click="switchTab(9)">更多></text>
     </div>
     <ComplaintList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></ComplaintList>
     <AddForm title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
@@ -1731,8 +1731,6 @@ import { ref, onMounted } from 'vue';
 import {BaiduMap} from "vue-baidu-map-3x";
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
-import {useTabItemFameStore} from "~/pinia/tabItemFame";
-const tabItemFameStore = useTabItemFameStore();
 //添加评论
 import {useCommentStore} from "~/pinia/commentStore";
 const commentStore = useCommentStore();
@@ -1803,10 +1801,6 @@ const switchTab = (item :number) => {
 }
 const switchTabDynamic = (item:number) => {
   tabItemDynamicStore.tabItem = item;
-}
-const switchTabFame = (item:number) => {
-  tabItemStore.tabItem = 7;
-  tabItemFameStore.tabItemFame = item;
 }
 const getClass = (level:string) => {
   switch (level) {
