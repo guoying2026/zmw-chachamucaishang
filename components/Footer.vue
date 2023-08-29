@@ -114,13 +114,13 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
             </li>
           </ul>
         </div>
-        <div class="inline-flex flex-col items-center md:items-start w-full md:w-3/12 min-w-min contact-us">
+        <div class="inline-flex flex-col items-center md:items-start w-full md:w-5/12 min-w-min contact-us">
           <h1 class="title">联系我们</h1>
           <ul class="list-none inline-flex flex-col text-center md:text-left">
             <li v-for="item in contactUsList">{{ item }}</li>
           </ul>
         </div>
-        <div class="inline-flex flex-col items-center md:items-start w-full md:w-3/12 miniapp-code">
+        <div class="inline-flex flex-col items-center md:items-start w-full md:w-2/12 miniapp-code">
           <h1 class="title">&nbsp;</h1>
           <div class="inline-flex flex-col items-center">
             <svg class="w-full h-full rounded-xl" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" width="888" height="888" viewBox="0 0 888 888">
@@ -651,8 +651,8 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
 }
 
 .footer > * {
-  padding-left: calc(100vw / 1920* 280);
-  padding-right: calc(100vw / 1920* 280);
+  padding-left: calc(100vw / 1920* 255);
+  padding-right: calc(100vw / 1920* 255);
 }
 
 .footer .top {
