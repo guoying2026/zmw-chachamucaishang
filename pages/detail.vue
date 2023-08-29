@@ -942,7 +942,7 @@
         </div>
       </div>
     </div>
-    <div class="third_2 computer">
+    <div class="third_2">
       <client-only>
         <div class="third_2_space">
           <text class="tab_" :class="tabItemStore.tabItem*1 === 0 || tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
@@ -958,21 +958,6 @@
           <text class="tab_" :class="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9?'white-color white-underline':''" @click="switchTab(6)">投诉</text>
         </div>
       </client-only>
-    </div>
-    <div class="third_2 mobile">
-      <client-only>
-        <div class="third_2_space">
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 0 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(3)">口碑</text>
-        </div>
-      </client-only>
-    </div>
-    <div class="tab_0_space light_brown mobile" v-if="tabItemStore.tabItem*1 === 0" @click="toggleClamp">
-      <div class="clamp-text" ref="clampTextRef" :class="{'expanded': isExpanded}">
-        东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。
-      </div>
     </div>
     <div class="third_4" v-if="tabItemStore.tabItem*1 === 0">
       <div class="third_4_left white-color">
@@ -1017,33 +1002,10 @@
       <img class="third_4_right computer" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_57253c6a-7053-4709-b69b-6148dca9969b.png" alt=""/>
       <img class="third_4_right mobile" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_86e5c509-e054-4df8-baf8-e3d9b17ce535.png" alt=""/>
     </div>
-    <img class="third_1 mobile" v-if="tabItemStore.tabItem*1 === 0" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
-    <div class="fifth mobile margin-10-top" v-if="tabItemStore.tabItem*1 === 0">
-      <div class="fifth_1">
-        <div class="fifth_1_left">
-          <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_47dff6c4-5504-4353-b87f-8edb6fd49d9b.png" alt="">
-          <text class="margin-10-left">动态</text>
-        </div>
-        <text>更多></text>
-      </div>
-      <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
-        <div class="fifth_2_1">
-          <text>{{dynamic.updateTime}}</text>
-          <text>{{dynamic.type}}</text>
-          <text :class="getClass(dynamic.level)">{{dynamic.level}}</text>
-        </div>
-        <div class="fifth_2_2">
-          <div v-html="dynamic.content" class="fifth_2_2_left"></div>
-          <text class="fifth_2_2_right">详情</text>
-        </div>
-      </div>
-      <img class="margin-20-top" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_450cc483-88c5-49a4-bb46-7f3fd28ab675.png">
-      <img class="margin-20-top" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_da1a539b-ff27-42a5-bbdd-76a19574b391.png">
-    </div>
-    <div class="tab_0_space light_brown computer" v-if="tabItemStore.tabItem*1 === 0">
+    <div class="tab_0_space light_brown" v-if="tabItemStore.tabItem*1 === 0">
       东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。
     </div>
-    <div class="tab_1_space computer" v-if="tabItemStore.tabItem*1 === 1">
+    <div class="tab_1_space" v-if="tabItemStore.tabItem*1 === 1">
       <table>
         <tr>
           <th>企业名称</th>
@@ -1121,103 +1083,7 @@
         </tr>
       </table>
     </div>
-    <div class="six mobile" v-if="tabItemStore.tabItem*1 === 1">
-      <table class="six_table left_width_1">
-      <tr>
-        <td>企业名称</td>
-        <td>{{company_name}}</td>
-      </tr>
-      <tr>
-        <td>法定代表人</td>
-        <td>{{corporation}}</td>
-      </tr>
-      <tr>
-        <td>注册时间</td>
-        <td>{{foundation_date}}</td>
-      </tr>
-      <tr>
-        <td>注册资本</td>
-        <td>{{registered_capital}}</td>
-      </tr>
-      <tr>
-        <td>登记状态</td>
-        <td>{{operation_state}}</td>
-      </tr>
-      <tr>
-        <td>企业类型</td>
-        <td>{{company_sort}}</td>
-      </tr>
-      </table>
-    </div>
-    <div class="six mobile" v-if="tabItemStore.tabItem*1 === 1">
-      <table class="six_table left_width_2">
-      <tr>
-        <td>统一社会信用代码</td>
-        <td>{{credit_code}}</td>
-      </tr>
-      <tr>
-        <td>组织机构代码</td>
-        <td>{{organisation_code}}</td>
-      </tr>
-      <tr>
-        <td>工商注册号</td>
-        <td>{{registration_mark}}</td>
-      </tr>
-      <tr>
-        <td>纳税人识别号</td>
-        <td>{{taxpayer_id}}</td>
-      </tr>
-      </table>
-    </div>
-    <div class="six mobile" v-if="tabItemStore.tabItem*1 === 1">
-      <table class="six_table left_width_3">
-      <tr>
-        <td>营业期限</td>
-        <td>2013-10-11至无固定期限</td>
-      </tr>
-      <tr>
-        <td>纳税人资质</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>人员规模</td>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td>参保人数</td>
-        <td>-</td>
-      </tr>
-        <tr>
-          <td>核准日期</td>
-          <td>-</td>
-        </tr><tr>
-          <td>登记机关</td>
-          <td>-</td>
-        </tr><tr>
-          <td>联系电话</td>
-          <td>-</td>
-        </tr><tr>
-          <td>是否失信</td>
-          <td>-</td>
-        </tr><tr>
-          <td>黑名单</td>
-          <td>-</td>
-        </tr><tr>
-          <td>处罚公示</td>
-          <td>-</td>
-        </tr><tr>
-          <td>投诉记录</td>
-          <td>-</td>
-        </tr><tr>
-          <td>诉讼查询</td>
-          <td>-</td>
-        </tr><tr>
-          <td>经营范围</td>
-          <td>-</td>
-        </tr>
-      </table>
-    </div>
-    <div class="tab_2_space computer" v-if="tabItemStore.tabItem*1 === 2">
+    <div class="tab_2_space" v-if="tabItemStore.tabItem*1 === 2">
       <div class="tab_2_space_1">
         <text>全部动态 46</text>
         <div class="horizontal_line"></div>
@@ -1270,65 +1136,12 @@
         <tr class="table_detail" v-for="(dynamic, index) in dynamicStore.dynamics">
           <td :class="getClass(dynamic.level)">{{dynamic.level}}</td>
           <td>{{dynamic.type}}</td>
-          <td class="wide-column">{{dynamic.content}}</td>
+          <td class="wide-column" v-html="dynamic.content"></td>
           <td>{{dynamic.updateTime}}</td>
           <td>详情</td>
         </tr>
       </table>
     </div>
-    <div class="seven mobile" v-if="tabItemStore.tabItem*1 === 2">
-      <Tag tag="工商" :color="tabItemDynamicStore.tabItem*1 === 1 ?'brown-orange':'brown-white'" @click="switchTabDynamic(1)"></Tag>
-      <Tag tag="风险" :color="tabItemDynamicStore.tabItem*1 === 2 ?'brown-orange':'brown-white'" @click="switchTabDynamic(2)"></Tag>
-      <Tag tag="经营" :color="tabItemDynamicStore.tabItem*1 === 3 ?'brown-orange':'brown-white'" @click="switchTabDynamic(3)"></Tag>
-      <Tag tag="招投标" :color="tabItemDynamicStore.tabItem*1 === 4 ?'brown-orange':'brown-white'" @click="switchTabDynamic(4)"></Tag>
-      <div class="vertical-line"></div>
-      <Tag tag="更多类型" :color="tabItemDynamicStore.tabItem*1 === 5 ?'brown-orange':'brown-white'" more="1" @click="switchTabDynamic(5)"></Tag>
-    </div>
-    <div class="fifth mobile" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 !== 5">
-      <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
-        <div class="fifth_2_1">
-          <text>{{dynamic.updateTime}}</text>
-          <text>{{dynamic.type}}</text>
-          <text :class="getClass(dynamic.level)">{{dynamic.level}}</text>
-        </div>
-        <div class="fifth_2_2">
-          <div v-html="dynamic.content" class="fifth_2_2_left"></div>
-          <text class="fifth_2_2_right">详情</text>
-        </div>
-      </div>
-    </div>
-    <table class="eight left_width_4" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 === 5">
-      <tr>
-        <td @click="tabItemDynamicStore.tabItem*1 === 0">全部类型</td>
-        <td>xxx</td>
-      </tr>
-      <tr>
-        <td>工商</td>
-        <td>xxx</td>
-      </tr>
-      <tr>
-        <td>风险</td>
-        <td>xxx</td>
-      </tr>
-    </table>
-    <img class="third_1 mobile" v-if="tabItemStore.tabItem*1 === 3" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
-    <div class="fifth mobile margin-10-top" v-if="tabItemStore.tabItem*1 === 3">
-      <div class="fifth_1">
-        <div class="fifth_1_left">
-          <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_3961e5c7-53cd-4c91-b1da-92f70acf74d8.png" alt="">
-          <text class="margin-10-left">评论</text>
-        </div>
-        <text @click="switchTab(7)">更多></text>
-      </div>
-    </div>
-    <CommentList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 3"></CommentList>
-    <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" class="mobile" v-if="tabItemStore.tabItem*1 === 3">
-      <!-- 定义插槽内容 -->
-      <template #trigger>
-        <!-- Tag组件，当点击时触发openCommentBox方法 -->
-        <Tag tag="我要点评" color="orange_long"></Tag>
-      </template>
-    </AddForm>
     <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
       <div class="tab_3_space_left"></div>
       <div class="tab_3_space_middle">
@@ -1518,7 +1331,7 @@
       </div>
     </div>
   </div>
-  <div class="third mobile dark_third_bg" v-if="tabItemStore.tabItem*1 >= 4">
+  <div class="third mobile" :class="tabItemStore.tabItem*1 >= 4 ? 'dark_third_bg':''">
     <div class="second_1">
       <text class="second_1_1">{{company_name}}</text>
       <div class="second_1_2">
@@ -1550,7 +1363,7 @@
         </div>
       </div>
     </div>
-    <div class="third_2">
+    <div class="third_2" v-if="tabItemStore.tabItem*1 >= 4">
       <client-only>
         <div class="third_2_space blue-tab">
           <text class="tab_" :class="(tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7)?'white-color blue-underline':''" @click="switchTab(7)">评价</text>
@@ -1559,6 +1372,209 @@
         </div>
       </client-only>
     </div>
+    <div class="third_2" v-else>
+      <client-only>
+        <div class="third_2_space">
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 0 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(3)">口碑</text>
+        </div>
+      </client-only>
+    </div>
+    <div class="tab_0_space light_brown" v-if="tabItemStore.tabItem*1 === 0" @click="toggleClamp">
+      <div class="clamp-text" ref="clampTextRef" :class="{'expanded': isExpanded}">
+        东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。
+      </div>
+    </div>
+    <img class="third_1" v-if="tabItemStore.tabItem*1 === 0" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
+    <div class="third_4" v-if="tabItemStore.tabItem*1 === 0">
+      <div class="third_4_left white-color">
+        <div class="third_4_left_4">
+          <div class="third_4_left_4_1">
+            <img class="third_4_left_4_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_395067ed-d2f0-4c5b-b2fc-cb322af9cc75.png" alt="商家地址图标"/>
+            <text class="third_4_left_4_1_right">商家地址</text>
+          </div>
+        </div>
+        <client-only><baidu-map class="map" :center="{lng: 118.906004, lat: 33.962873}" :zoom="5" @ready="ready" ></baidu-map></client-only>
+        <div class="map_address">
+          <svg class="icon" viewBox="0 0 1024 1024" width="200" height="200"><path d="M513.8 63.4C327.2 63.4 173 221.2 173 414.9c0 186.5 304.9 520.2 319.3 534.5 3.6 7.2 14.3 10.8 21.5 10.8s17.9-3.6 21.5-10.8l104-125.6C779.2 644.5 851 508.2 851 414.9c3.6-193.7-150.7-351.5-337.2-351.5z m0 513c-86.1 0-154.3-71.7-154.3-161.4s68.2-161.4 154.3-161.4S668 325.3 668 414.9s-68.1 161.5-154.2 161.5z" fill="#ffffff"></path></svg>
+          <text>{{address}}</text>
+        </div>
+      </div>
+      <img class="third_4_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_86e5c509-e054-4df8-baf8-e3d9b17ce535.png" alt=""/>
+    </div>
+    <div class="fifth margin-10-top" v-if="tabItemStore.tabItem*1 === 0">
+      <div class="fifth_1">
+        <div class="fifth_1_left">
+          <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_47dff6c4-5504-4353-b87f-8edb6fd49d9b.png" alt="">
+          <text class="margin-10-left">动态</text>
+        </div>
+        <text @click="switchTab(2)">更多></text>
+      </div>
+      <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
+        <div class="fifth_2_1">
+          <text>{{dynamic.updateTime}}</text>
+          <text>{{dynamic.type}}</text>
+          <text :class="getClass(dynamic.level)">{{dynamic.level}}</text>
+        </div>
+        <div class="fifth_2_2">
+          <div v-html="dynamic.content" class="fifth_2_2_left"></div>
+          <text class="fifth_2_2_right">详情</text>
+        </div>
+      </div>
+      <img class="margin-20-top" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_450cc483-88c5-49a4-bb46-7f3fd28ab675.png">
+      <img class="margin-20-top" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_da1a539b-ff27-42a5-bbdd-76a19574b391.png">
+    </div>
+    <div class="six" v-if="tabItemStore.tabItem*1 === 1">
+      <table class="six_table left_width_1">
+        <tr>
+          <td>企业名称</td>
+          <td>{{company_name}}</td>
+        </tr>
+        <tr>
+          <td>法定代表人</td>
+          <td>{{corporation}}</td>
+        </tr>
+        <tr>
+          <td>注册时间</td>
+          <td>{{foundation_date}}</td>
+        </tr>
+        <tr>
+          <td>注册资本</td>
+          <td>{{registered_capital}}</td>
+        </tr>
+        <tr>
+          <td>登记状态</td>
+          <td>{{operation_state}}</td>
+        </tr>
+        <tr>
+          <td>企业类型</td>
+          <td>{{company_sort}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="six" v-if="tabItemStore.tabItem*1 === 1">
+      <table class="six_table left_width_2">
+        <tr>
+          <td>统一社会信用代码</td>
+          <td>{{credit_code}}</td>
+        </tr>
+        <tr>
+          <td>组织机构代码</td>
+          <td>{{organisation_code}}</td>
+        </tr>
+        <tr>
+          <td>工商注册号</td>
+          <td>{{registration_mark}}</td>
+        </tr>
+        <tr>
+          <td>纳税人识别号</td>
+          <td>{{taxpayer_id}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="six" v-if="tabItemStore.tabItem*1 === 1">
+      <table class="six_table left_width_3">
+        <tr>
+          <td>营业期限</td>
+          <td>2013-10-11至无固定期限</td>
+        </tr>
+        <tr>
+          <td>纳税人资质</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>人员规模</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>参保人数</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>核准日期</td>
+          <td>-</td>
+        </tr><tr>
+        <td>登记机关</td>
+        <td>-</td>
+      </tr><tr>
+        <td>联系电话</td>
+        <td>-</td>
+      </tr><tr>
+        <td>是否失信</td>
+        <td>-</td>
+      </tr><tr>
+        <td>黑名单</td>
+        <td>-</td>
+      </tr><tr>
+        <td>处罚公示</td>
+        <td>-</td>
+      </tr><tr>
+        <td>投诉记录</td>
+        <td>-</td>
+      </tr><tr>
+        <td>诉讼查询</td>
+        <td>-</td>
+      </tr><tr>
+        <td>经营范围</td>
+        <td>-</td>
+      </tr>
+      </table>
+    </div>
+    <div class="seven" v-if="tabItemStore.tabItem*1 === 2">
+      <Tag tag="工商" :color="tabItemDynamicStore.tabItem*1 === 1 ?'brown-orange':'brown-white'" @click="switchTabDynamic(1)"></Tag>
+      <Tag tag="风险" :color="tabItemDynamicStore.tabItem*1 === 2 ?'brown-orange':'brown-white'" @click="switchTabDynamic(2)"></Tag>
+      <Tag tag="经营" :color="tabItemDynamicStore.tabItem*1 === 3 ?'brown-orange':'brown-white'" @click="switchTabDynamic(3)"></Tag>
+      <Tag tag="招投标" :color="tabItemDynamicStore.tabItem*1 === 4 ?'brown-orange':'brown-white'" @click="switchTabDynamic(4)"></Tag>
+      <div class="vertical-line"></div>
+      <Tag tag="更多类型" :color="tabItemDynamicStore.tabItem*1 === 5 ?'brown-orange':'brown-white'" more="1" @click="switchTabDynamic(5)"></Tag>
+    </div>
+    <div class="fifth" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 !== 5">
+      <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
+        <div class="fifth_2_1">
+          <text>{{dynamic.updateTime}}</text>
+          <text>{{dynamic.type}}</text>
+          <text :class="getClass(dynamic.level)">{{dynamic.level}}</text>
+        </div>
+        <div class="fifth_2_2">
+          <div v-html="dynamic.content" class="fifth_2_2_left"></div>
+          <text class="fifth_2_2_right">详情</text>
+        </div>
+      </div>
+    </div>
+    <table class="eight left_width_4" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 === 5">
+      <tr>
+        <td @click="tabItemDynamicStore.tabItem*1 === 0">全部类型</td>
+        <td>xxx</td>
+      </tr>
+      <tr>
+        <td>工商</td>
+        <td>xxx</td>
+      </tr>
+      <tr>
+        <td>风险</td>
+        <td>xxx</td>
+      </tr>
+    </table>
+    <img class="third_1" v-if="tabItemStore.tabItem*1 === 3" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
+    <div class="fifth margin-10-top" v-if="tabItemStore.tabItem*1 === 3">
+      <div class="fifth_1">
+        <div class="fifth_1_left">
+          <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_3961e5c7-53cd-4c91-b1da-92f70acf74d8.png" alt="">
+          <text class="margin-10-left">评论</text>
+        </div>
+        <text @click="switchTab(7)">更多></text>
+      </div>
+    </div>
+    <CommentList :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></CommentList>
+    <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" class="mobile" v-if="tabItemStore.tabItem*1 === 3">
+      <!-- 定义插槽内容 -->
+      <template #trigger>
+        <!-- Tag组件，当点击时触发openCommentBox方法 -->
+        <Tag tag="我要点评" color="orange_long"></Tag>
+      </template>
+    </AddForm>
     <CommentListMobile  v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
     <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
       <!-- 定义插槽内容 -->
