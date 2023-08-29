@@ -359,7 +359,7 @@ nuxtApp.hook("page:finish", () => {
         <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
           <li @click.stop="isShowSearchHistoryListDelete?'':searchInputHistoryListItemClickHandle(item.name)" :class="'relative inline-flex flex-row items-center mt-4' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
             <img v-if="item.logo&&item.logo.length>0" class="w-8 h-8 object-cover search-history-list-item-logo" :src="item.logo" />
-            <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" :style="'background-color: ' + item.word_logo_bg_color + ';'">
+            <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" :style="'min-width: 2rem;background-color: ' + item.word_logo_bg_color + ';'">
               <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name?item.short_name:'' }}</span>
             </div>
             <span class="text-sm pl-1 search-history-list-item-name">{{ item.name }}</span>
@@ -541,6 +541,14 @@ input:focus-visible {
 
 .search-history-list-item-logo {
   border-radius: 6px;
+}
+
+.search-history-list-item-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 @media (min-width: 768px) {

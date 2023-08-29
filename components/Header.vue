@@ -249,7 +249,8 @@ nuxtApp.hook('page:finish', () => {
 }
 
 @media (min-width: 1024px) {
-  .header {
+  .header,
+  .header_white_space {
     height: calc(100vw / 1920 * 112);
   }
   .header > div {
