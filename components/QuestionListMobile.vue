@@ -1,6 +1,6 @@
 <template>
   <div class="question">
-    <div :class="isBlue?'question_item blue_comment':'question_item'" v-for="(question, index) in questionStore.questions">
+    <div class="question_item blue_comment" v-for="(question, index) in questionStore.questions">
       <div class="question_item_1">
         <div class="avatar-wrapper">
           <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
@@ -95,10 +95,4 @@ import {QuestionStore} from "~/types/questionStore";
 import LikeSwitch from "~/components/LikeSwitch.vue";
 
 const questionStore:QuestionStore = useQuestionStore();
-const props = defineProps({
-  isBlue:{
-    type: Boolean,
-    default: false,
-  }
-});
 </script>

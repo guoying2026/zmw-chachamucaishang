@@ -1,10 +1,9 @@
 <template>
-  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png" alt="背景" v-if="isShowReply && !isBlue"/>
-  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_e67a3f1e-771d-42c5-ba00-84ecfc320172.png" alt="背景" v-if="isShowReply && isBlue"/>
+  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_e67a3f1e-771d-42c5-ba00-84ecfc320172.png" alt="背景" v-if="isShowReply"/>
   <NoDetail tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
 
   <div class="comment complaint" v-else>
-    <div :class="isBlue?'comment_item blue_comment':'comment_item blue_item_bg'" v-for="(complaint, index) in complaintStore.complaints">
+    <div class="comment_item blue_comment" v-for="(complaint, index) in complaintStore.complaints">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="complaint.avatar" width="32" height="32" :alt="complaint.user">
         <div class="avatar-name__name margin-10-left">
@@ -45,7 +44,7 @@
         </div>
       </div>
       <div class="reply" v-if="complaint.replies && complaint.replies.length && isShowReply">
-        <div :class="isBlue?'blue_reply reply_item':'reply_item'" v-for="(reply,replyIndex) in complaint.replies">
+        <div class="blue_reply reply_item" v-for="(reply,replyIndex) in complaint.replies">
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
             <div class="avatar-name__name margin-10-left">
@@ -103,9 +102,5 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
-  isBlue:{
-    type: Boolean,
-    default: false,
-  }
 });
 </script>

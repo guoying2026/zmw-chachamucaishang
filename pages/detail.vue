@@ -1559,7 +1559,7 @@
         </div>
       </client-only>
     </div>
-    <CommentListMobile :is-blue="true" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
+    <CommentListMobile  v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
     <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
       <!-- 定义插槽内容 -->
       <template #trigger>
@@ -1572,7 +1572,7 @@
     </AddFormMobile>
 
     <div class="nine" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8">
-      <QuestionListMobile :is-blue="true"></QuestionListMobile>
+      <QuestionListMobile ></QuestionListMobile>
       <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question" class="mobile">
         <!-- 定义插槽内容 -->
         <template #trigger>
@@ -1586,7 +1586,7 @@
       </AddFormMobile>
     </div>
     <div class="nine" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9">
-      <ComplaintListMobile :is-blue="true"></ComplaintListMobile>
+      <ComplaintListMobile ></ComplaintListMobile>
       <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint" class="mobile">
         <!-- 定义插槽内容 -->
         <template #trigger>

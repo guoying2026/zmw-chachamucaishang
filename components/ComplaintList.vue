@@ -1,10 +1,44 @@
+<style scoped>
+.complaint_first {
+  position: relative;
+  display: inline-block;
+}
+
+.image-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.text-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;  /* 用于在容器两侧加上一些间距 */
+  background-color: rgba(255, 255, 255, 0.6);  /* 用于增加背景色使文本更清晰，可根据需要调整 */
+}
+
+.text {
+  padding: 5px;
+}
+
+</style>
 <template>
-  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png" alt="背景" v-if="isShowReply && !isBlue"/>
-  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_e67a3f1e-771d-42c5-ba00-84ecfc320172.png" alt="背景" v-if="isShowReply && isBlue"/>
+  <div class="complaint_first">
+    <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png" alt="背景" v-if="isShowReply"/>
+    <div class="text-container">
+      <div class="text">文本1</div>
+      <div class="text">文本2</div>
+      <div class="text">文本3</div>
+    </div>
+  </div>
   <NoDetail tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
 
   <div class="comment complaint" v-else>
-    <div :class="isBlue?'comment_item blue_comment':'comment_item blue_item_bg'" v-for="(complaint, index) in complaintStore.complaints">
+    <div class="comment_item blue_item_bg" v-for="(complaint, index) in complaintStore.complaints">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="complaint.avatar" width="32" height="32" :alt="complaint.user">
         <div class="avatar-name__name margin-10-left">
@@ -45,7 +79,7 @@
         </div>
       </div>
       <div class="reply" v-if="complaint.replies && complaint.replies.length && isShowReply">
-        <div :class="isBlue?'blue_reply reply_item':'reply_item'" v-for="(reply,replyIndex) in complaint.replies">
+        <div class="reply_item" v-for="(reply,replyIndex) in complaint.replies">
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
             <div class="avatar-name__name margin-10-left">
@@ -103,9 +137,5 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
-  isBlue:{
-    type: Boolean,
-    default: false,
-  }
 });
 </script>
