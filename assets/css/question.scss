@@ -158,4 +158,21 @@ hr {
   background-color: #3F1E00;  /* 可根据需要更改颜色 */
   margin: 20px 0 15px 0;
 }
-
+@media (max-width: 768px) {
+  .blue_comment{
+    background-color: #092F85;
+  }
+  .question {
+    margin-top: 0;
+  }
+  .question_item_2, .answer_item_2 {
+    margin-left: 0;
+  }
+  .question_item_4,.answer_item_4{
+    font-size: 12px !important;
+    height: 18px;
+  }
+  .blue-color{
+    color: #90A7DB !important;
+  }
+}

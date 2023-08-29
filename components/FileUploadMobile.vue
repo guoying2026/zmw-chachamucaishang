@@ -16,7 +16,7 @@
         :on-remove="handleRemove"
         :limit="3"
     >
-      <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_89ef73df-afa2-4f6b-b2d1-0faaf684cf0d.png" alt="上传图片">
+      <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_d0579ce2-0c1a-4181-b632-70a2d223f79a.png" alt="上传图片">
     </el-upload>
     <el-dialog v-model="dialogVisible">
       <img w-full :src="dialogImageUrl" alt="Preview Image" />
@@ -42,27 +42,34 @@ const {
 </script>
 
 <style scoped>
+.upload_css:deep(.el-upload-list--picture-card .el-upload-list__item){
+  border: none;
+  background-color: unset;
+}
 .upload_css{
   margin-top: 20px;
 }
 .upload_css img{
-  width: 148px;
-  height: 148px;
+  width: 80px;
+  height: 80px;
 }
 /* 可以添加您需要的CSS样式 */
 .file_upload:deep(.el-upload--picture-card) {
-  //--el-upload-picture-card-size: 148px;
+//--el-upload-picture-card-size: 148px;
   border: none !important;
   border-radius: 10px;
+  width: 80px;
+  height: 80px;
 }
 .tips{
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  color: #333;
+  color: #fff;
   margin-top: 20px;
 }
 .tips .limit{
   font-size: 14px;
+  color: #616161;
 }
 </style>

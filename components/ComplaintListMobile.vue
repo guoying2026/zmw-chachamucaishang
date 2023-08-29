@@ -11,10 +11,9 @@
 }
 
 .text-container {
-  width: 60%;
+  width: 100%;
   position: absolute;
-  bottom: 15%;
-  right: 6%;
+  bottom: 9%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -25,8 +24,8 @@
   font-size: 10px;
 }
 .gradient-background {
-  background: linear-gradient(to right, #B1621A, #BB600D);
-  padding: 5px 20px 8px 18px;
+  background: linear-gradient(to bottom, #3B94F1, #095EB9);
+  padding: 5px 10px;
   border-radius: 50px;
 }
 .text-click{
@@ -37,17 +36,17 @@
 }
 </style>
 <template>
-  <div class="complaint_first">
-    <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png" alt="背景" v-if="isShowReply"/>
+  <div class="complaint_first" v-if="isShowReply">
+    <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_e67a3f1e-771d-42c5-ba00-84ecfc320172.png" alt="背景"/>
     <div class="text-container">
       <div class="text text-click">
         <text>点击</text>
-        <AddForm title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint">
+        <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint">
           <!-- 定义插槽内容 -->
           <template #trigger>
             <text class="gradient-background margin-10-left">我要投诉</text>
           </template>
-        </AddForm>
+        </AddFormMobile>
       </div>
       <div class="text">平台审核内容</div>
       <div class="text">展示投诉内容</div>
@@ -56,7 +55,7 @@
   <NoDetail tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
 
   <div class="comment complaint" v-else>
-    <div class="comment_item blue_item_bg" v-for="(complaint, index) in complaintStore.complaints">
+    <div class="comment_item blue_comment" v-for="(complaint, index) in complaintStore.complaints">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="complaint.avatar" width="32" height="32" :alt="complaint.user">
         <div class="avatar-name__name margin-10-left">
@@ -84,20 +83,20 @@
           </el-col>
         </el-row>
         <div class="comment_item_3">
-          <text class=" time grey-color">{{complaint.time}}</text>
+          <text class=" time blue-color">{{complaint.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="complaint"></LikeSwitch>
-            <AddForm title-box="回复" company-name="张姗姗木材加工厂" feedback-type="complaintReply">
+            <AddFormMobile title-box="回复" company-name="张姗姗木材加工厂" feedback-type="complaintReply">
               <!-- 定义插槽内容 -->
               <template #trigger>
-                <text class="margin-20-left grey-color">回复</text>
+                <text class="margin-20-left blue-color">回复</text>
               </template>
-            </AddForm>
+            </AddFormMobile>
           </div>
         </div>
       </div>
       <div class="reply" v-if="complaint.replies && complaint.replies.length && isShowReply">
-        <div class="reply_item" v-for="(reply,replyIndex) in complaint.replies">
+        <div class="blue_reply reply_item" v-for="(reply,replyIndex) in complaint.replies">
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
             <div class="avatar-name__name margin-10-left">
@@ -125,15 +124,15 @@
               </el-col>
             </el-row>
             <div class="reply_item_3">
-              <text class=" time grey-color">{{reply.time}}</text>
+              <text class=" time blue-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="complaintReply"></LikeSwitch>
-                <AddForm title-box="回复" :index="index" company-name="张姗姗木材加工厂" feedback-type="complaintReply">
+                <AddFormMobile title-box="回复" :index="index" company-name="张姗姗木材加工厂" feedback-type="complaintReply">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
-                    <text class="margin-20-left grey-color">回复</text>
+                    <text class="margin-20-left blue-color">回复</text>
                   </template>
-                </AddForm>
+                </AddFormMobile>
               </div>
             </div>
           </div>
@@ -145,11 +144,9 @@
 <script setup lang="ts">
 import LikeSwitch from "~/components/LikeSwitch.vue";
 import NoDetail from "~/components/NoDetail.vue";
-import {ComplaintStore} from "~/types/complaintStore";
 import {useComplaintStore} from "~/pinia/complaintStore";
-import Tag from "~/components/Tag.vue";
 
-const complaintStore:ComplaintStore = useComplaintStore();
+const complaintStore = useComplaintStore();
 
 const props = defineProps({
   isShowReply:{

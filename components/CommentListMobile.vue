@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-    <div class="comment_item brown_item_bg" v-for="(comment, index) in commentStore.comments">
+    <div class="comment_item blue_comment" v-for="(comment, index) in commentStore.comments">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="comment.avatar" width="32" height="32" :alt="comment.user">
         <div class="avatar-name__name margin-10-left">
@@ -28,20 +28,20 @@
           </el-col>
         </el-row>
         <div class="comment_item_3">
-          <text class=" time grey-color">{{comment.time}}</text>
+          <text class=" time blue-color">{{comment.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-            <AddForm title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
+            <AddFormMobile title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
               <!-- 定义插槽内容 -->
               <template #trigger>
-                <text class="margin-20-left grey-color">回复</text>
+                <text class="margin-20-left blue-color">回复</text>
               </template>
-            </AddForm>
+            </AddFormMobile>
           </div>
         </div>
       </div>
       <div class="reply" v-if="comment.replies && comment.replies.length && isShowReply">
-        <div class="reply_item" v-for="(reply,replyIndex) in comment.replies">
+        <div class="blue_reply reply_item" v-for="(reply,replyIndex) in comment.replies">
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
             <div class="avatar-name__name margin-10-left">
@@ -69,15 +69,15 @@
               </el-col>
             </el-row>
             <div class="reply_item_3">
-              <text class="time grey-color">{{reply.time}}</text>
+              <text class="time blue-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
-                <AddForm title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
+                <AddFormMobile title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
-                    <text class="margin-20-left grey-color">回复</text>
+                    <text class="margin-20-left blue-color">回复</text>
                   </template>
-                </AddForm>
+                </AddFormMobile>
               </div>
             </div>
           </div>

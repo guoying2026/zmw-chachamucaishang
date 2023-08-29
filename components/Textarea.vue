@@ -17,23 +17,21 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { defineProps } from 'vue';
-import { defineEmits } from 'vue';
+import {useTextareaLogic} from "~/composables/textarea";
+import {defineProps,defineEmits} from "vue";
 
-// 1. Define emit function
-const emit = defineEmits();
 const props = defineProps({
   placeholderText: {
     type: String,
     default: ''
   },
 });
-const localTextareaValue = ref('');
-watch(() => localTextareaValue.value, (newVal) => {
-  emit("update:value", newVal);
-});
-
+const emit = defineEmits();
+const {
+  localTextareaValue,
+} = useTextareaLogic(emit);
 </script>
+
 <style scoped>
 .addBox{
   margin-top: 10px;
