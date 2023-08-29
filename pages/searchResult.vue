@@ -481,6 +481,21 @@ function changeIsCanMultiSelectProvince() {
       }
       return item;
     });
+  } else {
+    areaList.value = areaList.value.map(item => {
+      if (!item.is_selected) return item;
+      let isHasFirstSelectedCity = item.childs.filter((subitem, subindex) => {
+        if (subindex == 0) return false;
+        return subitem.is_selected;
+      }).length > 0;
+      if (isHasFirstSelectedCity) return item;
+      item.childs = item.childs.map((subitem, subindex) => {
+        if (subindex == 0) return subitem;
+        subitem.is_selected = true;
+        return subitem;
+      });
+      return item;
+    })
   }
 }
 
