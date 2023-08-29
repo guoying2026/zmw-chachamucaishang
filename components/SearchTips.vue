@@ -475,6 +475,11 @@ nuxtApp.hook("page:finish", () => {
 .search-history-list-item-name,
 .related-enterprises-list-item-name {
   color: rgb(51,51,51);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 .clear-search-history-item-button {
