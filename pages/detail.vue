@@ -906,7 +906,7 @@
     <img class="first" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e50b0b18-3ddc-49e5-b4f7-1d24bd8e12fb.png" alt=""/>
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
-  <div class="third computer">
+  <div class="third" v-if="tabItemStore.tabItem*1 <= 4">
     <div class="second_1">
       <text class="second_1_1">{{company_name}}</text>
       <div class="second_1_2">
@@ -941,17 +941,17 @@
     <div class="third_2 computer">
       <client-only>
         <div class="third_2_space">
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 0 || tabItemStore.tabItem*1 === 6 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 0 || tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
           <text>|</text>
           <text class="tab_" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
           <text>|</text>
           <text class="tab_" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 3 || tabItemStore.tabItem*1 === 7?'white-color white-underline':''" @click="switchTab(3)">评论</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7?'white-color white-underline':''" @click="switchTab(4)">评论</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 8?'white-color white-underline':''" @click="switchTab(4)">问答</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8?'white-color white-underline':''" @click="switchTab(5)">问答</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 9?'white-color white-underline':''" @click="switchTab(5)">投诉</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9?'white-color white-underline':''" @click="switchTab(6)">投诉</text>
         </div>
       </client-only>
     </div>
@@ -961,7 +961,7 @@
           <text class="tab_" :class="tabItemStore.tabItem*1 === 0 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
           <text class="tab_" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
           <text class="tab_" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 6 ?'white-color white-underline':''" @click="switchTab(6)">口碑</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(3)">口碑</text>
         </div>
       </client-only>
     </div>
@@ -1307,8 +1307,8 @@
         <td>xxx</td>
       </tr>
     </table>
-    <img class="third_1 mobile" v-if="tabItemStore.tabItem*1 === 6" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
-    <div class="fifth mobile margin-10-top" v-if="tabItemStore.tabItem*1 === 6">
+    <img class="third_1 mobile" v-if="tabItemStore.tabItem*1 === 3" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
+    <div class="fifth mobile margin-10-top" v-if="tabItemStore.tabItem*1 === 3">
       <div class="fifth_1">
         <div class="fifth_1_left">
           <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_3961e5c7-53cd-4c91-b1da-92f70acf74d8.png" alt="">
@@ -1317,15 +1317,15 @@
         <text @click="switchTab(7)">更多></text>
       </div>
     </div>
-    <CommentList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></CommentList>
-    <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+    <CommentList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 3"></CommentList>
+    <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" class="mobile" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
         <Tag tag="我要点评" color="orange_long"></Tag>
       </template>
     </AddForm>
-    <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3 || tabItemStore.tabItem*1 === 7">
+    <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
       <div class="tab_3_space_left"></div>
       <div class="tab_3_space_middle">
         <div class="tab_3_space_1">
@@ -1427,7 +1427,7 @@
         </div>
       </div>
     </div>
-    <div class="tab_4_space" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 8">
+    <div class="tab_4_space" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8">
       <div class="tab_4_space_left"></div>
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
@@ -1490,7 +1490,7 @@
         </div>
       </div>
     </div>
-    <div class="tab_5_space" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 9">
+    <div class="tab_5_space" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9">
       <div class="tab_5_space_left"></div>
       <div class="tab_5_space_middle">
         <ComplaintList></ComplaintList>
@@ -1514,7 +1514,7 @@
       </div>
     </div>
   </div>
-  <div class="third mobile dark_third_bg">
+  <div class="third mobile dark_third_bg" v-if="tabItemStore.tabItem*1 >= 4">
     <div class="second_1">
       <text class="second_1_1">{{company_name}}</text>
       <div class="second_1_2">
@@ -1549,18 +1549,18 @@
     <div class="third_2">
       <client-only>
         <div class="third_2_space blue-tab">
-          <text class="tab_" :class="(tabItemStore.tabItem*1 === 3 || tabItemStore.tabItem*1 === 7)?'white-color blue-underline':''" @click="switchTab(7)">评价</text>
-          <text class="tab_" :class="(tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 8) ?'white-color blue-underline':''" @click="switchTab(8)">问答</text>
-          <text class="tab_" :class="(tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 9) ?'white-color blue-underline':''" @click="switchTab(9)">投诉</text>
+          <text class="tab_" :class="(tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7)?'white-color blue-underline':''" @click="switchTab(7)">评价</text>
+          <text class="tab_" :class="(tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8) ?'white-color blue-underline':''" @click="switchTab(8)">问答</text>
+          <text class="tab_" :class="(tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9) ?'white-color blue-underline':''" @click="switchTab(9)">投诉</text>
         </div>
       </client-only>
     </div>
-    <CommentList :is-blue="true" v-if="tabItemStore.tabItem*1 === 3 || tabItemStore.tabItem*1 === 7"></CommentList>
+    <CommentList :is-blue="true" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentList>
     <div class="nine">
-      <ComplaintList :is-blue="true" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 9"></ComplaintList>
+      <ComplaintList :is-blue="true" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9"></ComplaintList>
     </div>
   </div>
-  <div class="fifth_question" v-if="tabItemStore.tabItem*1 === 6">
+  <div class="fifth_question" v-if="tabItemStore.tabItem*1 === 3">
     <div class="fifth_question_space mobile">
       <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_bcbc6a8e-60b8-4286-bef2-bf6590599e1a.png" alt="">
       <div class="fifth_1 margin-10-top">
@@ -1783,6 +1783,7 @@ const {
 
 onMounted(() => {
    fetchShopDetails();
+   console.log(tabItemStore.tabItem);
 });
 const clampTextRef =  ref<HTMLElement | null>(null);
 const isExpanded = ref(false);
@@ -1798,6 +1799,7 @@ const toggleClamp = () => {
 }
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
+  console.log(tabItemStore.tabItem);
 }
 const switchTabDynamic = (item:number) => {
   tabItemDynamicStore.tabItem = item;
