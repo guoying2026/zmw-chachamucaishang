@@ -1457,6 +1457,11 @@ nuxtApp.hook('page:finish', () => {
     padding: calc(100vw / 1920 * 1) calc(100vw / 1920 * 8);
   }
 }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .search-list-item-title + span {
+    transform: scale(0.75) translateX(-10px);
+  }
+}
 @media (min-width: 1024px) {
   .select-box-pc,
   .search-result {
