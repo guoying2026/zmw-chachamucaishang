@@ -961,11 +961,11 @@
     </div>
     <div class="third_4" v-if="tabItemStore.tabItem*1 === 0">
       <div class="third_4_left white-color">
-        <div class="third_4_left_1 computer">
+        <div class="third_4_left_1">
           <img class="third_4_left_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_b1e32456-293f-44db-bae5-62a5749d9b5b.png"  alt=""/>
           <text class="third_4_left_1_right">企业简介</text>
         </div>
-        <div class="third_4_left_1_detail computer">
+        <div class="third_4_left_1_detail">
           <div class="third_4_left_1_detail_1">
             <text>{{company_name}}</text>
           </div>
@@ -991,7 +991,7 @@
             <img class="third_4_left_4_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_395067ed-d2f0-4c5b-b2fc-cb322af9cc75.png" alt="商家地址图标"/>
             <text class="third_4_left_4_1_right">商家地址</text>
           </div>
-          <text class="third_4_left_4_2 computer">附近商家 ></text>
+          <text class="third_4_left_4_2">附近商家 ></text>
         </div>
         <client-only><baidu-map class="map" :center="{lng: 118.906004, lat: 33.962873}" :zoom="5" @ready="ready" ></baidu-map></client-only>
         <div class="map_address">
@@ -999,8 +999,7 @@
           <text>{{address}}</text>
         </div>
       </div>
-      <img class="third_4_right computer" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_57253c6a-7053-4709-b69b-6148dca9969b.png" alt=""/>
-      <img class="third_4_right mobile" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_86e5c509-e054-4df8-baf8-e3d9b17ce535.png" alt=""/>
+      <img class="third_4_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_57253c6a-7053-4709-b69b-6148dca9969b.png" alt=""/>
     </div>
     <div class="tab_0_space light_brown" v-if="tabItemStore.tabItem*1 === 0">
       东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。
@@ -1568,13 +1567,13 @@
       </div>
     </div>
     <CommentList :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></CommentList>
-    <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" class="mobile" v-if="tabItemStore.tabItem*1 === 3">
+    <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
         <Tag tag="我要点评" color="orange_long"></Tag>
       </template>
-    </AddForm>
+    </AddFormMobile>
     <CommentListMobile  v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
     <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
       <!-- 定义插槽内容 -->
@@ -1589,7 +1588,7 @@
 
     <div class="nine" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8">
       <QuestionListMobile ></QuestionListMobile>
-      <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question" class="mobile">
+      <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question">
         <!-- 定义插槽内容 -->
         <template #trigger>
           <!-- 当点击时触发openCommentBox方法 -->
@@ -1603,7 +1602,7 @@
     </div>
     <div class="nine" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9">
       <ComplaintListMobile ></ComplaintListMobile>
-      <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint" class="mobile">
+      <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint">
         <!-- 定义插槽内容 -->
         <template #trigger>
           <HoverButton>
@@ -1615,8 +1614,8 @@
       </AddFormMobile>
     </div>
   </div>
-  <div class="fifth_question" v-if="tabItemStore.tabItem*1 === 3">
-    <div class="fifth_question_space mobile">
+  <div class="fifth_question mobile" v-if="tabItemStore.tabItem*1 === 3">
+    <div class="fifth_question_space">
       <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_bcbc6a8e-60b8-4286-bef2-bf6590599e1a.png" alt="">
       <div class="fifth_1 margin-10-top">
         <div class="fifth_1_left">
@@ -1654,13 +1653,13 @@
         <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
       </div>
     </div>
-    <AddForm title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+    <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
         <Tag tag="我要提问" color="orange_long"></Tag>
       </template>
-    </AddForm>
+    </AddFormMobile>
     <div class="fifth_1 margin-10-top">
       <div class="fifth_1_left">
         <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_10123398-f5cb-48b9-b40d-7d8cfdf4ba82.png" alt="">
@@ -1668,14 +1667,14 @@
       </div>
       <text @click="switchTab(9)">更多></text>
     </div>
-    <ComplaintList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></ComplaintList>
-    <AddForm title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+    <ComplaintListMobile :is-show-reply="false"></ComplaintListMobile>
+    <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
         <Tag tag="我要投诉" color="orange_long"></Tag>
       </template>
-    </AddForm>
+    </AddFormMobile>
   </div>
   <div class="second computer" v-if="tabItemStore.tabItem*1 === 0">
     <img class="third_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1a69286f-36e4-4694-bcbb-5219a41a4d96.png" alt=""/>

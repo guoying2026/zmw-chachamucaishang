@@ -28,13 +28,13 @@
           </el-col>
         </el-row>
         <div class="comment_item_3">
-          <text class=" time grey-color">{{comment.time}}</text>
+          <text class=" time blue-color">{{comment.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
             <AddFormMobile title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
               <!-- 定义插槽内容 -->
               <template #trigger>
-                <text class="margin-20-left grey-color">回复</text>
+                <text class="margin-20-left blue-color">回复</text>
               </template>
             </AddFormMobile>
           </div>
@@ -69,13 +69,13 @@
               </el-col>
             </el-row>
             <div class="reply_item_3">
-              <text class="time grey-color">{{reply.time}}</text>
+              <text class="time blue-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
                 <AddFormMobile title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
-                    <text class="margin-20-left grey-color">回复</text>
+                    <text class="margin-20-left blue-color">回复</text>
                   </template>
                 </AddFormMobile>
               </div>

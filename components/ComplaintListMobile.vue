@@ -36,8 +36,8 @@
 }
 </style>
 <template>
-  <div class="complaint_first">
-    <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_e67a3f1e-771d-42c5-ba00-84ecfc320172.png" alt="背景" v-if="isShowReply"/>
+  <div class="complaint_first" v-if="isShowReply">
+    <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_e67a3f1e-771d-42c5-ba00-84ecfc320172.png" alt="背景"/>
     <div class="text-container">
       <div class="text text-click">
         <text>点击</text>
@@ -83,13 +83,13 @@
           </el-col>
         </el-row>
         <div class="comment_item_3">
-          <text class=" time grey-color">{{complaint.time}}</text>
+          <text class=" time blue-color">{{complaint.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="complaint"></LikeSwitch>
             <AddFormMobile title-box="回复" company-name="张姗姗木材加工厂" feedback-type="complaintReply">
               <!-- 定义插槽内容 -->
               <template #trigger>
-                <text class="margin-20-left grey-color">回复</text>
+                <text class="margin-20-left blue-color">回复</text>
               </template>
             </AddFormMobile>
           </div>
@@ -124,13 +124,13 @@
               </el-col>
             </el-row>
             <div class="reply_item_3">
-              <text class=" time grey-color">{{reply.time}}</text>
+              <text class=" time blue-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="complaintReply"></LikeSwitch>
                 <AddFormMobile title-box="回复" :index="index" company-name="张姗姗木材加工厂" feedback-type="complaintReply">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
-                    <text class="margin-20-left grey-color">回复</text>
+                    <text class="margin-20-left blue-color">回复</text>
                   </template>
                 </AddFormMobile>
               </div>
@@ -144,10 +144,9 @@
 <script setup lang="ts">
 import LikeSwitch from "~/components/LikeSwitch.vue";
 import NoDetail from "~/components/NoDetail.vue";
-import {ComplaintStore} from "~/types/complaintStore";
 import {useComplaintStore} from "~/pinia/complaintStore";
 
-const complaintStore:ComplaintStore = useComplaintStore();
+const complaintStore = useComplaintStore();
 
 const props = defineProps({
   isShowReply:{
@@ -155,6 +154,4 @@ const props = defineProps({
     default: true
   },
 });
-</script>
-<script setup lang="ts">
 </script>
