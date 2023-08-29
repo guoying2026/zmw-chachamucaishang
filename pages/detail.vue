@@ -1566,6 +1566,7 @@
         <text @click="switchTab(7)">更多></text>
       </div>
     </div>
+    <!--    口碑界面评论开始-->
     <CommentList :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></CommentList>
     <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
@@ -1574,6 +1575,8 @@
         <Tag tag="我要点评" color="orange_long"></Tag>
       </template>
     </AddFormMobile>
+    <!--    口碑界面评论结束-->
+<!--    移动端评论界面开始-->
     <CommentListMobile  v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
     <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
       <!-- 定义插槽内容 -->
@@ -1585,7 +1588,8 @@
         </HoverButton>
       </template>
     </AddFormMobile>
-
+<!--移动端评论界面结束-->
+<!--      移动端提问界面开始-->
     <div class="nine" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8">
       <QuestionListMobile ></QuestionListMobile>
       <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question">
@@ -1600,6 +1604,8 @@
         </template>
       </AddFormMobile>
     </div>
+<!--    移动端提问界面结束-->
+<!--    移动端投诉界面开始-->
     <div class="nine" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9">
       <ComplaintListMobile ></ComplaintListMobile>
       <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint">
@@ -1613,9 +1619,11 @@
         </template>
       </AddFormMobile>
     </div>
+<!--    移动端投诉界面结束-->
   </div>
+<!--  口碑问答投诉开始-->
   <div class="fifth_question mobile" v-if="tabItemStore.tabItem*1 === 3">
-    <div class="fifth_question_space">
+    <div class="fifth_question_space" v-if="tabItemStore.tabItem*1 === 3">
       <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_bcbc6a8e-60b8-4286-bef2-bf6590599e1a.png" alt="">
       <div class="fifth_1 margin-10-top">
         <div class="fifth_1_left">
@@ -1653,7 +1661,7 @@
         <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
       </div>
     </div>
-    <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question">
+    <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1667,8 +1675,8 @@
       </div>
       <text @click="switchTab(9)">更多></text>
     </div>
-    <ComplaintListMobile :is-show-reply="false"></ComplaintListMobile>
-    <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint">
+    <ComplaintListMobile :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
+    <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint" class="margin-20-bottom" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1676,6 +1684,7 @@
       </template>
     </AddFormMobile>
   </div>
+  <!--  口碑问答投诉开始-->
   <div class="second computer" v-if="tabItemStore.tabItem*1 === 0">
     <img class="third_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1a69286f-36e4-4694-bcbb-5219a41a4d96.png" alt=""/>
     <div class="second_2">
