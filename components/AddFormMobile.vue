@@ -11,7 +11,7 @@
         <text>{{titleBox}}{{companyName}}</text>
         <img class="close-box" @click="closeCommentBox" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_807d33b5-bef1-44b0-b79d-cab4a897057c.png" alt="关闭按钮">
       </div>
-      <text class="title">评论商家</text>
+      <text class="title">{{titleBox}}商家</text>
         <!-- 文本域用于输入评论 -->
         <TextareaMobile
             :placeholderText="placeholderText"

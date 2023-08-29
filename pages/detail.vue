@@ -1573,7 +1573,7 @@
 
     <div class="nine" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8">
       <QuestionListMobile :is-blue="true"></QuestionListMobile>
-      <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+      <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question" class="mobile">
         <!-- 定义插槽内容 -->
         <template #trigger>
           <!-- 当点击时触发openCommentBox方法 -->
@@ -1587,7 +1587,7 @@
     </div>
     <div class="nine" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9">
       <ComplaintListMobile :is-blue="true"></ComplaintListMobile>
-      <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+      <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint" class="mobile">
         <!-- 定义插槽内容 -->
         <template #trigger>
           <HoverButton>
