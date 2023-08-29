@@ -31,8 +31,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import {ref} from 'vue';
-import { serviceContainer } from '~/pinia/feedback/FeedbackServiceContainer';
+import {addFormLogic} from "~/composables/addForm";
 
 // 接收父组件传递的show属性
 const props = defineProps({
@@ -54,76 +53,88 @@ const props = defineProps({
     validator: (value: string) => ['comment', 'commentReply', 'question', 'answer', 'complaint','complaintReply'].includes(value)
   },
 });
-const placeholderText = ref('我们鼓励真实有帮助的'+props.titleBox);
-const submitText = ref('发布'+props.titleBox);
-const show = ref(false);
-// 定义组件内部的状态
-const state = ref({
-  fileList: [] as any[],
-  fileBeingUploaded: false,
-  textareaValue: '',
-  anonymity: false,
-  index: 0,
-});
-
-// 将相关的函数定义在此处
-const openCommentBox = () => {
-  show.value = true;
-};
-
-const closeCommentBox = () => {
-  show.value = false;
-};
-
-const updateParentFileList = (newFileList: any[]) => {
-  state.value.fileList = newFileList;
-};
-
-const setFileBeingUploaded = (status: boolean) => {
-  state.value.fileBeingUploaded = status;
-};
-
-const setTextareaValue = (value: string) => {
-  state.value.textareaValue = value;
-};
-
-const resetState = () => {
-  const initialState = {
-    show: false,
-    fileList: [] as any[],
-    fileBeingUploaded: false,
-    textareaValue: '',
-    anonymity: false,
-    type: '',
-    index: 0,
-  };
-  Object.assign(state.value, initialState);
-};
-
-const currentHandler = computed(() => {
-  const handler = serviceContainer.getHandler(props.feedbackType);
-  if (!handler) {
-    throw new Error(`Handler not found for feedback type: ${props.feedbackType}`);
-  }
-  // console.log(handler);
-  return handler;
-});
-
-const submitComment = () => {
-  console.log('提交');
-  if(state.value.fileBeingUploaded){
-    ElMessage({
-      showClose: true,
-      message: '文件正在上传中，请稍后再试',
-      type: 'warning',
-    })
-    return;  // 如果文件正在上传，不继续执行
-  } else {
-    console.log('提交评论');
-    currentHandler.value.add(state.value);
-    closeCommentBox();
-  }
-};
+const {
+  placeholderText,
+  submitText,
+  show,
+  state,
+  openCommentBox,
+  closeCommentBox,
+  updateParentFileList,
+  setFileBeingUploaded,
+  setTextareaValue,
+  submitComment
+} = addFormLogic(props);
+// const placeholderText = ref('我们鼓励真实有帮助的'+props.titleBox);
+// const submitText = ref('发布'+props.titleBox);
+// const show = ref(false);
+// // 定义组件内部的状态
+// const state = ref({
+//   fileList: [] as any[],
+//   fileBeingUploaded: false,
+//   textareaValue: '',
+//   anonymity: false,
+//   index: 0,
+// });
+//
+// // 将相关的函数定义在此处
+// const openCommentBox = () => {
+//   show.value = true;
+// };
+//
+// const closeCommentBox = () => {
+//   show.value = false;
+// };
+//
+// const updateParentFileList = (newFileList: any[]) => {
+//   state.value.fileList = newFileList;
+// };
+//
+// const setFileBeingUploaded = (status: boolean) => {
+//   state.value.fileBeingUploaded = status;
+// };
+//
+// const setTextareaValue = (value: string) => {
+//   state.value.textareaValue = value;
+// };
+//
+// const resetState = () => {
+//   const initialState = {
+//     show: false,
+//     fileList: [] as any[],
+//     fileBeingUploaded: false,
+//     textareaValue: '',
+//     anonymity: false,
+//     type: '',
+//     index: 0,
+//   };
+//   Object.assign(state.value, initialState);
+// };
+//
+// const currentHandler = computed(() => {
+//   const handler = serviceContainer.getHandler(props.feedbackType);
+//   if (!handler) {
+//     throw new Error(`Handler not found for feedback type: ${props.feedbackType}`);
+//   }
+//   // console.log(handler);
+//   return handler;
+// });
+//
+// const submitComment = () => {
+//   console.log('提交');
+//   if(state.value.fileBeingUploaded){
+//     ElMessage({
+//       showClose: true,
+//       message: '文件正在上传中，请稍后再试',
+//       type: 'warning',
+//     })
+//     return;  // 如果文件正在上传，不继续执行
+//   } else {
+//     console.log('提交评论');
+//     currentHandler.value.add(state.value);
+//     closeCommentBox();
+//   }
+// };
 
 </script>
 <style scoped>

@@ -899,6 +899,10 @@
     width: 94%;
     margin-top: 5px;
   }
+  .hover_image{
+    width: 65px;
+    height: 65px;
+  }
 }
 </style>
 <template>
@@ -906,7 +910,7 @@
     <img class="first" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e50b0b18-3ddc-49e5-b4f7-1d24bd8e12fb.png" alt=""/>
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
-  <div class="third" v-if="tabItemStore.tabItem*1 <= 4">
+  <div class="third computer">
     <div class="second_1">
       <text class="second_1_1">{{company_name}}</text>
       <div class="second_1_2">
@@ -1556,6 +1560,11 @@
       </client-only>
     </div>
     <CommentList :is-blue="true" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentList>
+    <HoverButton>
+      <template #hoverButton>
+        <img class="hover_image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_674067de-0fa6-4a1e-bd78-9ff51400b77a.png" alt=""/>
+      </template>
+    </HoverButton>
     <div class="nine">
       <QuestionList :is-blue="true" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8"></QuestionList>
     </div>
