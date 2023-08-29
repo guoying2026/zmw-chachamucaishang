@@ -659,4 +659,22 @@ nuxtApp.hook('page:finish', () => {
     padding: calc(100vw / 1920 * 13) calc(100vw / 1920 * 14);
   }
 }
+@media (min-width: 1024px) {
+  .item .rank_num.hundred {
+    transform: scale(1) translateY(0rem);
+  }
+
+  .item .rank_num.thousand {
+    transform: scale(1) translateY(0rem);
+  }
+
+  .item .rank_num.ten_thousand {
+    transform: scale(0.9) translateY(0.05rem);
+  }
+
+  .item .rank_num.one_hundred_thousand,
+  .item .rank_num.million {
+    transform: scale(0.7) translateY(0.05rem);
+  }
+}
 </style>
