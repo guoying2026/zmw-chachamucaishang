@@ -897,7 +897,7 @@
   }
   .nine{
     width: 94%;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 }
 </style>
@@ -1556,6 +1556,9 @@
       </client-only>
     </div>
     <CommentList :is-blue="true" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentList>
+    <div class="nine">
+      <QuestionList :is-blue="true" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8"></QuestionList>
+    </div>
     <div class="nine">
       <ComplaintList :is-blue="true" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9"></ComplaintList>
     </div>
