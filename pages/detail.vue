@@ -906,7 +906,7 @@
     <img class="first" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e50b0b18-3ddc-49e5-b4f7-1d24bd8e12fb.png" alt=""/>
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
-  <div class="third" v-if="tabItemStore.tabItem*1 !== 7">
+  <div class="third computer">
     <div class="second_1">
       <text class="second_1_1">{{company_name}}</text>
       <div class="second_1_2">
@@ -941,17 +941,17 @@
     <div class="third_2 computer">
       <client-only>
         <div class="third_2_space">
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 0 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 0 || tabItemStore.tabItem*1 === 6?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
           <text>|</text>
           <text class="tab_" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
           <text>|</text>
           <text class="tab_" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(3)">评论</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 3 || (tabItemFameStore.tabItemFame*1 === 3 && tabItemStore.tabItem*1 === 7) ?'white-color white-underline':''" @click="switchTab(3)">评论</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 4 ?'white-color white-underline':''" @click="switchTab(4)">问答</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 4 || (tabItemFameStore.tabItemFame*1 === 4 && tabItemStore.tabItem*1 === 7) ?'white-color white-underline':''" @click="switchTab(4)">问答</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 5 ?'white-color white-underline':''" @click="switchTab(5)">投诉</text>
+          <text class="tab_" :class="tabItemStore.tabItem*1 === 5 || (tabItemFameStore.tabItemFame*1 === 5 && tabItemStore.tabItem*1 === 7) ?'white-color white-underline':''" @click="switchTab(5)">投诉</text>
         </div>
       </client-only>
     </div>
@@ -1314,23 +1314,23 @@
           <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_3961e5c7-53cd-4c91-b1da-92f70acf74d8.png" alt="">
           <text class="margin-10-left">评论</text>
         </div>
-        <text @click="switchTabFame(1)">更多></text>
+        <text @click="switchTabFame(3)">更多></text>
       </div>
     </div>
     <CommentList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></CommentList>
-    <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedbackType="comment" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+    <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
         <Tag tag="我要点评" color="orange_long"></Tag>
       </template>
     </AddForm>
-    <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3">
+    <div class="tab_3_space" v-if="tabItemStore.tabItem*1 === 3 || (tabItemFameStore.tabItemFame*1 === 3 && tabItemStore.tabItem*1 === 7)">
       <div class="tab_3_space_left"></div>
       <div class="tab_3_space_middle">
         <div class="tab_3_space_1">
           <text>全部评价（{{company_comment_count}}）</text>
-          <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedbackType="comment">
+          <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1427,7 +1427,7 @@
         </div>
       </div>
     </div>
-    <div class="tab_4_space" v-if="tabItemStore.tabItem*1 === 4">
+    <div class="tab_4_space" v-if="tabItemStore.tabItem*1 === 4 || (tabItemFameStore.tabItemFame*1 === 4 && tabItemStore.tabItem*1 === 7)">
       <div class="tab_4_space_left"></div>
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
@@ -1490,7 +1490,7 @@
         </div>
       </div>
     </div>
-    <div class="tab_5_space" v-if="tabItemStore.tabItem*1 === 5">
+    <div class="tab_5_space" v-if="tabItemStore.tabItem*1 === 5 || (tabItemFameStore.tabItemFame*1 === 5 && tabItemStore.tabItem*1 === 7)">
       <div class="tab_5_space_left"></div>
       <div class="tab_5_space_middle">
         <ComplaintList></ComplaintList>
@@ -1514,7 +1514,7 @@
       </div>
     </div>
   </div>
-  <div class="third mobile dark_third_bg" v-if="tabItemStore.tabItem*1 === 7">
+  <div class="third mobile dark_third_bg">
     <div class="second_1">
       <text class="second_1_1">{{company_name}}</text>
       <div class="second_1_2">
@@ -1568,7 +1568,7 @@
           <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_0700b3c4-a16a-4f4f-b849-104bd2a96638.png" alt="">
           <text class="margin-10-left">问答</text>
         </div>
-        <text @click="switchTabFame(2)">更多></text>
+        <text @click="switchTabFame(4)">更多></text>
       </div>
       <div class="question_mobile margin-10-top">
           <div class="avatar-wrapper">
@@ -1599,7 +1599,7 @@
         <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
       </div>
     </div>
-    <AddForm title-box="提问" company-name="张珊珊木材加工厂" feedbackType="question" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+    <AddForm title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1611,10 +1611,10 @@
         <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_10123398-f5cb-48b9-b40d-7d8cfdf4ba82.png" alt="">
         <text class="margin-10-left">投诉</text>
       </div>
-      <text @click="switchTabFame(3)">更多></text>
+      <text @click="switchTabFame(5)">更多></text>
     </div>
     <ComplaintList :is-show-reply="false" class="mobile" v-if="tabItemStore.tabItem*1 === 6"></ComplaintList>
-    <AddForm title-box="投诉" company-name="张珊珊木材加工厂" feedbackType="complaint" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
+    <AddForm title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint" class="mobile" v-if="tabItemStore.tabItem*1 === 6">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1717,7 +1717,7 @@
         <tr class="table_detail" v-for="(dynamic, index) in dynamicStore.dynamics">
           <td :class="getClass(dynamic.level)">{{dynamic.level}}</td>
           <td>{{dynamic.type}}</td>
-          <td class="wide-column">{{dynamic.content}}</td>
+          <td class="wide-column" v-html="dynamic.content"></td>
           <td>{{dynamic.updateTime}}</td>
           <td>详情</td>
         </tr>
@@ -1727,6 +1727,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import {BaiduMap} from "vue-baidu-map-3x";
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
@@ -1782,9 +1783,8 @@ const {
   fetchShopDetails,
 } = shopDetails;
 
-// const showMoreBtn = ref(false);
 onMounted(() => {
-  fetchShopDetails();
+   fetchShopDetails();
 });
 const clampTextRef =  ref<HTMLElement | null>(null);
 const isExpanded = ref(false);
