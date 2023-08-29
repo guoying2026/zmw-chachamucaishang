@@ -1,5 +1,57 @@
+<style scoped>
+.complaint_first {
+  position: relative;
+  display: inline-block;
+}
+
+.complaint_first img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.text-container {
+  width: 100%;
+  position: absolute;
+  bottom: 9%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 5px;  /* 用于在容器两侧加上一些间距 */
+}
+
+.text {
+  font-size: 10px;
+}
+.gradient-background {
+  background: linear-gradient(to bottom, #3B94F1, #095EB9);
+  padding: 5px 10px;
+  border-radius: 50px;
+}
+.text-click{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+</style>
 <template>
-  <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_e67a3f1e-771d-42c5-ba00-84ecfc320172.png" alt="背景" v-if="isShowReply"/>
+  <div class="complaint_first">
+    <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_e67a3f1e-771d-42c5-ba00-84ecfc320172.png" alt="背景" v-if="isShowReply"/>
+    <div class="text-container">
+      <div class="text text-click">
+        <text>点击</text>
+        <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint">
+          <!-- 定义插槽内容 -->
+          <template #trigger>
+            <text class="gradient-background margin-10-left">我要投诉</text>
+          </template>
+        </AddFormMobile>
+      </div>
+      <div class="text">平台审核内容</div>
+      <div class="text">展示投诉内容</div>
+    </div>
+  </div>
   <NoDetail tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
 
   <div class="comment complaint" v-else>
@@ -103,4 +155,6 @@ const props = defineProps({
     default: true
   },
 });
+</script>
+<script setup lang="ts">
 </script>

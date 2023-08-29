@@ -4,35 +4,53 @@
   display: inline-block;
 }
 
-.image-container img {
+.complaint_first img {
   display: block;
   width: 100%;
   height: auto;
 }
 
 .text-container {
+  width: 60%;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 9%;
+  right: 5%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   padding: 0 5px;  /* 用于在容器两侧加上一些间距 */
-  background-color: rgba(255, 255, 255, 0.6);  /* 用于增加背景色使文本更清晰，可根据需要调整 */
 }
 
 .text {
-  padding: 5px;
+  font-size: 10px;
 }
-
+.gradient-background {
+  background: linear-gradient(to right, #B1621A, #BB600D);
+  padding: 5px 20px 8px 18px;
+  border-radius: 50px;
+}
+.text-click{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
 </style>
 <template>
   <div class="complaint_first">
     <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png" alt="背景" v-if="isShowReply"/>
     <div class="text-container">
-      <div class="text">文本1</div>
-      <div class="text">文本2</div>
-      <div class="text">文本3</div>
+      <div class="text text-click">
+        <text>点击</text>
+        <AddForm title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint">
+          <!-- 定义插槽内容 -->
+          <template #trigger>
+            <text class="gradient-background margin-10-left">我要投诉</text>
+          </template>
+        </AddForm>
+      </div>
+      <div class="text">平台审核内容</div>
+      <div class="text">展示投诉内容</div>
     </div>
   </div>
   <NoDetail tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
@@ -129,6 +147,7 @@ import LikeSwitch from "~/components/LikeSwitch.vue";
 import NoDetail from "~/components/NoDetail.vue";
 import {ComplaintStore} from "~/types/complaintStore";
 import {useComplaintStore} from "~/pinia/complaintStore";
+import Tag from "~/components/Tag.vue";
 
 const complaintStore:ComplaintStore = useComplaintStore();
 
