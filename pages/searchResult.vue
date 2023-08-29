@@ -368,7 +368,6 @@ function changeAreaFirstSelectedIndex(index: number) {
   areaSecondSelectedIndex.value = 0;
   // 关闭“离我最近”功能
   isLeaveMeClosestDistance.value = false;
-  changeAreaListProvinceIsSelectedWithOnlyOne(index);
 }
 
 /**
@@ -921,7 +920,7 @@ nuxtApp.hook('page:finish', () => {
               <template v-if="index < areaList.filter(item=>item.is_selected).length - 1">，</template>
             </template>
           </span>
-          <svg @click.stop="clearAllMultiSelectProvinceIsSelected" class="w-3 h-3 ml-1 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+          <svg @click.stop="clearAllMultiSelectProvinceIsSelected" class="w-3 h-3 ml-1 cursor-pointer" style="min-width: 0.75rem;min-height: 0.75rem;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
         </div>
         <div @click.stop="clearAllMultiSelectProvinceIsSelected" class="absolute right-0 top-0 bottom-0 inline-flex flex-row justify-center items-baseline py-2.5 pt-0.5 cursor-pointer font-orange">
           <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12 23q-2.8 0-5.15-1.275T3 18.325V21H1v-6h6v2H4.525q1.2 1.8 3.163 2.9T12 21q1.875 0 3.513-.713t2.85-1.924q1.212-1.213 1.925-2.85T21 12h2q0 2.275-.863 4.275t-2.362 3.5q-1.5 1.5-3.5 2.363T12 23ZM1 12q0-2.275.863-4.275t2.362-3.5q1.5-1.5 3.5-2.362T12 1q2.8 0 5.15 1.275t3.85 3.4V3h2v6h-6V7h2.475q-1.2-1.8-3.163-2.9T12 3q-1.875 0-3.513.713t-2.85 1.924Q4.426 6.85 3.714 8.488T3 12H1Z"/></svg>
@@ -1066,7 +1065,7 @@ nuxtApp.hook('page:finish', () => {
           </div>
         </div>
         <!-- 搜索结果项 - 第二行 -->
-        <div class="inline-flex md:hidden flex-row justify-evenly text-xs px-4 mt-2">
+        <div class="inline-flex md:hidden flex-row justify-evenly text-xs px-4 mt-2 search-list-item-sec_line">
           <div class="inline-flex flex-col items-center">
             <span>法定代表人</span>
             <span class="mt-1">{{ item.corporation && item.corporation.length > 0 ? item.corporation : '-' }}</span>
@@ -1344,6 +1343,18 @@ nuxtApp.hook('page:finish', () => {
 .search-list-item > div:nth-of-type(4) {
   border-top-width: 1px;
   border-color: rgb(39,39,39);
+}
+
+.search-list-item-sec_line > div {
+  max-width: 33%;
+}
+
+.search-list-item-sec_line > div:first-of-type span:last-of-type {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 .font-orange {
