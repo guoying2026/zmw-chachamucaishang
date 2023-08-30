@@ -87,6 +87,23 @@ export const useDynamicStore = defineStore('dynamicStore', {
                     );
                 }
             }
+        },
+        getPcDynamicsByCategoryAndSubCategory(category: string, subCategory: string){
+            if(category === '全部'){
+                return this.dynamics;
+            } else if(category === '全部类型'){
+                return this.dynamics;
+            } else{
+                if(subCategory === '全部'){
+                    return this.dynamics.filter(dynamic =>
+                        dynamic.category === category
+                    );
+                } else {
+                    return this.dynamics.filter(dynamic =>
+                        dynamic.category === category && dynamic.subCategory === subCategory
+                    );
+                }
+            }
         }
     },
 });

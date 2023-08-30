@@ -32,7 +32,10 @@ export const useDynamicCategoriesStore = defineStore('dynamicCategoriesStore', {
         specificCategoryKeys(): CategoryKeys[] {
             // 这是你想要显示的特定分类键
             return ['BUSINESS', 'RISK', 'OPERATION', 'TENDER'];
-        }
+        },
+        pcCategoryKeys():CategoryKeys[] {
+            return ['ALL','BUSINESS', 'RISK', 'OPERATION', 'TENDER','NEWS'];
+        },
     },
     persist: true,
     actions: {
@@ -47,6 +50,7 @@ export const useDynamicCategoriesStore = defineStore('dynamicCategoriesStore', {
             } else {
                 this.selectedCategory = category;
             }
+            this.selectedSubCategory = '全部';
             this.moreTriangleUpOrDown = 1;
         },
         toggleMoreTypes() { // 更多

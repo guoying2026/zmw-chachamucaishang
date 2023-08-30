@@ -162,15 +162,25 @@
 }
 .choose_title{
   color: #999999;
+  width: 59px;
 }
 .choose_detail{
+  flex:1;
   margin-left: 20px;
   color: #fff;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+}
+.chose{
+  border: 1px solid #FF834E;
+  border-radius: 5px;
+  color: #FF834E;
 }
 .choose_detail text{
-  margin: 0 5px;
+  padding: 2px 5px;
+  margin: 0 10px 5px 0;
+  white-space: nowrap;
 }
 .horizontal_line{
   height: 2px;      /* 线的厚度 */
@@ -1096,42 +1106,30 @@
         <div class="choose_item">
           <text class="choose_title">动态类型</text>
           <div class="choose_detail">
-            <text>全部类型</text>
-            <text>工商</text>
-            <text>风险</text>
-            <text>经营</text>
-            <text>招投标</text>
-            <text>新闻</text>
+            <text v-for="key in dynamicCategoriesStore.pcCategoryKeys" :key="key" :class="dynamicCategoriesStore.selectedCategory === key?'chose':''" @click="toggleCategory(key)">{{dynamicCategoriesStore.CATEGORIES[key]}}</text>
           </div>
         </div>
-        <!--        <div class="choose_item">-->
-        <!--          <text class="choose_title">工商动态</text>-->
-        <!--          <div class="choose_detail">-->
-        <!--            <text>全部</text>-->
-        <!--            <text>法定代表人变更</text>-->
-        <!--            <text>主要成员变更</text>-->
-        <!--            <text>股东变更</text>-->
-        <!--            <text>大股东变更</text>-->
-        <!--            <text>实际控制人变更</text>-->
-        <!--            <text>最终受益人变更</text>-->
-        <!--            <text>对外投资人变更</text>-->
-        <!--            <text>注册资本变更</text>-->
-        <!--            <text>经营范围变更</text>-->
-        <!--            <text>经营状态变更</text>-->
-        <!--            <text>企业名称变更变更</text>-->
-        <!--          </div>-->
-        <!--        </div>-->
         <div class="choose_item">
-          <text class="choose_title">时间选择</text>
+          <text class="choose_title"></text>
           <div class="choose_detail">
-            <text>全部时间</text>
-            <text>今天</text>
-            <text>近7天</text>
-            <text>近30天</text>
+            <text :class="sub === dynamicCategoriesStore.selectedSubCategory?'chose':''" v-for="(sub, key) in dynamicCategoriesStore.SUB_CATEGORIES[dynamicCategoriesStore.selectedCategory]" :key="key" @click="selectSubCategory(sub)">{{sub}}</text>
           </div>
         </div>
+<!--        <div class="choose_item">-->
+<!--          <text class="choose_title">时间选择</text>-->
+<!--          <div class="choose_detail">-->
+<!--            <text class="chose">全部时间</text>-->
+<!--            <text>今天</text>-->
+<!--            <text>近7天</text>-->
+<!--            <text>近30天</text>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
-      <table>
+      <template v-if="pcFilteredDynamics.length < 1">
+        <NoDetail v-if="dynamicCategoriesStore.selectedSubCategory === '全部'" class="margin-10-top" type="动态" :text="'暂无查询到该企业的'+dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory]+'动态'" :has-button="false"></NoDetail>
+        <NoDetail v-else class="margin-10-top" type="动态" :text="'暂无查询到该企业的【 '+dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory] +' > '+dynamicCategoriesStore.selectedSubCategory +' 】动态'" :has-button="false"></NoDetail>
+      </template>
+      <table v-else>
         <tr class="table_title">
           <th>动态等级</th>
           <th>动态类型</th>
@@ -1139,7 +1137,7 @@
           <th>更新时间</th>
           <th>操作</th>
         </tr>
-        <tr class="table_detail" v-for="(dynamic, index) in dynamicStore.dynamics">
+        <tr class="table_detail" v-for="dynamic in pcFilteredDynamics" :key="dynamic.id">
           <td :class="getClass(dynamic.level)">{{dynamic.level}}</td>
           <td>{{dynamic.subCategory}}</td>
           <td class="wide-column" v-html="dynamic.content"></td>
@@ -1828,6 +1826,12 @@ const toggleMoreTypes = () => {
 const selectSubCategory = (sub: string) => {
   dynamicCategoriesStore.selectSubCategory(sub);
 }
+const pcFilteredDynamics = computed(() => {
+  return dynamicStore.getPcDynamicsByCategoryAndSubCategory(
+      dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory],
+      dynamicCategoriesStore.selectedSubCategory,
+  );
+})
 // 计算属性
 const filteredDynamics = computed(() => {
   console.log(dynamicCategoriesStore.selectedMoreCategory);
