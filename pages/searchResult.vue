@@ -828,6 +828,8 @@ if (searchResultStore.getIsStore()) {
   totalPages.value = searchResultStore.getTotalPage()
   searchResultList.value = searchResultStore.getList()
   areaList.value = searchResultStore.getArea()
+  isCanMultiSelectProvince.value = searchResultStore.getIsCanMultiSelectProvince()
+  isLeaveMeClosestDistance.value = searchResultStore.getIsLeaveMeClosestDistance()
   nextTick(() => {
     useHead({
       title: searchResultStore.getQuery() + ' - 搜索结果',
@@ -863,6 +865,8 @@ onBeforeRouteLeave((to: any, from: any, next: Function) => {
     searchResultStore.setTotalPage(totalPages.value)
     searchResultStore.setTotalCount(totalCountOfSearchResult.value)
     searchResultStore.setScrollTop(window.scrollY)
+    searchResultStore.setIsCanMultiSelectProvince(isCanMultiSelectProvince.value)
+    searchResultStore.setIsLeaveMeClosestDistance(isLeaveMeClosestDistance.value)
   }
   next()
 })

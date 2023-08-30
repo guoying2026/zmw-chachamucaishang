@@ -10,6 +10,8 @@ export const useSearchResultStore = defineStore('searchResultStore', () => {
   const _totalPage = useSessionStorage('search-result-total-page', 1 as number)
   const _totalCount = useSessionStorage('search-result-total-count', 0 as number)
   const _scrollTop = useSessionStorage('search-result-scroll-top', 0 as number)
+  const _isLeaveMeClosestDistance = useSessionStorage('search-result-is-leave-me-closest-distance', false as boolean)
+  const _isCanMultiSelectProvince = useSessionStorage('search-result-is-can-multi-select-province', false as boolean)
 
   const getIsStore = () => {
     return _isStore.value
@@ -83,6 +85,22 @@ export const useSearchResultStore = defineStore('searchResultStore', () => {
     _scrollTop.value = scrollTop
   }
 
+  const getIsLeaveMeClosestDistance = () => {
+    return _isLeaveMeClosestDistance.value
+  }
+
+  const setIsLeaveMeClosestDistance = (isLeaveMeClosestDistance: boolean) => {
+    _isLeaveMeClosestDistance.value = isLeaveMeClosestDistance
+  }
+
+  const getIsCanMultiSelectProvince = () => {
+    return _isCanMultiSelectProvince.value
+  }
+
+  const setIsCanMultiSelectProvince = (isCanMultiSelectProvince: boolean) => {
+    _isCanMultiSelectProvince.value = isCanMultiSelectProvince
+  }
+
   const clearAll = () => {
     _isStore.value = false
     _query.value = ''
@@ -93,6 +111,8 @@ export const useSearchResultStore = defineStore('searchResultStore', () => {
     _totalPage.value = 1
     _totalCount.value = 1
     _scrollTop.value = 0
+    _isCanMultiSelectProvince.value = false
+    _isLeaveMeClosestDistance.value = false
   }
 
   return {
@@ -114,6 +134,10 @@ export const useSearchResultStore = defineStore('searchResultStore', () => {
     setTotalCount,
     getScrollTop,
     setScrollTop,
+    getIsLeaveMeClosestDistance,
+    setIsLeaveMeClosestDistance,
+    getIsCanMultiSelectProvince,
+    setIsCanMultiSelectProvince,
     clearAll,
   }
 })
