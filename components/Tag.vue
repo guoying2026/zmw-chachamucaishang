@@ -1,5 +1,9 @@
 <template>
-  <text class="custom_tag" :class="`${color}_btn border_${number}_radius`">{{tag}}<span class="triangle-down" :class="`${color}`" v-if="more*1 === 1"></span></text>
+  <text class="custom_tag" :class="`${color}_btn border_${number}_radius`">
+    {{tag}}
+    <span class="triangle-down" :class="`${color}`" v-if="more*1 === 1"></span>
+    <span class="triangle-up" :class="`${color}`" v-if="more*1 === 2"></span>
+  </text>
 </template>
 <script setup lang="ts">
 import '~/assets/css/tag.css'

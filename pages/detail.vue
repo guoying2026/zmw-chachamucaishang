@@ -835,21 +835,28 @@
   .eight{
     width: 100%;
     margin-top: 10px;
-    border-collapse: separate;
-    border-spacing: 0;
-    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
   }
-  .left_width_4 td{
-    border: unset !important;
+  .eight_item{
     font-size: 13px;
     padding: 10px;
   }
-  .left_width_4 td:nth-child(1){
+  .eight_1{
+    display: flex;
+    flex-direction: column;
     width: 40%;
     background-color: #683A10;
   }
-  .left_width_4 td:nth-child(2){
+  .selected_category{
     background-color: #5B3009;
+    color: #FF9B40;
+  }
+  .eight_2{
+    display: flex;
+    flex-direction: column;
+    background-color: #5B3009;
+    flex:1;
   }
   /* 选择每一行的第二个td */
   .six tr td:nth-child(2) {
@@ -1134,7 +1141,7 @@
         </tr>
         <tr class="table_detail" v-for="(dynamic, index) in dynamicStore.dynamics">
           <td :class="getClass(dynamic.level)">{{dynamic.level}}</td>
-          <td>{{dynamic.type}}</td>
+          <td>{{dynamic.subCategory}}</td>
           <td class="wide-column" v-html="dynamic.content"></td>
           <td>{{dynamic.updateTime}}</td>
           <td>详情</td>
@@ -1414,7 +1421,7 @@
       <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
         <div class="fifth_2_1">
           <text>{{dynamic.updateTime}}</text>
-          <text>{{dynamic.type}}</text>
+          <text>{{dynamic.subCategory}}</text>
           <text :class="getClass(dynamic.level)">{{dynamic.level}}</text>
         </div>
         <div class="fifth_2_2">
@@ -1522,18 +1529,24 @@
       </table>
     </div>
     <div class="seven" v-if="tabItemStore.tabItem*1 === 2">
-      <Tag tag="工商" :color="tabItemDynamicStore.tabItem*1 === 1 ?'brown-orange':'brown-white'" @click="switchTabDynamic(1)"></Tag>
-      <Tag tag="风险" :color="tabItemDynamicStore.tabItem*1 === 2 ?'brown-orange':'brown-white'" @click="switchTabDynamic(2)"></Tag>
-      <Tag tag="经营" :color="tabItemDynamicStore.tabItem*1 === 3 ?'brown-orange':'brown-white'" @click="switchTabDynamic(3)"></Tag>
-      <Tag tag="招投标" :color="tabItemDynamicStore.tabItem*1 === 4 ?'brown-orange':'brown-white'" @click="switchTabDynamic(4)"></Tag>
+      <Tag v-for="key in dynamicCategoriesStore.specificCategoryKeys" :key="key"
+           :color="dynamicCategoriesStore.selectedCategory === key ? 'brown-orange' : 'brown-white'"
+           @click="toggleCategory(key)"
+           :tag="dynamicCategoriesStore.CATEGORIES[key]"
+      >
+      </Tag>
       <div class="vertical-line"></div>
-      <Tag tag="更多类型" :color="tabItemDynamicStore.tabItem*1 === 5 ?'brown-orange':'brown-white'" more="1" @click="switchTabDynamic(5)"></Tag>
+      <Tag tag="更多类型" :more="dynamicCategoriesStore.moreTriangleUpOrDown" :color="dynamicCategoriesStore.selectedCategory === 'MORE' ?'brown-orange':'brown-white'" @click="toggleMoreTypes"></Tag>
     </div>
-    <div class="fifth" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 !== 5">
-      <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
+    <div class="fifth" v-if="tabItemStore.tabItem*1 === 2 && !dynamicCategoriesStore.showMoreTypes">
+      <template v-if="filteredDynamics.length < 1">
+        <NoDetail v-if="dynamicCategoriesStore.selectedCategory !== 'MORE'" class="margin-10-top" type="动态" :text="'暂无查询到该企业的'+dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory]+'动态'" :has-button="false"></NoDetail>
+        <NoDetail v-else class="margin-10-top" type="动态" :text="'暂无查询到该企业的【 '+dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedMoreCategory] +' > '+dynamicCategoriesStore.selectedSubCategory +' 】动态'" :has-button="false"></NoDetail>
+      </template>
+      <div class="fifth_2" v-for="dynamic in filteredDynamics" :key="dynamic.id" v-else>
         <div class="fifth_2_1">
           <text>{{dynamic.updateTime}}</text>
-          <text>{{dynamic.type}}</text>
+          <text>{{dynamic.subCategory}}</text>
           <text :class="getClass(dynamic.level)">{{dynamic.level}}</text>
         </div>
         <div class="fifth_2_2">
@@ -1542,20 +1555,22 @@
         </div>
       </div>
     </div>
-    <table class="eight left_width_4" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 === 5">
-      <tr>
-        <td @click="tabItemDynamicStore.tabItem*1 === 0">全部类型</td>
-        <td>xxx</td>
-      </tr>
-      <tr>
-        <td>工商</td>
-        <td>xxx</td>
-      </tr>
-      <tr>
-        <td>风险</td>
-        <td>xxx</td>
-      </tr>
-    </table>
+    <div class="eight" v-if="tabItemStore.tabItem*1 === 2 && dynamicCategoriesStore.showMoreTypes">
+      <!-- 主分类列表 -->
+          <!-- 其他主分类 -->
+      <div class="eight_1">
+        <div class="eight_item" :class="key === dynamicCategoriesStore.selectedMoreCategory? 'selected_category':''" v-for="(category, key) in dynamicCategoriesStore.CATEGORIES" :key="key" @click="toggleMoreCategory(key)">
+          {{ category }}
+        </div>
+      </div>
+      <div class="eight_2">
+        <!-- 对应的子分类列表 -->
+        <!-- 如果选中其他主分类，显示其对应子分类 -->
+        <div class="eight_item" :class="sub === dynamicCategoriesStore.selectedSubCategory? 'selected_category':''" v-for="(sub, key) in dynamicCategoriesStore.SUB_CATEGORIES[dynamicCategoriesStore.selectedMoreCategory]" :key="key" @click="selectSubCategory(sub)">
+          {{ sub }}
+        </div>
+      </div>
+    </div>
     <img class="third_1" v-if="tabItemStore.tabItem*1 === 3" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
     <div class="fifth margin-10-top" v-if="tabItemStore.tabItem*1 === 3">
       <div class="fifth_1">
@@ -1779,7 +1794,7 @@
         </tr>
         <tr class="table_detail" v-for="(dynamic, index) in dynamicStore.dynamics">
           <td :class="getClass(dynamic.level)">{{dynamic.level}}</td>
-          <td>{{dynamic.type}}</td>
+          <td>{{dynamic.subCategory}}</td>
           <td class="wide-column" v-html="dynamic.content"></td>
           <td>{{dynamic.updateTime}}</td>
           <td>详情</td>
@@ -1794,11 +1809,43 @@ import { ref, onMounted } from 'vue';
 import {BaiduMap} from "vue-baidu-map-3x";
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
-//添加评论
-import {useCommentStore} from "~/pinia/commentStore";
-const commentStore = useCommentStore();
+//动态
 import {useDynamicStore} from "~/pinia/dynamicStore";
 const dynamicStore = useDynamicStore();
+import {useDynamicCategoriesStore} from "~/pinia/dynamicCategoriesStore";
+const dynamicCategoriesStore = useDynamicCategoriesStore();
+const toggleCategory = (key: CategoryKeys) => {
+  dynamicCategoriesStore.toggleCategory(key);
+}
+const toggleMoreCategory = (key: CategoryKeys) => {
+  dynamicCategoriesStore.toggleMoreCategory(key);
+}
+const toggleMoreTypes = () => {
+  dynamicCategoriesStore.toggleMoreTypes();
+}
+const selectSubCategory = (sub: string) => {
+  dynamicCategoriesStore.selectSubCategory(sub);
+}
+// 计算属性
+const filteredDynamics = computed(() => {
+  console.log(dynamicCategoriesStore.selectedMoreCategory);
+  console.log(dynamicCategoriesStore.selectedCategory);
+  console.log(dynamicCategoriesStore.selectedSubCategory);
+  console.log(dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedMoreCategory]);
+  if(dynamicCategoriesStore.selectedCategory === 'MORE'){
+    return dynamicStore.getDynamicsByCategoryAndSubCategory(
+        dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedMoreCategory],
+        dynamicCategoriesStore.selectedSubCategory,
+        true,
+    )
+  }
+  return dynamicStore.getDynamicsByCategoryAndSubCategory(
+      dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory],
+      dynamicCategoriesStore.selectedSubCategory,
+      false,
+  );
+
+});
 import Tag from "~/components/Tag.vue";
 import CommentList from "~/components/CommentList.vue";
 import NoDetail from "~/components/NoDetail.vue";
@@ -1806,11 +1853,9 @@ import ComplaintList from "~/components/ComplaintList.vue";
 import {useShopDetails} from "~/composables/shop";
 import { useRoute } from 'vue-router';
 import {useTabItemDynamicStore} from "~/pinia/tabItemDynamic";
-import LikeSwitch from "~/components/LikeSwitch.vue";
 const tabItemDynamicStore = useTabItemDynamicStore();
-import { useQuestionStore } from "~/pinia/questionStore";
 import CommentListMobile from "~/components/CommentListMobile.vue";
-const questionStore = useQuestionStore();
+import {CategoryKeys} from "~/types/dynamicCategories";
 
 const route = useRoute();
 const query = route.query;
