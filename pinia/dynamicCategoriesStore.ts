@@ -8,7 +8,7 @@ export const useDynamicCategoriesStore = defineStore('dynamicCategoriesStore', {
         selectedCategory: 'ALL' as CategoryKeys,
         showMoreTypes: false, // 新增状态
         selectedSubCategory:'全部',
-        moreTriangleUpOrDown: 2,
+        moreTriangleUpOrDown: 1,
         CATEGORIES: {
             ALL: '全部类型',
             BUSINESS: '工商',
@@ -47,27 +47,28 @@ export const useDynamicCategoriesStore = defineStore('dynamicCategoriesStore', {
             } else {
                 this.selectedCategory = category;
             }
-            this.moreTriangleUpOrDown = 2;
+            this.moreTriangleUpOrDown = 1;
         },
         toggleMoreTypes() { // 更多
+            console.log('toggleMoreTypes');
             this.showMoreTypes = !this.showMoreTypes;
             if(this.showMoreTypes){
-                this.moreTriangleUpOrDown = 1;
-            } else {
                 this.moreTriangleUpOrDown = 2;
+            } else {
+                this.moreTriangleUpOrDown = 1;
             }
             this.selectedCategory = 'MORE';
         },
         toggleMoreCategory(category: CategoryKeys){
             this.selectedMoreCategory = category;
-            this.moreTriangleUpOrDown = 2;
+            this.moreTriangleUpOrDown = 1;
         },
         // ... 其他方法
         selectSubCategory(subCategory: string) {
             console.log(subCategory);
             this.selectedSubCategory = subCategory;  // 选中子分类
             this.showMoreTypes = false; // 隐藏选择面板
-            this.moreTriangleUpOrDown = 2;
+            this.moreTriangleUpOrDown = 1;
         },
     }
 });

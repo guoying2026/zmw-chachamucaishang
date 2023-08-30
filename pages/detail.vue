@@ -1821,7 +1821,9 @@ const toggleMoreCategory = (key: CategoryKeys) => {
   dynamicCategoriesStore.toggleMoreCategory(key);
 }
 const toggleMoreTypes = () => {
+  console.log('切换');
   dynamicCategoriesStore.toggleMoreTypes();
+  console.log(dynamicCategoriesStore.moreTriangleUpOrDown);
 }
 const selectSubCategory = (sub: string) => {
   dynamicCategoriesStore.selectSubCategory(sub);
