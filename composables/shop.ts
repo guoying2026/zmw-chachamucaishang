@@ -9,7 +9,7 @@ type CompanyInfo = {
     contact_phone: string;
     corporation: string;
     credit_code: string;
-    credit_score: string;
+    credit_score: number;
     email: string;
     foundation_date: string;
     geohash: string;

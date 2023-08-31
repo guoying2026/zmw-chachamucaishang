@@ -362,56 +362,6 @@
   justify-content: space-around;
   padding: 10px 0;
 }
-.third .second_1 .second_1_1{
-  color:#707070;
-  font-weight: bolder;
-  font-size: clamp(16px, 1.4vw, 20px);
-  margin-top: 20px;
-}
-.third .second_1 .second_1_2{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  margin: 20px 0;
-}
-.third .second_1 .second_1_2 .second_1_2_item{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px 5%;
-  width: 30%;
-  color: #000;
-}
-.third .second_1 .second_1_2 .second_1_2_first{
-  height: clamp(50px, 5.56vw, 80px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.third .second_1 .second_1_2 .second_1_2_item .second_1_2_item_middle{
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-}
-.third .second_1 .second_1_2 .second_1_2_item .second_1_2_item_middle .second_1_2_item_middle_number{
-  display: flex;
-  padding: 2px 8px;
-  font-size: clamp(30px, 3.5vw, 50px);
-  font-weight: 600;
-  background-color: #E21B00;
-  color: #fff;
-  border-radius: 5px;
-  align-items: center;
-  justify-content: center;
-  font-family: system-ui;
-}
-.grey-line{
-  width: 80%;
-  height: 1px;
-  border-top: solid #CFCFCF 1px;
-  margin: 10px 0;
-}
 .second .second_2{
   width: 68%;
   margin-top: 20px;
@@ -928,37 +878,7 @@
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
   <div class="third computer">
-    <div class="second_1">
-      <text class="second_1_1">{{company_name}}</text>
-      <div class="second_1_2">
-        <div class="second_1_2_item">
-          <div class="second_1_2_first second_1_2_item_left">
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e2d929f8-8994-4ba6-b731-d4779bf41cf2.png" alt=""/>
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_c5514216-f624-444c-bb74-24b956dfaab0.png" alt=""/>
-            <img src="https://zhenmuwa`ng.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_63b5d737-53a8-407f-bec4-9f92e207c88c.png" alt=""/>
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f2fdbec2-a1bc-490d-ba2e-383830efbd3a.png" alt=""/>
-          </div>
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">勋章</div>
-        </div>
-        <div class="second_1_2_item">
-          <div class="second_1_2_first second_1_2_item_middle">
-            <text class="second_1_2_item_middle_number">{{credit_score}}</text>
-            <!--                        <div class="red_solid_circle"></div>-->
-            <!--            <text class="second_1_2_item_middle_number">8</text>-->
-          </div>
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">信用分</div>
-        </div>
-        <div class="second_1_2_item">
-          <!--          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_ad66b4f5-d594-4271-0a13-2c57e718420c.png" alt=""/>-->
-          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_1d7c135f-d036-4159-bcf3-62d40562d9df.png" alt=""/>
-
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">等级</div>
-        </div>
-      </div>
-    </div>
+    <ShopFace :companyName="company_name" :creditScore="credit_score"></ShopFace>
     <div class="third_2">
       <client-only>
         <div class="third_2_space">
@@ -1336,37 +1256,7 @@
     </div>
   </div>
   <div class="third mobile" :class="tabItemStore.tabItem*1 >= 4 ? 'dark_third_bg':''">
-    <div class="second_1">
-      <text class="second_1_1">{{company_name}}</text>
-      <div class="second_1_2">
-        <div class="second_1_2_item">
-          <div class="second_1_2_first second_1_2_item_left">
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e2d929f8-8994-4ba6-b731-d4779bf41cf2.png" alt=""/>
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_c5514216-f624-444c-bb74-24b956dfaab0.png" alt=""/>
-            <img src="https://zhenmuwa`ng.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_63b5d737-53a8-407f-bec4-9f92e207c88c.png" alt=""/>
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f2fdbec2-a1bc-490d-ba2e-383830efbd3a.png" alt=""/>
-          </div>
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">勋章</div>
-        </div>
-        <div class="second_1_2_item">
-          <div class="second_1_2_first second_1_2_item_middle">
-            <text class="second_1_2_item_middle_number">{{credit_score}}</text>
-            <!--                        <div class="red_solid_circle"></div>-->
-            <!--            <text class="second_1_2_item_middle_number">8</text>-->
-          </div>
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">信用分</div>
-        </div>
-        <div class="second_1_2_item">
-          <!--          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_ad66b4f5-d594-4271-0a13-2c57e718420c.png" alt=""/>-->
-          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_1d7c135f-d036-4159-bcf3-62d40562d9df.png" alt=""/>
-
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">等级</div>
-        </div>
-      </div>
-    </div>
+    <ShopFace :companyName="company_name" :creditScore="credit_score"></ShopFace>
     <div class="third_2" v-if="tabItemStore.tabItem*1 >= 4">
       <client-only>
         <div class="third_2_space blue-tab">
@@ -1862,6 +1752,7 @@ import {useTabItemDynamicStore} from "~/pinia/tabItemDynamic";
 const tabItemDynamicStore = useTabItemDynamicStore();
 import CommentListMobile from "~/components/CommentListMobile.vue";
 import {CategoryKeys} from "~/types/dynamicCategories";
+import ShopFace from "~/components/ShopFace.vue";
 
 const route = useRoute();
 const query = route.query;
@@ -1869,7 +1760,6 @@ console.log(query);
 const id = query.id as number|string;
 console.log(id);
 const shopDetails = useShopDetails(id);
-// 解构shopDetails，这样你就可以直接在模板中使用其属性
 const {
   address,
   company_name,
