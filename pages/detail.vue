@@ -1,4 +1,13 @@
 <style scoped>
+.question_display_middle{
+  flex:1;
+}
+.over_limit_3{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .tab_3_space_2{
   margin-top: 20px;
 }
@@ -15,6 +24,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
 }
 .red-bg{
   background: #FF4E54;
@@ -402,6 +412,7 @@
 .second .second_2 .second_2_left .second_2_left_item .second_2_left_2 .second_2_left_2_left{
   width: 35px;
   height: 35px;
+  border-radius: 50px;
 }
 .second .second_2 .second_2_left .second_2_left_item .second_2_left_2 .second_2_left_2_right{
   display: flex;
@@ -1548,70 +1559,61 @@
     <div class="second_2">
       <div class="second_2_left">
         <div class="second_2_left_1">
-          <text class="second_2_left_1_left">张珊珊加工厂口碑</text>
-          <!--                    <text class="size-10 grey-color">更多</text>-->
+          <text class="second_2_left_1_left">{{company_name}}口碑</text>
         </div>
-        <div class="second_2_left_item">
+        <template v-for="(comment,index) in commentStore.comments">
+        <div class="second_2_left_item" @click="switchTab(4)" v-if="index <= 1">
           <div class="second_2_left_2">
-            <img class="second_2_left_2_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e9a1e1da-d6e0-4c64-b332-46fd243749db.png" alt="头像"/>
+            <img class="second_2_left_2_left" :src="comment.avatar" alt="头像"/>
             <div class="second_2_left_2_right">
-              <text class="second_2_left_2_right_1">网友</text>
+              <text class="second_2_left_2_right_1">{{comment.user}}</text>
             </div>
           </div>
-          <text class="margin-10-top">货物出现了很严重的质量问题（缺边、毛刺、规格不一）客户没办法用这批货要求退而且
-            要了货物图片，收到货实物跟图片严重不符）</text>
+          <text class="margin-10-top over_limit_3">{{comment.content}}</text>
         </div>
-        <div class="second_2_left_item">
-          <div class="second_2_left_2">
-            <img class="second_2_left_2_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e9a1e1da-d6e0-4c64-b332-46fd243749db.png" alt="头像"/>
-            <div class="second_2_left_2_right">
-              <text class="second_2_left_2_right_1">网友</text>
-            </div>
-          </div>
-          <text>货物出现了很严重的质量问题（缺边、毛刺、规格不一）客户没办法用这批货要求退而且
-            要了货物图片，收到货实物跟图片严重不符）</text>
-        </div>
+        </template>
         <div class="margin-10-top right_display">
-          <Tag tag="我要点评" number="41" color="orange"></Tag>
-          <Tag tag="查看全部" number="41" color="orange"></Tag>
+          <AddForm title-box="评论" :company-name="company_name" feedback-type="comment">
+            <!-- 定义插槽内容 -->
+            <template #trigger>
+              <Tag tag="我要点评" number="41" color="orange"></Tag>
+            </template>
+          </AddForm>
+          <Tag tag="查看全部" color="orange" @click="switchTab(4)"></Tag>
         </div>
         <div class="second_2_left_1 second_2_left_1_margin">
-          <text class="second_2_left_1_left">公司名字相关回答</text>
-          <!--                    <text class="size-10 grey-color">更多</text>-->
+          <text class="second_2_left_1_left">{{company_name}}相关回答</text>
         </div>
-        <div class="question_item_display">
+        <template v-for="(question, index) in questionStore.questions">
+        <div class="question_item_display" v-if="index <= 1" @click="switchTab(5)">
           <div class="question_item_1_display">
             <div class="avatar-wrapper">
               <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
               <span class="question-icon orange-bg">问</span>
             </div>
-            <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
-            <text class="little_time grey-color">2020-08-09 12:12:30</text>
+            <text class="margin-10-left question_display_middle over_limit_3">{{question.question}}</text>
+            <text class="little_time grey-color">{{question.time}}</text>
           </div>
         </div>
-        <div class="answer_item_display">
+        <div class="answer_item_display" @click="switchTab(5)" v-for="(answer,answerIndex) in question.answer_list" v-if="question.answer_list && question.answer_list.length && answerIndex < 1">
           <div class="answer_item_1_display">
             <div class="avatar-wrapper">
               <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
               <span class="question-icon red-bg">答</span>
             </div>
-            <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
-            <text class="little_time grey-color">2020-08-09 12:12:30</text>
+            <text class="margin-10-left question_display_middle">{{answer.answer}}</text>
+            <text class="little_time grey-color">{{answer.time}}</text>
           </div>
         </div>
-        <div class="answer_item_display">
-          <div class="answer_item_1_display">
-            <div class="avatar-wrapper">
-              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
-              <span class="question-icon red-bg">答</span>
-            </div>
-            <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
-            <text class="little_time grey-color">2020-08-09 12:12:30</text>
-          </div>
-        </div>
+        </template>
         <div class="margin-10-top right_display">
-          <Tag tag="我要提问" number="41" color="orange"></Tag>
-          <Tag tag="查看全部" number="41" color="orange"></Tag>
+          <AddForm title-box="提问" :company-name="company_name" feedback-type="question">
+            <!-- 定义插槽内容 -->
+            <template #trigger>
+              <Tag tag="我要提问" number="41" color="orange"></Tag>
+            </template>
+          </AddForm>
+          <Tag tag="查看全部" color="orange" @click="switchTab(5)"></Tag>
         </div>
       </div>
       <img class="second_2_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_007bdf9d-c46d-4843-b154-d43b201c17f2.png" alt=""/>
@@ -1624,7 +1626,7 @@
         <img class="fourth_1_left_1" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f6e0be5e-570c-46f5-b946-75a8f54a7a03.png" alt=""/>
         <text class="fourth_1_left_2">动态</text>
       </div>
-      <text class="grey-color size-10">更多</text>
+      <text class="grey-color size-10" @click="switchTab(2)">更多</text>
     </div>
     <div class="tab_0_space" v-if="tabItemStore.tabItem*1 === 0">
       <table class="green">
@@ -1652,6 +1654,12 @@ import { ref, onMounted } from 'vue';
 import {BaiduMap} from "vue-baidu-map-3x";
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
+//评论
+import {useCommentStore} from "~/pinia/commentStore";
+const commentStore = useCommentStore();
+//问答
+import {useQuestionStore} from "~/pinia/questionStore";
+const questionStore = useQuestionStore();
 //动态
 import {useDynamicStore} from "~/pinia/dynamicStore";
 const dynamicStore = useDynamicStore();

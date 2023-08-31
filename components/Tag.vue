@@ -1,5 +1,5 @@
 <template>
-  <text class="custom_tag" :class="`${color}_btn border_${number}_radius`">
+  <text class="custom_tag" :class="`${color}_btn border_${number}_radius special_${number}`">
     {{tag}}
     <span class="triangle-down" :class="`${color}`" v-if="more*1 === 1"></span>
     <span class="triangle-up brown-up-orange" :class="`${color}`" v-if="more*1 === 2"></span>
