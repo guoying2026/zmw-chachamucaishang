@@ -45,7 +45,9 @@ export function useFileUploadLogic(emit: (eventName: string, value: any) => void
     };
 
     const handleRemove = (file: any): void => {
+        console.log('执行文件删除了');
         submitFileList.value = submitFileList.value.filter(item => !item[file.raw.uid]);
+        emit('update:fileList', submitFileList.value);
     };
 
     const handlePictureCardPreview = (file: any): void => {
