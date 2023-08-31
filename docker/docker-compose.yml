@@ -1,16 +1,10 @@
 version: '3'
 services:
     zmw-chachamucaishang:
-        image: ccmcs:latest
+        image: registry.cn-beijing.aliyuncs.com/jryhd/zmw-chachamucaishang:latest
         command: node
         environment:
             - SITE_DOMAIN=localhost
             - WWWROOT=/wwwroot
-            - GIT_URL=https://gitee.com/joytouwu/zmw-chachamucaishang.git
-            - GIT_BRANCH=master
-            - NPM_REGISTRY=https://registry.npmjs.com
-            - IS_NODE_CLUSTER=0
         ports:
             - 3000:3000
-        volumes:
-            - /home/joytou/zmw-chachamucaishang-test:/wwwroot:rw
