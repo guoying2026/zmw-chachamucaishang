@@ -80,7 +80,9 @@
 </style>
 <template>
   <div class="second_1">
-    <text class="second_1_1">{{companyName}}</text>
+    <NuxtLink :to="'/detail?id='+companyId">
+      <span class="second_1_1">{{companyName}}</span>
+    </NuxtLink>
     <div class="second_1_2">
       <div class="second_1_2_item">
         <div class="second_1_2_first">
@@ -127,6 +129,10 @@ const props = defineProps({
   companyName: {
     type: String,
     default: "",
+  },
+  companyId:{
+    type: Number,
+    required: true,
   }
 });
 </script>

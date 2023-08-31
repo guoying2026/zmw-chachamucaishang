@@ -878,7 +878,7 @@
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
   <div class="third computer">
-    <ShopFace :companyName="company_name" :creditScore="credit_score"></ShopFace>
+    <ShopFace :companyName="company_name" :companyId="Number(query.id)" :creditScore="credit_score"></ShopFace>
     <div class="third_2">
       <client-only>
         <div class="third_2_space">
@@ -1255,18 +1255,9 @@
       </div>
     </div>
   </div>
-  <div class="third mobile" :class="tabItemStore.tabItem*1 >= 4 ? 'dark_third_bg':''">
-    <ShopFace :companyName="company_name" :creditScore="credit_score"></ShopFace>
-    <div class="third_2" v-if="tabItemStore.tabItem*1 >= 4">
-      <client-only>
-        <div class="third_2_space blue-tab">
-          <text class="tab_" :class="(tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7)?'white-color blue-underline':''" @click="switchTab(7)">评价</text>
-          <text class="tab_" :class="(tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8) ?'white-color blue-underline':''" @click="switchTab(8)">问答</text>
-          <text class="tab_" :class="(tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9) ?'white-color blue-underline':''" @click="switchTab(9)">投诉</text>
-        </div>
-      </client-only>
-    </div>
-    <div class="third_2" v-else>
+  <div class="third mobile">
+    <ShopFace :companyName="company_name" :companyId="Number(query.id)" :creditScore="credit_score"></ShopFace>
+    <div class="third_2">
       <client-only>
         <div class="third_2_space">
           <text class="tab_" :class="tabItemStore.tabItem*1 === 0 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
@@ -1465,7 +1456,9 @@
           <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_3961e5c7-53cd-4c91-b1da-92f70acf74d8.png" alt="">
           <text class="margin-10-left">评论</text>
         </div>
-        <text @click="switchTab(7)">更多></text>
+        <NuxtLink :to="'/mobileAppraise?id='+Number(query.id)+'&tab=7'">
+          <span>更多></span>
+        </NuxtLink>
       </div>
     </div>
     <!--    口碑界面评论开始-->
@@ -1478,50 +1471,6 @@
       </template>
     </AddFormMobile>
     <!--    口碑界面评论结束-->
-<!--    移动端评论界面开始-->
-    <CommentListMobile v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
-    <AddFormMobile title-box="评论" :company-name="company_name" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
-      <!-- 定义插槽内容 -->
-      <template #trigger>
-        <HoverButton >
-          <template #hoverButton>
-            <img class="hover_image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_674067de-0fa6-4a1e-bd78-9ff51400b77a.png" alt=""/>
-          </template>
-        </HoverButton>
-      </template>
-    </AddFormMobile>
-<!--移动端评论界面结束-->
-<!--      移动端提问界面开始-->
-    <div class="nine" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8">
-      <QuestionListMobile ></QuestionListMobile>
-      <AddFormMobile title-box="提问" :company-name="company_name" feedback-type="question">
-        <!-- 定义插槽内容 -->
-        <template #trigger>
-          <!-- 当点击时触发openCommentBox方法 -->
-          <HoverButton>
-            <template #hoverButton>
-              <img class="hover_image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_296ceba6-2d6d-4c64-bcad-6ccdf60ff96c.png" alt=""/>
-            </template>
-          </HoverButton>
-        </template>
-      </AddFormMobile>
-    </div>
-<!--    移动端提问界面结束-->
-<!--    移动端投诉界面开始-->
-    <div class="nine" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9">
-      <ComplaintListMobile :company-name="company_name"></ComplaintListMobile>
-      <AddFormMobile title-box="投诉" :company-name="company_name" feedback-type="complaint">
-        <!-- 定义插槽内容 -->
-        <template #trigger>
-          <HoverButton>
-            <template #hoverButton>
-              <img class="hover_image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_ae5c4513-e845-4bc7-bfd8-87b259c74666.png" alt=""/>
-            </template>
-          </HoverButton>
-        </template>
-      </AddFormMobile>
-    </div>
-<!--    移动端投诉界面结束-->
   </div>
 <!--  口碑问答投诉开始-->
   <div class="fifth_question mobile" v-if="tabItemStore.tabItem*1 === 3">
@@ -1532,7 +1481,12 @@
           <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_0700b3c4-a16a-4f4f-b849-104bd2a96638.png" alt="">
           <text class="margin-10-left">问答</text>
         </div>
-        <text @click="switchTab(8)">更多></text>
+        <NuxtLink :to="'/mobileAppraise?id='+Number(query.id)+'&tab=8'">
+          <span>更多></span>
+        </NuxtLink>
+<!--        <NuxtLink to="/mobileAppraise">-->
+<!--          <span>更多></span>-->
+<!--        </NuxtLink>-->
       </div>
       <div class="question_mobile margin-10-top">
           <div class="avatar-wrapper">
@@ -1575,7 +1529,12 @@
         <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_10123398-f5cb-48b9-b40d-7d8cfdf4ba82.png" alt="">
         <text class="margin-10-left">投诉</text>
       </div>
-      <text @click="switchTab(9)">更多></text>
+      <NuxtLink :to="'/mobileAppraise?id='+Number(query.id)+'&tab=9'">
+        <span>更多></span>
+      </NuxtLink>
+<!--      <NuxtLink to="/mobileAppraise">-->
+<!--        <span>更多></span>-->
+<!--      </NuxtLink>-->
     </div>
     <ComplaintListMobile :company-name="company_name" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
     <AddFormMobile title-box="投诉" :company-name="company_name" feedback-type="complaint" class="margin-20-bottom" v-if="tabItemStore.tabItem*1 === 3">
