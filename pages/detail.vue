@@ -1462,7 +1462,7 @@
       </div>
     </div>
     <!--    口碑界面评论开始-->
-    <CommentListMobile :is-mobile-appraise="true" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></CommentListMobile>
+    <CommentListMobile :is-mobile-appraise="true" :is-show-reply="false" :company-id="Number(query.id)" v-if="tabItemStore.tabItem*1 === 3"></CommentListMobile>
     <AddFormMobile title-box="评论" :company-name="company_name" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
       <template #trigger>
@@ -1533,7 +1533,7 @@
         <span>更多></span>
       </NuxtLink>
     </div>
-    <ComplaintListMobile :company-name="company_name" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
+    <ComplaintListMobile :company-name="company_name" :is-show-reply="false" :company-id="Number(query.id)" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
     <AddFormMobile title-box="投诉" :company-name="company_name" feedback-type="complaint" class="margin-20-bottom" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
       <template #trigger>

@@ -86,7 +86,7 @@
           <text class=" time blue-color">{{complaint.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="complaint"></LikeSwitch>
-            <AddFormMobile title-box="回复" :company-name="complaint.user" feedback-type="complaintReply">
+            <AddFormMobile title-box="回复" :company-name="complaint.user" feedback-type="complaintReply" :isShowReply="isShowReply" :company-id="companyId">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left blue-color">回复</text>
@@ -127,7 +127,7 @@
               <text class=" time blue-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="complaintReply"></LikeSwitch>
-                <AddFormMobile title-box="回复" :index="index" :company-name="reply.user" feedback-type="complaintReply">
+                <AddFormMobile title-box="回复" :index="index" :company-name="reply.user" feedback-type="complaintReply" :isShowReply="isShowReply" :company-id="companyId">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left blue-color">回复</text>
@@ -156,6 +156,10 @@ const props = defineProps({
   companyName:{
     type: String,
     default: '',
+  },
+  companyId:{
+    type: Number,
+    default: 0,
   }
 });
 </script>

@@ -138,6 +138,14 @@ const props = defineProps({
     required: true,
     validator: (value: string) => ['comment', 'commentReply', 'question', 'answer', 'complaint','complaintReply'].includes(value)
   },
+  isShowReply:{
+    type: Boolean,
+    default: true,
+  },
+  companyId:{
+    type: Number,
+    default: 0,
+  }
 });
 const placeholderText = ref('');
 onMounted(()=>{

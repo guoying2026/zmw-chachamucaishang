@@ -31,7 +31,7 @@
           <text class="time" :class="isMobileAppraise?'grey-color':'blue-color'">{{comment.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-            <AddFormMobile title-box="回复" :company-name="comment.user" feedbackType="commentReply">
+            <AddFormMobile title-box="回复" :company-name="comment.user" feedbackType="commentReply" :isShowReply="isShowReply" :company-id="companyId">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">回复</text>
@@ -72,7 +72,7 @@
               <text class="time" :class="isMobileAppraise?'grey-color':'blue-color'">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
-                <AddFormMobile title-box="回复" :company-name="reply.user" feedbackType="commentReply">
+                <AddFormMobile title-box="回复" :company-name="reply.user" feedbackType="commentReply" :isShowReply="isShowReply" :company-id="companyId">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">回复</text>
@@ -101,6 +101,10 @@ const props = defineProps({
   isMobileAppraise:{
     type: Boolean,
     default: false,
+  },
+  companyId:{
+    type: Number,
+    default: 0,
   }
 });
 </script>

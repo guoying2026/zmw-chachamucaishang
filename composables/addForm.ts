@@ -59,6 +59,26 @@ export function addFormLogic(props: any) {
         } else {
             currentHandler.value.add(state.value);
             closeCommentBox();
+            const router = useRouter();
+            console.log('aaaaaaaaaaaaaaaaaaaa')
+            console.log(props);
+            if(props.feedbackType == 'commentReply' && props.isShowReply === false){
+                router.push({
+                    path:'/mobileAppraise',
+                    query:{
+                        id: props.companyId,
+                        tab: 7
+                    }
+                });
+            } else if(props.feedbackType == 'complaintReply' && props.isShowReply === false){
+                router.push({
+                    path:'/mobileAppraise',
+                    query:{
+                        id: props.companyId,
+                        tab: 9
+                    }
+                });
+            }
         }
     };
 
