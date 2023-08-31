@@ -1,7 +1,7 @@
 version: '3'
 services:
     zmw-chachamucaishang:
-        image: registry.cn-beijing.aliyuncs.com/jryhd/zmw-chachamucaishang:latest
+        image: registry.cn-beijing.aliyuncs.com/jryhd/zmw-pingfen:latest
         command: node
         environment:
             - SITE_DOMAIN=localhost
