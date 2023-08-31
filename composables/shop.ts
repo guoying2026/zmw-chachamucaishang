@@ -36,8 +36,6 @@ export const useShopDetails = (companyInfoId: string | number) => {
             let data = await shopDetailApi(companyInfoId);
             // 使用对象解构赋值
             company_info.value = data.company_info;
-            console.log('shopDetail composables');
-            console.log(data);
         } catch (error) {
             console.error("Failed to fetch shop details", error);
         }

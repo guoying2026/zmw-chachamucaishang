@@ -50,6 +50,18 @@
     display: inline-block;
     margin-left: 5px;
 }
+.triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    display: inline-block;
+    margin-left: 5px;
+}
+.brown-up-orange{
+    border-bottom: 6px solid #FF9B40;
+    border-top: unset !important;
+}
 .brown-orange{
     border-top: 6px solid #FF9B40;  /* 这里设置你想要的颜色 */
 }
