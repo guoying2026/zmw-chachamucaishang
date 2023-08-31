@@ -30,10 +30,11 @@ export const useSearchHistoryStore = defineStore('searchHistoryStore', () => {
   const getList = () => {
     let _list = list.value
     _list = _list.map((item, index) => {
+      item = JSON.parse(JSON.stringify(item))
       if (index % wordLogoBgColors.length === 0) {
         wordLogoBgColors = shuffle(wordLogoBgColors)
       }
-      item.word_logo_bg_color = wordLogoBgColors[index]
+      item.word_logo_bg_color = wordLogoBgColors[index % wordLogoBgColors.length]
       return item
     })
     return _list;
