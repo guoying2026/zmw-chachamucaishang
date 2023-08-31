@@ -1318,7 +1318,6 @@
         </div>
       </div>
       <img class="margin-20-top" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_450cc483-88c5-49a4-bb46-7f3fd28ab675.png">
-      <img class="margin-20-top" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_da1a539b-ff27-42a5-bbdd-76a19574b391.png">
     </div>
     <div class="six" v-if="tabItemStore.tabItem*1 === 1">
       <table class="six_table left_width_1">
