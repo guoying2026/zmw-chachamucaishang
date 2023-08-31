@@ -59,6 +59,11 @@ function searchInputHistoryListItemClickHandle(str: string) {
   gotoSearch();
 }
 
+function searchHistoryListItemClickHandle(id: number | string) {
+  searchTextRef.value.blur()
+  router.push('/detail?id=' + id)
+}
+
 /**
  * 显示登录弹窗
  */
@@ -118,7 +123,7 @@ nuxtApp.hook('page:finish', () => {
       <!-- 叉叉图标 -->
       <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute hidden w-5 h-14 clear-icon" style="color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
       <ClientOnly>
-        <SearchTips @gotoLogin="gotoLogin" @gotoSearch="searchInputHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-14" width="w-4/5" zIndex="z-10" />
+        <SearchTips @gotoLogin="gotoLogin" @gotoSearch="searchInputHistoryListItemClickHandle" @gotoDetail="searchHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-14" width="w-4/5" zIndex="z-10" />
       </ClientOnly>
       <button class="w-1/5 h-14 search-button" @click.stop="isMobile?searchBoxClickHandle():searchButtonHandle()">查一下</button>
     </div>
