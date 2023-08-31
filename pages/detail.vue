@@ -162,15 +162,25 @@
 }
 .choose_title{
   color: #999999;
+  width: 59px;
 }
 .choose_detail{
+  flex:1;
   margin-left: 20px;
   color: #fff;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+}
+.chose{
+  border: 1px solid #FF834E;
+  border-radius: 5px;
+  color: #FF834E;
 }
 .choose_detail text{
-  margin: 0 5px;
+  padding: 2px 5px;
+  margin: 0 10px 5px 0;
+  white-space: nowrap;
 }
 .horizontal_line{
   height: 2px;      /* 线的厚度 */
@@ -351,56 +361,6 @@
   flex-direction: column;
   justify-content: space-around;
   padding: 10px 0;
-}
-.third .second_1 .second_1_1{
-  color:#707070;
-  font-weight: bolder;
-  font-size: clamp(16px, 1.4vw, 20px);
-  margin-top: 20px;
-}
-.third .second_1 .second_1_2{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  margin: 20px 0;
-}
-.third .second_1 .second_1_2 .second_1_2_item{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px 5%;
-  width: 30%;
-  color: #000;
-}
-.third .second_1 .second_1_2 .second_1_2_first{
-  height: clamp(50px, 5.56vw, 80px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.third .second_1 .second_1_2 .second_1_2_item .second_1_2_item_middle{
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-}
-.third .second_1 .second_1_2 .second_1_2_item .second_1_2_item_middle .second_1_2_item_middle_number{
-  display: flex;
-  padding: 2px 8px;
-  font-size: clamp(30px, 3.5vw, 50px);
-  font-weight: 600;
-  background-color: #E21B00;
-  color: #fff;
-  border-radius: 5px;
-  align-items: center;
-  justify-content: center;
-  font-family: system-ui;
-}
-.grey-line{
-  width: 80%;
-  height: 1px;
-  border-top: solid #CFCFCF 1px;
-  margin: 10px 0;
 }
 .second .second_2{
   width: 68%;
@@ -835,21 +795,28 @@
   .eight{
     width: 100%;
     margin-top: 10px;
-    border-collapse: separate;
-    border-spacing: 0;
-    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
   }
-  .left_width_4 td{
-    border: unset !important;
+  .eight_item{
     font-size: 13px;
     padding: 10px;
   }
-  .left_width_4 td:nth-child(1){
+  .eight_1{
+    display: flex;
+    flex-direction: column;
     width: 40%;
     background-color: #683A10;
   }
-  .left_width_4 td:nth-child(2){
+  .selected_category{
     background-color: #5B3009;
+    color: #FF9B40;
+  }
+  .eight_2{
+    display: flex;
+    flex-direction: column;
+    background-color: #5B3009;
+    flex:1;
   }
   /* 选择每一行的第二个td */
   .six tr td:nth-child(2) {
@@ -911,37 +878,7 @@
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
   <div class="third computer">
-    <div class="second_1">
-      <text class="second_1_1">{{company_name}}</text>
-      <div class="second_1_2">
-        <div class="second_1_2_item">
-          <div class="second_1_2_first second_1_2_item_left">
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e2d929f8-8994-4ba6-b731-d4779bf41cf2.png" alt=""/>
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_c5514216-f624-444c-bb74-24b956dfaab0.png" alt=""/>
-            <img src="https://zhenmuwa`ng.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_63b5d737-53a8-407f-bec4-9f92e207c88c.png" alt=""/>
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f2fdbec2-a1bc-490d-ba2e-383830efbd3a.png" alt=""/>
-          </div>
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">勋章</div>
-        </div>
-        <div class="second_1_2_item">
-          <div class="second_1_2_first second_1_2_item_middle">
-            <text class="second_1_2_item_middle_number">{{credit_score}}</text>
-            <!--                        <div class="red_solid_circle"></div>-->
-            <!--            <text class="second_1_2_item_middle_number">8</text>-->
-          </div>
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">信用分</div>
-        </div>
-        <div class="second_1_2_item">
-          <!--          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_ad66b4f5-d594-4271-0a13-2c57e718420c.png" alt=""/>-->
-          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_1d7c135f-d036-4159-bcf3-62d40562d9df.png" alt=""/>
-
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">等级</div>
-        </div>
-      </div>
-    </div>
+    <ShopFace :companyName="company_name" :creditScore="credit_score"></ShopFace>
     <div class="third_2">
       <client-only>
         <div class="third_2_space">
@@ -1089,42 +1026,30 @@
         <div class="choose_item">
           <text class="choose_title">动态类型</text>
           <div class="choose_detail">
-            <text>全部类型</text>
-            <text>工商</text>
-            <text>风险</text>
-            <text>经营</text>
-            <text>招投标</text>
-            <text>新闻</text>
+            <text v-for="key in dynamicCategoriesStore.pcCategoryKeys" :key="key" :class="dynamicCategoriesStore.selectedCategory === key?'chose':''" @click="toggleCategory(key)">{{dynamicCategoriesStore.CATEGORIES[key]}}</text>
           </div>
         </div>
-        <!--        <div class="choose_item">-->
-        <!--          <text class="choose_title">工商动态</text>-->
-        <!--          <div class="choose_detail">-->
-        <!--            <text>全部</text>-->
-        <!--            <text>法定代表人变更</text>-->
-        <!--            <text>主要成员变更</text>-->
-        <!--            <text>股东变更</text>-->
-        <!--            <text>大股东变更</text>-->
-        <!--            <text>实际控制人变更</text>-->
-        <!--            <text>最终受益人变更</text>-->
-        <!--            <text>对外投资人变更</text>-->
-        <!--            <text>注册资本变更</text>-->
-        <!--            <text>经营范围变更</text>-->
-        <!--            <text>经营状态变更</text>-->
-        <!--            <text>企业名称变更变更</text>-->
-        <!--          </div>-->
-        <!--        </div>-->
         <div class="choose_item">
-          <text class="choose_title">时间选择</text>
+          <text class="choose_title"></text>
           <div class="choose_detail">
-            <text>全部时间</text>
-            <text>今天</text>
-            <text>近7天</text>
-            <text>近30天</text>
+            <text :class="sub === dynamicCategoriesStore.selectedSubCategory?'chose':''" v-for="(sub, key) in dynamicCategoriesStore.SUB_CATEGORIES[dynamicCategoriesStore.selectedCategory]" :key="key" @click="selectSubCategory(sub)">{{sub}}</text>
           </div>
         </div>
+<!--        <div class="choose_item">-->
+<!--          <text class="choose_title">时间选择</text>-->
+<!--          <div class="choose_detail">-->
+<!--            <text class="chose">全部时间</text>-->
+<!--            <text>今天</text>-->
+<!--            <text>近7天</text>-->
+<!--            <text>近30天</text>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
-      <table>
+      <template v-if="pcFilteredDynamics.length < 1">
+        <NoDetail v-if="dynamicCategoriesStore.selectedSubCategory === '全部'" class="margin-10-top" type="动态" :text="'暂无查询到该企业的'+dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory]+'动态'" :has-button="false"></NoDetail>
+        <NoDetail v-else class="margin-10-top" type="动态" :text="'暂无查询到该企业的【 '+dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory] +' > '+dynamicCategoriesStore.selectedSubCategory +' 】动态'" :has-button="false"></NoDetail>
+      </template>
+      <table v-else>
         <tr class="table_title">
           <th>动态等级</th>
           <th>动态类型</th>
@@ -1132,9 +1057,9 @@
           <th>更新时间</th>
           <th>操作</th>
         </tr>
-        <tr class="table_detail" v-for="(dynamic, index) in dynamicStore.dynamics">
+        <tr class="table_detail" v-for="dynamic in pcFilteredDynamics" :key="dynamic.id">
           <td :class="getClass(dynamic.level)">{{dynamic.level}}</td>
-          <td>{{dynamic.type}}</td>
+          <td>{{dynamic.subCategory}}</td>
           <td class="wide-column" v-html="dynamic.content"></td>
           <td>{{dynamic.updateTime}}</td>
           <td>详情</td>
@@ -1331,37 +1256,7 @@
     </div>
   </div>
   <div class="third mobile" :class="tabItemStore.tabItem*1 >= 4 ? 'dark_third_bg':''">
-    <div class="second_1">
-      <text class="second_1_1">{{company_name}}</text>
-      <div class="second_1_2">
-        <div class="second_1_2_item">
-          <div class="second_1_2_first second_1_2_item_left">
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e2d929f8-8994-4ba6-b731-d4779bf41cf2.png" alt=""/>
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_c5514216-f624-444c-bb74-24b956dfaab0.png" alt=""/>
-            <img src="https://zhenmuwa`ng.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_63b5d737-53a8-407f-bec4-9f92e207c88c.png" alt=""/>
-            <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f2fdbec2-a1bc-490d-ba2e-383830efbd3a.png" alt=""/>
-          </div>
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">勋章</div>
-        </div>
-        <div class="second_1_2_item">
-          <div class="second_1_2_first second_1_2_item_middle">
-            <text class="second_1_2_item_middle_number">{{credit_score}}</text>
-            <!--                        <div class="red_solid_circle"></div>-->
-            <!--            <text class="second_1_2_item_middle_number">8</text>-->
-          </div>
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">信用分</div>
-        </div>
-        <div class="second_1_2_item">
-          <!--          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_ad66b4f5-d594-4271-0a13-2c57e718420c.png" alt=""/>-->
-          <img class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_1d7c135f-d036-4159-bcf3-62d40562d9df.png" alt=""/>
-
-          <text class="grey-line"></text>
-          <div class="second_1_2_third">等级</div>
-        </div>
-      </div>
-    </div>
+    <ShopFace :companyName="company_name" :creditScore="credit_score"></ShopFace>
     <div class="third_2" v-if="tabItemStore.tabItem*1 >= 4">
       <client-only>
         <div class="third_2_space blue-tab">
@@ -1414,7 +1309,7 @@
       <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
         <div class="fifth_2_1">
           <text>{{dynamic.updateTime}}</text>
-          <text>{{dynamic.type}}</text>
+          <text>{{dynamic.subCategory}}</text>
           <text :class="getClass(dynamic.level)">{{dynamic.level}}</text>
         </div>
         <div class="fifth_2_2">
@@ -1522,18 +1417,24 @@
       </table>
     </div>
     <div class="seven" v-if="tabItemStore.tabItem*1 === 2">
-      <Tag tag="工商" :color="tabItemDynamicStore.tabItem*1 === 1 ?'brown-orange':'brown-white'" @click="switchTabDynamic(1)"></Tag>
-      <Tag tag="风险" :color="tabItemDynamicStore.tabItem*1 === 2 ?'brown-orange':'brown-white'" @click="switchTabDynamic(2)"></Tag>
-      <Tag tag="经营" :color="tabItemDynamicStore.tabItem*1 === 3 ?'brown-orange':'brown-white'" @click="switchTabDynamic(3)"></Tag>
-      <Tag tag="招投标" :color="tabItemDynamicStore.tabItem*1 === 4 ?'brown-orange':'brown-white'" @click="switchTabDynamic(4)"></Tag>
+      <Tag v-for="key in dynamicCategoriesStore.specificCategoryKeys" :key="key"
+           :color="dynamicCategoriesStore.selectedCategory === key ? 'brown-orange' : 'brown-white'"
+           @click="toggleCategory(key)"
+           :tag="dynamicCategoriesStore.CATEGORIES[key]"
+      >
+      </Tag>
       <div class="vertical-line"></div>
-      <Tag tag="更多类型" :color="tabItemDynamicStore.tabItem*1 === 5 ?'brown-orange':'brown-white'" more="1" @click="switchTabDynamic(5)"></Tag>
+      <Tag tag="更多类型" :more="dynamicCategoriesStore.moreTriangleUpOrDown" :color="dynamicCategoriesStore.selectedCategory === 'MORE' ?'brown-orange':'brown-white'" @click="toggleMoreTypes"></Tag>
     </div>
-    <div class="fifth" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 !== 5">
-      <div class="fifth_2" v-for="(dynamic, index) in dynamicStore.dynamics">
+    <div class="fifth" v-if="tabItemStore.tabItem*1 === 2 && !dynamicCategoriesStore.showMoreTypes">
+      <template v-if="filteredDynamics.length < 1">
+        <NoDetail v-if="dynamicCategoriesStore.selectedCategory !== 'MORE'" class="margin-10-top" type="动态" :text="'暂无查询到该企业的'+dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory]+'动态'" :has-button="false"></NoDetail>
+        <NoDetail v-else class="margin-10-top" type="动态" :text="'暂无查询到该企业的【 '+dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedMoreCategory] +' > '+dynamicCategoriesStore.selectedSubCategory +' 】动态'" :has-button="false"></NoDetail>
+      </template>
+      <div class="fifth_2" v-for="dynamic in filteredDynamics" :key="dynamic.id" v-else>
         <div class="fifth_2_1">
           <text>{{dynamic.updateTime}}</text>
-          <text>{{dynamic.type}}</text>
+          <text>{{dynamic.subCategory}}</text>
           <text :class="getClass(dynamic.level)">{{dynamic.level}}</text>
         </div>
         <div class="fifth_2_2">
@@ -1542,20 +1443,22 @@
         </div>
       </div>
     </div>
-    <table class="eight left_width_4" v-if="tabItemStore.tabItem*1 === 2 && tabItemDynamicStore.tabItem*1 === 5">
-      <tr>
-        <td @click="tabItemDynamicStore.tabItem*1 === 0">全部类型</td>
-        <td>xxx</td>
-      </tr>
-      <tr>
-        <td>工商</td>
-        <td>xxx</td>
-      </tr>
-      <tr>
-        <td>风险</td>
-        <td>xxx</td>
-      </tr>
-    </table>
+    <div class="eight" v-if="tabItemStore.tabItem*1 === 2 && dynamicCategoriesStore.showMoreTypes">
+      <!-- 主分类列表 -->
+          <!-- 其他主分类 -->
+      <div class="eight_1">
+        <div class="eight_item" :class="key === dynamicCategoriesStore.selectedMoreCategory? 'selected_category':''" v-for="(category, key) in dynamicCategoriesStore.CATEGORIES" :key="key" @click="toggleMoreCategory(key)">
+          {{ category }}
+        </div>
+      </div>
+      <div class="eight_2">
+        <!-- 对应的子分类列表 -->
+        <!-- 如果选中其他主分类，显示其对应子分类 -->
+        <div class="eight_item" :class="sub === dynamicCategoriesStore.selectedSubCategory? 'selected_category':''" v-for="(sub, key) in dynamicCategoriesStore.SUB_CATEGORIES[dynamicCategoriesStore.selectedMoreCategory]" :key="key" @click="selectSubCategory(sub)">
+          {{ sub }}
+        </div>
+      </div>
+    </div>
     <img class="third_1" v-if="tabItemStore.tabItem*1 === 3" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
     <div class="fifth margin-10-top" v-if="tabItemStore.tabItem*1 === 3">
       <div class="fifth_1">
@@ -1567,7 +1470,7 @@
       </div>
     </div>
     <!--    口碑界面评论开始-->
-    <CommentList :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></CommentList>
+    <CommentListMobile :is-mobile-appraise="true" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></CommentListMobile>
     <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
       <template #trigger>
@@ -1577,7 +1480,7 @@
     </AddFormMobile>
     <!--    口碑界面评论结束-->
 <!--    移动端评论界面开始-->
-    <CommentListMobile  v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
+    <CommentListMobile v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
     <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
       <!-- 定义插槽内容 -->
       <template #trigger>
@@ -1779,7 +1682,7 @@
         </tr>
         <tr class="table_detail" v-for="(dynamic, index) in dynamicStore.dynamics">
           <td :class="getClass(dynamic.level)">{{dynamic.level}}</td>
-          <td>{{dynamic.type}}</td>
+          <td>{{dynamic.subCategory}}</td>
           <td class="wide-column" v-html="dynamic.content"></td>
           <td>{{dynamic.updateTime}}</td>
           <td>详情</td>
@@ -1794,11 +1697,51 @@ import { ref, onMounted } from 'vue';
 import {BaiduMap} from "vue-baidu-map-3x";
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
-//添加评论
-import {useCommentStore} from "~/pinia/commentStore";
-const commentStore = useCommentStore();
+//动态
 import {useDynamicStore} from "~/pinia/dynamicStore";
 const dynamicStore = useDynamicStore();
+import {useDynamicCategoriesStore} from "~/pinia/dynamicCategoriesStore";
+const dynamicCategoriesStore = useDynamicCategoriesStore();
+const toggleCategory = (key: CategoryKeys) => {
+  dynamicCategoriesStore.toggleCategory(key);
+}
+const toggleMoreCategory = (key: CategoryKeys) => {
+  dynamicCategoriesStore.toggleMoreCategory(key);
+}
+const toggleMoreTypes = () => {
+  console.log('切换');
+  dynamicCategoriesStore.toggleMoreTypes();
+  console.log(dynamicCategoriesStore.moreTriangleUpOrDown);
+}
+const selectSubCategory = (sub: string) => {
+  dynamicCategoriesStore.selectSubCategory(sub);
+}
+const pcFilteredDynamics = computed(() => {
+  return dynamicStore.getPcDynamicsByCategoryAndSubCategory(
+      dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory],
+      dynamicCategoriesStore.selectedSubCategory,
+  );
+})
+// 计算属性
+const filteredDynamics = computed(() => {
+  console.log(dynamicCategoriesStore.selectedMoreCategory);
+  console.log(dynamicCategoriesStore.selectedCategory);
+  console.log(dynamicCategoriesStore.selectedSubCategory);
+  console.log(dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedMoreCategory]);
+  if(dynamicCategoriesStore.selectedCategory === 'MORE'){
+    return dynamicStore.getDynamicsByCategoryAndSubCategory(
+        dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedMoreCategory],
+        dynamicCategoriesStore.selectedSubCategory,
+        true,
+    )
+  }
+  return dynamicStore.getDynamicsByCategoryAndSubCategory(
+      dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory],
+      dynamicCategoriesStore.selectedSubCategory,
+      false,
+  );
+
+});
 import Tag from "~/components/Tag.vue";
 import CommentList from "~/components/CommentList.vue";
 import NoDetail from "~/components/NoDetail.vue";
@@ -1806,11 +1749,10 @@ import ComplaintList from "~/components/ComplaintList.vue";
 import {useShopDetails} from "~/composables/shop";
 import { useRoute } from 'vue-router';
 import {useTabItemDynamicStore} from "~/pinia/tabItemDynamic";
-import LikeSwitch from "~/components/LikeSwitch.vue";
 const tabItemDynamicStore = useTabItemDynamicStore();
-import { useQuestionStore } from "~/pinia/questionStore";
 import CommentListMobile from "~/components/CommentListMobile.vue";
-const questionStore = useQuestionStore();
+import {CategoryKeys} from "~/types/dynamicCategories";
+import ShopFace from "~/components/ShopFace.vue";
 
 const route = useRoute();
 const query = route.query;
@@ -1818,7 +1760,6 @@ console.log(query);
 const id = query.id as number|string;
 console.log(id);
 const shopDetails = useShopDetails(id);
-// 解构shopDetails，这样你就可以直接在模板中使用其属性
 const {
   address,
   company_name,

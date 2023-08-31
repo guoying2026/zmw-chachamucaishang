@@ -9,7 +9,7 @@ type CompanyInfo = {
     contact_phone: string;
     corporation: string;
     credit_code: string;
-    credit_score: string;
+    credit_score: number;
     email: string;
     foundation_date: string;
     geohash: string;
@@ -36,8 +36,6 @@ export const useShopDetails = (companyInfoId: string | number) => {
             let data = await shopDetailApi(companyInfoId);
             // 使用对象解构赋值
             company_info.value = data.company_info;
-            console.log('shopDetail composables');
-            console.log(data);
         } catch (error) {
             console.error("Failed to fetch shop details", error);
         }

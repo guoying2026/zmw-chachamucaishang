@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-    <div class="comment_item blue_comment" v-for="(comment, index) in commentStore.comments">
+    <div class="comment_item" :class="isMobileAppraise?'blue_comment': 'brown_item_bg'" v-for="(comment, index) in commentStore.comments">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="comment.avatar" width="32" height="32" :alt="comment.user">
         <div class="avatar-name__name margin-10-left">
@@ -34,7 +34,7 @@
             <AddFormMobile title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
               <!-- 定义插槽内容 -->
               <template #trigger>
-                <text class="margin-20-left blue-color">回复</text>
+                <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">回复</text>
               </template>
             </AddFormMobile>
           </div>
@@ -75,7 +75,7 @@
                 <AddFormMobile title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
-                    <text class="margin-20-left blue-color">回复</text>
+                    <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">回复</text>
                   </template>
                 </AddFormMobile>
               </div>
@@ -98,5 +98,9 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  isMobileAppraise:{
+    type: Boolean,
+    default: false,
+  }
 });
 </script>
