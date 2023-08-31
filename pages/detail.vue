@@ -1747,6 +1747,34 @@ const {
   fetchShopDetails,
 } = shopDetails;
 
+watch(() => route.query.id, (newProps) => {
+  window.location.reload()
+  /* console.log('watch route.query.id', newProps)
+  let shopDetails1 = useShopDetails(newProps as string|number)
+  address.value = shopDetails1.address
+  company_name.value = shopDetails1.company_name
+  business_scope.value = shopDetails1.business_scope
+  company_sort.value = shopDetails1.company_sort
+  contact_phone.value = shopDetails1.contact_phone
+  corporation.value = shopDetails1.corporation
+  credit_code.value = shopDetails1.credit_code
+  credit_score.value = shopDetails1.credit_score
+  email.value = shopDetails1.email
+  foundation_date.value = shopDetails1.foundation_date
+  geohash.value = shopDetails1.geohash
+  industry.value = shopDetails1.industry
+  lat.value = shopDetails1.lat
+  lng.value = shopDetails1.lng
+  operation_state.value = shopDetails1.operation_state
+  organisation_code.value = shopDetails1.organisation_code
+  registered_capital.value = shopDetails1.registered_capital
+  registration_mark.value = shopDetails1.registration_mark
+  taxpayer_id.value = shopDetails1.taxpayer_id
+  province.value = shopDetails1.province
+  city.value = shopDetails1.city
+  district.value = shopDetails1.district */
+})
+
 onMounted(() => {
    fetchShopDetails();
    console.log(tabItemStore.tabItem);
