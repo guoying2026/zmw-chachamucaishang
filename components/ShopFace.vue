@@ -85,8 +85,8 @@
       <div class="second_1_2_item">
         <div class="second_1_2_first">
           <div class="second_1_2_item_left">
-            <img class="medal" v-if="creditScore > 0" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e2d929f8-8994-4ba6-b731-d4779bf41cf2.png" alt=""/>
-            <img class="medal" v-if="creditScore > 0" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_c5514216-f624-444c-bb74-24b956dfaab0.png" alt=""/>
+            <img class="medal" v-if="creditScore >= 0" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e2d929f8-8994-4ba6-b731-d4779bf41cf2.png" alt=""/>
+            <img class="medal" v-if="creditScore >= 0" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_c5514216-f624-444c-bb74-24b956dfaab0.png" alt=""/>
             <img class="medal" v-if="creditScore > 25" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_63b5d737-53a8-407f-bec4-9f92e207c88c.png" alt=""/>
             <img class="medal" v-if="creditScore > 25" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f2fdbec2-a1bc-490d-ba2e-383830efbd3a.png" alt=""/>
           </div>
@@ -108,7 +108,7 @@
         <div class="second_1_2_third">信用分</div>
       </div>
       <div class="second_1_2_item">
-        <img v-if="creditScore > 0 && creditScore <= 25" class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_b3f68a6d-3f39-4c00-bcb9-3bc223275f46.png" alt=""/>
+        <img v-if="creditScore >= 0 && creditScore <= 25" class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_b3f68a6d-3f39-4c00-bcb9-3bc223275f46.png" alt=""/>
         <img v-else-if="creditScore > 25 && creditScore <= 50" class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_1d7c135f-d036-4159-bcf3-62d40562d9df.png" alt=""/>
         <img v-else-if="creditScore > 50 && creditScore <= 75" class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_beee94e2-8cae-462d-bef5-6fb30bd4631d.png" alt=""/>
         <img v-else-if="creditScore > 75" class="second_1_2_first second_1_2_item_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_a3ca6564-02b3-46f8-bb0d-3939254ed41b.png" alt=""/>

@@ -1470,7 +1470,7 @@
       </div>
     </div>
     <!--    口碑界面评论开始-->
-    <CommentList :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></CommentList>
+    <CommentListMobile :is-mobile-appraise="true" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></CommentListMobile>
     <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
       <template #trigger>
@@ -1480,7 +1480,7 @@
     </AddFormMobile>
     <!--    口碑界面评论结束-->
 <!--    移动端评论界面开始-->
-    <CommentListMobile  v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
+    <CommentListMobile v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
     <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
       <!-- 定义插槽内容 -->
       <template #trigger>
