@@ -104,6 +104,10 @@ useHead({
   title: '查查木材商',
 })
 
+onMounted(() => {
+  isMobile.value = window.screen.width <= 767
+})
+
 nuxtApp.hook('page:finish', () => {
   isMobile.value = window.screen.width <= 767
 })

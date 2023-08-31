@@ -287,6 +287,7 @@ nuxtApp.hook("page:finish", () => {
   regenerateWhatYouWantSearchList();
   relatedEnterpriseListRefresh();
   scrollGenerateSearchInputWordBox();
+  searchTextRef.value.focus();
   if (route.query.search) {
     searchInputText.value = route.query.search as string;
     gotoSearch();
