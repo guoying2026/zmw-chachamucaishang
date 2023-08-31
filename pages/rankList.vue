@@ -473,7 +473,7 @@ nuxtApp.hook('page:finish', () => {
 .item .item-third_line {
   top: calc((var(--real-width) / 12 * 11) / 710 * 139);
   left: calc((var(--real-width) / 12 * 11) / 710 * 234);
-  width: calc((var(--real-width) / 12 * 11) / 710 * 300);
+  width: calc(100vw / 750 * 431);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -645,6 +645,7 @@ nuxtApp.hook('page:finish', () => {
   .item .item-third_line {
     top: calc((var(--real-width) / 12 * 11) / 1258 * 121);
     left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
+    width: calc((var(--real-width) / 12 * 11) / 1258 * 460);
     font-size: calc(100vw / 1920 * 18);
     line-height: calc(100vw / 1920 * 36);
   }

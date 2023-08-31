@@ -26,6 +26,7 @@ const props = defineProps<{
 const emit = defineEmits([
   'gotoLogin',
   'gotoSearch',
+  'gotoDetail',
 ])
 
 const areaList = ref<AreaListItem[]>([])
@@ -290,7 +291,7 @@ nuxtApp.hook("page:finish", () => {
         <div class="inline-flex flex-col p-2 mt-2 search-history-box">
           <h1 class="text-sm md:text-base pb-2 search-history-box-title">历史记录</h1>
           <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
-            <li @click.stop="isShowSearchHistoryListDelete?'':$emit('gotoSearch',item.name)" :class="'relative inline-flex flex-row items-center mt-4 first-of-type:mt-0' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
+            <li @click.stop="isShowSearchHistoryListDelete?'':$emit('gotoDetail',item.id)" :class="'relative inline-flex flex-row items-center mt-4 first-of-type:mt-0' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
               <img v-if="item.logo&&item.logo.length>0" class="w-9 h-9 object-cover search-history-list-item-logo" :src="item.logo" />
               <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre search-history-list-item-logo" :style="'min-width: 2.25rem;background-color: ' + item.word_logo_bg_color + ';'">
                 <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name?item.short_name:'' }}</span>
@@ -329,7 +330,7 @@ nuxtApp.hook("page:finish", () => {
       <div v-if="props.searchValue?.trim() !== ''" class="inline-flex flex-col p-2 related-enterprises-box">
         <h1 class="text-xs md:text-base pb-2 related-enterprises-box-title">相关企业</h1>
         <ul class="inline-flex flex-col list-none overflow-y-scroll related-enterprises-list">
-          <li @click.stop="$emit('gotoSearch',item.company_name)" class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in relatedEnterpriseList">
+          <li @click.stop="$emit('gotoDetail',item.id)" class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in relatedEnterpriseList">
             <img v-if="item.company_img&&item.company_img.length>0" class="w-9 h-9 object-cover related-enterprises-list-item-logo" :src="item.company_img" alt="" />
             <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre related-enterprises-list-item-logo" :style="'min-width: 2.25rem;background-color: ' + item.word_logo_bg_color + ' ;'">
               <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name?item.short_name:'' }}</span>

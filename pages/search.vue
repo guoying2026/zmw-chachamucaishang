@@ -218,6 +218,11 @@ function searchInputHistoryListItemClickHandle(str: string) {
   gotoSearch();
 }
 
+function searchHistoryListItemClickHandle(id: number|string) {
+  searchTextRef.value.blur()
+  router.push('/detail?id=' + id)
+}
+
 /**
  * 显示登录弹窗
  */
@@ -282,6 +287,7 @@ nuxtApp.hook("page:finish", () => {
   regenerateWhatYouWantSearchList();
   relatedEnterpriseListRefresh();
   scrollGenerateSearchInputWordBox();
+  searchTextRef.value.focus();
   if (route.query.search) {
     searchInputText.value = route.query.search as string;
     gotoSearch();
@@ -357,7 +363,7 @@ nuxtApp.hook("page:finish", () => {
           </template>
         </div>
         <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
-          <li @click.stop="isShowSearchHistoryListDelete?'':searchInputHistoryListItemClickHandle(item.name)" :class="'relative inline-flex flex-row items-center mt-4' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
+          <li @click.stop="isShowSearchHistoryListDelete?'':searchHistoryListItemClickHandle(item.id)" :class="'relative inline-flex flex-row items-center mt-4' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
             <img v-if="item.logo&&item.logo.length>0" class="w-8 h-8 object-cover search-history-list-item-logo" :src="item.logo" />
             <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" :style="'min-width: 2rem;background-color: ' + item.word_logo_bg_color + ';'">
               <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name?item.short_name:'' }}</span>
@@ -394,7 +400,7 @@ nuxtApp.hook("page:finish", () => {
           <span class="text-sm font-normal search-input-history-title">相关企业</span>
         </div>
         <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
-          <li @click="searchInputHistoryListItemClickHandle(item.company_name)" class="relative inline-flex flex-row items-center mt-4" v-for="item in relatedEnterpriseList">
+          <li @click="searchHistoryListItemClickHandle(item.id)" class="relative inline-flex flex-row items-center mt-4" v-for="item in relatedEnterpriseList">
             <img v-if="item.company_img&&item.company_img.length>0" class="w-8 h-8 object-cover search-history-list-item-logo" :src="item.company_img" alt="" />
             <div v-else class="inline-flex justify-center items-center w-8 h-8 text-center rounded-md select-none whitespace-pre" :style="'min-width: 2rem;background-color: ' + item.word_logo_bg_color + ';'">
               <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name?item.short_name:'' }}</span>
