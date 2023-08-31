@@ -12,8 +12,8 @@ cd $WWWROOT
 
 if [ $(($IS_NODE_CLUSTER)) == 1 ]; then
   # 启动集群模式
-  NITRO_PRESET=node_cluster node $WWWROOT/.output/server/index.mjs
+  NITRO_PRESET=node_cluster PORT=$PORT node $WWWROOT/.output/server/index.mjs
 else
   # 启动程序
-  node $WWWROOT/.output/server/index.mjs
+  PORT=$PORT node $WWWROOT/.output/server/index.mjs
 fi
