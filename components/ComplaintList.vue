@@ -42,7 +42,7 @@
     <div class="text-container">
       <div class="text text-click">
         <text>点击</text>
-        <AddForm title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint">
+        <AddForm title-box="投诉" :company-name="companyName" feedback-type="complaint">
           <!-- 定义插槽内容 -->
           <template #trigger>
             <text class="gradient-background margin-10-left">我要投诉</text>
@@ -87,7 +87,7 @@
           <text class=" time grey-color">{{complaint.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="complaint"></LikeSwitch>
-            <AddForm title-box="回复" company-name="张姗姗木材加工厂" feedback-type="complaintReply">
+            <AddForm title-box="回复" :company-name="complaint.user" feedback-type="complaintReply">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left grey-color">回复</text>
@@ -128,7 +128,7 @@
               <text class=" time grey-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="complaintReply"></LikeSwitch>
-                <AddForm title-box="回复" :index="index" company-name="张姗姗木材加工厂" feedback-type="complaintReply">
+                <AddForm title-box="回复" :index="index" :company-name="reply.user" feedback-type="complaintReply">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left grey-color">回复</text>
@@ -147,7 +147,6 @@ import LikeSwitch from "~/components/LikeSwitch.vue";
 import NoDetail from "~/components/NoDetail.vue";
 import {ComplaintStore} from "~/types/complaintStore";
 import {useComplaintStore} from "~/pinia/complaintStore";
-import Tag from "~/components/Tag.vue";
 
 const complaintStore:ComplaintStore = useComplaintStore();
 
@@ -156,5 +155,9 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  companyName:{
+    type: String,
+    default: '',
+  }
 });
 </script>

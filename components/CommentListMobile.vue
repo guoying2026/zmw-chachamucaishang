@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-    <div class="comment_item" :class="isMobileAppraise?'blue_comment': 'brown_item_bg'" v-for="(comment, index) in commentStore.comments">
+    <div class="comment_item" :class="isMobileAppraise?'brown_item_bg': 'blue_comment'" v-for="(comment, index) in commentStore.comments">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="comment.avatar" width="32" height="32" :alt="comment.user">
         <div class="avatar-name__name margin-10-left">
@@ -28,10 +28,10 @@
           </el-col>
         </el-row>
         <div class="comment_item_3">
-          <text class=" time blue-color">{{comment.time}}</text>
+          <text class="time" :class="isMobileAppraise?'grey-color':'blue-color'">{{comment.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-            <AddFormMobile title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
+            <AddFormMobile title-box="回复" :company-name="comment.user" feedbackType="commentReply">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">回复</text>
@@ -69,10 +69,10 @@
               </el-col>
             </el-row>
             <div class="reply_item_3">
-              <text class="time blue-color">{{reply.time}}</text>
+              <text class="time" :class="isMobileAppraise?'grey-color':'blue-color'">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
-                <AddFormMobile title-box="回复" company-name="张珊珊木材加工厂" feedbackType="commentReply">
+                <AddFormMobile title-box="回复" :company-name="reply.user" feedbackType="commentReply">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">回复</text>

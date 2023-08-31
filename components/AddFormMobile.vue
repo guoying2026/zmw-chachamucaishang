@@ -11,7 +11,7 @@
         <text>{{titleBox}}{{companyName}}</text>
         <img class="close-box" @click="closeCommentBox" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_807d33b5-bef1-44b0-b79d-cab4a897057c.png" alt="关闭按钮">
       </div>
-      <text class="title">{{titleBox}}商家</text>
+      <text class="title">{{titleBox}}{{companyName}}</text>
         <!-- 文本域用于输入评论 -->
         <TextareaMobile
             :placeholderText="placeholderText"
@@ -109,6 +109,9 @@ textarea {
 .overlay:deep(.el-checkbox__inner) {
   border-radius: 10px;
   color: #fff;
+}
+.overlay:deep(.el-upload-list--picture-card) {
+  --el-upload-list-picture-card-size: 80px;
 }
 </style>
 <script lang="ts" setup>

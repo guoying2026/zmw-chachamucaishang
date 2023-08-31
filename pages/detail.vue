@@ -1071,7 +1071,7 @@
       <div class="tab_3_space_middle">
         <div class="tab_3_space_1">
           <text>全部评价（{{company_comment_count}}）</text>
-          <AddForm title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment">
+          <AddForm title-box="评论" :company-name="company_name" feedback-type="comment">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1173,7 +1173,7 @@
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
           <text>全部问答</text>
-          <AddForm title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question">
+          <AddForm title-box="提问" :company-name="company_name" feedback-type="question">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <Tag tag="我要提问" number="41" color="orange_linear"></Tag>
@@ -1234,7 +1234,7 @@
     <div class="tab_5_space" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9">
       <div class="tab_5_space_left"></div>
       <div class="tab_5_space_middle">
-        <ComplaintList></ComplaintList>
+        <ComplaintList :company-name="company_name"></ComplaintList>
       </div>
       <div class="tab_5_space_right">
         <div class="tab_5_space_3">
@@ -1471,7 +1471,7 @@
     </div>
     <!--    口碑界面评论开始-->
     <CommentListMobile :is-mobile-appraise="true" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></CommentListMobile>
-    <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 3">
+    <AddFormMobile title-box="评论" :company-name="company_name" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1481,7 +1481,7 @@
     <!--    口碑界面评论结束-->
 <!--    移动端评论界面开始-->
     <CommentListMobile v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7"></CommentListMobile>
-    <AddFormMobile title-box="评论" company-name="张珊珊木材加工厂" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
+    <AddFormMobile title-box="评论" :company-name="company_name" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <HoverButton >
@@ -1495,7 +1495,7 @@
 <!--      移动端提问界面开始-->
     <div class="nine" v-if="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8">
       <QuestionListMobile ></QuestionListMobile>
-      <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question">
+      <AddFormMobile title-box="提问" :company-name="company_name" feedback-type="question">
         <!-- 定义插槽内容 -->
         <template #trigger>
           <!-- 当点击时触发openCommentBox方法 -->
@@ -1510,8 +1510,8 @@
 <!--    移动端提问界面结束-->
 <!--    移动端投诉界面开始-->
     <div class="nine" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9">
-      <ComplaintListMobile ></ComplaintListMobile>
-      <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint">
+      <ComplaintListMobile :company-name="company_name"></ComplaintListMobile>
+      <AddFormMobile title-box="投诉" :company-name="company_name" feedback-type="complaint">
         <!-- 定义插槽内容 -->
         <template #trigger>
           <HoverButton>
@@ -1564,7 +1564,7 @@
         <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
       </div>
     </div>
-    <AddFormMobile title-box="提问" company-name="张珊珊木材加工厂" feedback-type="question" v-if="tabItemStore.tabItem*1 === 3">
+    <AddFormMobile title-box="提问" :company-name="company_name" feedback-type="question" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1578,8 +1578,8 @@
       </div>
       <text @click="switchTab(9)">更多></text>
     </div>
-    <ComplaintListMobile :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
-    <AddFormMobile title-box="投诉" company-name="张珊珊木材加工厂" feedback-type="complaint" class="margin-20-bottom" v-if="tabItemStore.tabItem*1 === 3">
+    <ComplaintListMobile :company-name="company_name" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
+    <AddFormMobile title-box="投诉" :company-name="company_name" feedback-type="complaint" class="margin-20-bottom" v-if="tabItemStore.tabItem*1 === 3">
       <!-- 定义插槽内容 -->
       <template #trigger>
         <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1748,8 +1748,6 @@ import NoDetail from "~/components/NoDetail.vue";
 import ComplaintList from "~/components/ComplaintList.vue";
 import {useShopDetails} from "~/composables/shop";
 import { useRoute } from 'vue-router';
-import {useTabItemDynamicStore} from "~/pinia/tabItemDynamic";
-const tabItemDynamicStore = useTabItemDynamicStore();
 import CommentListMobile from "~/components/CommentListMobile.vue";
 import {CategoryKeys} from "~/types/dynamicCategories";
 import ShopFace from "~/components/ShopFace.vue";
@@ -1805,9 +1803,6 @@ const toggleClamp = () => {
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
   console.log(tabItemStore.tabItem);
-}
-const switchTabDynamic = (item:number) => {
-  tabItemDynamicStore.tabItem = item;
 }
 const getClass = (level:string) => {
   switch (level) {
