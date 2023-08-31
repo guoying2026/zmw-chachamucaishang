@@ -277,47 +277,39 @@ nuxtApp.hook("page:finish", () => {
             </button>
           </li>
         </ul>
-        <template v-if="isShowSearchInputHistoryListDelete">
-          <div class="inline-flex mb-2">
-            <button @click.stop="clearAllSearchInputHistory" class="text-sm md:text-base whitespace-nowrap pl-1 clear-all-search-input-history-button">删除全部</button>
-            <button @click.stop="hideSearchInputHistoryListDelete" class="text-sm md:text-base whitespace-nowrap pl-1 finish-clear-search-input-history-button">完成</button>
-          </div>
-        </template>
-        <template v-else>
-          <button @click.stop="showSearchInputHistoryListDelete" class="inline-flex flex-row justify-center items-center w-6 h-6 pl-1 mb-2">
-            <svg class="w-4 md:w-6 clear-search-input-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
-          </button>
-        </template>
+        <div v-if="isShowSearchInputHistoryListDelete" class="inline-flex mb-2">
+          <button @click.stop="clearAllSearchInputHistory" class="text-sm md:text-base whitespace-nowrap pl-1 clear-all-search-input-history-button">删除全部</button>
+          <button @click.stop="hideSearchInputHistoryListDelete" class="text-sm md:text-base whitespace-nowrap pl-1 finish-clear-search-input-history-button">完成</button>
+        </div>
+        <button v-else @click.stop="showSearchInputHistoryListDelete" class="inline-flex flex-row justify-center items-center w-6 h-6 pl-1 mb-2">
+          <svg class="w-4 md:w-6 clear-search-input-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
+        </button>
       </div>
       <!-- 搜索历史记录 -->
-      <div v-if="searchHistoryStore.getList().length > 0" class="inline-flex flex-col p-2 mt-2 search-history-box">
-        <h1 class="text-sm md:text-base pb-2 search-history-box-title">历史记录</h1>
-        <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
-          <li @click.stop="isShowSearchHistoryListDelete?'':$emit('gotoSearch',item.name)" :class="'relative inline-flex flex-row items-center mt-4 first-of-type:mt-0' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
-            <img v-if="item.logo&&item.logo.length>0" class="w-9 h-9 object-cover search-history-list-item-logo" :src="item.logo" />
-            <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre search-history-list-item-logo" :style="'min-width: 2.25rem;background-color: ' + item.word_logo_bg_color + ';'">
-              <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name?item.short_name:'' }}</span>
-            </div>
-            <span class="text-sm md:text-base pl-1 search-history-list-item-name">{{ item.name }}</span>
-            <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 md:w-5 h-3 md:h-5 p-0.5 clear-search-history-item-button">
-              <svg class="w-2 md:w-3 h-2 md:h-3" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
-            </button>
-          </li>
-        </ul>
-      </div>
       <template v-if="searchHistoryStore.getList().length > 0">
-        <template v-if="isShowSearchHistoryListDelete">
-          <div class="inline-flex flex-row justify-start items-center">
-            <button @click.stop="clearAllSearchHistory" class="text-sm md:text-base whitespace-nowrap pl-0 clear-all-search-history-button">删除全部</button>
-            <button @click.stop="hideSearchHistoryListDelete" class="text-sm md:text-base whitespace-nowrap pl-1 finish-clear-search-history-button">完成</button>
-          </div>
-        </template>
-        <template v-else>
-          <button @click.stop="showSearchHistoryListDelete" class="inline-flex flex-row justify-center items-center w-20 md:w-24 clear-search-history-button">
-            <svg class="w-4 md:w-6 clear-search-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
-            <span class="text-sm md:text-base clear-search-history-button-text">删除历史</span>
-          </button>
-        </template>
+        <div class="inline-flex flex-col p-2 mt-2 search-history-box">
+          <h1 class="text-sm md:text-base pb-2 search-history-box-title">历史记录</h1>
+          <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
+            <li @click.stop="isShowSearchHistoryListDelete?'':$emit('gotoSearch',item.name)" :class="'relative inline-flex flex-row items-center mt-4 first-of-type:mt-0' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
+              <img v-if="item.logo&&item.logo.length>0" class="w-9 h-9 object-cover search-history-list-item-logo" :src="item.logo" />
+              <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre search-history-list-item-logo" :style="'min-width: 2.25rem;background-color: ' + item.word_logo_bg_color + ';'">
+                <span :class="'font-sans '+(Math.round((item.short_name?item.short_name:'').replace('\n','').length/2)==2||(item.short_name?item.short_name:'').replace('\n','').length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name?item.short_name:'' }}</span>
+              </div>
+              <span class="text-sm md:text-base pl-1 search-history-list-item-name">{{ item.name }}</span>
+              <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 md:w-5 h-3 md:h-5 p-0.5 clear-search-history-item-button">
+                <svg class="w-2 md:w-3 h-2 md:h-3" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="inline-flex flex-row justify-start items-center" v-if="isShowSearchHistoryListDelete">
+          <button @click.stop="clearAllSearchHistory" class="text-sm md:text-base whitespace-nowrap pl-0 clear-all-search-history-button">删除全部</button>
+          <button @click.stop="hideSearchHistoryListDelete" class="text-sm md:text-base whitespace-nowrap pl-1 finish-clear-search-history-button">完成</button>
+        </div>
+        <button @click.stop="showSearchHistoryListDelete" class="inline-flex flex-row justify-center items-center w-20 md:w-24 clear-search-history-button" v-else>
+          <svg class="w-4 md:w-6 clear-search-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
+          <span class="text-sm md:text-base clear-search-history-button-text">删除历史</span>
+        </button>
       </template>
     </div>
 

@@ -116,7 +116,7 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
         </div>
         <div class="inline-flex flex-col items-center md:items-start w-full md:w-5/12 min-w-min contact-us">
           <h1 class="title">联系我们</h1>
-          <ul class="list-none inline-flex flex-col text-center md:text-left">
+          <ul class="list-none inline-flex flex-col text-center md:text-left whitespace-nowrap">
             <li v-for="item in contactUsList">{{ item }}</li>
           </ul>
         </div>
@@ -600,14 +600,14 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
               <g transform="translate(96,720)"><g transform="scale(12)"><rect width="6" height="6"></rect></g></g>
               </g>
             </svg>
-            <h1>查查木材商移动端</h1>
+            <h1 class="whitespace-nowrap">查查木材商移动端</h1>
           </div>
         </div>
       </div>
     </ClientOnly>
     <ClientOnly>
       <div class="hidden md:inline-flex flex-row items-center w-full our-services">
-        <ul class="list-none grid grid-cols-3 md:grid-cols-7 w-full text-center">
+        <ul class="list-none inline-flex flex-row flex-nowrap justify-evenly items-center w-full text-center text-base lg:text-lg 2xl:text-xl">
           <li v-for="item in ourServiceList">
             <NuxtLink :to="item.url">{{ item.name }}</NuxtLink>
           </li>
@@ -656,21 +656,22 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
 }
 
 .footer .top {
-  padding-top: calc(100vw / 1920 * 40);
-  padding-bottom: calc(100vw / 1920 * 40);
-  background-image: url('http://zhenmuwang.oss-cn-beijing.aliyuncs.com/pc_img/foot_back.png');
+  min-height: calc(100vw / 1920 * 220);
+  padding-top: calc(100vw / 1920 * 10);
+  padding-bottom: calc(100vw / 1920 * 10);
+  background-image: url('https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image9916be26b541e055442ecad56a65d7cd.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
 
 .footer .top .title {
-  margin-bottom: calc(100vw / 1920 * 40);
-  font-size: calc(100vw / 1920 * 30);
+  margin-bottom: calc(100vw / 1920 * 10);
+  font-size: calc(100vw / 1920 * 21);
 }
 
 .footer .top *:not(.title) {
-  font-size: calc(100vw / 1920 * 16);
+  font-size: calc(100vw / 1920 * 5);
 }
 
 .footer .top .about-us ul {
@@ -683,10 +684,10 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
 }
 
 .footer .top .miniapp-code img {
-  width: calc(100vw / 1920 * 140);
-  height: calc(100vw / 1920 * 140);
-  min-width: 140px;
-  min-height: 140px;
+  width: calc(100vw / 1920 * 100);
+  height: calc(100vw / 1920 * 100);
+  min-width: 100px;
+  min-height: 100px;
 }
 
 .footer .top .miniapp-code  h1:not(.title) {
@@ -694,8 +695,10 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
 }
 
 .footer .our-services {
-  margin-top: calc(100vw / 1920 * 40);
-  margin-bottom: calc(100vw / 1920 * 40);
+  margin-top: calc(100vw / 1920 * 10);
+  margin-bottom: calc(100vw / 1920 * 10);
+  padding-left: calc(100vw / 1920* 95);
+  padding-right: calc(100vw / 1920* 95);
   font-size: calc(100vw / 1920 * 26);
 }
 
@@ -711,7 +714,7 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
   .footer .bottom {
     padding-top: calc(100vw / 1920 * 80);
     padding-bottom: calc(100vw / 1920 * 100);
-    background-image: url('http://zhenmuwang.oss-cn-beijing.aliyuncs.com/pc_img/foot_back.png');
+    background-image: url('https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image2ee34a6bf2074206c496a0d58c2f5668.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -729,8 +732,8 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
 
 @media (min-width: 768px) {
   .footer .top .miniapp-code {
-    width: calc(100vw / 1920 * 140);
-    min-width: 140px;
+    width: calc(100vw / 1920 * 100);
+    min-width: 100px;
   }
 }
 
@@ -738,6 +741,22 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
   .footer > * {
     padding-left: calc(100vw / 1920* 40);
     padding-right: calc(100vw / 1920* 40);
+  }
+  .footer .our-services {
+    padding-left: calc(100vw / 1920* 15);
+    padding-right: calc(100vw / 1920* 15);
+  }
+}
+@media (min-width: 1024px) {
+  .footer .our-services {
+    padding-left: calc(100vw / 1920* 250);
+    padding-right: calc(100vw / 1920* 250);
+  }
+}
+@media (min-width: 1280px) {
+  .footer .our-services {
+    padding-left: calc(100vw / 1920* 345);
+    padding-right: calc(100vw / 1920* 345);
   }
 }
 </style>
