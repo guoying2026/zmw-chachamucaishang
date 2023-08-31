@@ -7,7 +7,7 @@ export const useTabItemStore = defineStore('tabItemStore', {
             tabItem: 0,
         }
     },
-    persist: true,
+    // persist: true,
     //计算
     getters: {},
 
