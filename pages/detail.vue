@@ -1532,9 +1532,6 @@
       <NuxtLink :to="'/mobileAppraise?id='+Number(query.id)+'&tab=9'">
         <span>更多></span>
       </NuxtLink>
-<!--      <NuxtLink to="/mobileAppraise">-->
-<!--        <span>更多></span>-->
-<!--      </NuxtLink>-->
     </div>
     <ComplaintListMobile :company-name="company_name" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
     <AddFormMobile title-box="投诉" :company-name="company_name" feedback-type="complaint" class="margin-20-bottom" v-if="tabItemStore.tabItem*1 === 3">

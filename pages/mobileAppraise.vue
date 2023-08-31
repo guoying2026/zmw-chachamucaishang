@@ -59,7 +59,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import "~/assets/css/detail.css";
+import "assets/css/mobileAppraise.css";
 import ShopFace from "~/components/ShopFace.vue";
 import {useRoute} from "vue-router";
 import {useShopDetails} from "~/composables/shop";
