@@ -14,8 +14,8 @@ type CompanyInfo = {
     foundation_date: string;
     geohash: string;
     industry: string;
-    lat: string;
-    lng: string;
+    lat: number;
+    lng: number;
     operation_state: string;
     organisation_code: string;
     registered_capital: string;
@@ -45,7 +45,7 @@ export const useShopDetails = (companyInfoId: string | number) => {
 
 // ... 其他代码，例如定义 company_info ...
     //地址
-    const address = computed(() => company_info.value.address);
+    const address = computed(() => company_info.value.address ?? '');
     //公司名字
     const company_name = computed(() => company_info.value.company_name);
     //经营范围

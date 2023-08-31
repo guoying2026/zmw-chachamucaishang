@@ -584,8 +584,8 @@
   height: 2px; /* 设置下划线的高度 */
   background-color: white; /* 下划线颜色 */
 }
-/* 当屏幕宽度小于或等于768px时，即移动端 */
-@media (max-width: 768px) {
+/* 当屏幕宽度小于或等于1200px时，即移动端 */
+@media (max-width: 1200px) {
   .third .second_1 .second_1_1 {
     margin-top: 10px;
     color: #333333;
@@ -601,6 +601,7 @@
   /* 显示第二个img */
   .first_2 {
     display: block;
+    width: 100%;
   }
   .third .second_1{
     margin-top: -40px;
@@ -941,7 +942,15 @@
           </div>
           <text class="third_4_left_4_2">附近商家 ></text>
         </div>
-        <client-only><baidu-map class="map" :center="{lng: 118.906004, lat: 33.962873}" :zoom="5" @ready="ready" ></baidu-map></client-only>
+        <client-only>
+          <!-- 圆形表示半径为50公里的范围 -->
+          <baidu-map class="map" :center="center" :zoom="zoom" @ready="ready" >
+<!--            <bm-circle :center="center" :radius="500" :stroke-color="'blue'" :stroke-opacity="0.5"  :fill-opacity="0.2"></bm-circle>-->
+            <bm-marker :position="center" :icon="customIcon">
+              <bm-label :content="address" :label-style="{color: 'black',fontSize:'14px',border:'none'}" :offset="{width: -150, height: 50}"/>
+            </bm-marker>
+          </baidu-map>
+        </client-only>
         <div class="map_address">
           <svg class="icon" viewBox="0 0 1024 1024" width="200" height="200"><path d="M513.8 63.4C327.2 63.4 173 221.2 173 414.9c0 186.5 304.9 520.2 319.3 534.5 3.6 7.2 14.3 10.8 21.5 10.8s17.9-3.6 21.5-10.8l104-125.6C779.2 644.5 851 508.2 851 414.9c3.6-193.7-150.7-351.5-337.2-351.5z m0 513c-86.1 0-154.3-71.7-154.3-161.4s68.2-161.4 154.3-161.4S668 325.3 668 414.9s-68.1 161.5-154.2 161.5z" fill="#ffffff"></path></svg>
           <text>{{address}}</text>
@@ -1292,7 +1301,13 @@
             <text class="third_4_left_4_1_right">商家地址</text>
           </div>
         </div>
-        <client-only><baidu-map class="map" :center="{lng: 118.906004, lat: 33.962873}" :zoom="5" @ready="ready" ></baidu-map></client-only>
+        <client-only>
+          <baidu-map class="map" :center="center" :zoom="zoom" @ready="ready" >
+            <bm-marker :position="center" :icon="customIcon">
+              <bm-label :content="address" :label-style="{color: 'black',fontSize:'14px',border:'none'}" :offset="{width: -150, height: 50}"/>
+            </bm-marker>
+          </baidu-map>
+        </client-only>
         <div class="map_address">
           <svg class="icon" viewBox="0 0 1024 1024" width="200" height="200"><path d="M513.8 63.4C327.2 63.4 173 221.2 173 414.9c0 186.5 304.9 520.2 319.3 534.5 3.6 7.2 14.3 10.8 21.5 10.8s17.9-3.6 21.5-10.8l104-125.6C779.2 644.5 851 508.2 851 414.9c3.6-193.7-150.7-351.5-337.2-351.5z m0 513c-86.1 0-154.3-71.7-154.3-161.4s68.2-161.4 154.3-161.4S668 325.3 668 414.9s-68.1 161.5-154.2 161.5z" fill="#ffffff"></path></svg>
           <text>{{address}}</text>
@@ -1779,9 +1794,27 @@ const getClass = (level:string) => {
       return "red_classify";
   }
 }
+const center = ref({lng: 0, lat: 0});
+const zoom = ref(3);
+const address_info = ref('');
+//地图组件渲染完毕时触发，返回一个百度地图的核心类和地图实例。
+// 百度地图组件是异步加载，请不要尝试在组件的生命周期中访问 BMap 核心类和 map 实例，
+// 如有需要，请在所需组件的 ready 事件回调函数的参数中获取。
+//商家地址
 const ready = ({ BMap , map }: { BMap: any, map: any })=>{
   // 对地图进行自定义操作
+  console.log(BMap, map);
+  // {lng: 118.906004, lat: 33.962873}
+  center.value.lng = lng.value ?? 0;
+  center.value.lat = lat.value ?? 0;
+  zoom.value = 15;
+  address_info.value = address.value ?? '';
 }
+const customIcon = {
+  url: 'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_395067ed-d2f0-4c5b-b2fc-cb322af9cc75.png',  // 修改为你的图标路径
+  size: {width: 40, height: 40},    // 修改为你想要的大小
+  // ... 可以设置其他图标属性，如offset、anchor等
+};
 //评论开始
 const company_comment_count = 887;
 
