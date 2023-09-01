@@ -9,7 +9,7 @@
       <div class="main">
         <!-- Left: Map -->
         <div class="main_map">
-          <BusinessMap :lat="lat" :lng="lng" :address="address" :isNearBy="true"></BusinessMap>
+          <BusinessMap :lat="lat" :lng="lng" :address="address" :isNearBy="isNearBy"></BusinessMap>
         </div>
 
         <!-- Right: List -->
