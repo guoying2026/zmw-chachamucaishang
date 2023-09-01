@@ -241,7 +241,11 @@ nuxtApp.hook('page:finish', () => {
   outline: unset;
 }
 
-.search-text:focus-visible,
+.search-text:focus-visible {
+  border-bottom-left-radius: 0px;
+  transition: all 0s 0ms;
+}
+
 .search-text:has(~ .search-tips-area:hover) {
   border-bottom-left-radius: 0px;
   transition: all 0s 0ms;
