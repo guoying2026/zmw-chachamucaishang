@@ -60,7 +60,7 @@
                 <el-image
                     :hide-on-click-modal=true
                     :src="itemReplyImage"
-                    class="image_list"
+                    class="image_list_reply"
                     fit="cover"
                     :zoom-rate="1.2"
                     :preview-src-list="reply.image"

@@ -32,6 +32,12 @@ h4 span{
     justify-content: space-between;
     align-items: center;
 }
+.reply_item_4{
+    margin-right: 15px;
+}
+.comment_item_4{
+    margin-right: 8px;
+}
 .comment_item_4,.reply_item_4{
     align-self: flex-end;
     display: flex;
@@ -52,7 +58,15 @@ h4 span{
 .row-image-box{
     width: 100%;
 }
+.min_image_list{
+  width: 50px;
+    height: 50px;
+}
 .image_list{
+    width: 100%;
+    height: 150px;
+}
+.image_list_reply{
     width: 95%;
     height: 150px;
 }
@@ -193,5 +207,8 @@ p{
     }
     .blue-color{
         color: #90A7DB !important;
+    }
+    .reply_item_4{
+        margin-right: 8px;
     }
 }

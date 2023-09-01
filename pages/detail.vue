@@ -44,6 +44,9 @@
   border-radius: 10px;
   margin-top: 20px;
 }
+.liner_blue_bg{
+  background: linear-gradient(#3E98F6, #1B62B8);
+}
 .answer_item_display::before{
   content: '';
   position: absolute;
@@ -342,7 +345,6 @@
 }
 .first{
   width: 100%;
-  height: 400px;
   background-color: #3F1E00;
 }
 .second{
@@ -881,7 +883,7 @@
 </style>
 <template>
   <div class="first">
-    <img class="first" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_e50b0b18-3ddc-49e5-b4f7-1d24bd8e12fb.png" alt=""/>
+    <img class="first" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_f3bb9a40-1365-4583-00d4-efcc25b57e62.png" alt=""/>
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
   <div class="third computer">
@@ -949,9 +951,9 @@
       </div>
       <img class="third_4_right" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_57253c6a-7053-4709-b69b-6148dca9969b.png" alt=""/>
     </div>
-    <div class="tab_0_space light_brown" v-if="tabItemStore.tabItem*1 === 0">
-      东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。
-    </div>
+<!--    <div class="tab_0_space light_brown" v-if="tabItemStore.tabItem*1 === 0">-->
+<!--      东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。-->
+<!--    </div>-->
     <div class="tab_1_space" v-if="tabItemStore.tabItem*1 === 1">
       <table>
         <tr>
@@ -1267,7 +1269,7 @@
     </div>
   </div>
   <div class="third mobile">
-    <ShopFace :companyName="company_name" :companyId="Number(query.id)" :creditScore="credit_score"></ShopFace>
+    <ShopFace :companyName="company_name" :companyId="Number(query.id)" :creditScore="Number(credit_score)"></ShopFace>
     <div class="third_2">
       <client-only>
         <div class="third_2_space">
@@ -1278,11 +1280,11 @@
         </div>
       </client-only>
     </div>
-    <div class="tab_0_space light_brown" v-if="tabItemStore.tabItem*1 === 0" @click="toggleClamp">
-      <div class="clamp-text" ref="clampTextRef" :class="{'expanded': isExpanded}">
-        东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。
-      </div>
-    </div>
+<!--    <div class="tab_0_space light_brown" v-if="tabItemStore.tabItem*1 === 0" @click="toggleClamp">-->
+<!--      <div class="clamp-text" ref="clampTextRef" :class="{'expanded': isExpanded}">-->
+<!--        东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。东莞市大岭山木之源包装有限公司，是从事木业十多年的厂家，是一家主业生产木托盘、出口托盘、木包装箱、塑料托盘、纸托盘、纸护角、拉伸缠绕膜、打包带等包装仓储物流用包装制品的企业。-->
+<!--      </div>-->
+<!--    </div>-->
     <img class="third_1" v-if="tabItemStore.tabItem*1 === 0" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_1fccd42f-528b-4613-b2d5-2f76d0f3d5c8.png" alt="">
     <div class="third_4" v-if="tabItemStore.tabItem*1 === 0">
       <div class="third_4_left white-color">
@@ -1562,7 +1564,7 @@
           <text class="second_2_left_1_left">{{company_name}}口碑</text>
         </div>
         <template v-for="(comment,index) in commentStore.comments">
-        <div class="second_2_left_item" @click="switchTab(4)" v-if="index <= 1">
+        <div class="second_2_left_item" v-if="index <= 1">
           <div class="second_2_left_2">
             <img class="second_2_left_2_left" :src="comment.avatar" alt="头像"/>
             <div class="second_2_left_2_right">
@@ -1570,7 +1572,80 @@
             </div>
           </div>
           <text class="margin-10-top over_limit_3">{{comment.content}}</text>
+          <el-row :gutter="3" v-if="comment.image.length" class="row-image-box margin-10-top">
+            <el-col
+                v-for="(itemImage, indexImage) in comment.image"
+                :key="indexImage"
+                :span="3"
+                :md="3"
+            >
+              <el-image
+                  :hide-on-click-modal=true
+                  :src="itemImage"
+                  class="min_image_list"
+                  fit="cover"
+                  :zoom-rate="1.2"
+                  :preview-src-list="comment.image"
+                  :initial-index="Number(indexImage)"
+                  lazy />
+            </el-col>
+          </el-row>
+          <div class="comment_item_3 margin-10-top">
+            <text class="time grey-color">{{comment.time}}</text>
+            <div class="comment_item_4">
+              <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
+              <AddForm title-box="回复" :company-name="comment.user" feedbackType="commentReply" :company-id="id">
+                <!-- 定义插槽内容 -->
+                <template #trigger>
+                  <text class="margin-20-left grey-color">回复</text>
+                </template>
+              </AddForm>
+            </div>
+          </div>
         </div>
+          <div class="reply" v-if="comment.replies && comment.replies.length">
+            <div class="reply_item liner_blue_bg" v-for="(reply,replyIndex) in comment.replies" v-if="replyIndex < 1">
+              <div class="reply_item_1">
+                <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
+                <div class="avatar-name__name margin-10-left">
+                  <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{reply.user}}</strong>
+                </div>
+              </div>
+              <div class="reply_item_2 margin-0-left">
+                <p class="margin-10-top">{{reply.content}}</p>
+                <el-row :gutter="3" v-if="reply.image.length" class="row-image-box">
+                  <el-col
+                      v-for="(itemReplyImage, indexReplyImage) in reply.image"
+                      :key="indexReplyImage"
+                      :span="3"
+                      :md="3"
+                  >
+                    <el-image
+                        :hide-on-click-modal=true
+                        :src="itemReplyImage"
+                        class="min_image_list"
+                        fit="cover"
+                        :zoom-rate="1.2"
+                        :preview-src-list="reply.image"
+                        :initial-index="Number(indexReplyImage)"
+                        lazy />
+                  </el-col>
+                </el-row>
+                <div class="reply_item_3 margin-10-top">
+                  <text class="time grey-color">{{reply.time}}</text>
+                  <div class="reply_item_4">
+                    <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
+                    <AddForm title-box="回复" :company-name="reply.user" feedbackType="commentReply">
+                      <!-- 定义插槽内容 -->
+                      <template #trigger>
+                        <text class="margin-20-left grey-color">回复</text>
+                      </template>
+                    </AddForm>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </template>
         <div class="margin-10-top right_display">
           <AddForm title-box="评论" :company-name="company_name" feedback-type="comment">
@@ -1715,6 +1790,7 @@ import CommentListMobile from "~/components/CommentListMobile.vue";
 import {CategoryKeys} from "~/types/dynamicCategories";
 import ShopFace from "~/components/ShopFace.vue";
 import NearbyBusinessMap from "~/components/NearbyBusinessMap.vue";
+import LikeSwitch from "~/components/LikeSwitch.vue";
 
 const route = useRoute();
 const query = route.query;

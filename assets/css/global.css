@@ -24,6 +24,9 @@ html, body {
 .margin-20-bottom{
     margin-bottom: 20px;
 }
+.margin-0-left{
+    margin-left: 0 !important;
+}
 :root {
     --dotted-color: linear-gradient(to right, #000 10%, transparent 10%), linear-gradient(to right, #000 10%, transparent 10%);
 }
