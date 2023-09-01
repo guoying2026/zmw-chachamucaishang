@@ -269,6 +269,7 @@ nuxtApp.hook("page:finish", () => {
     <!-- 已登录，未输入任何搜索内容、有搜索历史记录 -->
     <div v-if="userInfoStore.isLoggedIn() && props.searchValue?.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-full px-2 py-1">
       <!-- 输入历史记录 -->
+      <template v-if="searchInputHistoryStore.getList().length > 0">
       <div class="inline-flex flex-row items-center justify-between w-full search-input-history-box">
         <ul :class="'inline-flex flex-row text-xs md:text-base list-none pb-1 pt-1 overflow-x-scroll search-input-history-list'">
           <li @click.stop="isShowSearchInputHistoryListDelete?'':$emit('gotoSearch',item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
@@ -286,6 +287,7 @@ nuxtApp.hook("page:finish", () => {
           <svg class="w-4 md:w-6 clear-search-input-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
         </button>
       </div>
+      </template>
       <!-- 搜索历史记录 -->
       <template v-if="searchHistoryStore.getList().length > 0">
         <div class="inline-flex flex-col p-2 mt-2 search-history-box">
