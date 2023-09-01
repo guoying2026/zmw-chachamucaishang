@@ -1111,8 +1111,8 @@ nuxtApp.hook('page:finish', () => {
             <span class="text-white whitespace-nowrap">{{ item.foundation_date && item.foundation_date.length > 0 ? item.foundation_date : '-' }}</span>
           </div>
           <div class="inline-flex flex-row ml-1">
-            <span class="whitespace-nowrap">邮箱：</span>
-            <span class="text-white whitespace-nowrap">{{ item.email && item.email.length > 0 ? item.email : '-' }}</span>
+            <span class="whitespace-nowrap">社会统一信用代码：</span>
+            <span class="text-white whitespace-nowrap">{{ item.credit_code && item.credit_code.length > 0 ? item.credit_code : '-' }}</span>
           </div>
         </div>
         <div class="hidden md:inline-flex flex-row justify-between w-3/4 mx-4 mt-2 pl-28">
@@ -1124,8 +1124,8 @@ nuxtApp.hook('page:finish', () => {
             </div>
           </div>
           <div class="inline-flex flex-row">
-            <span class="whitespace-nowrap">社会统一信用代码：</span>
-            <span class="text-white whitespace-nowrap">{{ item.credit_code && item.credit_code.length > 0 ? item.credit_code : '-' }}</span>
+            <span class="whitespace-nowrap">邮箱：</span>
+            <span class="text-white whitespace-nowrap">{{ item.email && item.email.length > 0 ? item.email : '-' }}</span>
           </div>
         </div>
         <!-- 搜索结果项 - 第三行 -->
