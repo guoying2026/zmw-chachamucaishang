@@ -10,10 +10,15 @@ fi
 
 cd $WWWROOT
 
-if [ $(($IS_NODE_CLUSTER)) == 1 ]; then
-  # 启动集群模式
-  NITRO_PRESET=node_cluster PORT=$PORT node $WWWROOT/.output/server/index.mjs
+/render-templates.sh /etc/nginx/sites-templates /etc/nginx/conf.d
+
+# 启动程序
+PORT=80 /usr/local/node-v20.5.0-linux-x64/bin/node /wwwroot/.output/server/index.mjs
+
+if [ -z $DEBUG ]; then
+  nginx -g 'daemon off;'
 else
-  # 启动程序
-  PORT=$PORT node $WWWROOT/.output/server/index.mjs
+  nginx
+  cd $WWWROOT/..
+  exec $@
 fi

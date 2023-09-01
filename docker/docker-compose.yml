@@ -2,10 +2,10 @@ version: '3'
 services:
     zmw-chachamucaishang:
         image: registry.cn-beijing.aliyuncs.com/jryhd/zmw-pingfen:latest
+        # image: ccmcs:latest
         command: node
         environment:
             - SITE_DOMAIN=localhost
             - WWWROOT=/wwwroot
-            - PORT=3000
         ports:
-            - 80:3000
+            - 80:80
