@@ -100,16 +100,32 @@ function searchBoxClickHandle() {
   router.push('/search');
 }
 
+function searchTipsAreaHoverHandle() {
+  let searchTipsArea = document.querySelector('.search-tips-area')
+  let searchText = document.querySelector('.search-text')
+  if (!searchTipsArea) return;
+  searchTipsArea.addEventListener('mouseenter', () => {
+    if (!searchText) return;
+    searchText.classList.add('hover')
+  })
+  searchTipsArea.addEventListener('mouseleave', () => {
+    if (!searchText) return;
+    searchText.classList.remove('hover')
+  })
+}
+
 useHead({
   title: '查查木材商',
 })
 
 onMounted(() => {
   isMobile.value = window.screen.width <= 767
+  searchTipsAreaHoverHandle()
 })
 
 nuxtApp.hook('page:finish', () => {
   isMobile.value = window.screen.width <= 767
+  searchTipsAreaHoverHandle()
 })
 </script>
 
@@ -246,13 +262,9 @@ nuxtApp.hook('page:finish', () => {
   transition: all 0s 0ms;
 }
 
-.search-text:has(~ .search-tips-area:hover) {
+.search-text.hover {
   border-bottom-left-radius: 0px;
   transition: all 0s 0ms;
-}
-
-.search-text:has(~ .search-tips-area.expanded) {
-  border-bottom-left-radius: 0px;
 }
 
 .search-text:hover ~ .clear-icon {
@@ -322,10 +334,6 @@ nuxtApp.hook('page:finish', () => {
 
 .bottom-bg-pc > a:hover {
   transform: scale(1.05);
-}
-
-.bottom-bg-pc > a::after:has(:hover) {
-  transform: scale(1);
 }
 
 .bottom-bg-pc > div p {

@@ -152,9 +152,24 @@ function changeSearchBoxStyleHandle() {
   }
 }
 
+function searchTipsAreaHoverHandle() {
+  let searchTipsArea = document.querySelector('.search-tips-area')
+  let searchText = document.querySelector('.search-text')
+  if (!searchTipsArea) return;
+  searchTipsArea.addEventListener('mouseenter', () => {
+    if (!searchText) return;
+    searchText.classList.add('hover')
+  })
+  searchTipsArea.addEventListener('mouseleave', () => {
+    if (!searchText) return;
+    searchText.classList.remove('hover')
+  })
+}
+
 onMounted(() => {
   changeHeaderWhiteSpaceStyleHandle();
   searchInputFocusAndBlurHandle();
+  searchTipsAreaHoverHandle();
   window.addEventListener('resize', () => {
     changeHeaderWhiteSpaceStyleHandle();
     searchInputFocusAndBlurHandle();
@@ -171,6 +186,7 @@ onMounted(() => {
 nuxtApp.hook('page:finish', () => {
   changeHeaderWhiteSpaceStyleHandle();
   searchInputFocusAndBlurHandle();
+  searchTipsAreaHoverHandle();
   window.addEventListener('resize', () => {
     changeHeaderWhiteSpaceStyleHandle();
     searchInputFocusAndBlurHandle();
@@ -359,19 +375,12 @@ nuxtApp.hook('page:finish', () => {
 }
 
 .search-text:focus-visible,
-.search-text:has(~ .search-tips-area:hover) {
+.search-text.hover {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
   transition: all 0s 0ms;
-}
-
-.search-text:has(~ .search-tips-area.expanded) {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
 }
 
 .search-text:focus-visible ~ .search-tips-area,
