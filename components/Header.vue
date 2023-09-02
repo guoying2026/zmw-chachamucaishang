@@ -145,7 +145,7 @@ function changeSearchBoxStyleHandle() {
   if (searchTextEl && clearIconEl) {
     let searchTextStyle = getComputedStyle(searchTextEl)
     let clearIconStyle = getComputedStyle(clearIconEl)
-    clearIconEl.setAttribute('style', 'color: rgb(153,153,153);right: unset;left: calc((' + searchTextStyle.width + ' - ' + searchTextStyle.paddingRight + ') + ((' + searchTextStyle.paddingRight + ' - ' + clearIconStyle.width + ') / 2));')
+    clearIconEl.setAttribute('style', 'right: unset;left: calc((' + searchTextStyle.width + ' - ' + searchTextStyle.paddingRight + ') + ((' + searchTextStyle.paddingRight + ' - ' + clearIconStyle.width + ') / 2));')
   }
   if (searchBoxEl && searchTextEl && searchTipsAreaEl) {
     searchTipsAreaEl.setAttribute('style', 'width: calc(' + getComputedStyle(searchTextEl).width + ' + ' + getComputedStyle(searchBoxEl).paddingLeft + ' + ' + getComputedStyle(searchBoxEl).paddingRight + ');')
@@ -155,15 +155,31 @@ function changeSearchBoxStyleHandle() {
 function searchTipsAreaHoverHandle() {
   let searchTipsArea = document.querySelector('.search-tips-area')
   let searchText = document.querySelector('.search-text')
-  if (!searchTipsArea) return;
-  searchTipsArea.addEventListener('mouseenter', () => {
-    if (!searchText) return;
-    searchText.classList.add('hover')
-  })
-  searchTipsArea.addEventListener('mouseleave', () => {
-    if (!searchText) return;
-    searchText.classList.remove('hover')
-  })
+  let searchBox = document.querySelector('.search-box')
+  if (searchTipsArea) {
+    searchTipsArea.addEventListener('mouseenter', () => {
+      if (searchText) searchText.classList.add('hover')
+      if (searchBox) searchBox.classList.add('hover')
+    })
+    searchTipsArea.addEventListener('mouseleave', () => {
+      if (searchText)searchText.classList.remove('hover')
+    })
+  }
+  if (searchText) {
+    searchText.addEventListener('mouseenter', () => {
+      if (searchText != document.activeElement) {
+        searchBox?.classList.remove('hover')
+      }
+    })
+    searchText.addEventListener('focus', () => {
+      if (searchBox) searchBox.classList.add('hover')
+    })
+  }
+  if (searchBox) {
+    searchBox.addEventListener('mouseleave', () => {
+      if (searchBox) searchBox.classList.remove('hover')
+    })
+  }
 }
 
 onMounted(() => {
@@ -215,9 +231,9 @@ nuxtApp.hook('page:finish', () => {
       <div @click.stop="isMobile?searchBoxClickHandle():''" class="relative inline-flex md:justify-evenly items-center w-full xl:h-14 md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
         <div v-if="isMobile" @click="searchBoxClickHandle" class="w-full md:w-80 xl:h-10 px-5 py-1 md:px-0 md:py-0 md:pr-8 text-xs md:text-sm bg-white md:bg-transparent text-inherit md:text-white whitespace-nowrap overflow-hidden rounded-2xl md:rounded transition-all search-text" style="color: #999;">请输入企业名、人名等关键词查询</div>
         <input v-if="!isMobile" class="w-full md:w-80 xl:h-10 px-5 py-1 md:px-0 md:py-0 md:pr-8 text-xs md:text-sm md:bg-transparent text-inherit md:text-white rounded-2xl md:rounded transition-all search-text" type="search" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
-        <svg class="absolute md:hidden left-1 inline-block w-4 h-4 search-icon" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
-        <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute right-1 md:right-20 w-4 h-4 cursor-pointer" style="color: rgb(153,153,153);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
-        <button @click.stop="searchButtonHandle" class="hidden md:inline-block xl:h-10 text-sm md:text-base px-2 py-1 whitespace-nowrap rounded search-button">查一下</button>
+        <svg class="absolute md:hidden left-1 inline-block w-4 h-4 transition-all search-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
+        <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute right-1 md:right-20 w-4 h-4 cursor-pointer transition-all clear-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+        <button @click.stop="searchButtonHandle" class="hidden md:inline-block xl:h-10 text-sm md:text-base px-2 py-1 whitespace-nowrap rounded transition-all search-button">查一下</button>
         <ClientOnly>
           <SearchTips @gotoLogin="openLoginPopup" @gotoSearch="searchInputHistoryListItemClickHandle" @gotoDetail="searchHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-6 md:top-10 xl:top-14" width="w-full md:w-80" zIndex="-z-10" class="in-header" />
         </ClientOnly>
@@ -226,9 +242,9 @@ nuxtApp.hook('page:finish', () => {
         <img class="h-6 md:h-8 xl:h-14 object-contain user-header" :src="userInfoStore.getAvatar()"/>
       </div>
       <ClientOnly v-else>
-        <button @click="openLoginPopup" :class="'' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 my-1 border border-solid rounded goto-login-button'">登录/注册</button>
+        <button @click="openLoginPopup" :class="'' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 my-1 border border-solid rounded transition-all goto-login-button'">登录/注册</button>
       </ClientOnly>
-      <button @click="searchInputBlurHandle" :class="'' + (isSearchInputFocusing ? 'inline-block md:hidden' : 'hidden') + ' h-8 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 ml-2 md:ml-10 border border-dashed goto-login-button border-transparent'">取消</button>
+      <button @click="searchInputBlurHandle" :class="'' + (isSearchInputFocusing ? 'inline-block md:hidden' : 'hidden') + ' h-8 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 ml-2 md:ml-10 border border-dashed goto-login-button border-transparent transition-all'">取消</button>
     </div>
   </div>
   <!-- 用户登录之后 点击头像弹出的信息框 -->
@@ -277,6 +293,9 @@ nuxtApp.hook('page:finish', () => {
   }
   .header .search-box {
     width: 100%;
+  }
+  .header .search-box.hover {
+    border-bottom-left-radius: 0px;
   }
   .header .search-text {
     width: calc(100% - 4rem);
@@ -332,25 +351,41 @@ nuxtApp.hook('page:finish', () => {
 
 @media (min-width: 768px) {
   .search-input {
-    border-color: RGBA(44, 52, 61, 1);
+    border-color: rgba(44, 52, 61, 1);
+  }
+
+  .search-input:hover {
+    border-color: #5D5241;
   }
 
   .search-input::placeholder {
-    color: RGBA(44, 52, 61, 1);
+    color: rgba(44, 52, 61, 1);
   }
 }
 
 .search-button {
   color: #fff;
-  background-color: RGBA(255, 131, 78, 1);
+  background-color: rgba(255, 131, 78, 1);
+}
+
+:where(.search-button):hover {
+  background-color: #a64319;
 }
 
 .goto-login-button {
-  color: RGBA(255, 155, 64, 1);
+  color: rgba(255, 155, 64, 1);
+}
+
+.goto-login-button:hover {
+  color: #ffb470;
 }
 
 .goto-login-button.border-solid {
-  border-color: RGBA(255, 155, 64, 1);
+  border-color: rgba(255, 155, 64, 1);
+}
+
+.goto-login-button.border-solid:hover {
+  border-color: #ffb470;
 }
 
 .search-text:focus-visible ~ .search-tips-area,
@@ -367,8 +402,14 @@ nuxtApp.hook('page:finish', () => {
   display: none;
 }
 
-.search-icon {
+.search-icon,
+.clear-icon {
   color: rgb(153,153,153);
+}
+
+:where(.search-icon,
+.clear-icon):hover {
+  color: #cccccc;
 }
 
 *:focus-visible {

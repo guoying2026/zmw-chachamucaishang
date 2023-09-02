@@ -2,6 +2,8 @@
 // 导入用户信息存储
 import { useUserInfoStore } from "~/pinia/userInfo"
 
+const nuxtApp = useNuxtApp()
+
 const emit = defineEmits(['close'])
 
 const userInfoStore = useUserInfoStore()
@@ -139,6 +141,41 @@ function dealLogin() {
     emit('close')
   })
 }
+
+function loginPopUpMainInputItemFocusHandle() {
+  let loginPopUpMainInputItem = document.querySelector('div.login-pop-up-main-input-item')
+  if (regCodeInputRef.value) {
+    regCodeInputRef.value.addEventListener('focus', () => {
+      if(loginPopUpMainInputItem) loginPopUpMainInputItem.classList.add('hover')
+    })
+    regCodeInputRef.value.addEventListener('blur', () => {
+      if(loginPopUpMainInputItem) loginPopUpMainInputItem.classList.remove('hover')
+    })
+  }
+}
+
+function loginPopUpMainInputItemButtonFocusHandle() {
+  let loginPopUpMainInputItemButton = document.querySelector('.login-pop-up-main-input-item-button')
+  let loginPopUpMainInputItem = document.querySelector('div.login-pop-up-main-input-item')
+  if (loginPopUpMainInputItemButton) {
+    loginPopUpMainInputItemButton.addEventListener('focus', () => {
+      if (loginPopUpMainInputItem) loginPopUpMainInputItem.classList.add('hover')
+    })
+    loginPopUpMainInputItemButton.addEventListener('blur', () => {
+      if (loginPopUpMainInputItem) loginPopUpMainInputItem.classList.remove('hover')
+    })
+  }
+}
+
+onMounted(() => {
+  loginPopUpMainInputItemFocusHandle()
+  loginPopUpMainInputItemButtonFocusHandle()
+})
+
+nuxtApp.hook('page:finish', () => {
+  loginPopUpMainInputItemFocusHandle()
+  loginPopUpMainInputItemButtonFocusHandle()
+})
 </script>
 <template>
   <!-- 手机号登录弹窗 -->
@@ -209,6 +246,18 @@ function dealLogin() {
 .login-pop-up-main-input-item {
   border: 2px solid rgba(192,204,218,0.44);
   border-radius: 8px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.login-pop-up-main-input-item.hover,
+.login-pop-up-main-input-item:hover,
+.login-pop-up-main-input-item:focus-visible,
+.login-pop-up-main-input-item.hover .login-pop-up-main-input-item-button,
+.login-pop-up-main-input-item:hover .login-pop-up-main-input-item-button,
+.login-pop-up-main-input-item:focus-visible .login-pop-up-main-input-item-button {
+  border-color: #c8c5de;
 }
 
 .login-poop-up-main-input-need-field-tips {
@@ -222,6 +271,11 @@ function dealLogin() {
   border-left: 2px solid rgba(192,204,218,0.44);
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+
+.login-pop-up-main-input-item-button:hover,
+.login-pop-up-main-input-item-button:focus {
+  color: #bf795c;
 }
 
 .login-pop-up-main-input-item-button-wait {
@@ -241,8 +295,17 @@ function dealLogin() {
   color: #999;
 }
 
+:where(.login-pop-up-main-auto-regist-tips,
+.login-pop-up-main-agree-agreement-tips):hover {
+  color: #7b7b7b;
+}
+
 .login-pop-up-main-agree-agreement-tips button {
   color: #FF834E;
+}
+
+.login-pop-up-main-agree-agreement-tips button:hover {
+  color: #bf795c;
 }
 
 @media (min-width: 768px) {
@@ -257,7 +320,13 @@ function dealLogin() {
     background: #FF834E;
   }
 
-  .login-pop-up-main-auto-regist-tips {
+  .login-pop-up-main-login-button:hover,
+  .login-pop-up-main-login-button:focus {
+    background-color: #a64319;
+  }
+
+  .login-pop-up-main-auto-regist-tips,
+  .login-pop-up-main-auto-regist-tips:hover {
     color: #333;
   }
 }
