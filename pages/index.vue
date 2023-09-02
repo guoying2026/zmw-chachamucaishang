@@ -314,6 +314,7 @@ nuxtApp.hook('page:finish', () => {
   width: calc(100vw / 1920 * 1256);
   height: calc(100vw / 1920 * 293);
   margin-top: calc(100vw / 1920 * 140);
+  margin-bottom: calc(100vw / 1920 * 116);
 }
 
 .bottom-bg-pc > div:not(:last-of-type) {
@@ -422,7 +423,7 @@ nuxtApp.hook('page:finish', () => {
   }
   .top-subtitle {
     margin-top: calc(100vw / 1920 * 36);
-    margin-bottom: calc(100vw / 1920 * 52);
+    margin-bottom: calc(100vw / 1920 * 62);
     font-size: calc(100vw / 1920 * 34);
   }
   .search-box {
