@@ -262,42 +262,44 @@ nuxtApp.hook("page:finish", () => {
     <!-- 未登录、未输入任何搜索内容 -->
     <div v-if="!userInfoStore.isLoggedIn() && props.searchValue?.trim() === ''" class="inline-flex flex-col justify-center items-center w-full h-full px-10 py-4">
       <img class="w-10" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image5f4433e629ac9ea8ac48a070caadacad.png" />
-      <p class="text-xs md:text-base whitespace-nowrap mt-1 goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
-      <button @click.stop="$emit('gotoLogin')" class="text-sm md:text-lg px-3 py-1 text-white mt-4 whitespace-nowrap goto-login-button">登录试试</button>
+      <p class="text-xs md:text-base whitespace-nowrap mt-1 transition-all goto-login-and-get-detail-search-result-tips">立即登录获取更精准的关键词匹配结果</p>
+      <button @click.stop="$emit('gotoLogin')" class="text-sm md:text-lg px-3 py-1 text-white mt-4 whitespace-nowrap transition-all goto-login-button">登录试试</button>
     </div>
 
     <!-- 已登录，未输入任何搜索内容、有搜索历史记录 -->
     <div v-if="userInfoStore.isLoggedIn() && props.searchValue?.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-full px-2 py-1">
       <!-- 输入历史记录 -->
+      <template v-if="searchInputHistoryStore.getList().length > 0">
       <div class="inline-flex flex-row items-center justify-between w-full search-input-history-box">
         <ul :class="'inline-flex flex-row text-xs md:text-base list-none pb-1 pt-1 overflow-x-scroll search-input-history-list'">
-          <li @click.stop="isShowSearchInputHistoryListDelete?'':$emit('gotoSearch',item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
+          <li @click.stop="isShowSearchInputHistoryListDelete?'':$emit('gotoSearch',item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap transition-all search-input-history-list-item" v-for="item in searchInputHistoryStore.getList()">
             <span>{{ item }}</span>
-            <button v-if="isShowSearchInputHistoryListDelete" @click.stop="clearSearchInputHistoryItem(item)" class="absolute top-0 right-0 w-3 md:w-4 h-3 md:h-4 p-0.5 clear-search-input-history-item-button">
+            <button v-if="isShowSearchInputHistoryListDelete" @click.stop="clearSearchInputHistoryItem(item)" class="absolute top-0 right-0 w-3 md:w-4 h-3 md:h-4 p-0.5 transition-all clear-search-input-history-item-button">
               <svg class="w-2 md:w-3 h-2 md:h-3" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
             </button>
           </li>
         </ul>
         <div v-if="isShowSearchInputHistoryListDelete" class="inline-flex mb-2">
-          <button @click.stop="clearAllSearchInputHistory" class="text-sm md:text-base whitespace-nowrap pl-1 clear-all-search-input-history-button">删除全部</button>
-          <button @click.stop="hideSearchInputHistoryListDelete" class="text-sm md:text-base whitespace-nowrap pl-1 finish-clear-search-input-history-button">完成</button>
+          <button @click.stop="clearAllSearchInputHistory" class="text-sm md:text-base whitespace-nowrap pl-1 transition-all clear-all-search-input-history-button">删除全部</button>
+          <button @click.stop="hideSearchInputHistoryListDelete" class="text-sm md:text-base whitespace-nowrap pl-1 transition-all finish-clear-search-input-history-button">完成</button>
         </div>
-        <button v-else @click.stop="showSearchInputHistoryListDelete" class="inline-flex flex-row justify-center items-center w-6 h-6 pl-1 mb-2">
-          <svg class="w-4 md:w-6 clear-search-input-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
+        <button v-else @click.stop="showSearchInputHistoryListDelete" class="inline-flex flex-row justify-center items-center w-6 h-6 pl-1 mb-2 transition-all">
+          <svg class="w-4 md:w-6 transition-all clear-search-input-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
         </button>
       </div>
+      </template>
       <!-- 搜索历史记录 -->
       <template v-if="searchHistoryStore.getList().length > 0">
-        <div class="inline-flex flex-col p-2 mt-2 search-history-box">
-          <h1 class="text-sm md:text-base pb-2 search-history-box-title">历史记录</h1>
+        <div class="inline-flex flex-col p-2 mt-2 transition-all search-history-box">
+          <h1 class="text-sm md:text-base pb-2 transition-all search-history-box-title">历史记录</h1>
           <ul class="inline-flex flex-col list-none overflow-y-scroll search-history-list">
-            <li @click.stop="isShowSearchHistoryListDelete?'':$emit('gotoDetail',item.id)" :class="'relative inline-flex flex-row items-center mt-4 first-of-type:mt-0' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
+            <li @click.stop="isShowSearchHistoryListDelete?'':$emit('gotoDetail',item.id)" :class="'relative inline-flex flex-row items-center py-2' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
               <img v-if="item.logo&&item.logo.length>0" class="w-9 h-9 object-cover search-history-list-item-logo" :src="item.logo" />
               <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre search-history-list-item-logo" :style="'min-width: 2.25rem;background-color: ' + item.word_logo_bg_color + ';'">
                 <span :class="'font-sans '+(item.short_name.length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name }}</span>
               </div>
               <span class="text-sm md:text-base pl-1 search-history-list-item-name">{{ item.name }}</span>
-              <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 md:w-5 h-3 md:h-5 p-0.5 clear-search-history-item-button">
+              <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 md:w-5 h-3 md:h-5 p-0.5 transition-all clear-search-history-item-button">
                 <svg class="w-2 md:w-3 h-2 md:h-3" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21l-9-9m0 0L3 3m9 9l9-9m-9 9l-9 9"/></svg>
               </button>
             </li>
@@ -305,12 +307,12 @@ nuxtApp.hook("page:finish", () => {
         </div>
         <template v-if="isShowSearchHistoryListDelete">
         <div class="inline-flex flex-row justify-start items-center">
-          <button @click.stop="clearAllSearchHistory" class="text-sm md:text-base whitespace-nowrap pl-0 clear-all-search-history-button">删除全部</button>
-          <button @click.stop="hideSearchHistoryListDelete" class="text-sm md:text-base whitespace-nowrap pl-1 finish-clear-search-history-button">完成</button>
+          <button @click.stop="clearAllSearchHistory" class="text-sm md:text-base whitespace-nowrap pl-0 transition-all clear-all-search-history-button">删除全部</button>
+          <button @click.stop="hideSearchHistoryListDelete" class="text-sm md:text-base whitespace-nowrap pl-1 transition-all finish-clear-search-history-button">完成</button>
         </div>
         </template>
         <template v-else>
-        <button @click.stop="showSearchHistoryListDelete" class="inline-flex flex-row justify-center items-center w-20 md:w-24 clear-search-history-button">
+        <button @click.stop="showSearchHistoryListDelete" class="inline-flex flex-row justify-center items-center w-20 md:w-24 transition-all clear-search-history-button">
           <svg class="w-4 md:w-6 clear-search-history-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M18 19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V7H4V4h4.5l1-1h4l1 1H19v3h-1v12M6 7v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V7H6m12-1V5h-4l-1-1h-3L9 5H5v1h13M8 9h1v10H8V9m6 0h1v10h-1V9Z"/></svg>
           <span class="text-sm md:text-base clear-search-history-button-text">删除历史</span>
         </button>
@@ -321,32 +323,32 @@ nuxtApp.hook("page:finish", () => {
     <!-- 已输入任何搜索内容 或者 (已登录、未输入任何搜索内容，并且没有搜索历史记录) -->
     <div v-if="props.searchValue?.trim() !== '' || (userInfoStore.isLoggedIn() && props.searchValue?.trim() == '' && searchInputHistoryStore.getList().length == 0 && searchHistoryStore.getList().length == 0)" class="inline-flex flex-col w-full h-full px-2 py-1 pb-2">
       <!-- 猜你想搜 -->
-      <div class="relative inline-flex flex-row items-center justify-start w-full search-input-history-box">
-        <h1 class="text-xs md:text-base pr-2 my-2 whitespace-nowrap guess-what-you-want-to-search-tips">猜你想搜</h1>
+      <div class="relative inline-flex flex-row items-center justify-start w-full transition-all search-input-history-box">
+        <h1 class="text-xs md:text-base pr-2 my-2 whitespace-nowrap transition-all guess-what-you-want-to-search-tips">猜你想搜</h1>
         <ul class="inline-flex flex-row text-xs md:text-base list-none pt-2 pb-1 mr-4 overflow-x-scroll search-input-history-list generate-search-input-word-list">
-          <li @click.stop="$emit('gotoSearch',item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap search-input-history-list-item" v-for="item in whatYouWantSearchList">{{ item }}</li>
+          <li @click.stop="$emit('gotoSearch',item)" class="relative inline-flex justify-center items-center px-4 py-0.5 ml-4 first-of-type:ml-0 whitespace-nowrap transition-all search-input-history-list-item" v-for="item in whatYouWantSearchList">{{ item }}</li>
         </ul>
-        <button @click.stop="regenerateWhatYouWantSearchList()" class="absolute right-0 inline-flex flex-row justify-center items-center w-4 pl-1 mt-2 mb-2">
+        <button @click.stop="regenerateWhatYouWantSearchList()" class="absolute right-0 inline-flex flex-row justify-center items-center w-4 pl-1 mt-2 mb-2 transition-all">
           <svg class="w-4 regenerate-search-input-word-button-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12 23q-2.8 0-5.15-1.275T3 18.325V21H1v-6h6v2H4.525q1.2 1.8 3.163 2.9T12 21q1.875 0 3.513-.713t2.85-1.924q1.212-1.213 1.925-2.85T21 12h2q0 2.275-.863 4.275t-2.362 3.5q-1.5 1.5-3.5 2.363T12 23ZM1 12q0-2.275.863-4.275t2.362-3.5q1.5-1.5 3.5-2.362T12 1q2.8 0 5.15 1.275t3.85 3.4V3h2v6h-6V7h2.475q-1.2-1.8-3.163-2.9T12 3q-1.875 0-3.513.713t-2.85 1.924Q4.426 6.85 3.714 8.488T3 12H1Z"/></svg>
         </button>
       </div>
       <!-- 相关企业 -->
-      <div v-if="props.searchValue?.trim() !== ''" class="inline-flex flex-col p-2 related-enterprises-box">
-        <h1 class="text-xs md:text-base pb-2 related-enterprises-box-title">相关企业</h1>
+      <div v-if="props.searchValue?.trim() !== ''" class="inline-flex flex-col p-2 transition-all related-enterprises-box">
+        <h1 class="text-xs md:text-base pb-2 transition-all related-enterprises-box-title">相关企业</h1>
         <ul class="inline-flex flex-col list-none overflow-y-scroll related-enterprises-list">
-          <li @click.stop="$emit('gotoDetail',item.id)" class="relative inline-flex flex-row items-center mt-4 first-of-type:mt-0" v-for="item in relatedEnterpriseList">
+          <li @click.stop="$emit('gotoDetail',item.id)" class="relative inline-flex flex-row items-center py-2 cursor-pointer" v-for="item in relatedEnterpriseList">
             <img v-if="item.company_img&&item.company_img.length>0" class="w-9 h-9 object-cover related-enterprises-list-item-logo" :src="item.company_img" alt="" />
             <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre related-enterprises-list-item-logo" :style="'min-width: 2.25rem;background-color: ' + item.word_logo_bg_color + ' ;'">
               <span :class="'font-sans '+(item.short_name.length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name }}</span>
             </div>
-            <span class="text-xs md:text-base pl-1 related-enterprises-list-item-name">{{ item.company_name }}</span>
+            <span class="text-xs md:text-base pl-1 transition-all related-enterprises-list-item-name">{{ item.company_name }}</span>
           </li>
         </ul>
       </div>
       <!-- 登录提示 -->
-      <div v-if="!userInfoStore.isLoggedIn()" class="text-xs md:text-base text-center mt-1 goto-login-and-get-detail-search-result-tips1">
-        <button @click.stop="$emit('gotoLogin')" class="goto-login-button1">立即登录</button>
-        <span>获取更精准的关键词匹配结果</span>
+      <div v-if="!userInfoStore.isLoggedIn()" class="text-xs md:text-base text-center mt-1 transition-all goto-login-and-get-detail-search-result-tips1">
+        <button @click.stop="$emit('gotoLogin')" class="transition-all goto-login-button1">立即登录</button>
+        <span class="transition-all">获取更精准的关键词匹配结果</span>
       </div>
     </div>
   </div>
@@ -360,6 +362,10 @@ nuxtApp.hook("page:finish", () => {
 .goto-login-button {
   background: rgb(143, 75, 29);
   border-radius: 5px;
+}
+
+.goto-login-button:hover {
+  background-color: #5d2b09;
 }
 
 .search-history-box {
@@ -380,14 +386,28 @@ nuxtApp.hook("page:finish", () => {
   color: rgb(160,160,160);
 }
 
+:where(.clear-search-input-history-button-icon, .clear-search-history-button-icon):hover {
+  color: #808080;
+}
+
 .clear-all-search-input-history-button,
 .clear-all-search-history-button {
   color: rgb(255,43,60);
 }
 
+:where(.clear-all-search-input-history-button,
+.clear-all-search-history-button):hover {
+  color: #a60e19;
+}
+
 .finish-clear-search-input-history-button,
 .finish-clear-search-history-button {
   color: rgb(255,150,26);
+}
+
+:where(.finish-clear-search-input-history-button,
+.finish-clear-search-history-button):hover {
+  color: #a65e08;
 }
 
 .search-history-list {
@@ -396,6 +416,10 @@ nuxtApp.hook("page:finish", () => {
 
 .related-enterprises-list {
   max-height: 30vh;
+}
+
+:where(.related-enterprises-list, .search-history-list) li:hover :where(.search-history-list-item-name, .related-enterprises-list-item-name) {
+  color: blue;
 }
 
 ::-webkit-scrollbar {
@@ -446,6 +470,10 @@ nuxtApp.hook("page:finish", () => {
   border-radius: 2px;
 }
 
+:where(.clear-search-input-history-item-button):hover {
+  background: #ebebeb;
+}
+
 .clear-search-input-history-item-button svg {
   color: rgb(89,89,89);
 }
@@ -459,9 +487,23 @@ nuxtApp.hook("page:finish", () => {
   color: rgb(153,153,153);
 }
 
+:where(.goto-login-and-get-detail-search-result-tips,
+.search-history-box-title,
+.related-enterprises-box-title,
+.search-input-history-list-item,
+.clear-search-history-button-text,
+.guess-what-you-want-to-search-tips,
+.regenerate-search-input-word-button-icon):hover {
+  color: #7b7b7b;
+}
+
 .search-input-history-list-item {
   background: rgb(238,238,238);
   cursor: pointer;
+}
+
+.search-input-history-list-item:hover {
+  background: #dfdfdf;
 }
 
 .search-history-list-item-logo,
@@ -485,6 +527,10 @@ nuxtApp.hook("page:finish", () => {
 
 .goto-login-button1 {
   color: rgb(143,75,29);
+}
+
+.goto-login-button1:hover {
+  color: #5d2b09;
 }
 
 .search-tips-area {
