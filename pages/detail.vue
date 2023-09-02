@@ -1825,6 +1825,7 @@ const {
 } = shopDetails;
 
 watch(() => route.query.id, (newProps) => {
+  if (!newProps) return;
   window.location.reload()
   /* console.log('watch route.query.id', newProps)
   let shopDetails1 = useShopDetails(newProps as string|number)
