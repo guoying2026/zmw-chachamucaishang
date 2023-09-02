@@ -86,6 +86,33 @@ function relatedEnterpriseListDataChangeHandle(newProps: any) {
   relatedEnterpriseList.value = res.result
 }
 
+const whatYouWantSearchQueryName = ref<string>('')
+
+const whatYouWantSearchQueryPage = ref<number>(1)
+
+const whatYouWantSearchQueryOffset = ref<number>(0)
+
+const {
+  pending: whatYouWantSearchDataPending,
+  data: whatYouWantSearchData,
+  refresh: whatYouWantSearchDataRefresh,
+} = useLazyAsyncData('whatYouWantSearchData', () => $fetch('/api/getWhatYouWantSearch', {
+  query: {
+    name: whatYouWantSearchQueryName.value,
+    page: whatYouWantSearchQueryPage.value,
+    offset: whatYouWantSearchQueryOffset.value,
+  }
+}))
+
+watch(() => whatYouWantSearchDataPending.value, (newProps) => {
+  if (newProps) return;
+  if (!whatYouWantSearchData.value) return;
+  whatYouWantSearchPage.value = whatYouWantSearchData.value.page
+  whatYouWantSearchTotalPage.value = whatYouWantSearchData.value.total_page
+  whatYouWantSearchOffset.value = whatYouWantSearchData.value.offset
+  whatYouWantSearchList.value = whatYouWantSearchData.value.data
+})
+
 /**
  * 重新生成“猜你想搜”列表数据
  */
@@ -99,22 +126,10 @@ function regenerateWhatYouWantSearchList(name?: string, page?: number, offset?: 
   if (!offset) {
     offset = whatYouWantSearchOffset.value
   }
-  useFetch('/api/getWhatYouWantSearch', {
-    query: {
-      name: name,
-      page: page,
-      offset: offset,
-    }
-  })
-  .then(res => new Promise(resolve => resolve(res.data.value)))
-  .then(async res => {
-    let res1 = res as {data: string[], offset: number, page: number, total_page: number}
-    if (!res1 || !res1.data) return false
-    whatYouWantSearchList.value = res1.data
-    whatYouWantSearchPage.value = res1.page
-    whatYouWantSearchTotalPage.value = res1.total_page
-    whatYouWantSearchOffset.value = res1.offset
-  })
+  whatYouWantSearchQueryName.value = name
+  whatYouWantSearchQueryPage.value = page
+  whatYouWantSearchQueryOffset.value = offset
+  whatYouWantSearchDataRefresh()
 }
 
 /**
