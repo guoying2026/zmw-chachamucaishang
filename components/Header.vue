@@ -438,6 +438,7 @@ nuxtApp.hook('page:finish', () => {
 @media (min-width: 1024px) {
   .pc-userinfo-popup {
     right: calc(100vw / 8 * 1);
+    top: calc(100vw / 1920 * 112);
   }
 }
 
