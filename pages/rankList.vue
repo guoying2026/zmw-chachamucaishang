@@ -479,6 +479,13 @@ nuxtApp.hook('page:finish', () => {
   text-overflow: ellipsis;
 }
 
+.pagination,
+.pagination * {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .pagination .page-button {
   color: #999999;
   padding: 4.5px 10px 4.5px 9px;
@@ -494,6 +501,11 @@ nuxtApp.hook('page:finish', () => {
 
 .pagination .page-button:not(.selected) {
   cursor: pointer;
+}
+
+.pagination .page-button:not(.selected):hover {
+  color: #bdbdbd;
+  border-color: #888885;
 }
 
 .pagination .jump-to,
@@ -519,6 +531,16 @@ nuxtApp.hook('page:finish', () => {
   padding: 4.5px 10px 4.5px 9px;
   border: 1px solid #5B5A5C;
   border-radius: 2px;
+}
+
+.pagination .jump-to input:hover,
+.pagination .jump-to input:focus-visible,
+.pagination .jump-to button:hover {
+  border-color: #888885;
+}
+
+.pagination .jump-to button:hover {
+  color: #ffb470;
 }
 
 @media (max-width: 374px) {

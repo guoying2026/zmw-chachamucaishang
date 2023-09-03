@@ -109,7 +109,7 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
         <div class="inline-flex flex-col items-center md:items-start w-full md:w-3/12 min-w-fit about-us">
           <h1 class="title">关于我们</h1>
           <ul class="list-none grid grid-cols-3 gap-x-5 gap-y-4 w-full text-left whitespace-nowrap">
-            <li class="min-w-min" v-for="item in aboutUsList">
+            <li class="min-w-min transition-all" v-for="item in aboutUsList">
               <NuxtLink :to="item.url">{{ item.name }}</NuxtLink>
             </li>
           </ul>
@@ -117,14 +117,14 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
         <div class="inline-flex flex-col items-center md:items-start w-full md:w-5/12 min-w-min contact-us">
           <h1 class="title">联系我们</h1>
           <ul class="list-none inline-flex flex-col text-center md:text-left whitespace-nowrap">
-            <li v-for="item in contactUsList">{{ item }}</li>
+            <li class="transition-all" v-for="item in contactUsList">{{ item }}</li>
           </ul>
         </div>
         <div class="inline-flex flex-col items-center md:items-start w-full md:w-2/12 miniapp-code">
           <h1 class="title">&nbsp;</h1>
           <div class="inline-flex flex-col items-center">
-            <svg class="w-full h-full rounded-xl" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" width="888" height="888" viewBox="0 0 888 888">
-              <rect width="888" height="888" fill="#ffffff" x="0" y="0"></rect>
+            <svg class="w-full h-full rounded-xl transition-all" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" width="888" height="888" viewBox="0 0 888 888">
+              <rect width="888" height="888" fill="currentColor" x="0" y="0"></rect>
               <g fill="#000000">
                 <g transform="translate(240,48) scale(4.12)"><rect width="6" height="6"></rect></g>
                 <g transform="translate(264,48) scale(4.12)"><rect width="6" height="6"></rect></g>
@@ -606,7 +606,7 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
                 <g transform="translate(96,720)"><g transform="scale(12)"><rect width="6" height="6"></rect></g></g>
               </g>
             </svg>
-            <h1 class="whitespace-nowrap">查查木材商移动端</h1>
+            <h1 class="whitespace-nowrap transition-all">查查木材商移动端</h1>
           </div>
         </div>
       </div>
@@ -614,7 +614,7 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
     <ClientOnly>
       <div class="hidden md:inline-flex flex-row items-center w-full our-services">
         <ul class="list-none inline-flex flex-row flex-nowrap justify-evenly items-center w-full text-center text-base lg:text-lg 2xl:text-xl">
-          <li v-for="item in ourServiceList">
+          <li class="transition-all" v-for="item in ourServiceList">
             <NuxtLink :to="item.url">{{ item.name }}</NuxtLink>
           </li>
         </ul>
@@ -624,24 +624,24 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
       <ul class="list-none inline-flex flex-col w-full text-center text-xs bottom">
         <li class="text-left md:text-center">数据来源：
           <template v-for="(item, index) in dataSourceList">
-            <NuxtLink :to="item.url">{{ item.name }}</NuxtLink>
+            <NuxtLink class="transition-all" :to="item.url">{{ item.name }}</NuxtLink>
             <template v-if="index < dataSourceList.length - 1">
               <span class="hidden md:inline">&nbsp;&nbsp;&nbsp;</span>
               <span class="inline md:hidden">&nbsp;|&nbsp;</span>
             </template>
           </template>
         </li>
-        <li class="list-item md:hidden text-base">
-          <NuxtLink>关于我们</NuxtLink>
+        <li class="list-item md:hidden text-base transition-all">
+          <NuxtLink class="transition-all">关于我们</NuxtLink>
           <span>&nbsp;&nbsp;&nbsp;</span>
-          <NuxtLink>联系我们</NuxtLink>
+          <NuxtLink class="transition-all">联系我们</NuxtLink>
         </li>
-        <li>Copyright &copy;{{ copyRightStartYear }}-{{ copyRightEndYear }} ZHENMUWANG.COM All Right Reserved</li>
-        <li>汕头市宜麦有道供应链有限公司 版权所有</li>
+        <li class="transition-all">Copyright &copy;{{ copyRightStartYear }}-{{ copyRightEndYear }} ZHENMUWANG.COM All Right Reserved</li>
+        <li class="transition-all">汕头市宜麦有道供应链有限公司 版权所有</li>
         <li>
-          <NuxtLink to="https://beian.miit.gov.cn/">粤ICP备18079030号</NuxtLink>
+          <NuxtLink class="transition-all" to="https://beian.miit.gov.cn/">粤ICP备18079030号</NuxtLink>
           <span>&nbsp;&nbsp;&nbsp;</span>
-          <NuxtLink to="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44051102000498">粤公网安备44051102000498号</NuxtLink>
+          <NuxtLink class="transition-all" to="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44051102000498">粤公网安备44051102000498号</NuxtLink>
         </li>
       </ul>
     </ClientOnly>
@@ -764,5 +764,15 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
     padding-left: calc(100vw / 1920* 345);
     padding-right: calc(100vw / 1920* 345);
   }
+}
+
+:where(.footer .top .about-us ul li,
+.footer .top .contact-us ul li,
+.footer .top .miniapp-code,
+.footer .our-services ul li,
+.footer .bottom li:not( a):not(:last-of-type):not(:first-of-type),
+.footer .bottom li a
+):hover {
+  color: #fdfdfd;
 }
 </style>

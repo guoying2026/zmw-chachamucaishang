@@ -200,10 +200,10 @@ nuxtApp.hook('page:finish', () => {
           </div>
           <span v-if="isShowRegCodeFieldTips" class="absolute -bottom-5 left-3 text-xs login-poop-up-main-input-need-field-tips">{{ regCodeFieldTipsContent }}</span>
         </div>
-        <button @click.stop="dealLogin" class="w-11/12 text-white text-base md:text-xl font-normal py-2 mt-12 login-pop-up-main-login-button">注册/登录</button>
+        <button @click.stop="dealLogin" class="w-11/12 text-white text-base md:text-xl font-normal py-2 mt-12 transition-all login-pop-up-main-login-button">注册/登录</button>
         <span class="w-11/12 text-xs md:text-sm text-center font-normal tracking-wide md:tracking-wider mt-4 login-pop-up-main-auto-regist-tips">未注册手机验证后自动注册并登录</span>
         <hr class="w-screen m-0 mt-4 bg-transparent border border-solid border-inherit" />
-        <div class="w-11/12 text-xs text-center tracking-wide mt-4 whitespace-nowrap login-pop-up-main-agree-agreement-tips">登录即同意<button>《用户协议》</button>和<button>《隐私政策》</button></div>
+        <div class="w-11/12 text-xs text-center tracking-wide mt-4 whitespace-nowrap transition-all login-pop-up-main-agree-agreement-tips">登录即同意<button class="transition-all">《用户协议》</button>和<button class="transition-all">《隐私政策》</button></div>
       </div>
     </div>
   </div>
