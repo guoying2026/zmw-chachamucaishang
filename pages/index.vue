@@ -446,25 +446,25 @@ nuxtApp.hook('page:finish', () => {
 @media (min-width: 768px) {
   .top-title {
     margin-top: calc(100vw / 1920 * 195);
-    font-size: calc(100vw / 1920 * 88);
+    font-size: max(12px, calc(100vw / 1920 * 88));
   }
   .top-subtitle {
     margin-top: calc(100vw / 1920 * 36);
     margin-bottom: calc(100vw / 1920 * 62);
-    font-size: calc(100vw / 1920 * 34);
+    font-size: max(12px, calc(100vw / 1920 * 34));
   }
   .search-box {
     min-width: calc(211px + (100vw / 1920 * 96));
     width: calc(100vw / 1920 * 584);
     height: calc(100vw / 1920 * 60);
-    font-size: calc(100vw / 1920 * 20);
+    font-size: max(12px, calc(100vw / 1920 * 20));
   }
   .search-text {
     min-width: 210px;
     width: calc(100vw / 1920 * 488);
     height: calc(100vw / 1920 * 60);
     padding: 0 calc(100vw / 1920 * 35);
-    font-size: calc(100vw / 1920 * 20);
+    font-size: max(12px, calc(100vw / 1920 * 20));
   }
   .search-icon,
   .clear-icon {
@@ -480,10 +480,10 @@ nuxtApp.hook('page:finish', () => {
   .search-button {
     width: calc(100vw / 1920 * 96);
     height: calc(100vw / 1920 * 60);
-    font-size: calc(100vw / 1920 * 20);
+    font-size: max(12px, calc(100vw / 1920 * 20));
   }
   .bottom-bg-pc > div p {
-    font-size: calc(100vw / 1920 * 20);
+    font-size: max(12px, calc(100vw / 1920 * 20));
   }
 }
 </style>

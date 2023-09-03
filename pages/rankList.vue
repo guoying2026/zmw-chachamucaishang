@@ -593,7 +593,7 @@ nuxtApp.hook('page:finish', () => {
     top: calc((var(--real-width) / 12 * 11) / 1258 * 53);
     width: calc((var(--real-width) / 12 * 11) / 1258 * 55);
     height: calc((var(--real-width) / 12 * 11) / 1258 * 55);
-    font-size: calc(100vw / 1920 * 40);
+    font-size: max(12px, calc(100vw / 1920 * 40));
   }
 
   .item .rank_num {
@@ -601,7 +601,7 @@ nuxtApp.hook('page:finish', () => {
     top: calc((var(--real-width) / 12 * 11) / 1258 * 102);
     width: calc((var(--real-width) / 12 * 11) / 1258 * 315);
     height: calc((var(--real-width) / 12 * 11) / 1258 * 28);
-    font-size: calc(100vw / 1920 * 20);
+    font-size: max(12px, calc(100vw / 1920 * 20));
   }
 
   .item .rank_num.hundred {
@@ -627,14 +627,14 @@ nuxtApp.hook('page:finish', () => {
     width: calc((var(--real-width) / 12 * 11) / 1258 * 532);
     height: calc((var(--real-width) / 12 * 11) / 1258 * 46);
     line-height: calc(100vw / 1920 * 68);
-    font-size: calc(100vw / 1920 * 28);
+    font-size: max(12px, calc(100vw / 1920 * 28));
   }
 
   .item .item-sec_line {
     top: calc((var(--real-width) / 12 * 11) / 1258 * 90);
     left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
     width: calc((var(--real-width) / 12 * 11) / 1258 * 500);
-    font-size: calc(100vw / 1920 * 18);
+    font-size: max(12px, calc(100vw / 1920 * 18));
     line-height: calc(100vw / 1920 * 36);
   }
 
@@ -646,12 +646,12 @@ nuxtApp.hook('page:finish', () => {
     top: calc((var(--real-width) / 12 * 11) / 1258 * 121);
     left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
     width: calc((var(--real-width) / 12 * 11) / 1258 * 460);
-    font-size: calc(100vw / 1920 * 18);
+    font-size: max(12px, calc(100vw / 1920 * 18));
     line-height: calc(100vw / 1920 * 36);
   }
 
   .pagination {
-    font-size: calc(100vw / 1920 * 16);
+    font-size: max(12px, calc(100vw / 1920 * 16));
   }
 
   .pagination .page-button,

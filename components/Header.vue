@@ -321,12 +321,12 @@ nuxtApp.hook('page:finish', () => {
   }
   .header .search-text {
     width: calc(100% - 4rem);
-    font-size: calc(100vw / 1920 * 20);
+    font-size: max(12px, calc(100vw / 1920 * 20));
     line-height: calc(100vw / 1920 * 20);
   }
   .header .search-button {
     height: calc(100vw / 1920 * 42);
-    font-size: calc(100vw / 1920 * 20);
+    font-size: max(12px, calc(100vw / 1920 * 20));
     line-height: calc(100vw / 1920 * 20);
     padding-top: 0;
     padding-bottom: 0;
@@ -337,7 +337,7 @@ nuxtApp.hook('page:finish', () => {
   }
 
   .goto-login-button {
-    font-size: calc(100vw / 1920 * 20);
+    font-size: max(12px, calc(100vw / 1920 * 20));
     line-height: calc(100vw / 1920 * 20);
     padding: calc(100vw / 1920 * 10);
   }

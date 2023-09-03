@@ -673,11 +673,11 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
 
 .footer .top .title {
   margin-bottom: calc(100vw / 1920 * 10);
-  font-size: calc(100vw / 1920 * 21);
+  font-size: max(12px, calc(100vw / 1920 * 21));
 }
 
 .footer .top *:not(.title) {
-  font-size: calc(100vw / 1920 * 5);
+  font-size: max(12px, calc(100vw / 1920 * 5));
 }
 
 .footer .top .about-us ul {
@@ -705,7 +705,7 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
   margin-bottom: calc(100vw / 1920 * 10);
   padding-left: calc(100vw / 1920* 95);
   padding-right: calc(100vw / 1920* 95);
-  font-size: calc(100vw / 1920 * 26);
+  font-size: max(12px, calc(100vw / 1920 * 26));
 }
 
 .footer .bottom {

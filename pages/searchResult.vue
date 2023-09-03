@@ -1505,7 +1505,7 @@ div:hover > .select-item-title.font-orange,
 
   .search-list-item > div:not(:first-of-type),
   .search-list-item > div:not(:first-of-type) span {
-    font-size: calc(100vw / 1920 * 14);
+    font-size: max(12px, calc(100vw / 1920 * 14));
     line-height: calc(100vw / 1920 * 30);
   }
 
@@ -1526,20 +1526,20 @@ div:hover > .select-item-title.font-orange,
   }
 
   .word-logo-one-word {
-    font-size: calc(100vw / 1920 * 72);
+    font-size: max(12px, calc(100vw / 1920 * 72));
   }
 
   .word-logo-multi-words {
-    font-size: calc(100vw / 1920 * 36);
+    font-size: max(12px, calc(100vw / 1920 * 36));
     line-height: calc(100vw / 1920 * 40);
   }
 
   .search-list-item-title {
-    font-size: calc(100vw / 1920 * 24);
+    font-size: max(12px, calc(100vw / 1920 * 24));
     line-height: calc(100vw / 1920 * 48);
   }
   .search-list-item-title + span {
-    font-size: calc(100vw / 1920 * 12);
+    font-size: max(12px, calc(100vw / 1920 * 12));
     line-height: unset;
     padding: calc(100vw / 1920 * 1) calc(100vw / 1920 * 8);
   }

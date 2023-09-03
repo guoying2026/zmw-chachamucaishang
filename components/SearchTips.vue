@@ -567,7 +567,7 @@ nuxtApp.hook("page:finish", () => {
 
 @media (min-width: 768px) {
   .search-tips-area {
-    font-size: calc(100vw / 1920 * 16);
+    font-size: max(12px, calc(100vw / 1920 * 16));
   }
   .search-tips-area.in-header {
     width: calc(100% - 4rem);
@@ -578,16 +578,16 @@ nuxtApp.hook("page:finish", () => {
     width: calc(100vw / 1920 * 488);
   }
   .goto-login-and-get-detail-search-result-tips {
-    font-size: calc(100vw / 1920 * 16);
+    font-size: max(12px, calc(100vw / 1920 * 16));
     margin-top: calc(100vw / 1920 * 16);
   }
   .goto-login-and-get-detail-search-result-tips1 {
-    font-size: calc(100vw / 1920 * 14);
+    font-size: max(12px, calc(100vw / 1920 * 14));
   }
   .goto-login-button {
     width: auto;
     height: auto;
-    font-size: calc(100vw / 1920 * 18);
+    font-size: max(12px, calc(100vw / 1920 * 18));
     line-height: calc(100vw / 1920 * 36);
     padding: calc(100vw / 1920 * 8) calc(100vw / 1920 * 10);
   }
@@ -605,7 +605,7 @@ nuxtApp.hook("page:finish", () => {
   .finish-clear-search-history-button,
   .clear-all-search-input-history-button,
   .finish-clear-search-input-history-button {
-    font-size: calc(100vw / 1920 * 16);
+    font-size: max(12px, calc(100vw / 1920 * 16));
   }
   .clear-search-history-button {
     width: max-content;
@@ -618,7 +618,7 @@ nuxtApp.hook("page:finish", () => {
     height: calc(100vw / 1920 * 32);
   }
   .search-input-history-list {
-    font-size: calc(100vw / 1920 * 14);
+    font-size: max(12px, calc(100vw / 1920 * 14));
   }
   .search-input-history-list-item {
     height: auto;

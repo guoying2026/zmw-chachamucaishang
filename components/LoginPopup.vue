@@ -350,7 +350,7 @@ nuxtApp.hook('page:finish', () => {
   .login-pop-up-header-title {
     display: inline-block;
     margin-bottom: calc((100vw / 1920 * 24) - 0.5rem);
-    font-size: calc(100vw / 1920 * 26);
+    font-size: max(12px, calc(100vw / 1920 * 26));
   }
   .login-pop-up-header-close-button,
   .login-pop-up-header-close-button svg {
@@ -361,11 +361,11 @@ nuxtApp.hook('page:finish', () => {
     width: calc(100vw / 1920 * 550);
     height: calc(100vw / 1920 * 610);
     padding-top: calc(100vw / 1920 * 38);
-    font-size: calc(100vw / 1920 * 32);
+    font-size: max(12px, calc(100vw / 1920 * 32));
     line-height: calc(100vw / 1920 * 32);
   }
   .login-pop-up-main-title {
-    font-size: calc(100vw / 1920 * 32);
+    font-size: max(12px, calc(100vw / 1920 * 32));
     line-height: calc(100vw / 1920 * 32);
     margin-bottom: calc(100vw / 1920 * 62.2);
   }
@@ -375,27 +375,27 @@ nuxtApp.hook('page:finish', () => {
   .login-pop-up-main-input-item {
     height: calc(100vw / 1920 * 62);
     margin-top: unset;
-    font-size: calc(100vw / 1920 * 20);
+    font-size: max(12px, calc(100vw / 1920 * 20));
   }
   .login-pop-up-main-input-item input {
     height: 100%;
     border-radius: 8px;
   }
   .login-poop-up-main-input-need-field-tips {
-    font-size: calc(100vw / 1920 * 24);
+    font-size: max(12px, calc(100vw / 1920 * 24));
     line-height: calc(100vw / 1920 * 24);
     bottom: -0.9rem;
   }
   .login-pop-up-main-login-button {
     height: calc(100vw / 1920 * 66);
     margin-top: calc(100vw / 1920 * 83);
-    font-size: calc(100vw / 1920 * 28);
+    font-size: max(12px, calc(100vw / 1920 * 28));
     line-height: calc(100vw / 1920 * 28);
     font-weight: 400;
   }
   .login-pop-up-main-auto-regist-tips {
     margin-top: calc(100vw / 1920 * 28.8);
-    font-size: calc(100vw / 1920 * 20);
+    font-size: max(12px, calc(100vw / 1920 * 20));
     line-height: calc(100vw / 1920 * 20);
   }
   hr {
@@ -403,7 +403,7 @@ nuxtApp.hook('page:finish', () => {
   }
   .login-pop-up-main-agree-agreement-tips {
     margin-top: calc(100vw / 1920 * 30.8);
-    font-size: calc(100vw / 1920 * 16);
+    font-size: max(12px, calc(100vw / 1920 * 16));
     line-height: calc(100vw / 1920 * 16);
   }
 }
