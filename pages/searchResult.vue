@@ -141,9 +141,9 @@ const arrowY1 = ref<number>(3)
 const arrowY2 = ref<number>(22)
 
 function changeArrowY() {
+  let isTopToBottom = isShowMultiSelectProvincePopup.value
   let times = 0;
   let timer = setInterval(() => {
-    let isTopToBottom = isShowMultiSelectProvincePopup.value
     if (isTopToBottom) {
       arrowY1.value -= 18 / 15
       arrowY2.value += 20  / 15
@@ -159,6 +159,34 @@ function changeArrowY() {
       } else {
         arrowY1.value = 21
         arrowY2.value = 2
+      }
+    }
+    times++;
+  }, 10)
+}
+
+const arrowY3 = ref<number>(3)
+const arrowY4 = ref<number>(22)
+
+function changeArrowY1() {
+  let isTopToBottom = isShowAreaSelect.value
+  let times = 0;
+  let timer = setInterval(() => {
+    if (isTopToBottom) {
+      arrowY3.value -= 18 / 15
+      arrowY4.value += 20  / 15
+    } else {
+      arrowY3.value += 18 / 15
+      arrowY4.value -= 20 / 15
+    }
+    if (times >= 15) {
+      clearInterval(timer)
+      if (isTopToBottom) {
+        arrowY3.value = 3
+        arrowY4.value = 22
+      } else {
+        arrowY3.value = 21
+        arrowY4.value = 2
       }
     }
     times++;
@@ -375,6 +403,7 @@ function filterAreaSearchHandle() {
  */
 function showAreaSelect() {
   searchResultStore.clearAll()
+  changeArrowY1()
   isShowAreaSelect.value = true;
 }
 
@@ -383,6 +412,7 @@ function showAreaSelect() {
  */
 function hideAreaSelect() {
   searchResultStore.clearAll()
+  changeArrowY1()
   isShowAreaSelect.value = false;
 }
 
@@ -611,6 +641,7 @@ function showAllPhoneByPc(index: number) {
  */
 function showMultiSelectProvincePopup() {
   searchResultStore.clearAll()
+  changeArrowY()
   isShowMultiSelectProvincePopup.value = true;
   if (areaFirstSelectedIndex.value == 0 && areaSecondSelectedIndex.value == 0) {
     areaFirstSelectedIndex.value = 1;
@@ -623,6 +654,7 @@ function showMultiSelectProvincePopup() {
  */
 function hideMultiSelectProvincePopup() {
   searchResultStore.clearAll()
+  changeArrowY()
   isShowMultiSelectProvincePopup.value = false;
 }
 
@@ -929,21 +961,20 @@ nuxtApp.hook('page:finish', () => {
     <div class="relative w-full inline-flex flex-row justify-evenly bg-black py-2 z-10">
       <!-- 省份地区 -->
       <div @click="isShowAreaSelect?hideAreaSelect():showAreaSelect()" class="inline-flex flex-row justify-center items-center text-sm font-normal cursor-pointer">
-        <span :class="isLeaveMeClosestDistance?'':'font-orange'">{{ areaList[areaFirstSelectedIndex].childs[areaSecondSelectedIndex].name }}</span>
-        <svg v-if="isShowAreaSelect" :class="'w-2 h-2 ml-1'+(isLeaveMeClosestDistance?'':' font-orange')" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M1 21h22L12 2"/></svg>
-        <svg v-else :class="'w-2 h-2 ml-1'+(isLeaveMeClosestDistance?'':' font-orange')" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M1 3h22L12 22"/></svg>
+        <span :class="'transition-all' + (isLeaveMeClosestDistance?'':' font-orange')">{{ areaList[areaFirstSelectedIndex].childs[areaSecondSelectedIndex].name }}</span>
+        <svg :class="'w-2 h-2 ml-1 transition-all'+(isLeaveMeClosestDistance?'':' font-orange')" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path class="transition-all" fill="currentColor" :d="'M1 '+arrowY3+'h22L12 '+arrowY4"/></svg>
       </div>
       <!-- 商家距离 -->
-      <div @click="changeToLeaveMeClosestDistance" :class="'inline-flex flex-row justify-center items-center text-sm font-normal cursor-pointer' + (isLeaveMeClosestDistance ? ' font-orange' : '')">离我最近</div>
+      <div @click="changeToLeaveMeClosestDistance" :class="'inline-flex flex-row justify-center items-center text-sm font-normal cursor-pointer transition-all' + (isLeaveMeClosestDistance ? ' font-orange' : '')">离我最近</div>
     </div>
     <!-- 区域筛选弹出框 -->
     <div @click="hideAreaSelect" :class="'absolute top-0 left-0 inline-block w-screen ' + (isShowAreaSelect ? 'h-screen' : 'h-0') + ' z-0 transition-all area-select-box-cover'"></div>
     <div :class="'relative w-full md:w-1/2 ' + (isShowAreaSelect ? 'max-h-screen' : 'max-h-0') + ' inline-flex flex-row justify-start items-start text-sm font-normal pr-0.5 overflow-hidden z-10 rounded-bl rounded-br transition-all area-select-box'">
       <div class="inline-flex flex-col justify-start items-center w-5/12 md:w-1/2 h-full overflow-x-hidden overflow-y-scroll">
-        <div v-for="(item, index) in areaList" @click="changeAreaFirstSelectedIndex(index)" :class="'inline-flex flex-col justify-center items-start w-full p-2 whitespace-nowrap cursor-pointer' + (index === areaFirstSelectedIndex ? ' selected' : '') + (index === areaFirstSelectedIndex && areaFirstSelectedIndex > 0 ? ' font-orange' : '')">{{ item.name }}</div>
+        <div v-for="(item, index) in areaList" @click="changeAreaFirstSelectedIndex(index)" :class="'inline-flex flex-col justify-center items-start w-full p-2 whitespace-nowrap cursor-pointer transition-all' + (index === areaFirstSelectedIndex ? ' selected' : '') + (index === areaFirstSelectedIndex && areaFirstSelectedIndex > 0 ? ' font-orange' : '')">{{ item.name }}</div>
       </div>
       <div class="inline-flex flex-col justify-start items-center w-7/12 md:w-1/2 h-full overflow-x-hidden overflow-y-scroll">
-        <div v-for="(item, index) in areaList[areaFirstSelectedIndex].childs" @click="changeAreaSecondSelectedIndex(index)" :class="'inline-flex flex-col justify-center items-start w-full p-2 whitespace-nowrap cursor-pointer' + (index === areaSecondSelectedIndex ? ' selected' : '') + (index === areaSecondSelectedIndex && areaFirstSelectedIndex > 0 ? ' font-orange' : '')">{{ item.name }}</div>
+        <div v-for="(item, index) in areaList[areaFirstSelectedIndex].childs" @click="changeAreaSecondSelectedIndex(index)" :class="'inline-flex flex-col justify-center items-start w-full p-2 whitespace-nowrap cursor-pointer transition-all' + (index === areaSecondSelectedIndex ? ' selected' : '') + (index === areaSecondSelectedIndex && areaFirstSelectedIndex > 0 ? ' font-orange' : '')">{{ item.name }}</div>
       </div>
     </div>
   </div>
@@ -1007,8 +1038,6 @@ nuxtApp.hook('page:finish', () => {
         <!-- 多选地区 -->
         <div v-if="isCanMultiSelectProvince" @click.stop="isShowMultiSelectProvincePopup?hideMultiSelectProvincePopup():showMultiSelectProvincePopup()" :class="'inline-flex flex-row flex-wrap items-center w-auto cursor-pointer transition-all' + (areaList.filter(item=>item.is_selected).length>0 ? ' font-orange' : '') + ' select-area'">
           <span class="mr-1 transition-all">多选地区<template v-if="areaList.filter(item=>item.is_selected).length>0">&nbsp;{{ areaList.filter(item=>item.is_selected).length }}</template></span>
-          <svg v-if="isShowMultiSelectProvincePopup" class="w-3 h-3 transition-all" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M1 21h22L12 2"/></svg>
-          <svg v-else class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M1 3h22L12 22"/></svg>
           <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" :d="'M1 '+arrowY1+'h22L12 '+arrowY2"/></svg>
         </div>
         <!-- 单选地区 -->
@@ -1040,10 +1069,10 @@ nuxtApp.hook('page:finish', () => {
         </template>
       </div>
       <!-- 多选地区弹出框 -->
-      <div @click.stop.prevent="isShowMultiSelectProvincePopup = false" :class="'fixed '+ (isShowMultiSelectProvincePopup ? 'left-0 top-0 w-full h-full' : 'left-1/2 top-1/2 w-0 h-0') + ' z-10 transition-all'"></div>
+      <div @click.stop.prevent="hideMultiSelectProvincePopup" :class="'fixed '+ (isShowMultiSelectProvincePopup ? 'left-0 top-0 w-full h-full' : 'left-1/2 top-1/2 w-0 h-0') + ' z-10 transition-all'"></div>
       <div @click.stop.prevent="false" :class="'absolute left-20 top-5 w-96 ' + (isShowMultiSelectProvincePopup ? 'max-h-screen' : 'max-h-0') + ' ml-2 z-20 rounded-lg overflow-hidden transition-all'" style="background-color: rgb(70,70,70);">
         <div class="relative mt-4 ml-4 transition-all">
-          <input class="w-48 h-6 pl-6 py-3 ml-0 text-white bg-transparent border-2 border-solid border-neutral-700 rounded-md transition-all focus-visible:outline-none area-search-text" placeholder="输入地区名称搜索" v-model="areaSearchText" @keyup="filterAreaSearchHandle" />
+          <input class="w-48 h-6 pl-6 py-3 ml-0 text-white bg-transparent border-2 border-solid border-neutral-700 rounded-md transition-all outline-none area-search-text" placeholder="输入地区名称搜索" v-model="areaSearchText" @keyup="filterAreaSearchHandle" />
           <svg class="absolute left-1.5 top-0.5 inline-block w-4 h-6 transition-all" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
         </div>
         <div class="inline-flex flex-row w-full max-h-52 mt-4 border-t border-solid border-gray-950 rounded-b-lg" style="background-color: rgb(70,70,70);">
@@ -1052,13 +1081,13 @@ nuxtApp.hook('page:finish', () => {
               <div v-if="index > 0" @click.stop="changeAreaFirstSelectedIndex(index)" :class="(item.is_show ? '' : 'hidden ') + 'relative inline-flex flex-row items-center mx-2 my-1 cursor-pointer transition-all select-area-list-item'">
                 <svg @click.stop="changeAreaFirstIsSelected(index)" class="w-4 h-4 transition-all font-orange" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <g id="Layer_1">
-                    <rect rx="2" :fill="item.is_selected ? 'currentColor' : 'transparent'" x="0.99319" y="0.95587" width="22" height="22" id="svg_2" :stroke="item.is_selected ? 'currentColor' : 'white'" stroke-width="2"/>
-                    <line v-if="item.is_selected" stroke="rgb(70,70,70)" fill="none" x1="5" y1="11" x2="10" y2="19.75534" id="svg_3" stroke-width="2"/>
-                    <path v-if="item.is_selected" stroke="rgb(70,70,70)" fill="none" opacity="undefined" d="m19.9316,4.06882l-10.67057,15.63814" id="svg_4" stroke-width="2"/>
+                    <rect class="transition-all" rx="2" :fill="item.is_selected ? 'currentColor' : 'transparent'" x="0.99319" y="0.95587" width="22" height="22" id="svg_2" :stroke="item.is_selected ? 'currentColor' : 'white'" stroke-width="2"/>
+                    <line v-if="item.is_selected" class="transition-all" stroke="rgb(70,70,70)" fill="none" x1="5" y1="11" x2="10" y2="19.75534" id="svg_3" stroke-width="2"/>
+                    <path v-if="item.is_selected" class="transition-all" stroke="rgb(70,70,70)" fill="none" opacity="undefined" d="m19.9316,4.06882l-10.67057,15.63814" id="svg_4" stroke-width="2"/>
                   </g>
                 </svg>
                 <span :class="'ml-1 transition-all' + (item.is_selected || index === areaFirstSelectedIndex ? ' font-orange' : '')">{{ item.name }}</span>
-                <svg :class="'absolute right-0 w-3 h-3 transition-all' + (index === areaFirstSelectedIndex ? ' font-orange' : '')" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M1,2V22L21 11"/></svg>
+                <svg :class="'absolute right-0 w-3 h-3 transition-all' + (index === areaFirstSelectedIndex ? ' font-orange' : '')" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path class="transition-all" fill="currentColor" d="M1,2V22L21 11"/></svg>
               </div>
             </template>
           </div>
@@ -1067,9 +1096,9 @@ nuxtApp.hook('page:finish', () => {
               <div v-if="index > 0" @click.stop="changeAreaSecondIsSelected(index)" :class="(item.is_show ? '' : 'hidden ') + 'inline-flex flex-row items-center ml-2 my-1 cursor-pointer transition-all select-area-list-item'">
                 <svg class="w-4 h-4 transition-all font-orange" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <g id="Layer_1">
-                    <rect rx="2" :fill="item.is_selected ? 'currentColor' : 'transparent'" x="0.99319" y="0.95587" width="22" height="22" id="svg_2" :stroke="item.is_selected ? 'currentColor' : 'white'" stroke-width="2"/>
-                    <line v-if="item.is_selected" stroke="rgb(70,70,70)" fill="none" x1="5" y1="11" x2="10" y2="19.75534" id="svg_3" stroke-width="2"/>
-                    <path v-if="item.is_selected" stroke="rgb(70,70,70)" fill="none" opacity="undefined" d="m19.9316,4.06882l-10.67057,15.63814" id="svg_4" stroke-width="2"/>
+                    <rect class="transition-all" rx="2" :fill="item.is_selected ? 'currentColor' : 'transparent'" x="0.99319" y="0.95587" width="22" height="22" id="svg_2" :stroke="item.is_selected ? 'currentColor' : 'white'" stroke-width="2"/>
+                    <line v-if="item.is_selected" class="transition-all" stroke="rgb(70,70,70)" fill="none" x1="5" y1="11" x2="10" y2="19.75534" id="svg_3" stroke-width="2"/>
+                    <path v-if="item.is_selected" class="transition-all" stroke="rgb(70,70,70)" fill="none" opacity="undefined" d="m19.9316,4.06882l-10.67057,15.63814" id="svg_4" stroke-width="2"/>
                   </g>
                 </svg>
                 <span :class="'ml-1 transition-all' + (item.is_selected ? ' font-orange' : '')">{{ item.name }}</span>

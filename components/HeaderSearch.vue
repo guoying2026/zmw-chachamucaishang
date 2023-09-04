@@ -77,14 +77,55 @@ function searchInputFocusAndBlurHandle() {
   }
 }
 
+function changeSearchBoxStyleHandle() {
+  let searchBoxEl = document.querySelectorAll('.search-box')
+  let searchTextEl = document.querySelectorAll('.search-text')
+  let clearIconEl = document.querySelectorAll('.search-box svg:nth-of-type(2)')
+  let searchTipsAreaEl = document.querySelectorAll('.search-tips-area')
+  if (searchTextEl && clearIconEl) {
+    searchTextEl.forEach(item => {
+      let searchTextStyle = getComputedStyle(item)
+      clearIconEl.forEach(item1 => {
+        let clearIconStyle = getComputedStyle(item1)
+        item1.setAttribute('style', 'right: unset;left: calc((' + searchTextStyle.width + ' - ' + searchTextStyle.paddingRight + ') + ((' + searchTextStyle.paddingRight + ' - ' + clearIconStyle.width + ') / 2));')
+      })
+    })
+  }
+  if (searchBoxEl && searchTextEl && searchTipsAreaEl) {
+    searchBoxEl.forEach(item => {
+      searchTextEl.forEach(item1 => {
+        searchTipsAreaEl.forEach(item2 => {
+          item2.setAttribute('style', 'width: calc(' + getComputedStyle(item1).width + ' + ' + getComputedStyle(item).paddingLeft + ' + ' + getComputedStyle(item).paddingRight + ');')
+        })
+      })
+    })
+  }
+}
+
 searchInputFocusAndBlurHandle()
 
 onMounted(() => {
   searchInputFocusAndBlurHandle()
+  window.addEventListener('resize', () => {
+    if (window.screen.width >= 768) {
+      changeSearchBoxStyleHandle();
+    }
+  })
+  if (window.screen.width >= 768) {
+    changeSearchBoxStyleHandle();
+  }
 })
 
-useNuxtApp().hook('page:finish', () => {
+nuxtApp.hook('page:finish', () => {
   searchInputFocusAndBlurHandle()
+  window.addEventListener('resize', () => {
+    if (window.screen.width >= 768) {
+      changeSearchBoxStyleHandle()
+    }
+  });
+  if (window.screen.width >= 768) {
+    changeSearchBoxStyleHandle()
+  }
 })
 </script>
 <template>

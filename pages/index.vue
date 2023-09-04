@@ -100,30 +100,44 @@ function searchBoxClickHandle() {
 
 function searchTipsAreaHoverHandle() {
   let searchTipsArea = document.querySelector('.search-tips-area')
-  let searchText = document.querySelector('.search-text')
-  let searchBox = document.querySelector('.search-box')
+  let searchText = document.querySelectorAll('.search-text')
+  let searchBox = document.querySelectorAll('.search-box')
   if (searchTipsArea) {
     searchTipsArea.addEventListener('mouseenter', () => {
-      if (searchText) searchText.classList.add('hover')
-      if (searchBox) searchBox.classList.add('hover')
+      if (searchText) searchText.forEach(item => {
+        item.classList.add('hover')
+      })
+      if (searchBox && searchBox.length > 0) searchBox.forEach(item => {
+        item.classList.add('hover')
+      })
     })
     searchTipsArea.addEventListener('mouseleave', () => {
-      if (searchText) searchText.classList.remove('hover')
+      if (searchText && searchText.length > 0) searchText.forEach(item => {
+        item.classList.remove('hover')
+      })
     })
   }
-  if (searchText) {
-    searchText.addEventListener('mouseenter', () => {
-      if (searchText != document.activeElement) {
-        searchBox?.classList.remove('hover')
-      }
-    })
-    searchText.addEventListener('focus', () => {
-      if (searchBox) searchBox.classList.add('hover')
+  if (searchText && searchText.length > 0) {
+    searchText.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        if (item != document.activeElement && searchBox && searchBox.length > 0) {
+          searchBox.forEach(item => {
+            item.classList.remove('hover')
+          })
+        }
+      })
+      item.addEventListener('focus', () => {
+        if (searchBox && searchBox.length > 0) searchBox.forEach(item => {
+          item.classList.add('hover')
+        }) 
+      })
     })
   }
-  if (searchBox) {
-    searchBox.addEventListener('mouseleave', () => {
-      if (searchBox) searchBox.classList.remove('hover')
+  if (searchBox && searchBox.length > 0) {
+    searchBox.forEach(item => {
+      item.addEventListener('mouseleave', () => {
+        item.classList.remove('hover')
+      })
     })
   }
 }
