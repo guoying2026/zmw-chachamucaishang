@@ -353,6 +353,25 @@
 .tab_0_space table.green .table_detail{
   background: #534D05 !important;
 }
+.tab_2_space .table_detail td{
+  border-left: none !important;
+  border-right: none !important;
+}
+.second_1_2_third{
+   font-size: clamp(12px, 1.2vw, 16px);
+}
+.third .second_1{
+   margin-top: -90px;
+   width: 58%;
+   background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_54178852-78ca-42ee-b66a-def56d87313c.png");
+   background-repeat: no-repeat;
+   background-size: 100% 100%;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   justify-content: space-around;
+   padding: 10px 0;
+}
 .tab_2_space table .table_detail,.tab_0_space table .table_detail{
   background: #684525;
 }
@@ -369,21 +388,6 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-}
-.second_1_2_third{
-  font-size: clamp(12px, 1.2vw, 16px);
-}
-.third .second_1{
-  margin-top: -90px;
-  width: 58%;
-  background-image: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_54178852-78ca-42ee-b66a-def56d87313c.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 10px 0;
 }
 .second .second_2{
   width: 68%;
@@ -568,6 +572,33 @@
 .size-10{
   font-size: 10px;
 }
+.clamp-text.expanded {
+     -webkit-line-clamp: unset;
+     -webkit-box-orient: unset;
+}
+.clamp-text:not(.expanded)::before {
+     content: "...";
+     position: absolute;
+     right: 5vw;  /* 根据"更多"的实际宽度进行调整 */
+     bottom: 0;
+     color: white;
+     background-color: #684525;  /* 设置为父元素的背景颜色 */
+     white-space: nowrap;
+}
+.clamp-text:not(.expanded)::after {
+     content: "更多";
+     position: absolute;
+     right: 0;
+     bottom: 0;
+     color: #FF7E00;
+     background-color: #684525;  /* Set this to the background color of the parent element */
+     text-align: right;
+     padding-left: 5px;  /* space for ellipsis */
+     white-space: nowrap;
+}
+.dynamic_detail{
+  color: #ff9535;
+}
 </style>
 <style scoped>
 .tab_{
@@ -677,63 +708,9 @@
     width: 94%;
     border-radius: 10px;
   }
-  .light_brown[data-v-dfbaac98] {
-    padding: 10px 10px 10px 10px;
-    margin-top: 10px !important;
-  }
-  .clamp-text {
-    position: relative;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    cursor: pointer;
-  }
-
-  .clamp-text.expanded {
-    -webkit-line-clamp: unset;
-    -webkit-box-orient: unset;
-  }
-  .clamp-text:not(.expanded)::before {
-    content: "...";
-    position: absolute;
-    right: 5vw;  /* 根据"更多"的实际宽度进行调整 */
-    bottom: 0;
-    color: white;
-    background-color: #684525;  /* 设置为父元素的背景颜色 */
-    white-space: nowrap;
-  }
-  .clamp-text:not(.expanded)::after {
-    content: "更多";
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    color: #FF7E00;
-    background-color: #684525;  /* Set this to the background color of the parent element */
-    text-align: right;
-    padding-left: 5px;  /* space for ellipsis */
-    white-space: nowrap;
-  }
   .third_1{
     margin-top: 3%;
     width: 94%;
-  }
-  .blue-tab{
-    background: linear-gradient(to bottom, #3B94F1, #095EB9);
-  }
-  .blue-underline {
-    position: relative;
-    display: inline-block;
-    font-size: 16px !important;
-  }
-  .blue-underline::after {
-    content: ''; /* 为伪元素设置内容 */
-    position: absolute;
-    bottom: -10px; /* 控制下划线与文本的距离。此处设置为5px，你可以根据需要调整 */
-    left: 0; /* 从左边开始 */
-    width: 100%; /* 下划线宽度与文本内容对齐 */
-    height: 2px; /* 设置下划线的高度 */
-    background-color: #58AAFF;
   }
   .fifth{
     width: 94%;
@@ -884,17 +861,6 @@
     flex-direction: row;
     align-items: center;
   }
-  .dark_third_bg{
-    background-color: #00113A !important;
-  }
-  .nine{
-    width: 94%;
-    margin-top: 10px;
-  }
-  .hover_image{
-    width: 65px;
-    height: 65px;
-  }
 }
 </style>
 <template>
@@ -907,17 +873,17 @@
     <div class="third_2">
       <client-only>
         <div class="third_2_space">
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 0 || tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
+          <text class="margin-10-left" :class="tabItemStore.tabItem*1 === 0 || tabItemStore.tabItem*1 === 3 ?'white-color white-underline':''" @click="switchTab(0)">商家简介</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
+          <text :class="tabItemStore.tabItem*1 === 1 ?'white-color white-underline':''" @click="switchTab(1)">基本信息</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
+          <text :class="tabItemStore.tabItem*1 === 2 ?'white-color white-underline':''" @click="switchTab(2)">企业动态</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7?'white-color white-underline':''" @click="switchTab(4)">评论</text>
+          <text :class="tabItemStore.tabItem*1 === 4 || tabItemStore.tabItem*1 === 7?'white-color white-underline':''" @click="switchTab(4)">评论</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8?'white-color white-underline':''" @click="switchTab(5)">问答</text>
+          <text :class="tabItemStore.tabItem*1 === 5 || tabItemStore.tabItem*1 === 8?'white-color white-underline':''" @click="switchTab(5)">问答</text>
           <text>|</text>
-          <text class="tab_" :class="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9?'white-color white-underline':''" @click="switchTab(6)">投诉</text>
+          <text class="margin-10-right" :class="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9?'white-color white-underline':''" @click="switchTab(6)">投诉</text>
         </div>
       </client-only>
     </div>
@@ -1091,7 +1057,7 @@
           <td>{{dynamic.subCategory}}</td>
           <td class="wide-column" v-html="dynamic.content"></td>
           <td>{{dynamic.updateTime}}</td>
-          <td>详情</td>
+          <td class="dynamic_detail">详情</td>
         </tr>
       </table>
     </div>
@@ -1337,7 +1303,7 @@
           <text class="fifth_2_2_right">详情</text>
         </div>
       </div>
-      <img class="margin-20-top" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_450cc483-88c5-49a4-bb46-7f3fd28ab675.png">
+      <img class="margin-20-top" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_450cc483-88c5-49a4-bb46-7f3fd28ab675.png" alt="">
     </div>
     <div class="six" v-if="tabItemStore.tabItem*1 === 1">
       <table class="six_table left_width_1">
@@ -1466,7 +1432,7 @@
       <!-- 主分类列表 -->
           <!-- 其他主分类 -->
       <div class="eight_1">
-        <div class="eight_item" :class="key === dynamicCategoriesStore.selectedMoreCategory? 'selected_category':''" v-for="(category, key) in dynamicCategoriesStore.CATEGORIES" :key="key" @click="toggleMoreCategory(key)">
+        <div class="eight_item" :class="key === dynamicCategoriesStore.selectedMoreCategory? 'selected_category':''" v-for="(category, key) in dynamicCategoriesStore.MOBILE_CATEGORIES" :key="key" @click="toggleMoreCategory(key)">
           {{ category }}
         </div>
       </div>

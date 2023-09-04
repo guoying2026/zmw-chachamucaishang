@@ -9,6 +9,14 @@ export const useDynamicCategoriesStore = defineStore('dynamicCategoriesStore', {
         showMoreTypes: false, // 新增状态
         selectedSubCategory:'全部',
         moreTriangleUpOrDown: 1,
+        MOBILE_CATEGORIES:{
+            ALL: '全部类型',
+            BUSINESS: '工商',
+            RISK: '风险',
+            OPERATION: '经营',
+            TENDER: '招投标',
+            NEWS: '新闻',
+        },
         CATEGORIES: {
             ALL: '全部类型',
             BUSINESS: '工商',
