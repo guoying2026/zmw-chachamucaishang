@@ -129,47 +129,50 @@ function changeHeaderWhiteSpaceStyleHandle() {
   }
 }
 
-function changeSearchBoxStyleHandle() {
-  let searchBoxEl = document.querySelector('.search-box')
-  let searchTextEl = document.querySelector('.search-text')
-  let clearIconEl = document.querySelector('.search-box svg:nth-of-type(2)')
-  let searchTipsAreaEl = document.querySelector('.search-tips-area')
-  if (searchTextEl && clearIconEl) {
-    let searchTextStyle = getComputedStyle(searchTextEl)
-    let clearIconStyle = getComputedStyle(clearIconEl)
-    clearIconEl.setAttribute('style', 'right: unset;left: calc((' + searchTextStyle.width + ' - ' + searchTextStyle.paddingRight + ') + ((' + searchTextStyle.paddingRight + ' - ' + clearIconStyle.width + ') / 2));')
-  }
-  if (searchBoxEl && searchTextEl && searchTipsAreaEl) {
-    searchTipsAreaEl.setAttribute('style', 'width: calc(' + getComputedStyle(searchTextEl).width + ' + ' + getComputedStyle(searchBoxEl).paddingLeft + ' + ' + getComputedStyle(searchBoxEl).paddingRight + ');')
-  }
-}
-
 function searchTipsAreaHoverHandle() {
-  let searchTipsArea = document.querySelector('.search-tips-area')
-  let searchText = document.querySelector('.search-text')
-  let searchBox = document.querySelector('.search-box')
-  if (searchTipsArea) {
-    searchTipsArea.addEventListener('mouseenter', () => {
-      if (searchText) searchText.classList.add('hover')
-      if (searchBox) searchBox.classList.add('hover')
+  let searchTipsArea = document.querySelectorAll('.search-tips-area')
+  let searchText = document.querySelectorAll('.search-text')
+  let searchBox = document.querySelectorAll('.search-box')
+  if (searchTipsArea && searchTipsArea.length > 0) {
+    searchTipsArea.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        if (searchText && searchText.length > 0) searchText.forEach(item1 => {
+          item1.classList.add('hover')
+        })
+        if (searchBox) searchBox.forEach(item1 => {
+          item1.classList.add('hover')
+        })
+      })
     })
-    searchTipsArea.addEventListener('mouseleave', () => {
-      if (searchText)searchText.classList.remove('hover')
+    searchTipsArea.forEach(item => {
+      item.addEventListener('mouseleave', () => {
+        if (searchText && searchText.length > 0) searchText.forEach(item1 => {
+          item1.classList.remove('hover')
+        })
+      })
     })
   }
-  if (searchText) {
-    searchText.addEventListener('mouseenter', () => {
-      if (searchText != document.activeElement) {
-        searchBox?.classList.remove('hover')
-      }
+  if (searchText && searchText.length > 0) {
+    searchText.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        if (item != document.activeElement) searchBox.forEach(item1 => {
+          item1.classList.remove('hover')
+        })
+      })
     })
-    searchText.addEventListener('focus', () => {
-      if (searchBox) searchBox.classList.add('hover')
+    searchText.forEach(item => {
+      item.addEventListener('focus', () => {
+        if (searchBox && searchBox.length > 0) searchBox.forEach(item1 => {
+          item1.classList.add('hover')
+        })
+      })
     })
   }
-  if (searchBox) {
-    searchBox.addEventListener('mouseleave', () => {
-      if (searchBox) searchBox.classList.remove('hover')
+  if (searchBox && searchBox.length > 0) {
+    searchBox.forEach(item => {
+      item.addEventListener('mouseleave', () => {
+        item.classList.remove('hover')
+      })
     })
   }
 }
@@ -179,13 +182,7 @@ onMounted(() => {
   searchTipsAreaHoverHandle();
   window.addEventListener('resize', () => {
     changeHeaderWhiteSpaceStyleHandle();
-    if (window.screen.width >= 768) {
-      changeSearchBoxStyleHandle();
-    }
   });
-  if (window.screen.width >= 768) {
-    changeSearchBoxStyleHandle();
-  }
 })
 
 nuxtApp.hook('page:finish', () => {
@@ -193,13 +190,7 @@ nuxtApp.hook('page:finish', () => {
   searchTipsAreaHoverHandle();
   window.addEventListener('resize', () => {
     changeHeaderWhiteSpaceStyleHandle();
-    if (window.screen.width >= 768) {
-      changeSearchBoxStyleHandle();
-    }
   });
-  if (window.screen.width >= 768) {
-    changeSearchBoxStyleHandle();
-  }
 })
 </script>
 
