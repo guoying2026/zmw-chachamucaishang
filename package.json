@@ -29,7 +29,8 @@
     "sass": "^1.65.1",
     "tailwindcss": "^3.3.3",
     "uuid": "^9.0.0",
-    "vue-baidu-map-3x": "^1.0.34"
+    "vue-baidu-map-3x": "^1.0.34",
+    "vue-baidu-map-offline": "^1.0.7"
   },
   "overrides": {
     "vue": "latest"
