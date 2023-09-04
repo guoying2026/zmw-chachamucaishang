@@ -1167,7 +1167,7 @@
       <div class="tab_4_space_left"></div>
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
-          <text>全部问答</text>
+          <text>全部问答（{{answer_question_count}}）</text>
           <AddForm title-box="提问" :company-name="company_name" feedback-type="question">
             <!-- 定义插槽内容 -->
             <template #trigger>
@@ -1870,10 +1870,10 @@ const getClass = (level:string) => {
   }
 }
 //评论开始
-const company_comment_count = 887;
+const company_comment_count = 2;
 
 //评论结束
 //问答开始
-const answer_question_count = 886;
+const answer_question_count = 2;
 //问答结束
 </script>
