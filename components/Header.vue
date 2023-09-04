@@ -25,7 +25,6 @@ if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string
 const isSearchInputFocusing = ref<boolean>(false)
 
 // 搜索框对象
-const mobileHeaderSearch = ref()
 const pcHeaderSearch = ref()
 
 const userInfoStore = useUserInfoStore()
@@ -42,7 +41,6 @@ function searchBoxClickHandle() {
 function searchButtonHandle() {
   useSearchResultStore().clearAll()
   useRankListStore().clearAll()
-  mobileHeaderSearch.value.blur()
   pcHeaderSearch.value.blur()
   if (searchInputText.value.trim() === '') searchInputText.value = '木材'
   if (route.path == '/searchResult' && route.query.search == searchInputText.value) {
@@ -74,7 +72,6 @@ function searchValueChangeHandle(val: string) {
 }
 
 function searchInputBlurHandle() {
-  mobileHeaderSearch.value.blur()
   pcHeaderSearch.value.blur()
 }
 
@@ -217,7 +214,7 @@ nuxtApp.hook('page:finish', () => {
       </NuxtLink>
       <!-- 搜索框 -->
       <div class="relative inline-flex md:hidden md:justify-evenly items-center w-full xl:h-14 md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
-        <HeaderSearch ref="mobileHeaderSearch" v-bind:searchValue="searchInputText" @gotoSearch="searchButtonHandle" @gotoLogin="openLoginPopup" @searchInputHistoryListItemClickHandle="searchInputHistoryListItemClickHandle" @searchHistoryListItemClickHandle="searchHistoryListItemClickHandle" @clearSearchValue="clearSearchInputText" @searchValueChange="searchValueChangeHandle" @searchInputFocusChange="searchInputFocusAndBlurHandle" />
+        <HeaderSearch v-bind:searchValue="searchInputText" @gotoSearchPage="searchBoxClickHandle" @gotoLogin="openLoginPopup" @searchInputHistoryListItemClickHandle="searchInputHistoryListItemClickHandle" @searchHistoryListItemClickHandle="searchHistoryListItemClickHandle" @clearSearchValue="clearSearchInputText" @searchValueChange="searchValueChangeHandle" @searchInputFocusChange="searchInputFocusAndBlurHandle" />
       </div>
       <div class="relative hidden md:inline-flex md:justify-evenly items-center w-full xl:h-14 md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
         <HeaderSearch ref="pcHeaderSearch" v-bind:searchValue="searchInputText" @gotoSearch="searchButtonHandle" @gotoLogin="openLoginPopup" @searchInputHistoryListItemClickHandle="searchInputHistoryListItemClickHandle" @searchHistoryListItemClickHandle="searchHistoryListItemClickHandle" @clearSearchValue="clearSearchInputText" @searchValueChange="searchValueChangeHandle" @searchInputFocusChange="searchInputFocusAndBlurHandle" />
