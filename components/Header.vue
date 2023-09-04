@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import LoginPopup from "~/components/LoginPopup.vue"
 
-// 导入搜索下拉框组件
-import SearchTips from '~/components/SearchTips.vue'
+// 导入搜索框组件
+import HeaderSearch from '~/components/HeaderSearch.vue'
 
 // 导入用户信息存储
 import { useUserInfoStore } from "~/pinia/userInfo"
@@ -15,8 +15,6 @@ const router = useRouter()
 
 const nuxtApp = useNuxtApp()
 
-const isMobile = ref<boolean>(false)
-
 // 搜索框输入内容
 const searchInputText = ref<string>('')
 
@@ -26,8 +24,9 @@ if (route.query.hasOwnProperty('search') && typeof route.query.search == 'string
 
 const isSearchInputFocusing = ref<boolean>(false)
 
-// 搜索输入框对象
-const searchTextRef = ref()
+// 搜索框对象
+const mobileHeaderSearch = ref()
+const pcHeaderSearch = ref()
 
 const userInfoStore = useUserInfoStore()
 
@@ -43,7 +42,8 @@ function searchBoxClickHandle() {
 function searchButtonHandle() {
   useSearchResultStore().clearAll()
   useRankListStore().clearAll()
-  searchTextRef.value.blur()
+  mobileHeaderSearch.value.blur()
+  pcHeaderSearch.value.blur()
   if (searchInputText.value.trim() === '') searchInputText.value = '木材'
   if (route.path == '/searchResult' && route.query.search == searchInputText.value) {
     refreshNuxtData('searchResultList')
@@ -66,24 +66,20 @@ function searchButtonHandle() {
  */
 function clearSearchInputText() {
   searchInputText.value = '';
-  searchTextRef.value.focus();
+}
+
+function searchValueChangeHandle(val: string) {
+  if (searchInputText.value == val) return;
+  searchInputText.value = val
 }
 
 function searchInputBlurHandle() {
-  searchTextRef.value.blur();
+  mobileHeaderSearch.value.blur()
+  pcHeaderSearch.value.blur()
 }
 
-function searchInputFocusAndBlurHandle() {
-  if (searchTextRef.value) {
-    searchTextRef.value.onfocus = () => {
-      console.log('input focus');
-      isSearchInputFocusing.value = true;
-    };
-    searchTextRef.value.onblur = () => {
-      console.log('input blur');
-      isSearchInputFocusing.value = false;
-    };
-  }
+function searchInputFocusAndBlurHandle(isFocus: boolean) {
+  isSearchInputFocusing.value = isFocus
 }
 
 const isShowLogin = ref<boolean>(false)
@@ -106,7 +102,6 @@ function searchInputHistoryListItemClickHandle(str: string) {
 }
 
 function searchHistoryListItemClickHandle(id: number | string) {
-  searchTextRef.value.blur()
   router.push('/detail?id=' + id)
 }
 
@@ -184,11 +179,9 @@ function searchTipsAreaHoverHandle() {
 
 onMounted(() => {
   changeHeaderWhiteSpaceStyleHandle();
-  searchInputFocusAndBlurHandle();
   searchTipsAreaHoverHandle();
   window.addEventListener('resize', () => {
     changeHeaderWhiteSpaceStyleHandle();
-    searchInputFocusAndBlurHandle();
     if (window.screen.width >= 768) {
       changeSearchBoxStyleHandle();
     }
@@ -196,25 +189,20 @@ onMounted(() => {
   if (window.screen.width >= 768) {
     changeSearchBoxStyleHandle();
   }
-  isMobile.value = window.screen.width <= 767
 })
 
 nuxtApp.hook('page:finish', () => {
   changeHeaderWhiteSpaceStyleHandle();
-  searchInputFocusAndBlurHandle();
   searchTipsAreaHoverHandle();
   window.addEventListener('resize', () => {
     changeHeaderWhiteSpaceStyleHandle();
-    searchInputFocusAndBlurHandle();
     if (window.screen.width >= 768) {
       changeSearchBoxStyleHandle();
     }
-    isMobile.value = window.screen.width <= 767
   });
   if (window.screen.width >= 768) {
     changeSearchBoxStyleHandle();
   }
-  isMobile.value = window.screen.width <= 767
 })
 </script>
 
@@ -228,15 +216,11 @@ nuxtApp.hook('page:finish', () => {
         <img class="hidden md:block h-8 xl:h-14 object-contain header-logo" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagef6dd0552bbc692e03c05de8bd0b26610.png" />
       </NuxtLink>
       <!-- 搜索框 -->
-      <div @click.stop="isMobile?searchBoxClickHandle():''" class="relative inline-flex md:justify-evenly items-center w-full xl:h-14 md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
-        <div class="block md:hidden w-full md:w-80 xl:h-10 px-5 py-1 md:px-0 md:py-0 md:pr-8 text-xs md:text-sm bg-white md:bg-transparent text-inherit md:text-white whitespace-nowrap overflow-hidden rounded-2xl md:rounded transition-all search-text" style="color: #999;">请输入企业名、人名等关键词查询</div>
-        <input class="hidden md:inline-block w-full md:w-80 xl:h-10 px-5 py-1 md:px-0 md:py-0 md:pr-8 text-xs md:text-sm md:bg-transparent text-inherit md:text-white rounded-2xl md:rounded transition-all search-text" type="search" placeholder="请输入企业名、人名等关键词查询" ref="searchTextRef" v-model="searchInputText" @keyup.enter="searchButtonHandle" />
-        <svg class="absolute md:hidden left-1 inline-block w-4 h-4 transition-all search-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
-        <svg v-if="searchInputText.length > 0" @click.stop="clearSearchInputText" class="absolute hidden md:block right-1 md:right-20 w-4 h-4 cursor-pointer transition-all clear-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
-        <button @click.stop="searchButtonHandle" class="hidden md:inline-block xl:h-10 text-sm md:text-base px-2 py-1 whitespace-nowrap rounded transition-all search-button">查一下</button>
-        <ClientOnly>
-          <SearchTips @gotoLogin="openLoginPopup" @gotoSearch="searchInputHistoryListItemClickHandle" @gotoDetail="searchHistoryListItemClickHandle" v-bind:searchValue="searchInputText" top="top-6 md:top-10 xl:top-14" width="w-full md:w-80" zIndex="-z-10" class="in-header" />
-        </ClientOnly>
+      <div class="relative inline-flex md:hidden md:justify-evenly items-center w-full xl:h-14 md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
+        <HeaderSearch ref="mobileHeaderSearch" v-bind:searchValue="searchInputText" @gotoSearch="searchButtonHandle" @gotoLogin="openLoginPopup" @searchInputHistoryListItemClickHandle="searchInputHistoryListItemClickHandle" @searchHistoryListItemClickHandle="searchHistoryListItemClickHandle" @clearSearchValue="clearSearchInputText" @searchValueChange="searchValueChangeHandle" @searchInputFocusChange="searchInputFocusAndBlurHandle" />
+      </div>
+      <div class="relative hidden md:inline-flex md:justify-evenly items-center w-full xl:h-14 md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
+        <HeaderSearch ref="pcHeaderSearch" v-bind:searchValue="searchInputText" @gotoSearch="searchButtonHandle" @gotoLogin="openLoginPopup" @searchInputHistoryListItemClickHandle="searchInputHistoryListItemClickHandle" @searchHistoryListItemClickHandle="searchHistoryListItemClickHandle" @clearSearchValue="clearSearchInputText" @searchValueChange="searchValueChangeHandle" @searchInputFocusChange="searchInputFocusAndBlurHandle" />
       </div>
       <div v-if="userInfoStore.isLoggedIn()" @click.stop="isShowUserInfoPopup = !isShowUserInfoPopup" :class="'' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' w-9 md:w-auto xl:w-16 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 xl:ml-4 rounded cursor-pointer'">
         <img class="h-6 md:h-8 xl:h-14 object-contain user-header" :src="userInfoStore.getAvatar()"/>
