@@ -70,7 +70,11 @@ export const useQuestionStore = defineStore('questionStore', {
             ],
         }
     },
-
+    getters:{
+        getQuestionCount(): number{
+            return this.questions.length;
+        },
+    },
     //方法
     actions: {
         addQuestion(this: QuestionStore, question: Question) {

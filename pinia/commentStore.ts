@@ -70,7 +70,11 @@ export const useCommentStore = defineStore('commentStore', {
             ],
         }
     },
-
+    getters:{
+        getCommentsCount(): number{
+            return this.comments.length;
+        },
+    },
     //方法
     actions: {
         // 设置评论的方法

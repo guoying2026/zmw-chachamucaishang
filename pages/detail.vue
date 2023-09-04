@@ -1018,7 +1018,7 @@
     </div>
     <div class="tab_2_space" v-if="tabItemStore.tabItem*1 === 2">
       <div class="tab_2_space_1">
-        <text>全部动态 46</text>
+        <text>全部动态 5</text>
         <div class="horizontal_line"></div>
         <div class="choose_item">
           <text class="choose_title">动态类型</text>
@@ -1067,7 +1067,7 @@
       <div class="tab_3_space_left"></div>
       <div class="tab_3_space_middle">
         <div class="tab_3_space_1">
-          <text>全部评价（{{company_comment_count}}）</text>
+          <text>全部评价（{{commentStore.getCommentsCount}}）</text>
           <AddForm title-box="评论" :company-name="company_name" feedback-type="comment">
             <!-- 定义插槽内容 -->
             <template #trigger>
@@ -1076,7 +1076,7 @@
             </template>
           </AddForm>
         </div>
-        <NoDetail v-if="company_comment_count < 0"></NoDetail>
+        <NoDetail v-if="commentStore.getCommentsCount < 0"></NoDetail>
         <div class="tab_3_space_2" v-else>
           <CommentList></CommentList>
         </div>
@@ -1169,7 +1169,7 @@
       <div class="tab_4_space_left"></div>
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
-          <text>全部问答（{{answer_question_count}}）</text>
+          <text>全部问答（{{questionStore.getQuestionCount}}）</text>
           <AddForm title-box="提问" :company-name="company_name" feedback-type="question">
             <!-- 定义插槽内容 -->
             <template #trigger>
@@ -1177,7 +1177,7 @@
             </template>
           </AddForm>
         </div>
-        <NoDetail tag="我要提问" text="没有问答" v-if="answer_question_count < 0"></NoDetail>
+        <NoDetail tag="我要提问" text="没有问答" v-if="questionStore.getQuestionCount < 0"></NoDetail>
         <div class="tab_4_space_2" v-else>
           <QuestionList></QuestionList>
         </div>
@@ -1884,11 +1884,4 @@ const getClass = (level:string) => {
       return "red_classify";
   }
 }
-//评论开始
-const company_comment_count = 2;
-
-//评论结束
-//问答开始
-const answer_question_count = 2;
-//问答结束
 </script>
