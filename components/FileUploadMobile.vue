@@ -15,6 +15,7 @@
         :on-preview="handlePictureCardPreview"
         :on-remove="handleRemove"
         :limit="3"
+        :class="{'hide-upload-btn': fileList.length >= 3}"
     >
       <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_d0579ce2-0c1a-4181-b632-70a2d223f79a.png" alt="上传图片">
     </el-upload>
@@ -42,6 +43,9 @@ const {
 </script>
 
 <style scoped>
+.file_upload:deep(.hide-upload-btn .el-upload--picture-card) {
+  display: none;
+}
 .upload_css:deep(.el-upload-list--picture-card .el-upload-list__item){
   border: none;
   background-color: unset;

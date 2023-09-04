@@ -46,6 +46,22 @@
 }
 .liner_blue_bg{
   background: linear-gradient(#3E98F6, #1B62B8);
+  position: relative;
+  margin-top: 20px;
+  padding: 15px 0 10px 15px;
+  font-size: clamp(12px, 14.5915492958px + 0.2816901408vw, 16px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+.liner_blue_bg::before{
+  content: '';
+  position: absolute;
+  top: -10px;      /* 箭头高度 */
+  left: 15px;      /* 从左边调整箭头的位置 */
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #3E98F6;  /* 箭头的颜色，应与对话框边框或背景颜色相同 */
 }
 .answer_item_display::before{
   content: '';
@@ -1564,7 +1580,7 @@
           <text class="second_2_left_1_left">{{company_name}}口碑</text>
         </div>
         <template v-for="(comment,index) in commentStore.comments">
-        <div class="second_2_left_item" v-if="index <= 1">
+        <div class="second_2_left_item" v-if="index < 1" :key="index">
           <div class="second_2_left_2">
             <img class="second_2_left_2_left" :src="comment.avatar" alt="头像"/>
             <div class="second_2_left_2_right">
@@ -1604,47 +1620,49 @@
           </div>
         </div>
           <div class="reply" v-if="comment.replies && comment.replies.length">
-            <div class="reply_item liner_blue_bg" v-for="(reply,replyIndex) in comment.replies" v-if="replyIndex < 1">
-              <div class="reply_item_1">
-                <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
-                <div class="avatar-name__name margin-10-left">
-                  <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{reply.user}}</strong>
+            <template  v-for="(reply,replyIndex) in comment.replies" :key="replyIndex">
+              <div class="reply_item liner_blue_bg" v-if="replyIndex < 1">
+                <div class="reply_item_1">
+                  <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
+                  <div class="avatar-name__name margin-10-left">
+                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{reply.user}}</strong>
+                  </div>
                 </div>
-              </div>
-              <div class="reply_item_2 margin-0-left">
-                <p class="margin-10-top">{{reply.content}}</p>
-                <el-row :gutter="3" v-if="reply.image.length" class="row-image-box">
-                  <el-col
-                      v-for="(itemReplyImage, indexReplyImage) in reply.image"
-                      :key="indexReplyImage"
-                      :span="3"
-                      :md="3"
-                  >
-                    <el-image
-                        :hide-on-click-modal=true
-                        :src="itemReplyImage"
-                        class="min_image_list"
-                        fit="cover"
-                        :zoom-rate="1.2"
-                        :preview-src-list="reply.image"
-                        :initial-index="Number(indexReplyImage)"
-                        lazy />
-                  </el-col>
-                </el-row>
-                <div class="reply_item_3 margin-10-top">
-                  <text class="time grey-color">{{reply.time}}</text>
-                  <div class="reply_item_4">
-                    <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
-                    <AddForm title-box="回复" :company-name="reply.user" feedbackType="commentReply">
-                      <!-- 定义插槽内容 -->
-                      <template #trigger>
-                        <text class="margin-20-left grey-color">回复</text>
-                      </template>
-                    </AddForm>
+                <div class="reply_item_2 margin-0-left">
+                  <p class="margin-10-top">{{reply.content}}</p>
+                  <el-row :gutter="3" v-if="reply.image.length" class="row-image-box">
+                    <el-col
+                        v-for="(itemReplyImage, indexReplyImage) in reply.image"
+                        :key="indexReplyImage"
+                        :span="3"
+                        :md="3"
+                    >
+                      <el-image
+                          :hide-on-click-modal=true
+                          :src="itemReplyImage"
+                          class="min_image_list"
+                          fit="cover"
+                          :zoom-rate="1.2"
+                          :preview-src-list="reply.image"
+                          :initial-index="Number(indexReplyImage)"
+                          lazy />
+                    </el-col>
+                  </el-row>
+                  <div class="reply_item_3 margin-10-top">
+                    <text class="time grey-color">{{reply.time}}</text>
+                    <div class="reply_item_4">
+                      <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
+                      <AddForm title-box="回复" :company-name="reply.user" feedbackType="commentReply">
+                        <!-- 定义插槽内容 -->
+                        <template #trigger>
+                          <text class="margin-20-left grey-color">回复</text>
+                        </template>
+                      </AddForm>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </template>
           </div>
         </template>
         <div class="margin-10-top right_display">

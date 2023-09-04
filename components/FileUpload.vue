@@ -15,12 +15,13 @@
         :on-preview="handlePictureCardPreview"
         :on-remove="handleRemove"
         :limit="3"
+        :class="{'hide-upload-btn': fileList.length >= 3}"
     >
-      <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_89ef73df-afa2-4f6b-b2d1-0faaf684cf0d.png" alt="上传图片">
+      <img v-if="fileList.length < 3" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_89ef73df-afa2-4f6b-b2d1-0faaf684cf0d.png" alt="上传图片">
     </el-upload>
-    <el-dialog v-model="dialogVisible">
-      <img w-full :src="dialogImageUrl" alt="Preview Image" />
-    </el-dialog>
+<!--    <el-dialog v-model="dialogVisible">-->
+<!--      <img w-full :src="dialogImageUrl" alt="Preview Image" />-->
+<!--    </el-dialog>-->
   </div>
   <!-- 上传文件结束 -->
 </template>
@@ -42,6 +43,9 @@ const {
 </script>
 
 <style scoped>
+.file_upload:deep(.hide-upload-btn .el-upload--picture-card) {
+  display: none;
+}
 .upload_css{
   margin-top: 20px;
 }
