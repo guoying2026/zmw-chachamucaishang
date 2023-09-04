@@ -819,6 +819,8 @@
     flex-direction: column;
     background-color: #5B3009;
     flex:1;
+    height: 360px;
+    overflow: auto;
   }
   /* 选择每一行的第二个td */
   .six tr td:nth-child(2) {
@@ -1436,7 +1438,7 @@
           {{ category }}
         </div>
       </div>
-      <div class="eight_2">
+      <div class="eight_2" ref="scrollContainer">
         <!-- 对应的子分类列表 -->
         <!-- 如果选中其他主分类，显示其对应子分类 -->
         <div class="eight_item" :class="sub === dynamicCategoriesStore.selectedSubCategory? 'selected_category':''" v-for="(sub, key) in dynamicCategoriesStore.SUB_CATEGORIES[dynamicCategoriesStore.selectedMoreCategory]" :key="key" @click="selectSubCategory(sub)">
@@ -1709,8 +1711,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import {BaiduMap} from "vue-baidu-map-3x";
+import { ref, onMounted,nextTick } from 'vue';
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
 //评论
@@ -1737,7 +1738,21 @@ const toggleMoreTypes = () => {
 }
 const selectSubCategory = (sub: string) => {
   dynamicCategoriesStore.selectSubCategory(sub);
+  // nextTick(scrollToSelected);
 }
+// const scrollContainer = ref<HTMLElement | null>(null);;
+// const scrollToSelected = () => {
+//   if(!scrollContainer.value){
+//     return;
+//   }
+//   const items = scrollContainer.value.children;
+//   for (let i = 0; i < items.length; i++) {
+//     if (items[i].classList.contains('selected_category')) {
+//       scrollContainer.value.scrollTop = (items[i] as HTMLElement).offsetTop;
+//       break;
+//     }
+//   }
+// }
 const pcFilteredDynamics = computed(() => {
   return dynamicStore.getPcDynamicsByCategoryAndSubCategory(
       dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory],
