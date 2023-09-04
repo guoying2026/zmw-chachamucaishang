@@ -43,7 +43,7 @@ const {
 </script>
 
 <style scoped>
-.file_upload:deep(.hide-upload-btn .el-upload--picture-card) {
+.file_upload >>> .hide-upload-btn .el-upload--picture-card {
   display: none;
 }
 .upload_css{
@@ -54,8 +54,7 @@ const {
   height: 148px;
 }
 /* 可以添加您需要的CSS样式 */
-.file_upload:deep(.el-upload--picture-card) {
-  //--el-upload-picture-card-size: 148px;
+.file_upload >>> .el-upload--picture-card{
   border: none !important;
   border-radius: 10px;
 }

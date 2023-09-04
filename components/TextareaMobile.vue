@@ -37,22 +37,22 @@ const {
   margin-top: 10px;
   width: 100%;
 }
-.addBox:deep(.el-textarea__inner) {
+.addBox >>> .el-textarea__inner {
   box-shadow: 0 0 0 0;
   background: #181818;
   border:none !important;
 }
-.addBox:deep(.el-textarea__inner:hover) {
+.addBox >>> .el-textarea__inner:hover {
   box-shadow: 0 0 0 0;
 }
-.addBox:deep(.el-textarea__inner:focus) {
+.addBox >>> .el-textarea__inner:focus {
   box-shadow: 0 0 0 0;
 }
-.addBox:deep(.el-textarea .el-input__count){
+.addBox >>> .el-textarea .el-input__count{
   color: #757575;
   background: #181818;
 }
-.addBox:deep(.el-textarea__inner){
+.addBox >>> .el-textarea__inner{
   color:#757575;
 }
 </style>

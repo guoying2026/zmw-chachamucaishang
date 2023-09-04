@@ -36,15 +36,15 @@ const {
 .addBox{
   margin-top: 10px;
 }
-.addBox:deep(.el-textarea__inner) {
+.addBox >>> .el-textarea__inner {
   box-shadow: 0 0 0 0;
   background: #F7F7F7;
   border:none !important;
 }
-.addBox:deep(.el-textarea__inner:hover) {
+.addBox >>> .el-textarea__inner:hover {
   box-shadow: 0 0 0 0;
 }
-.addBox:deep(.el-textarea__inner:focus) {
+.addBox >>> .el-textarea__inner:focus {
   box-shadow: 0 0 0 0;
 }
 </style>

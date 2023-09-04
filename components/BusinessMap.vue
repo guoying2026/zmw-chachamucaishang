@@ -17,6 +17,9 @@
   height: 100%;
   border-radius: 10px;
 }
+.map >>> div:first-child{
+  border-radius: 10px;
+}
 </style>
 <script setup lang="ts">
 import {BaiduMap} from "vue-baidu-map-3x";
