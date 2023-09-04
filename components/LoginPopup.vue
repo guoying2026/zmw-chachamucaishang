@@ -180,27 +180,27 @@ nuxtApp.hook('page:finish', () => {
 <template>
   <!-- 手机号登录弹窗 -->
   <div @click.stop="$emit('close')" class="fixed top-0 left-0 w-screen h-screen login-pop-up-cover">
-    <div @click.stop="false" class="fixed px-2 py-4 login-pop-up">
+    <div @click.stop="false" class="fixed px-2 pt-4 pb-2 login-pop-up">
       <div class="relative text-center mb-2 login-pop-up-header">
         <span class="text-xs md:text-sm lg:text-2xl font-normal whitespace-nowrap tracking-wide login-pop-up-header-title" ref="loginPopUpHeaderTitleEl">助力检索木材交易隐患，降低木材交易风险</span>
-        <button @click.stop="$emit('close')" class="absolute -right-0 md:-right-2 top-1 w-5 h-5 login-pop-up-header-close-button">
+        <button @click.stop="$emit('close')" class="absolute -right-0 top-1 w-5 h-5 login-pop-up-header-close-button">
           <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
         </button>
       </div>
-      <div class="inline-flex flex-col items-center w-full h-auto bg-white text-black px-2 py-4 overflow-hidden login-pop-up-main">
+      <div class="inline-flex flex-col items-center w-full h-auto bg-white text-black px-3 py-4 overflow-hidden login-pop-up-main">
         <h1 class="text-xl font-extrabold tracking-widest login-pop-up-main-title">手机号登录</h1>
-        <div class="relative inline-flex flex-col w-11/12 login-pop-up-main-input">
+        <div class="relative inline-flex flex-col w-11/12 md:w-full login-pop-up-main-input">
           <input class="w-full h-11 px-2 py-1 mt-6 text-sm md:text-base login-pop-up-main-input-item" placeholder="请输入您的手机号" ref="phoneNumberInputRef" v-model="loginPhoneNumber" @input="phoneNumberInputInputHandle" />
           <span v-if="isShowPhoneFieldTips" class="absolute -bottom-5 left-3 text-xs login-poop-up-main-input-need-field-tips">{{ phoneFieldTipsContent }}</span>
         </div>
-        <div class="relative inline-flex flex-col w-11/12 login-pop-up-main-input">
+        <div class="relative inline-flex flex-col w-11/12 md:w-full login-pop-up-main-input">
           <div class="w-full h-11 mt-6 text-sm md:text-base login-pop-up-main-input-item">
             <input class="w-6/12 md:w-7/12 px-2 py-1" placeholder="请输入验证码" ref="regCodeInputRef" v-model="loginRegCode" @input="regCodeInputInputHandle" />
             <button @click.stop="sendRegCode" :class="'w-6/12 md:w-5/12 h-full login-pop-up-main-input-item-button'+(isGettingRegCode ? '-wait cursor-not-allowed' : '')"><template v-if="isGettingRegCode">重新发送({{ getRegCodeRemainSeconds }}s)</template><template v-else>获取验证码</template></button>
           </div>
           <span v-if="isShowRegCodeFieldTips" class="absolute -bottom-5 left-3 text-xs login-poop-up-main-input-need-field-tips">{{ regCodeFieldTipsContent }}</span>
         </div>
-        <button @click.stop="dealLogin" class="w-11/12 text-white text-base md:text-xl font-normal py-2 mt-12 transition-all login-pop-up-main-login-button">注册/登录</button>
+        <button @click.stop="dealLogin" class="w-full text-white text-base md:text-xl font-normal py-2 mt-12 transition-all login-pop-up-main-login-button">注册/登录</button>
         <span class="w-11/12 text-xs md:text-sm text-center font-normal tracking-wide md:tracking-wider mt-4 login-pop-up-main-auto-regist-tips">未注册手机验证后自动注册并登录</span>
         <hr class="w-screen m-0 mt-4 bg-transparent border border-solid border-inherit" />
         <div class="w-11/12 text-xs text-center tracking-wide mt-4 whitespace-nowrap transition-all login-pop-up-main-agree-agreement-tips">登录即同意<button class="transition-all">《用户协议》</button>和<button class="transition-all">《隐私政策》</button></div>
@@ -313,7 +313,7 @@ nuxtApp.hook('page:finish', () => {
     left: calc((100vw - 439px) / 2);
     top: calc((100vh - 416.667px) / 2);
     width: 439px;
-    height: 416.667px;
+    height: auto;
   }
 
   .login-pop-up-main-login-button {
@@ -337,7 +337,7 @@ nuxtApp.hook('page:finish', () => {
     top: calc((100vh - (100vw / 1920 * 733)) / 2);
     width: calc(100vw / 1920 * 640);
     height: calc(100vw / 1920 * 733);
-    padding: calc(100vw / 1920 * 34) calc(100vw / 1920 * 45) calc(100vw / 1920 * 33);
+    padding: calc(100vw / 1920 * 34) calc(100vw / 1920 * 20) calc(100vw / 1920 * 20);
     font-family: Source Han Sans CN;
   }
   .login-pop-up-header {
@@ -358,7 +358,7 @@ nuxtApp.hook('page:finish', () => {
     height: calc(100vw / 1920 * 22);
   }
   .login-pop-up-main {
-    width: calc(100vw / 1920 * 550);
+    width: calc(100vw / 1920 * 600);
     height: calc(100vw / 1920 * 610);
     padding-top: calc(100vw / 1920 * 38);
     font-size: max(12px, calc(100vw / 1920 * 32));

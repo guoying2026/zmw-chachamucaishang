@@ -15,8 +15,6 @@ useHead({
   title: '信用排行榜',
 })
 
-const isMobile = ref<boolean>(false)
-
 // 实例化搜索历史记录存储
 const searchHistoryStore = useSearchHistoryStore()
 
@@ -205,7 +203,6 @@ function recordClickItem(item: RankingListItem) {
 }
 
 nuxtApp.hook('page:finish', () => {
-  isMobile.value = window.screen.width < 768
   const intersectionObserverCallback = (entries: IntersectionObserverEntry[]) => {
     if (entries[0].intersectionRatio <= 0) return;
     if (currentPage.value + 1 <= totalPages.value) {
@@ -216,7 +213,6 @@ nuxtApp.hook('page:finish', () => {
   }
   if (window.screen.width < 768 && !intersectionObserver.value) intersectionObserver.value = new IntersectionObserver(intersectionObserverCallback)
   window.addEventListener('resize', () => {
-    isMobile.value = window.screen.width < 768
     if (!intersectionObserver.value) return;
     intersectionObserver.value.disconnect()
     if (window.screen.width < 768) {
@@ -229,27 +225,40 @@ nuxtApp.hook('page:finish', () => {
 <template>
   <div class="inline-block w-full bg-no-repeat bg-cover header" :style="'--real-width:'+headerWidth+';'"></div>
   <div class="relative inline-block w-full list" :style="'--real-width:'+headerWidth+';'">
-    <div :class="'relative w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1))" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
+    <!-- 移动端 -->
+    <div :class="'relative block md:hidden w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(index + 1)" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
       <NuxtLink :to="'/detail?id=' + item.id" @click="recordClickItem(item)">
-      <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
-      <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
-      <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1))">N0.{{ isMobile ? (index + 1) : (((currentPage - 1) * pageSize) + index + 1) }}</div>
-      <div class="absolute inline-block text-sm md:text-base item-title">{{ item.company_name }}</div>
-      <div class="absolute inline-flex flex-row justify-between items-center text-sm md:text-sm whitespace-nowrap pr-4 overflow-x-hidden text-ellipsis item-sec_line">
-        <div class="relative">法人:{{ item.corporation }}</div>
-        <div class="inline-flex md:hidden justify-center items-center separator-wrap">|</div>
-        <div class="relative md:hidden">{{ item.province }}{{ ['北京市', '北京', '天津市', '天津', '上海市', '上海', '重庆市', '重庆'].includes(item.province) ? item.district : item.city }}</div>
-        <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
-        <div class="hidden md:block relative overflow-hidden text-ellipsis">经营范围:{{ item.business_scope }}</div>
-        <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
-        <div class="relative hidden md:inline-block">评论:{{ item.comment_count }}</div>
-        <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
-        <div class="relative hidden md:inline-block">问答:{{ item.ask_count }}</div>
-        <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
-        <div class="relative hidden md:inline-block">投诉:{{ item.complaint_count }}</div>
-      </div>
-      <div class="absolute hidden md:inline-block text-xs md:text-sm item-third_line">地址:{{ item.address }}</div>
-      <div class="absolute inline-block md:hidden text-sm md:text-sm item-third_line">经营范围:{{ item.business_scope }}</div>
+        <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
+        <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
+        <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(index + 1)">N0.{{ index + 1 }}</div>
+        <div class="absolute inline-block text-sm md:text-base item-title">{{ item.company_name }}</div>
+        <div class="absolute inline-flex flex-row justify-between items-center text-sm md:text-sm whitespace-nowrap pr-4 overflow-x-hidden text-ellipsis item-sec_line">
+          <div class="relative">法人:{{ item.corporation }}</div>
+          <div class="inline-flex md:hidden justify-center items-center separator-wrap">|</div>
+          <div class="relative md:hidden">{{ item.province }}{{ ['北京市', '北京', '天津市', '天津', '上海市', '上海', '重庆市', '重庆'].includes(item.province) ? item.district : item.city }}</div>
+        </div>
+        <div class="absolute inline-block md:hidden text-sm md:text-sm item-third_line">经营范围:{{ item.business_scope }}</div>
+      </NuxtLink>
+    </div>
+    <!-- pc端 -->
+    <div :class="'relative hidden md:block w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(((currentPage - 1) * pageSize) + index + 1)" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
+      <NuxtLink :to="'/detail?id=' + item.id" @click="recordClickItem(item)">
+        <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
+        <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
+        <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(((currentPage - 1) * pageSize) + index + 1)">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
+        <div class="absolute inline-block text-sm md:text-base item-title">{{ item.company_name }}</div>
+        <div class="absolute inline-flex flex-row justify-between items-center text-sm md:text-sm whitespace-nowrap pr-4 overflow-x-hidden text-ellipsis item-sec_line">
+          <div class="relative">法人:{{ item.corporation }}</div>
+          <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
+          <div class="hidden md:block relative overflow-hidden text-ellipsis">经营范围:{{ item.business_scope }}</div>
+          <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
+          <div class="relative hidden md:inline-block">评论:{{ item.comment_count }}</div>
+          <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
+          <div class="relative hidden md:inline-block">问答:{{ item.ask_count }}</div>
+          <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
+          <div class="relative hidden md:inline-block">投诉:{{ item.complaint_count }}</div>
+        </div>
+        <div class="absolute hidden md:inline-block text-xs md:text-sm item-third_line">地址:{{ item.address }}</div>
       </NuxtLink>
     </div>
   </div>
