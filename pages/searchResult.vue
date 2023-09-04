@@ -137,6 +137,34 @@ function getSelectedAreaListArr(newProps: AreaListItem[]): string[] {
   return ret
 }
 
+const arrowY1 = ref<number>(3)
+const arrowY2 = ref<number>(22)
+
+function changeArrowY() {
+  let times = 0;
+  let timer = setInterval(() => {
+    let isTopToBottom = isShowMultiSelectProvincePopup.value
+    if (isTopToBottom) {
+      arrowY1.value -= 18 / 15
+      arrowY2.value += 20  / 15
+    } else {
+      arrowY1.value += 18 / 15
+      arrowY2.value -= 20 / 15
+    }
+    if (times >= 15) {
+      clearInterval(timer)
+      if (isTopToBottom) {
+        arrowY1.value = 3
+        arrowY2.value = 22
+      } else {
+        arrowY1.value = 21
+        arrowY2.value = 2
+      }
+    }
+    times++;
+  }, 10)
+}
+
 function areaListDataChangedHandle(newProps: any) {
   if (searchResultStore.getIsStore()) {
     // 这里不能清除掉searchResultStore，如果是从缓存读取，则不要再去请求接口了
@@ -981,6 +1009,7 @@ nuxtApp.hook('page:finish', () => {
           <span class="mr-1 transition-all">多选地区<template v-if="areaList.filter(item=>item.is_selected).length>0">&nbsp;{{ areaList.filter(item=>item.is_selected).length }}</template></span>
           <svg v-if="isShowMultiSelectProvincePopup" class="w-3 h-3 transition-all" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M1 21h22L12 2"/></svg>
           <svg v-else class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M1 3h22L12 22"/></svg>
+          <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" :d="'M1 '+arrowY1+'h22L12 '+arrowY2"/></svg>
         </div>
         <!-- 单选地区 -->
         <div v-else :class="'inline-flex flex-row flex-wrap ' + (isShowMoreProvinceSelect ? 'max-h-full' : 'max-h-5') + ' overflow-hidden transition-all select-area'">
