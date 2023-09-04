@@ -866,6 +866,7 @@
 }
 </style>
 <template>
+  <client-only>
   <div class="first">
     <img class="first" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_f3bb9a40-1365-4583-00d4-efcc25b57e62.png" alt=""/>
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
@@ -1709,6 +1710,7 @@
       <text class="green_tip">查查木材商企业动态数据基于公开数据分析而成，仅作参考，不作为个人决策及媒体引用的依据，查查木材商亦不承担因此产生的任何后果</text>
     </div>
   </div>
+  </client-only>
 </template>
 <script setup lang="ts">
 import { ref, onMounted,nextTick } from 'vue';
@@ -1822,34 +1824,14 @@ const {
     district,
   fetchShopDetails,
 } = shopDetails;
-
+import { serviceContainer } from '~/pinia/feedback/FeedbackServiceContainer';
+console.log(serviceContainer.getHandler('comment'));
+console.log(serviceContainer.getHandler('commentReply'));
 watch(() => route.query.id, (newProps) => {
   if (!newProps) return;
   window.location.reload()
-  /* console.log('watch route.query.id', newProps)
-  let shopDetails1 = useShopDetails(newProps as string|number)
-  address.value = shopDetails1.address
-  company_name.value = shopDetails1.company_name
-  business_scope.value = shopDetails1.business_scope
-  company_sort.value = shopDetails1.company_sort
-  contact_phone.value = shopDetails1.contact_phone
-  corporation.value = shopDetails1.corporation
-  credit_code.value = shopDetails1.credit_code
-  credit_score.value = shopDetails1.credit_score
-  email.value = shopDetails1.email
-  foundation_date.value = shopDetails1.foundation_date
-  geohash.value = shopDetails1.geohash
-  industry.value = shopDetails1.industry
-  lat.value = shopDetails1.lat
-  lng.value = shopDetails1.lng
-  operation_state.value = shopDetails1.operation_state
-  organisation_code.value = shopDetails1.organisation_code
-  registered_capital.value = shopDetails1.registered_capital
-  registration_mark.value = shopDetails1.registration_mark
-  taxpayer_id.value = shopDetails1.taxpayer_id
-  province.value = shopDetails1.province
-  city.value = shopDetails1.city
-  district.value = shopDetails1.district */
+  console.log(serviceContainer.getHandler('comment'));
+  console.log(serviceContainer.getHandler('commentReply'));
 })
 
 onMounted(() => {
