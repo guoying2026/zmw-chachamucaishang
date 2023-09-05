@@ -8,9 +8,9 @@ export const createReplyObject = (data: FeedbackData) => {
     let user = handleAnonymity(data.anonymity, userInfoStore.getNickName());
     console.log(userInfoStore.getAvatar());
     let obj:Reply = {
-        "user_id": userInfoStore.getUserId(),
+        "user_id": userInfoStore.getUserId() || 0,
         "user": user,
-        "avatar": userInfoStore.getAvatar(),
+        "avatar": userInfoStore.getAvatar() || 'https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg',
         "content": data.textareaValue,
         "time": time(),
         "likes": 0,
