@@ -697,7 +697,7 @@
     width: 40%;
   }
   .third .third_4 .third_4_left .third_4_left_4{
-    margin: 0;
+    margin: 0 0 10px 0;
   }
   .third .third_4 .third_4_left .third_4_left_4 .third_4_left_4_1 .third_4_left_4_1_left {
     width: 20px;
