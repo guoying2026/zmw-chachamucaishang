@@ -155,7 +155,7 @@ const props = defineProps({
   },
   companyName:{
     type: String,
-    defalut: '',
+    default: '',
   }
 });
 const show = ref(false)
