@@ -78,7 +78,7 @@
             <div class="answer_item_3">
               <text class=" time blue-color">{{answer.time}}</text>
               <div class="answer_item_4">
-                <LikeSwitch :index="index" :answerIndex="answerIndex" feedbackType="answer"></LikeSwitch>
+                <LikeSwitch :index="index" :reply-index="answerIndex" feedbackType="answer"></LikeSwitch>
               </div>
             </div>
           </div>
