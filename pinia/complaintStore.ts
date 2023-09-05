@@ -26,8 +26,8 @@ export const useComplaintStore = defineStore('complaintStore', {
                     ],
                     "replies": [
                         {
-                            "user_id": 1,
-                            "user": "Marcin Tireder",
+                            "user_id": 2,
+                            "user": "guo guo",
                             "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
                             "content": "我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。",
                             "time": "2020-08-09 12:12:30",
@@ -35,6 +35,8 @@ export const useComplaintStore = defineStore('complaintStore', {
                             "dislikes": 12,
                             "currentUser": 1,
                             "currentUserReaction": 'liked',
+                            "replyUserId": 1,
+                            "replyUser": 'Marcin Tireder',
                             "image":[
                                 'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
                                 'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
@@ -42,21 +44,23 @@ export const useComplaintStore = defineStore('complaintStore', {
                             ],
                         },
                         {
-                            "user_id": 1,
-                            "user": "Marcin Tireder",
+                            "user_id": 3,
+                            "user": "Ran ran",
                             "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
                             "content": "我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。",
-                            "time": "2020-08-09 12:12:30",
+                            "time": "2020-08-09 12:12:35",
                             "likes": 12,
                             "dislikes": 12,
                             "currentUser": 1,
                             "currentUserReaction": 'disliked',
+                            "replyUserId": 2,
+                            "replyUser": 'guo guo',
                             "image": []
                         }
                     ]
                 },
                 {
-                    "user_id": 1,
+                    "user_id": 4,
                     "user": "最初的梦想",
                     "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
                     "content": "上个周末，我搬家具的时候，没想到沙发从手里滑出，砸在了我那美丽的枫木地板上。当时我真的气坏了，地板上出现了一道明显的划痕，让我觉得心疼不已。原本觉得枫木地板很美观耐用，但现在看来，这种地板在耐磨和抗冲击方面还是有待提高。我真心希望商家能重视这个问题，优化地板的制作工艺，让它在遇到类似意外时能更好地抵抗划痕。毕竟，我们花了不少钱购买这样的地板，自然希望能长时间保持美观。而且，生活中类似的意外难免会发生，如果地板能提高耐磨性和抗冲击性，那我们在享受枫木地板美观舒适的同时，也会更加放心。",
@@ -77,8 +81,14 @@ export const useComplaintStore = defineStore('complaintStore', {
         addComplaint(this: ComplaintStore, complaint: Complaint) {
             this.complaints.unshift(complaint);
         },
-        addComplaintReply(this: ComplaintStore, index: number | string, complaintReply: Reply){
-            this.complaints[index].replies.unshift(complaintReply);
+        addComplaintReply(this: ComplaintStore, index: number | string,replyIndex: number, isReplyReply: boolean,complaintReply: Reply){
+            if(!isReplyReply){
+                console.log('走到这一步');
+                console.log(index);
+                this.complaints[index].replies.unshift(complaintReply);
+            } else {
+                this.complaints[index].replies.splice(replyIndex+1,0,complaintReply);
+            }
         },
         getComplaint(this: ComplaintStore, index: number | string){
             return this.complaints[index];

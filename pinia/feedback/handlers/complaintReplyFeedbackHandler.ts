@@ -12,7 +12,7 @@ export const complaintReplyFeedbackHandler: FeedbackHandler & ReplyFeedbackHandl
         console.log('处理回复主投诉提交逻辑');
         const complaintStore:ComplaintStore = useComplaintStore();
         let obj = createReplyObject(data);
-        complaintStore.addComplaintReply(data.index,obj);
+        complaintStore.addComplaintReply(data.index,data.replyIndex,data.isReplyReply,obj);
     },
     getReply(index: number | string, replyIndex: number | string){
         const commentStore= useComplaintStore();

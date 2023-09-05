@@ -125,6 +125,22 @@ const props = defineProps({
     type: [Number,String],
     default: 0,
   },
+  replyIndex: {
+    type: Number,
+    default: 0,
+  },
+  isReplyReply: {
+    type: Boolean,
+    default: false
+  },
+  replyUserId:{
+    type: Number,
+    default: 0,
+  },
+  replyUser: {
+    type: String,
+    default: '',
+  },
   companyName: {
     type: String,
     default: '张姗姗木材加工厂',

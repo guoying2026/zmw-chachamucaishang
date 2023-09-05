@@ -1579,7 +1579,7 @@
             <text class="time grey-color">{{comment.time}}</text>
             <div class="comment_item_4">
               <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-              <AddForm title-box="回复" :company-name="comment.user" feedbackType="commentReply" :company-id="id">
+              <AddForm title-box="回复" :company-name="comment.user" feedbackType="commentReply" :company-id="id" :reply-user-id="comment.user_id" :reply_user="comment.user">
                 <!-- 定义插槽内容 -->
                 <template #trigger>
                   <text class="margin-20-left grey-color">回复</text>
@@ -1621,7 +1621,7 @@
                     <text class="time grey-color">{{reply.time}}</text>
                     <div class="reply_item_4">
                       <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
-                      <AddForm title-box="回复" :company-name="reply.user" feedbackType="commentReply">
+                      <AddForm title-box="回复" :company-name="reply.user" feedbackType="commentReply" :reply-index="Number(replyIndex)" :isReplyReply="true" :reply-user-id="reply.user_id" :reply-user="reply.user">
                         <!-- 定义插槽内容 -->
                         <template #trigger>
                           <text class="margin-20-left grey-color">回复</text>

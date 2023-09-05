@@ -9,6 +9,7 @@ export const useCommentStore = defineStore('commentStore', {
         return {
             comments: [
                 {
+                    // "id": 1,
                     "user_id": 1,
                     "user": "Marcin Tireder",
                     "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
@@ -25,8 +26,9 @@ export const useCommentStore = defineStore('commentStore', {
                     ],
                     "replies": [
                         {
-                            "user_id": 1,
-                            "user": "Marcin Tireder",
+                            // "id": 1,
+                            "user_id": 2,
+                            "user": "guo guo",
                             "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
                             "content": "我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。",
                             "time": "2020-08-09 12:12:30",
@@ -34,6 +36,9 @@ export const useCommentStore = defineStore('commentStore', {
                             "dislikes": 12,
                             "currentUser": 1,
                             "currentUserReaction": 'liked',
+                            // "replyId": 1,
+                            "replyUserId": 1,
+                            "replyUser": 'Marcin Tireder',
                             "image":[
                                 'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
                                 'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
@@ -41,8 +46,9 @@ export const useCommentStore = defineStore('commentStore', {
                             ],
                         },
                         {
-                            "user_id": 1,
-                            "user": "Marcin Tireder",
+                            // "id": 2,
+                            "user_id": 3,
+                            "user": "Ran ran",
                             "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
                             "content": "我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。",
                             "time": "2020-08-09 12:12:30",
@@ -50,11 +56,15 @@ export const useCommentStore = defineStore('commentStore', {
                             "dislikes": 12,
                             "currentUser": 1,
                             "currentUserReaction": 'disliked',
+                            // "replyId": 1,
+                            "replyUserId": 2,
+                            "replyUser": 'guo guo',
                             "image":[],
                         }
                     ]
                 },
                 {
+                    // "id": 2,
                     "user_id": 1,
                     "user": "最初的梦想",
                     "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
@@ -84,17 +94,23 @@ export const useCommentStore = defineStore('commentStore', {
         addComment(this: CommentStore, comment: Comment) {
             this.comments.unshift(comment);
         },
-        addCommentReply(this: CommentStore, index: number | string, commentReply: Reply){
-            this.comments[index].replies.unshift(commentReply);
+        // deleteComment(this: CommentStore,index: number){
+        //     return this.comments.splice(index,1);
+        // },
+        addCommentReply(this: CommentStore, index: number | string, replyIndex: number, isReplyReply: boolean,commentReply: Reply){
+            if(!isReplyReply){
+                console.log('走到这一步');
+                console.log(index);
+                this.comments[index].replies.unshift(commentReply);
+            } else {
+                this.comments[index].replies.splice(replyIndex+1,0,commentReply);
+            }
         },
         getComment(this: CommentStore, index: number | string){
             return this.comments[index];
         },
         getReply(this: CommentStore, index: number | string, replyIndex: number | string){
             return this.comments[index].replies[replyIndex];
-        },
-        addCommentReplyReply(this: CommentStore,index: number| string,replyIndex: number,replyReply: Reply){
-            this.comments[index].replies.splice(replyIndex + 1, 0, replyReply);
         },
         // 更新评论的点赞状态和当前用户
         updateCommentReaction(this: CommentStore,index: number | string, newReaction: Reaction) {

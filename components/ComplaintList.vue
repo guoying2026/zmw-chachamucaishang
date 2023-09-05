@@ -87,7 +87,7 @@
           <text class=" time grey-color">{{complaint.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="complaint"></LikeSwitch>
-            <AddForm title-box="回复" :company-name="complaint.user" feedback-type="complaintReply">
+            <AddForm :index="index" title-box="回复" :company-name="complaint.user" feedback-type="complaintReply" :reply-user-id="complaint.user_id" :reply-user="complaint.user">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left grey-color">回复</text>
@@ -101,7 +101,8 @@
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
             <div class="avatar-name__name margin-10-left">
-              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{reply.user}}</strong>
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-if="reply.replyUserId === complaint.user_id">{{reply.user}}</strong>
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-else>{{reply.user}} 回复 {{reply.replyUser}}</strong>
             </div>
           </div>
           <div class="reply_item_2">
@@ -128,7 +129,7 @@
               <text class=" time grey-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="complaintReply"></LikeSwitch>
-                <AddForm title-box="回复" :index="index" :company-name="reply.user" feedback-type="complaintReply">
+                <AddForm title-box="回复" :reply-index="Number(replyIndex)" :index="index" :isReplyReply="true" :company-name="reply.user" feedback-type="complaintReply" :reply-user-id="reply.user_id" :reply-user="reply.user">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left grey-color">回复</text>
