@@ -3,11 +3,11 @@
     <div class="question_item" v-for="(question, index) in questionStore.questions">
       <div class="question_item_1">
         <div class="avatar-wrapper">
-          <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+          <img class="avatar-name__img avatar" :src="question.avatar" width="32" height="32" :alt="question.user">
           <span class="question-icon orange-bg">问</span>
         </div>
         <div class="avatar-name__name margin-10-left">
-          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{question.user}}</strong>
         </div>
       </div>
       <div class="question_item_2">
@@ -48,11 +48,11 @@
         <div class="answer_item" v-for="(answer,answerIndex) in question.answer_list">
           <div class="answer_item_1">
             <div class="avatar-wrapper">
-              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+              <img class="avatar-name__img avatar" :src="answer.avatar" width="32" height="32" :alt="answer.user">
               <span class="question-icon blue-bg">答</span>
             </div>
             <div class="avatar-name__name margin-10-left">
-              <strong class="text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+              <strong class="text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{answer.user}}</strong>
             </div>
           </div>
           <div class="answer_item_2">

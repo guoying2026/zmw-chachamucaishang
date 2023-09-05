@@ -5,6 +5,7 @@ import {Comment} from "@/types/commentType";
 import {Reaction} from "~/types/feedback";
 import {MainFeedbackHandler} from "~/pinia/feedback/handlers/MainFeedbackHandler";
 import {handleAnonymity} from "~/utils/handler";
+import { useUserInfoStore } from "~/pinia/userInfo"
 
 export const commentFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
     add(data: FeedbackData) {
@@ -12,11 +13,13 @@ export const commentFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
         console.log('处理主评论提交逻辑');
         console.log(data.fileList);
         const commentStore = useCommentStore();
-        let user = handleAnonymity(data.anonymity,"Marcin Tireder");
+        // 实例化用户信息存储
+        const userInfoStore = useUserInfoStore()
+        let user = handleAnonymity(data.anonymity,userInfoStore.getNickName());
         let obj:Comment = {
-            "user_id": 1,
+            "user_id": userInfoStore.getUserId(),
             "user": user,
-            "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
+            "avatar": userInfoStore.getAvatar(),
             "content": data.textareaValue,
             "time": "2020-08-09 12:12:30",
             "likes": 0,

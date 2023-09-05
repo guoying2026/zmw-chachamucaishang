@@ -6,17 +6,19 @@ import {ComplaintStore} from "~/types/complaintStore";
 import {useCommentStore} from "~/pinia/commentStore";
 import {ReplyFeedbackHandler} from "~/pinia/feedback/handlers/ReplyFeedbackHandler";
 import {handleAnonymity} from "~/utils/handler";
+import {useUserInfoStore} from "~/pinia/userInfo";
 
 export const complaintReplyFeedbackHandler: FeedbackHandler & ReplyFeedbackHandler = {
     add(data: FeedbackData) {
         // 处理主投诉回复提交的逻辑
         console.log('处理回复主投诉提交逻辑');
         const complaintStore:ComplaintStore = useComplaintStore();
-        let user = handleAnonymity(data.anonymity,"Marcin Tireder");
+        const userInfoStore = useUserInfoStore();
+        let user = handleAnonymity(data.anonymity,userInfoStore.getNickName());
         let obj:Reply = {
-            "user_id": 1,
+            "user_id": userInfoStore.getUserId(),
             "user": user,
-            "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
+            "avatar": userInfoStore.getAvatar(),
             "content": data.textareaValue,
             "time": "2020-08-09 12:12:30",
             "likes": 0,

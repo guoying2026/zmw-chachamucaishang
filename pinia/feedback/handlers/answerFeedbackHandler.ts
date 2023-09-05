@@ -5,6 +5,7 @@ import {QuestionStore} from "~/types/questionStore";
 import {useQuestionStore} from "~/pinia/questionStore";
 import {ReplyFeedbackHandler} from "~/pinia/feedback/handlers/ReplyFeedbackHandler";
 import {handleAnonymity} from "~/utils/handler";
+import {useUserInfoStore} from "~/pinia/userInfo";
 
 
 export const answerFeedbackHandler: FeedbackHandler & ReplyFeedbackHandler = {
@@ -12,11 +13,13 @@ export const answerFeedbackHandler: FeedbackHandler & ReplyFeedbackHandler = {
         // 处理主评论提交的逻辑
         console.log('处理提交回答逻辑');
         const questionStore:QuestionStore = useQuestionStore();
-        let user = handleAnonymity(data.anonymity,"Marcin Tireder");
+        // 实例化用户信息存储
+        const userInfoStore = useUserInfoStore();
+        let user = handleAnonymity(data.anonymity,userInfoStore.getNickName());
         let obj:Answer = {
-            "user_id": 1,
+            "user_id": userInfoStore.getUserId(),
             "user": user,
-            "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
+            "avatar": userInfoStore.getAvatar(),
             "answer": data.textareaValue,
             "time": "2020-08-09 12:12:30",
             "likes": 0,

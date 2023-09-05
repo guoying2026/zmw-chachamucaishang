@@ -13,7 +13,10 @@ export function addFormLogic(props: any) {
     });
 
     const openCommentBox = () => show.value = true;
-    const closeCommentBox = () => show.value = false;
+    const closeCommentBox = () =>{
+        show.value = false;
+        resetState();
+    }
 
     const updateParentFileList = (newFileList: any[]) => {
         state.value.fileList = newFileList;
