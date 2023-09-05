@@ -9,11 +9,11 @@ export function addFormLogic(props: any) {
         fileBeingUploaded: false,
         textareaValue: '',
         anonymity: false,
-        index: 0,
     });
 
     const openCommentBox = () => show.value = true;
-    const closeCommentBox = () =>{
+    const closeCommentBox = () => {
+        console.log('执行关闭');
         show.value = false;
         resetState();
     }
@@ -37,8 +37,6 @@ export function addFormLogic(props: any) {
             fileBeingUploaded: false,
             textareaValue: '',
             anonymity: false,
-            type: '',
-            index: 0,
         };
         Object.assign(state.value, initialState);
     };
@@ -60,11 +58,21 @@ export function addFormLogic(props: any) {
             });
             return;
         } else {
-            currentHandler.value.add(state.value);
-            closeCommentBox();
+            console.log(state.value);
+            let obj = {
+                index: props.index,
+                replyIndex: props.replyIndex,
+                isReplyReply: props.isReplyReply,
+                replyUserId: props.replyUserId,
+                replyUser: props.replyUser,
+            };
+            const mergedObj = {...obj,...state.value};
+            console.log(mergedObj);
+            currentHandler.value.add(mergedObj);
             const router = useRouter();
             console.log('aaaaaaaaaaaaaaaaaaaa')
             console.log(props);
+            closeCommentBox();
             if(props.feedbackType == 'commentReply' && props.isShowReply === false){
                 router.push({
                     path:'/mobileAppraise',

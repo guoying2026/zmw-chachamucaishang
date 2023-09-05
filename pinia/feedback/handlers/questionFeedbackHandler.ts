@@ -4,7 +4,7 @@ import {useQuestionStore} from "~/pinia/questionStore";
 import {Question} from "@/types/questionType";
 import { QuestionStore } from "@/types/questionStore";
 import {MainFeedbackHandler} from "~/pinia/feedback/handlers/MainFeedbackHandler";
-import {handleAnonymity} from "~/utils/handler";
+import {handleAnonymity, time} from "~/utils/handler";
 import {useUserInfoStore} from "~/pinia/userInfo";
 
 export const questionFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
@@ -19,7 +19,7 @@ export const questionFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
             "user": user,
             "avatar": userInfoStore.getAvatar(),
             "question": data.textareaValue,
-            "time": "2020-08-09 12:12:30",
+            "time": time(),
             "likes": 0,
             "dislikes": 0,
             "currentUser": 1,

@@ -12,6 +12,8 @@ export interface Reply {
     currentUser: number;
     currentUserReaction: Reaction;
     image: String[];
+    replyUserId: number,
+    replyUser: string,
 }
 
 // 单个评论的类型定义

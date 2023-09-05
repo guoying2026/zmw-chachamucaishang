@@ -1,4 +1,5 @@
 <template>
+  <client-only>
   <div class="first">
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
@@ -57,6 +58,7 @@
     </div>
     <!--    移动端投诉界面结束-->
   </div>
+  </client-only>
 </template>
 <script setup lang="ts">
 import "assets/css/mobileAppraise.css";

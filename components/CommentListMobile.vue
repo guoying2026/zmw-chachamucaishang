@@ -31,12 +31,13 @@
           <text class="time" :class="isMobileAppraise?'grey-color':'blue-color'">{{comment.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-            <AddFormMobile title-box="回复" :company-name="comment.user" feedbackType="commentReply" :isShowReply="isShowReply" :company-id="companyId">
+            <AddFormMobile :index="index" v-if="comment.user_id !== userId" title-box="回复" :company-name="comment.user" feedbackType="commentReply" :isShowReply="isShowReply" :company-id="companyId" :reply-user-id="comment.user_id" :reply-user="comment.user">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">回复</text>
               </template>
             </AddFormMobile>
+<!--            <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'" v-else>删除</text>-->
           </div>
         </div>
       </div>
@@ -45,7 +46,8 @@
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
             <div class="avatar-name__name margin-10-left">
-              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{reply.user}}</strong>
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-if="reply.replyUserId === comment.user_id">{{reply.user}}</strong>
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-else>{{reply.user}} 回复 {{reply.replyUser}}</strong>
             </div>
           </div>
           <div class="reply_item_2">
@@ -72,12 +74,13 @@
               <text class="time" :class="isMobileAppraise?'grey-color':'blue-color'">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
-                <AddFormMobile title-box="回复" :company-name="reply.user" feedbackType="commentReply" :isShowReply="isShowReply" :company-id="companyId">
+                <AddFormMobile :index="index" v-if="reply.user_id !== userId" title-box="回复" :company-name="reply.user" :isReplyReply="true" :reply-index="Number(replyIndex)" feedbackType="commentReply" :isShowReply="isShowReply" :company-id="companyId" :reply-user-id="reply.user_id" :reply-user="reply.user">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">回复</text>
                   </template>
                 </AddFormMobile>
+<!--                <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'" v-else>删除</text>-->
               </div>
             </div>
           </div>
@@ -91,8 +94,11 @@ import 'assets/css/comment.scss'
 import LikeSwitch from "~/components/LikeSwitch.vue";
 import {CommentStore} from "~/types/commentStore";
 import {useCommentStore} from "~/pinia/commentStore";
+import {useUserInfoStore} from "~/pinia/userInfo";
 
 const commentStore:CommentStore = useCommentStore();
+const userInfoStore = useUserInfoStore();
+const userId = userInfoStore.getUserId();
 const props = defineProps({
   isShowReply:{
     type: Boolean,
