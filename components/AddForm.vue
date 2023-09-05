@@ -63,6 +63,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  isPcAppraise:{
+    type: Boolean,
+    default: false,
+  },
   feedbackType: {
     type: String,
     required: true,

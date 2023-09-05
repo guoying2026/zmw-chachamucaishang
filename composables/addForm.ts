@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue';
 import { serviceContainer } from '~/pinia/feedback/FeedbackServiceContainer';
+import {useTabItemStore} from "~/pinia/tabItem";
 
 export function addFormLogic(props: any) {
     const show = ref(false);
@@ -89,6 +90,10 @@ export function addFormLogic(props: any) {
                         tab: 9
                     }
                 });
+            } else if(props.feedbackType == 'commentReply' && props.isPcAppraise === true){
+                console.log('走到is pc');
+                const tabItemStore = useTabItemStore();
+                tabItemStore.tabItem = 4;
             }
         }
     };

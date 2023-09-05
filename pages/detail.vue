@@ -1549,7 +1549,7 @@
           <text class="second_2_left_1_left">{{company_name}}口碑</text>
         </div>
         <template v-for="(comment,index) in commentStore.comments">
-        <div class="second_2_left_item" v-if="index < 1" :key="index">
+        <div class="second_2_left_item" v-if="index <= 1" :key="index">
           <div class="second_2_left_2">
             <img class="second_2_left_2_left" :src="comment.avatar" alt="头像"/>
             <div class="second_2_left_2_right">
@@ -1579,7 +1579,7 @@
             <text class="time grey-color">{{comment.time}}</text>
             <div class="comment_item_4">
               <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-              <AddForm :index="index"  title-box="回复" :company-name="comment.user" feedbackType="commentReply" :company-id="id" :reply-user-id="comment.user_id" :reply_user="comment.user">
+              <AddForm :index="index"  title-box="回复" :company-name="comment.user" feedbackType="commentReply" :company-id="id" :reply-user-id="comment.user_id" :reply_user="comment.user" :isPcAppraise="true">
                 <!-- 定义插槽内容 -->
                 <template #trigger>
                   <text class="margin-20-left grey-color">回复</text>
@@ -1588,51 +1588,6 @@
             </div>
           </div>
         </div>
-          <div class="reply" v-if="comment.replies && comment.replies.length">
-            <template  v-for="(reply,replyIndex) in comment.replies" :key="replyIndex">
-              <div class="reply_item liner_blue_bg" v-if="replyIndex < 1">
-                <div class="reply_item_1">
-                  <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
-                  <div class="avatar-name__name margin-10-left">
-                    <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{reply.user}}</strong>
-                  </div>
-                </div>
-                <div class="reply_item_2 margin-0-left">
-                  <p class="margin-10-top">{{reply.content}}</p>
-<!--                  <el-row :gutter="3" v-if="reply.image.length" class="row-image-box">-->
-<!--                    <el-col-->
-<!--                        v-for="(itemReplyImage, indexReplyImage) in reply.image"-->
-<!--                        :key="indexReplyImage"-->
-<!--                        :span="3"-->
-<!--                        :md="3"-->
-<!--                    >-->
-<!--                      <el-image-->
-<!--                          :hide-on-click-modal=true-->
-<!--                          :src="itemReplyImage"-->
-<!--                          class="min_image_list"-->
-<!--                          fit="cover"-->
-<!--                          :zoom-rate="1.2"-->
-<!--                          :preview-src-list="reply.image"-->
-<!--                          :initial-index="Number(indexReplyImage)"-->
-<!--                          lazy />-->
-<!--                    </el-col>-->
-<!--                  </el-row>-->
-                  <div class="reply_item_3 margin--10-top">
-                    <text class="time grey-color">{{reply.time}}</text>
-                    <div class="reply_item_4">
-                      <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
-                      <AddForm title-box="回复" :company-name="reply.user" feedbackType="commentReply" :reply-index="Number(replyIndex)" :isReplyReply="true" :reply-user-id="reply.user_id" :reply-user="reply.user">
-                        <!-- 定义插槽内容 -->
-                        <template #trigger>
-                          <text class="margin-20-left grey-color">回复</text>
-                        </template>
-                      </AddForm>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </template>
-          </div>
         </template>
         <div class="margin-10-top right_display">
           <AddForm title-box="评论" :company-name="company_name" feedback-type="comment">
