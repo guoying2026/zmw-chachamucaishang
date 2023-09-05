@@ -1557,29 +1557,29 @@
             </div>
           </div>
           <text class="margin-10-top over_limit_3">{{comment.content}}</text>
-          <el-row :gutter="3" v-if="comment.image.length" class="row-image-box margin-10-top">
-            <el-col
-                v-for="(itemImage, indexImage) in comment.image"
-                :key="indexImage"
-                :span="3"
-                :md="3"
-            >
-              <el-image
-                  :hide-on-click-modal=true
-                  :src="itemImage"
-                  class="min_image_list"
-                  fit="cover"
-                  :zoom-rate="1.2"
-                  :preview-src-list="comment.image"
-                  :initial-index="Number(indexImage)"
-                  lazy />
-            </el-col>
-          </el-row>
+<!--          <el-row :gutter="3" v-if="comment.image.length" class="row-image-box margin-10-top">-->
+<!--            <el-col-->
+<!--                v-for="(itemImage, indexImage) in comment.image"-->
+<!--                :key="indexImage"-->
+<!--                :span="3"-->
+<!--                :md="3"-->
+<!--            >-->
+<!--              <el-image-->
+<!--                  :hide-on-click-modal=true-->
+<!--                  :src="itemImage"-->
+<!--                  class="min_image_list"-->
+<!--                  fit="cover"-->
+<!--                  :zoom-rate="1.2"-->
+<!--                  :preview-src-list="comment.image"-->
+<!--                  :initial-index="Number(indexImage)"-->
+<!--                  lazy />-->
+<!--            </el-col>-->
+<!--          </el-row>-->
           <div class="comment_item_3 margin-10-top">
             <text class="time grey-color">{{comment.time}}</text>
             <div class="comment_item_4">
               <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-              <AddForm title-box="回复" :company-name="comment.user" feedbackType="commentReply" :company-id="id" :reply-user-id="comment.user_id" :reply_user="comment.user">
+              <AddForm :index="index" v-if="comment.user_id !== userId" title-box="回复" :company-name="comment.user" feedbackType="commentReply" :company-id="id" :reply-user-id="comment.user_id" :reply_user="comment.user">
                 <!-- 定义插槽内容 -->
                 <template #trigger>
                   <text class="margin-20-left grey-color">回复</text>
@@ -1599,25 +1599,25 @@
                 </div>
                 <div class="reply_item_2 margin-0-left">
                   <p class="margin-10-top">{{reply.content}}</p>
-                  <el-row :gutter="3" v-if="reply.image.length" class="row-image-box">
-                    <el-col
-                        v-for="(itemReplyImage, indexReplyImage) in reply.image"
-                        :key="indexReplyImage"
-                        :span="3"
-                        :md="3"
-                    >
-                      <el-image
-                          :hide-on-click-modal=true
-                          :src="itemReplyImage"
-                          class="min_image_list"
-                          fit="cover"
-                          :zoom-rate="1.2"
-                          :preview-src-list="reply.image"
-                          :initial-index="Number(indexReplyImage)"
-                          lazy />
-                    </el-col>
-                  </el-row>
-                  <div class="reply_item_3 margin-10-top">
+<!--                  <el-row :gutter="3" v-if="reply.image.length" class="row-image-box">-->
+<!--                    <el-col-->
+<!--                        v-for="(itemReplyImage, indexReplyImage) in reply.image"-->
+<!--                        :key="indexReplyImage"-->
+<!--                        :span="3"-->
+<!--                        :md="3"-->
+<!--                    >-->
+<!--                      <el-image-->
+<!--                          :hide-on-click-modal=true-->
+<!--                          :src="itemReplyImage"-->
+<!--                          class="min_image_list"-->
+<!--                          fit="cover"-->
+<!--                          :zoom-rate="1.2"-->
+<!--                          :preview-src-list="reply.image"-->
+<!--                          :initial-index="Number(indexReplyImage)"-->
+<!--                          lazy />-->
+<!--                    </el-col>-->
+<!--                  </el-row>-->
+                  <div class="reply_item_3 margin--10-top">
                     <text class="time grey-color">{{reply.time}}</text>
                     <div class="reply_item_4">
                       <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
@@ -1713,6 +1713,9 @@
   </client-only>
 </template>
 <script setup lang="ts">
+import {useUserInfoStore} from "~/pinia/userInfo";
+const userInfoStore = useUserInfoStore();
+const userId = userInfoStore.getUserId();
 import { ref, onMounted,nextTick } from 'vue';
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();

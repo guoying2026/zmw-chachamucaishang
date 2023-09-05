@@ -108,6 +108,7 @@
 .main_map{
   width: 60%;
   height: 100vh;
+  margin-top: -10px;
 }
 .main{
   display: flex;
