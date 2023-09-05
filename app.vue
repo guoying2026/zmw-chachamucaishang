@@ -12,6 +12,20 @@ useHead({
     { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
   ],
   title: '查查木材商',
+  htmlAttrs: {
+    lang: 'zh-CN'
+  },
+})
+useSeoMeta({
+  description: '查查木材商',
+  ogTitle: '查查木材商',
+  ogDescription: '查查木材商',
+  ogImage: '/favicon.ico',
+  ogUrl: 'https://pf.zhenmuwang.com/',
+  twitterTitle: '查查木材商',
+  twitterDescription: '查查木材商',
+  twitterImage: '/favicon.ico',
+  twitterCard: 'summary',
 })
 </script>
 

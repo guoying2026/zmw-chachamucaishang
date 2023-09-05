@@ -382,9 +382,10 @@ nuxtApp.hook('page:finish', () => {
     border-radius: 8px;
   }
   .login-poop-up-main-input-need-field-tips {
+    top: calc(100vw / 1920 * 62);
+    height: calc(100vw / 1920 * 32);
     font-size: max(12px, calc(100vw / 1920 * 24));
-    line-height: calc(100vw / 1920 * 24);
-    bottom: -0.9rem;
+    line-height: calc(100vw / 1920 * 35);
   }
   .login-pop-up-main-login-button {
     height: calc(100vw / 1920 * 66);

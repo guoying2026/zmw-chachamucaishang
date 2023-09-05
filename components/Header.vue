@@ -210,13 +210,13 @@ nuxtApp.hook('page:finish', () => {
       <div class="relative hidden md:inline-flex md:justify-evenly items-center w-full xl:h-14 md:w-auto ml-2 md:p-1 md:ml-10 md:border md:border-solid md:rounded-lg transition-all search-box search-input">
         <HeaderSearch ref="pcHeaderSearch" v-bind:searchValue="searchInputText" @gotoSearch="searchButtonHandle" @gotoLogin="openLoginPopup" @searchInputHistoryListItemClickHandle="searchInputHistoryListItemClickHandle" @searchHistoryListItemClickHandle="searchHistoryListItemClickHandle" @clearSearchValue="clearSearchInputText" @searchValueChange="searchValueChangeHandle" @searchInputFocusChange="searchInputFocusAndBlurHandle" />
       </div>
-      <div v-if="userInfoStore.isLoggedIn()" @click.stop="isShowUserInfoPopup = !isShowUserInfoPopup" :class="'' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' w-9 md:w-auto xl:w-16 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 xl:ml-4 rounded cursor-pointer'">
+      <div v-if="userInfoStore.isLoggedIn()" @click.stop="isShowUserInfoPopup = !isShowUserInfoPopup" :class="'' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' w-9 md:w-auto xl:w-16 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-6 md:mr-5 lg:ml-10 lg:mr-1 xl:ml-4 rounded cursor-pointer'">
         <img class="h-6 md:h-8 xl:h-14 object-contain user-header" :src="userInfoStore.getAvatar()"/>
       </div>
       <ClientOnly v-else>
-        <button @click="openLoginPopup" :class="'' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-10 my-1 border border-solid rounded transition-all goto-login-button'">登录/注册</button>
+        <button @click="openLoginPopup" :class="'' + (isSearchInputFocusing ? 'hidden md:inline-block' : 'inline-block') + ' text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 mx-1 md:ml-6 md:mr-5 lg:ml-10 lg:mr-1 my-1 border border-solid rounded transition-all goto-login-button'">登录/注册</button>
       </ClientOnly>
-      <button @click="searchInputBlurHandle" :class="'' + (isSearchInputFocusing ? 'inline-block md:hidden' : 'hidden') + ' h-8 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 ml-2 md:ml-10 border border-dashed goto-login-button border-transparent transition-all'">取消</button>
+      <button @click="searchInputBlurHandle" :class="'' + (isSearchInputFocusing ? 'inline-block md:hidden' : 'hidden') + ' h-8 text-sm md:text-base font-medium whitespace-nowrap px-1 py-0.5 ml-2 md:ml-6 md:mr-5 lg:ml-10 lg:mr-1 border border-dashed goto-login-button border-transparent transition-all'">取消</button>
     </div>
   </div>
   <!-- 用户登录之后 点击头像弹出的信息框 -->
