@@ -558,21 +558,6 @@ function changeIsCanMultiSelectProvince() {
 }
 
 /**
- * 加密手机号码
- * @param phone
- */
-function encryptPhone(phone: string | number | string[]) {
-  if (typeof phone === 'object' && phone instanceof Array) {
-    phone = phone[0];
-  }
-  if (typeof phone === 'number') {
-    phone = phone.toString();
-  }
-  phone = phone.replace(/(\d{3})\d{4}(\d{4})/, '$1********');
-  return phone;
-}
-
-/**
  * 显示移动端的电话号码展示弹窗
  */
 function showPhonePopup() {
@@ -1154,7 +1139,7 @@ nuxtApp.hook('page:finish', () => {
           <div class="inline-flex flex-col items-center">
             <span>电话</span>
             <div class="inline-flex flex-row items-center mt-1">
-              <span>{{ item.contact_phone && item.contact_phone.length > 0 ? encryptPhone(item.contact_phone) : '-' }}</span>
+              <span>{{ item.contact_phone && item.contact_phone.length > 0 ? item.contact_phone : '-' }}</span>
               <button v-if="typeof item.contact_phone === 'object' && item.contact_phone instanceof Array && item.contact_phone.length > 1" @click.stop.prevent="showAllPhone(index)" class="ml-1 font-orange">更多</button>
             </div>
           </div>
@@ -1177,7 +1162,7 @@ nuxtApp.hook('page:finish', () => {
           <div class="inline-flex flex-row">
             <span class="whitespace-nowrap">电话：</span>
             <div>
-              <span class="text-white whitespace-nowrap">{{ item.contact_phone && item.contact_phone.length > 0 ? encryptPhone(item.contact_phone) : '-' }}</span>
+              <span class="text-white whitespace-nowrap">{{ item.contact_phone && item.contact_phone.length > 0 ? item.contact_phone : '-' }}</span>
               <button v-if="typeof item.contact_phone === 'object' && item.contact_phone instanceof Array && item.contact_phone.length > 1" @click.stop.prevent="showAllPhoneByPc(index)" class="ml-1 font-orange">更多</button>
             </div>
           </div>
@@ -1195,7 +1180,7 @@ nuxtApp.hook('page:finish', () => {
           <div @click.stop.prevent="false" :class="'absolute left-32 top-24 inline-flex w-44 ' + (item.is_show_phone_popup ? 'max-h-screen p-2' : 'max-h-0 p-0') + ' bg-white overflow-hidden z-20 rounded-lg shadow shadow-black cursor-default transition-all'">
             <svg @click.stop.prevent="hidePhonePopupByPc" class="absolute right-1 top-1 w-4 h-4" style="color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
             <div class="inline-flex flex-col items-center h-full mt-1">
-              <div class="inline-flex justify-start w-full h-full py-1 text-black" v-for="subitem in item.contact_phone">{{ encryptPhone(subitem) }}</div>
+              <div class="inline-flex justify-start w-full h-full py-1 text-black" v-for="subitem in item.contact_phone">{{ subitem }}</div>
             </div>
           </div>
         </div>
@@ -1264,7 +1249,7 @@ nuxtApp.hook('page:finish', () => {
         <svg @click.stop="hidePhonePopup" class="absolute right-0 top-0 w-5 h-5" style="color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
       </div>
       <div class="inline-flex flex-col items-center h-full mt-2">
-        <div class="inline-flex justify-center w-full h-full py-4 border-t border-solid last-of-type:border-b" v-for="item in searchResultList[showPhoneIndex]?.contact_phone">{{ encryptPhone(item) }}</div>
+        <div class="inline-flex justify-center w-full h-full py-4 border-t border-solid last-of-type:border-b" v-for="item in searchResultList[showPhoneIndex]?.contact_phone">{{ item }}</div>
       </div>
     </div>
   </div>

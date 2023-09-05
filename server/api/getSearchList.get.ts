@@ -1,6 +1,9 @@
 import {
   generateCompanyShortName
 } from "../utils/areaUtil"
+import {
+  encryptPhone
+} from "../utils/handler"
 
 function shuffle(arr: any[]): (typeof arr) {
   let len = arr.length
@@ -68,6 +71,13 @@ export default defineEventHandler(async (e) => {
       } 
       item.short_name = generateCompanyShortName(item.company_name)
       item.word_logo_bg_color = wordLogoBgColors[index % wordLogoBgColors.length]
+      if (typeof item.contact_phone === 'object' && item.contact_phone instanceof Array && item.contact_phone.length > 1) {
+        item.contact_phone = (item.contact_phone as string[]).map(subitem => {
+          return encryptPhone(subitem)
+        })
+      } else {
+        item.contact_phone = encryptPhone(item.contact_phone)
+      }
       return item
     })
     return {
