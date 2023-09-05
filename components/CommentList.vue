@@ -31,7 +31,7 @@
           <text class=" time grey-color">{{comment.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-            <AddForm :index="index" v-if="comment.user_id !== userId" title-box="回复" :company-name="comment.user" feedbackType="commentReply" :reply-user-id="comment.user_id" :reply-user="comment.user">
+            <AddForm :index="index"  title-box="回复" :company-name="comment.user" feedbackType="commentReply" :reply-user-id="comment.user_id" :reply-user="comment.user">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left grey-color">回复</text>
@@ -74,7 +74,7 @@
               <text class="time grey-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="commentReply"></LikeSwitch>
-                <AddForm v-if="reply.user_id !== userId" title-box="回复" :company-name="reply.user" feedbackType="commentReply" :index="index" :reply-index="Number(replyIndex)" :isReplyReply="true" :reply-user-id="reply.user_id" :reply-user="reply.user">
+                <AddForm  title-box="回复" :company-name="reply.user" feedbackType="commentReply" :index="index" :reply-index="Number(replyIndex)" :isReplyReply="true" :reply-user-id="reply.user_id" :reply-user="reply.user">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left grey-color">回复</text>

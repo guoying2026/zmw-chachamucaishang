@@ -86,7 +86,7 @@
           <text class=" time blue-color">{{complaint.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="complaint"></LikeSwitch>
-            <AddFormMobile v-if="complaint.user_id !== userId" :index="index" title-box="回复" :company-name="complaint.user" feedback-type="complaintReply" :isShowReply="isShowReply" :company-id="companyId" :reply-user-id="complaint.user_id" :reply-user="complaint.user">
+            <AddFormMobile  :index="index" title-box="回复" :company-name="complaint.user" feedback-type="complaintReply" :isShowReply="isShowReply" :company-id="companyId" :reply-user-id="complaint.user_id" :reply-user="complaint.user">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left blue-color">回复</text>
@@ -128,7 +128,7 @@
               <text class=" time blue-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="complaintReply"></LikeSwitch>
-                <AddFormMobile v-if="reply.user_id !== userId" title-box="回复" :index="index" :reply-index="Number(replyIndex)" :isReplyReply="true" :company-name="reply.user" feedback-type="complaintReply" :isShowReply="isShowReply" :company-id="companyId" :reply-user-id="reply.user_id" :reply-user="reply.user">
+                <AddFormMobile  title-box="回复" :index="index" :reply-index="Number(replyIndex)" :isReplyReply="true" :company-name="reply.user" feedback-type="complaintReply" :isShowReply="isShowReply" :company-id="companyId" :reply-user-id="reply.user_id" :reply-user="reply.user">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left blue-color">回复</text>

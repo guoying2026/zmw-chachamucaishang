@@ -87,7 +87,7 @@
           <text class=" time grey-color">{{complaint.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="complaint"></LikeSwitch>
-            <AddForm v-if="complaint.user_id !== userId" :index="index" title-box="回复" :company-name="complaint.user" feedback-type="complaintReply" :reply-user-id="complaint.user_id" :reply-user="complaint.user">
+            <AddForm  :index="index" title-box="回复" :company-name="complaint.user" feedback-type="complaintReply" :reply-user-id="complaint.user_id" :reply-user="complaint.user">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left grey-color">回复</text>
@@ -129,7 +129,7 @@
               <text class=" time grey-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="complaintReply"></LikeSwitch>
-                <AddForm v-if="reply.user_id !== userId" title-box="回复" :reply-index="Number(replyIndex)" :index="index" :isReplyReply="true" :company-name="reply.user" feedback-type="complaintReply" :reply-user-id="reply.user_id" :reply-user="reply.user">
+                <AddForm  title-box="回复" :reply-index="Number(replyIndex)" :index="index" :isReplyReply="true" :company-name="reply.user" feedback-type="complaintReply" :reply-user-id="reply.user_id" :reply-user="reply.user">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left grey-color">回复</text>
