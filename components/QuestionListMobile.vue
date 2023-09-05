@@ -34,7 +34,7 @@
           <text class=" time blue-color">{{question.time}}</text>
           <div class="question_item_4">
             <LikeSwitch :index="index" feedbackType="question"></LikeSwitch>
-            <AddFormMobile title-box="回答" company-name="张姗姗木材加工厂" feedback-type="answer">
+            <AddFormMobile :index="index" title-box="回答" company-name="张姗姗木材加工厂" feedback-type="answer">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left blue-color">回答</text>
