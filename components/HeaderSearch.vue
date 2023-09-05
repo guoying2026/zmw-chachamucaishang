@@ -87,7 +87,10 @@ function changeSearchBoxStyleHandle() {
       let searchTextStyle = getComputedStyle(item)
       clearIconEl.forEach(item1 => {
         let clearIconStyle = getComputedStyle(item1)
-        item1.setAttribute('style', 'right: unset;left: calc((' + searchTextStyle.width + ' - ' + searchTextStyle.paddingRight + ') + ((' + searchTextStyle.paddingRight + ' - ' + clearIconStyle.width + ') / 2));')
+        searchBoxEl.forEach(item2 => {
+          let searchBoxStyle = getComputedStyle(item2)
+          item1.setAttribute('style', 'right: unset;left: calc((' + searchTextStyle.width + ' - ' + searchTextStyle.paddingRight + ') + ((' + searchTextStyle.paddingRight + ' - ' + clearIconStyle.width + ') / 2) + ' + searchBoxStyle.paddingLeft + ' + ' + searchBoxStyle.borderLeftWidth + ');')
+        })
       })
     })
   }
@@ -107,11 +110,11 @@ searchInputFocusAndBlurHandle()
 onMounted(() => {
   searchInputFocusAndBlurHandle()
   window.addEventListener('resize', () => {
-    if (window.screen.width >= 768) {
+    if (window.screen.width >= 1024) {
       changeSearchBoxStyleHandle();
     }
   })
-  if (window.screen.width >= 768) {
+  if (window.screen.width >= 1024) {
     changeSearchBoxStyleHandle();
   }
 })
@@ -119,11 +122,11 @@ onMounted(() => {
 nuxtApp.hook('page:finish', () => {
   searchInputFocusAndBlurHandle()
   window.addEventListener('resize', () => {
-    if (window.screen.width >= 768) {
+    if (window.screen.width >= 1024) {
       changeSearchBoxStyleHandle()
     }
   });
-  if (window.screen.width >= 768) {
+  if (window.screen.width >= 1024) {
     changeSearchBoxStyleHandle()
   }
 })
