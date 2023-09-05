@@ -93,6 +93,9 @@ export const useCommentStore = defineStore('commentStore', {
         getReply(this: CommentStore, index: number | string, replyIndex: number | string){
             return this.comments[index].replies[replyIndex];
         },
+        addCommentReplyReply(this: CommentStore,index: number| string,replyIndex: number,replyReply: Reply){
+            this.comments[index].replies.splice(replyIndex + 1, 0, replyReply);
+        },
         // 更新评论的点赞状态和当前用户
         updateCommentReaction(this: CommentStore,index: number | string, newReaction: Reaction) {
             // 获取特定索引处的评论对象
