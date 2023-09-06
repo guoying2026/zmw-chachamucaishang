@@ -1003,17 +1003,17 @@
         </tr>
         <tr>
           <th>处罚公示</th>
-          <td>暂无</td>
+          <td>-</td>
           <th>投诉记录</th>
-          <td>暂无</td>
+          <td>-</td>
         </tr>
         <tr>
           <th>诉讼查询</th>
-          <td colspan="3">Content 5</td>
+          <td colspan="3">-</td>
         </tr>
         <tr class="last_tr">
           <th>经营范围</th>
-          <td colspan="3">Content 5</td>
+          <td colspan="3">{{business_scope}}</td>
         </tr>
       </table>
     </div>
@@ -1400,7 +1400,7 @@
         <td>-</td>
       </tr><tr>
         <td>经营范围</td>
-        <td>-</td>
+        <td>{{business_scope}}</td>
       </tr>
       </table>
     </div>
