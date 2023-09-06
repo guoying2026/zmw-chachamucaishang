@@ -5,7 +5,7 @@ export const handleAnonymity = (anonymity: boolean,user: string) => {
         if (isValidPhoneNumber(user)) {
             return user.slice(0, 3) + '****' + user.slice(7);
         } else {
-            return user;
+            return 'Ma';
         }
     }
 }
