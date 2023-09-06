@@ -9,7 +9,7 @@ fi
 
 docker build -f docker/Dockerfile -t ccmcs:latest .
 
-dockerImageId=`docker images | grep ccmcs | awk '{print $3}'`
+dockerImageId=`docker images | grep -w ccmcs | awk '{print $3}'`
 
 docker tag $dockerImageId registry.cn-beijing.aliyuncs.com/jryhd/zmw-pingfen:latest
 
