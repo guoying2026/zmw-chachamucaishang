@@ -11,7 +11,15 @@ defineExpose({
   open: () => open(),
 })
 
-const isShow = ref<boolean>(false)
+const props = defineProps({
+  isShow: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+})
+
+const isShow = ref<boolean>(props.isShow)
 
 const userInfoStore = useUserInfoStore()
 
