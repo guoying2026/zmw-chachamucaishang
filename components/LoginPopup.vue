@@ -4,7 +4,14 @@ import { useUserInfoStore } from "~/pinia/userInfo"
 
 const nuxtApp = useNuxtApp()
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'open'])
+
+defineExpose({
+  close: () => close(),
+  open: () => open(),
+})
+
+const isShow = ref<boolean>(false)
 
 const userInfoStore = useUserInfoStore()
 
@@ -31,6 +38,16 @@ const isShowRegCodeFieldTips = ref<boolean>(false)
 const regCodeFieldTipsContent = ref<string>('请输入验证码')
 
 const isNeedCheckRegCodeField = ref<boolean>(false)
+
+function open () {
+  isShow.value = true
+  emit('open')
+}
+
+function close () {
+  isShow.value = false
+  emit('close')
+}
 
 function phoneNumberInputInputHandle(e: Event) {
   const event = e as InputEvent
@@ -138,7 +155,7 @@ function dealLogin() {
       nick_name: userInfoStore.getNickName(),
       avatar: userInfoStore.getAvatar(),
     })
-    emit('close')
+    close()
   })
 }
 
@@ -179,13 +196,15 @@ nuxtApp.hook('page:finish', () => {
 </script>
 <template>
   <!-- 手机号登录弹窗 -->
-  <div @click.stop="$emit('close')" class="fixed top-0 left-0 w-screen h-screen login-pop-up-cover">
+  <div @click.stop="close" :class="(isShow ? 'block' : 'hidden') + ' fixed top-0 left-0 w-screen h-screen login-pop-up-cover'">
     <div @click.stop="false" class="fixed px-2 pt-4 pb-2 login-pop-up">
       <div class="relative text-center mb-2 login-pop-up-header">
         <span class="text-xs md:text-sm lg:text-2xl font-normal whitespace-nowrap tracking-wide login-pop-up-header-title" ref="loginPopUpHeaderTitleEl">助力检索木材交易隐患，降低木材交易风险</span>
-        <button @click.stop="$emit('close')" class="absolute -right-0 top-1 w-5 h-5 login-pop-up-header-close-button">
-          <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
-        </button>
+        <slot name="close">
+          <button @click.stop="close" class="absolute -right-0 top-1 w-5 h-5 login-pop-up-header-close-button">
+            <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+          </button>
+        </slot>
       </div>
       <div class="inline-flex flex-col items-center w-full h-auto bg-white text-black px-3 py-4 overflow-hidden login-pop-up-main">
         <h1 class="text-xl font-extrabold tracking-widest login-pop-up-main-title">手机号登录</h1>

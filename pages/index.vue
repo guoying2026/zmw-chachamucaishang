@@ -21,14 +21,13 @@ const nuxtApp = useNuxtApp()
 // 实例化搜索输入历史记录存储
 const searchInputHistoryStore = useSearchInputHistoryStore()
 
+const loginPopupRef = ref()
+
 // 搜索框输入内容
 const searchInputText = ref<string>('')
 
 // 搜索输入框对象
 const searchTextRef = ref()
-
-// 是否显示登录弹窗
-const isShowLogin = ref<boolean>(false)
 
 /**
  * “查一下”按钮的点击处理事件
@@ -66,14 +65,14 @@ function searchHistoryListItemClickHandle(id: number | string) {
  * 显示登录弹窗
  */
 function showLoginPopup() {
-  isShowLogin.value = true;
+  loginPopupRef.value.open()
 }
 
 /**
  * 隐藏登录弹窗
  */
 function hideLoginPopup() {
-  isShowLogin.value = false;
+  loginPopupRef.value.close()
 }
 
 /**
@@ -236,7 +235,13 @@ nuxtApp.hook('page:finish', () => {
     </div>
   </div>
   <!-- 登录弹窗 -->
-  <LoginPopup v-if="isShowLogin" @close="hideLoginPopup" />
+  <LoginPopup ref="loginPopupRef">
+    <template v-slot:close>
+      <button @click.stop="hideLoginPopup" class="absolute -right-0 top-1 w-5 h-5 login-pop-up-header-close-button">
+        <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+      </button>
+    </template>
+  </LoginPopup>
 </template>
 
 <style scoped>

@@ -48,8 +48,7 @@ const isShowSearchInputHistoryListDelete = ref<boolean>(false)
 // 是否显示搜索历史记录的删除按钮
 const isShowSearchHistoryListDelete = ref<boolean>(false)
 
-// 是否显示登录弹窗
-const isShowLogin = ref<boolean>(false)
+const loginPopupRef = ref()
 
 const isAddScrollGenerateSearchInputWordBoxEvent = ref<boolean>(false)
 
@@ -227,14 +226,14 @@ function searchHistoryListItemClickHandle(id: number|string) {
  * 显示登录弹窗
  */
  function showLoginPopup() {
-  isShowLogin.value = true;
+  loginPopupRef.value.open()
 }
 
 /**
  * 隐藏登录弹窗
  */
 function hideLoginPopup() {
-  isShowLogin.value = false;
+  loginPopupRef.value.close()
 }
 
 /**
@@ -416,7 +415,13 @@ nuxtApp.hook("page:finish", () => {
   </div>
 
   <!-- 登录弹窗 -->
-  <LoginPopup v-if="isShowLogin" @close="hideLoginPopup" />
+  <LoginPopup ref="loginPopupRef">
+    <template v-slot:close>
+      <button @click.stop="hideLoginPopup" class="absolute -right-0 top-1 w-5 h-5 login-pop-up-header-close-button">
+        <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+      </button>
+    </template>
+  </LoginPopup>
 </template>
 
 <style scoped>
