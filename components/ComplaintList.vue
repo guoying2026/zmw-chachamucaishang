@@ -42,12 +42,17 @@
     <div class="text-container">
       <div class="text text-click">
         <text>点击</text>
-        <AddForm title-box="投诉" :company-name="companyName" feedback-type="complaint">
+        <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="投诉" :company-name="companyName" feedback-type="complaint">
           <!-- 定义插槽内容 -->
           <template #trigger>
             <text class="gradient-background margin-10-left">我要投诉</text>
           </template>
         </AddForm>
+        <LoginPopup v-else>
+          <template #open>
+            <text class="gradient-background margin-10-left">我要投诉</text>
+          </template>
+        </LoginPopup>
       </div>
       <div class="text">平台审核内容</div>
       <div class="text">展示投诉内容</div>
@@ -87,12 +92,17 @@
           <text class=" time grey-color">{{complaint.time}}</text>
           <div class="comment_item_4">
             <LikeSwitch :index="index" feedbackType="complaint"></LikeSwitch>
-            <AddForm  :index="index" title-box="回复" :company-name="complaint.user" feedback-type="complaintReply" :reply-user-id="complaint.user_id" :reply-user="complaint.user">
+            <AddForm  v-if="userInfoStore.getUserId()*1 > 0" :index="index" title-box="回复" :company-name="complaint.user" feedback-type="complaintReply" :reply-user-id="complaint.user_id" :reply-user="complaint.user">
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left grey-color">回复</text>
               </template>
             </AddForm>
+            <LoginPopup v-else>
+              <template #open>
+                <text class="margin-20-left grey-color">回复</text>
+              </template>
+            </LoginPopup>
           </div>
         </div>
       </div>
@@ -129,12 +139,17 @@
               <text class=" time grey-color">{{reply.time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="complaintReply"></LikeSwitch>
-                <AddForm  title-box="回复" :reply-index="Number(replyIndex)" :index="index" :isReplyReply="true" :company-name="reply.user" feedback-type="complaintReply" :reply-user-id="reply.user_id" :reply-user="reply.user">
+                <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="回复" :reply-index="Number(replyIndex)" :index="index" :isReplyReply="true" :company-name="reply.user" feedback-type="complaintReply" :reply-user-id="reply.user_id" :reply-user="reply.user">
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left grey-color">回复</text>
                   </template>
                 </AddForm>
+                <LoginPopup v-else>
+                  <template #open>
+                    <text class="margin-20-left grey-color">回复</text>
+                  </template>
+                </LoginPopup>
               </div>
             </div>
           </div>
@@ -152,7 +167,6 @@ import {useUserInfoStore} from "~/pinia/userInfo";
 
 const complaintStore:ComplaintStore = useComplaintStore();
 const userInfoStore = useUserInfoStore();
-const userId = userInfoStore.getUserId();
 const props = defineProps({
   isShowReply:{
     type: Boolean,

@@ -1069,13 +1069,18 @@
       <div class="tab_3_space_middle">
         <div class="tab_3_space_1">
           <text>全部评价（{{commentStore.getCommentsCount}}）</text>
-          <AddForm title-box="评论" :company-name="company_name" feedback-type="comment">
+          <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="评论" :company-name="company_name" feedback-type="comment">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <!-- Tag组件，当点击时触发openCommentBox方法 -->
               <Tag tag="写评论" number="41" color="orange_linear"></Tag>
             </template>
           </AddForm>
+          <LoginPopup v-else>
+            <template #open>
+              <Tag tag="写评论" number="41" color="orange_linear"></Tag>
+            </template>
+          </LoginPopup>
         </div>
         <NoDetail v-if="commentStore.getCommentsCount < 0"></NoDetail>
         <div class="tab_3_space_2" v-else>
@@ -1171,12 +1176,17 @@
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
           <text>全部问答（{{questionStore.getQuestionCount}}）</text>
-          <AddForm title-box="提问" :company-name="company_name" feedback-type="question">
+          <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="提问" :company-name="company_name" feedback-type="question">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <Tag tag="我要提问" number="41" color="orange_linear"></Tag>
             </template>
           </AddForm>
+          <LoginPopup v-else>
+            <template #open>
+              <Tag tag="我要提问" number="41" color="orange_linear"></Tag>
+            </template>
+          </LoginPopup>
         </div>
         <NoDetail tag="我要提问" text="没有问答" v-if="questionStore.getQuestionCount < 0"></NoDetail>
         <div class="tab_4_space_2" v-else>
@@ -1461,13 +1471,20 @@
     </div>
     <!--    口碑界面评论开始-->
     <CommentListMobile :is-mobile-appraise="true" :is-show-reply="false" :company-id="Number(query.id)" v-if="tabItemStore.tabItem*1 === 3"></CommentListMobile>
-    <AddFormMobile title-box="评论" :company-name="company_name" feedback-type="comment" v-if="tabItemStore.tabItem*1 === 3">
-      <!-- 定义插槽内容 -->
-      <template #trigger>
-        <!-- Tag组件，当点击时触发openCommentBox方法 -->
-        <Tag tag="我要点评" color="orange_long"></Tag>
-      </template>
-    </AddFormMobile>
+    <template v-if="tabItemStore.tabItem*1 === 3">
+      <AddFormMobile title-box="评论" :company-name="company_name" feedback-type="comment" v-if="userInfoStore.getUserId()*1 > 0">
+        <!-- 定义插槽内容 -->
+        <template #trigger>
+          <!-- Tag组件，当点击时触发openCommentBox方法 -->
+          <Tag tag="我要点评" color="orange_long"></Tag>
+        </template>
+      </AddFormMobile>
+      <LoginPopup v-else>
+        <template #open>
+          <Tag tag="我要点评" color="orange_long"></Tag>
+        </template>
+      </LoginPopup>
+    </template>
     <!--    口碑界面评论结束-->
   </div>
 <!--  口碑问答投诉开始-->
@@ -1515,13 +1532,20 @@
         <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
       </div>
     </div>
-    <AddFormMobile title-box="提问" :company-name="company_name" feedback-type="question" v-if="tabItemStore.tabItem*1 === 3">
-      <!-- 定义插槽内容 -->
-      <template #trigger>
-        <!-- Tag组件，当点击时触发openCommentBox方法 -->
-        <Tag tag="我要提问" color="orange_long"></Tag>
-      </template>
-    </AddFormMobile>
+    <template v-if="tabItemStore.tabItem*1 === 3">
+      <AddFormMobile title-box="提问" :company-name="company_name" feedback-type="question" v-if="userInfoStore.getUserId()*1 > 0">
+        <!-- 定义插槽内容 -->
+        <template #trigger>
+          <!-- Tag组件，当点击时触发openCommentBox方法 -->
+          <Tag tag="我要提问" color="orange_long"></Tag>
+        </template>
+      </AddFormMobile>
+      <LoginPopup v-else>
+        <template #open>
+          <Tag tag="我要提问" color="orange_long"></Tag>
+        </template>
+      </LoginPopup>
+    </template>
     <div class="fifth_1 margin-10-top">
       <div class="fifth_1_left">
         <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_10123398-f5cb-48b9-b40d-7d8cfdf4ba82.png" alt="">
@@ -1532,13 +1556,20 @@
       </NuxtLink>
     </div>
     <ComplaintListMobile :company-name="company_name" :is-show-reply="false" :company-id="Number(query.id)" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
-    <AddFormMobile title-box="投诉" :company-name="company_name" feedback-type="complaint" class="margin-20-bottom" v-if="tabItemStore.tabItem*1 === 3">
-      <!-- 定义插槽内容 -->
-      <template #trigger>
-        <!-- Tag组件，当点击时触发openCommentBox方法 -->
-        <Tag tag="我要投诉" color="orange_long"></Tag>
-      </template>
-    </AddFormMobile>
+    <template v-if="tabItemStore.tabItem*1 === 3">
+      <AddFormMobile title-box="投诉" :company-name="company_name" feedback-type="complaint" class="margin-20-bottom" v-if="userInfoStore.getUserId()*1 > 0">
+        <!-- 定义插槽内容 -->
+        <template #trigger>
+          <!-- Tag组件，当点击时触发openCommentBox方法 -->
+          <Tag tag="我要投诉" color="orange_long"></Tag>
+        </template>
+      </AddFormMobile>
+      <LoginPopup v-else>
+        <template #open>
+          <Tag tag="我要投诉" color="orange_long"></Tag>
+        </template>
+      </LoginPopup>
+    </template>
   </div>
   <!--  口碑问答投诉开始-->
   <div class="second computer" v-if="tabItemStore.tabItem*1 === 0">
@@ -1579,23 +1610,33 @@
             <text class="time grey-color">{{comment.time}}</text>
             <div class="comment_item_4">
               <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-              <AddForm :index="index"  title-box="回复" :company-name="comment.user" feedbackType="commentReply" :company-id="id" :reply-user-id="comment.user_id" :reply_user="comment.user" :isPcAppraise="true">
+              <AddForm v-if="userInfoStore.getUserId()*1 > 0" :index="index"  title-box="回复" :company-name="comment.user" feedbackType="commentReply" :company-id="id" :reply-user-id="comment.user_id" :reply_user="comment.user" :isPcAppraise="true">
                 <!-- 定义插槽内容 -->
                 <template #trigger>
                   <text class="margin-20-left grey-color">回复</text>
                 </template>
               </AddForm>
+              <LoginPopup v-else>
+                <template #open>
+                  <text class="margin-20-left grey-color">回复</text>
+                </template>
+              </LoginPopup>
             </div>
           </div>
         </div>
         </template>
         <div class="margin-10-top right_display">
-          <AddForm title-box="评论" :company-name="company_name" feedback-type="comment">
+          <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="评论" :company-name="company_name" feedback-type="comment">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <Tag tag="我要点评" number="41" color="orange"></Tag>
             </template>
           </AddForm>
+          <LoginPopup v-else>
+            <template #open>
+              <Tag tag="我要点评" number="41" color="orange"></Tag>
+            </template>
+          </LoginPopup>
           <Tag tag="查看全部" color="orange" @click="switchTab(4)"></Tag>
         </div>
         <div class="second_2_left_1 second_2_left_1_margin">
@@ -1624,12 +1665,17 @@
         </div>
         </template>
         <div class="margin-10-top right_display">
-          <AddForm title-box="提问" :company-name="company_name" feedback-type="question">
+          <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="提问" :company-name="company_name" feedback-type="question">
             <!-- 定义插槽内容 -->
             <template #trigger>
               <Tag tag="我要提问" number="41" color="orange"></Tag>
             </template>
           </AddForm>
+          <LoginPopup v-else>
+            <template #open>
+              <Tag tag="我要提问" number="41" color="orange"></Tag>
+            </template>
+          </LoginPopup>
           <Tag tag="查看全部" color="orange" @click="switchTab(5)"></Tag>
         </div>
       </div>
@@ -1670,7 +1716,6 @@
 <script setup lang="ts">
 import {useUserInfoStore} from "~/pinia/userInfo";
 const userInfoStore = useUserInfoStore();
-const userId = userInfoStore.getUserId();
 import { ref, onMounted,nextTick } from 'vue';
 import { useTabItemStore } from "~/pinia/tabItem";
 const tabItemStore = useTabItemStore();
