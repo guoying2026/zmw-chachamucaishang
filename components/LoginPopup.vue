@@ -54,7 +54,21 @@ function open () {
 
 function close () {
   isShow.value = false
+  resetState()
   emit('close')
+}
+
+function resetState() {
+  loginPhoneNumber.value = ''
+  loginRegCode.value = ''
+  isGettingRegCode.value = false
+  getRegCodeRemainSeconds.value = 0
+  isShowPhoneFieldTips.value = false
+  phoneFieldTipsContent.value = '请输入正确的手机号'
+  isNeedCheckPhoneField.value = false
+  isShowRegCodeFieldTips.value = false
+  regCodeFieldTipsContent.value = '请输入验证码'
+  isNeedCheckRegCodeField.value = false
 }
 
 function phoneNumberInputInputHandle(e: Event) {
@@ -203,16 +217,18 @@ nuxtApp.hook('page:finish', () => {
 })
 </script>
 <template>
+  <!-- 打开弹窗的区域 -->
+  <div @click.stop="open">
+    <slot name="open"></slot>
+  </div>
   <!-- 手机号登录弹窗 -->
   <div @click.stop="close" :class="(isShow ? 'block' : 'hidden') + ' fixed top-0 left-0 w-screen h-screen login-pop-up-cover'">
     <div @click.stop="false" class="fixed px-2 pt-4 pb-2 login-pop-up">
       <div class="relative text-center mb-2 login-pop-up-header">
         <span class="text-xs md:text-sm lg:text-2xl font-normal whitespace-nowrap tracking-wide login-pop-up-header-title" ref="loginPopUpHeaderTitleEl">助力检索木材交易隐患，降低木材交易风险</span>
-        <slot name="close">
-          <button @click.stop="close" class="absolute -right-0 top-1 w-5 h-5 login-pop-up-header-close-button">
-            <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
-          </button>
-        </slot>
+        <button @click.stop="close" class="absolute -right-0 top-1 w-5 h-5 login-pop-up-header-close-button">
+          <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+        </button>
       </div>
       <div class="inline-flex flex-col items-center w-full h-auto bg-white text-black px-3 py-4 overflow-hidden login-pop-up-main">
         <h1 class="text-xl font-extrabold tracking-widest login-pop-up-main-title">手机号登录</h1>

@@ -230,13 +230,6 @@ function searchHistoryListItemClickHandle(id: number|string) {
 }
 
 /**
- * 隐藏登录弹窗
- */
-function hideLoginPopup() {
-  loginPopupRef.value.close()
-}
-
-/**
  * 前往登录，打开登录弹窗
  */
 function gotoLogin() {
@@ -415,13 +408,7 @@ nuxtApp.hook("page:finish", () => {
   </div>
 
   <!-- 登录弹窗 -->
-  <LoginPopup ref="loginPopupRef">
-    <template v-slot:close>
-      <button @click.stop="hideLoginPopup" class="absolute -right-0 top-1 w-5 h-5 login-pop-up-header-close-button">
-        <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
-      </button>
-    </template>
-  </LoginPopup>
+  <LoginPopup ref="loginPopupRef" />
 </template>
 
 <style scoped>
