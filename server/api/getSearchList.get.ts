@@ -39,12 +39,14 @@ export default defineEventHandler(async (e) => {
     let area = ''
     let page = 1
     let pageSize = 10
+    let sort = ''
     for (let i in query) {
       count++
       if (i == 'name') name = query[i] as string
       if (i == 'area') area = query[i] as string
       if (i == 'page') page = Number(query[i]) as number
       if (i == 'page_size') pageSize = Number(query[i]) as number
+      if (i == 'sort') sort = query[i] as string
     }
     if (count == 0 || name.trim() == '') throw new Error("缺少参数")
 
@@ -54,6 +56,7 @@ export default defineEventHandler(async (e) => {
     // formData.append('address', area)
     formData.append('page', page.toString())
     formData.append('size', pageSize.toString())
+    formData.append('sort', sort)
 
     // 执行转发接口的请求
     let data = await fetch('https://api.jinrongwan.cn/Pc/Index/getSearchResult', {

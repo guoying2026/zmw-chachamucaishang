@@ -17,10 +17,10 @@ export const encryptPhone = (phone: string | number | string[]) => {
     phone = phone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1********');
     isEncrypted = true
   }
-  if (!isEncrypted && /^(\d{3,4})-{0,1}(\d{1,})$/.test(phone)) {
+  if (!isEncrypted && /^(\d{3,4})(-{0,1})(\d{1,})$/.test(phone)) {
     let execRet = /^(\d{3,4})(-{0,1})(\d{1,})$/.exec(phone)
     if (execRet) {
-      phone = phone.replace(/^(\d{3,4})-{0,1}(\d{1,})$/, '$1'.padEnd(execRet[2].length + execRet[3].length + 2, '*'))
+      phone = phone.replace(/^(\d{3,4})(-{0,1})(\d{1,})$/, '$1'.padEnd(execRet[2].length + execRet[3].length + 2, '*'))
       isEncrypted = true
     }
   }

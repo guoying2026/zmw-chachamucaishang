@@ -324,7 +324,21 @@ nuxtApp.hook('page:finish', () => {
   margin-bottom: calc((var(--real-width) * 742 / 750) * -0.25);
 }
 
+.item.block.md\:hidden {
+  display: block;
+}
+
+.item.hidden.md\:block {
+  display: none;
+}
+
 .item {
+  align-items: unset;
+  flex-direction: unset;
+  width: 91.666667%;
+  background: initial;
+  background-repeat: no-repeat;
+  background-size: cover;
   height: calc((var(--real-width) / 12 * 11) * 190 / 710);
   margin-top: calc(var(--real-width) / 750 * 20);
 }
@@ -590,6 +604,14 @@ nuxtApp.hook('page:finish', () => {
     padding-top: calc(var(--real-width) / 1920 * 45);
     padding-bottom: calc(var(--real-width) / 1920 * 45);
   }
+
+  .item.block.md\:hidden {
+  display: none;
+}
+
+.item.hidden.md\:block {
+  display: block;
+}
 
   .item {
     height: calc((var(--real-width) / 12 * 11) * 160 / 1258);
