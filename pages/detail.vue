@@ -273,6 +273,39 @@
 .third_4_left_1_detail_2_1_2{
   flex: 1;
 }
+.clamp-text {
+  position: relative;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.clamp-text.expanded {
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: unset;
+}
+.clamp-text:not(.expanded)::before {
+  content: "...";
+  position: absolute;
+  right: 5vw;  /* 根据"更多"的实际宽度进行调整 */
+  bottom: 0;
+  color: white;
+  background-color: #684525;  /* 设置为父元素的背景颜色 */
+  white-space: nowrap;
+}
+.clamp-text:not(.expanded)::after {
+  content: "更多";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: #FF7E00;
+  background-color: #684525;  /* Set this to the background color of the parent element */
+  text-align: right;
+  padding-left: 5px;  /* space for ellipsis */
+  white-space: nowrap;
+}
 .tab_1_space{
   margin-top: 20px;
   width: 58%;
@@ -289,6 +322,7 @@
   padding: 10px;
   background: #5C3B1D;
   border: 1.5px solid #4D2F13 !important;
+  width: 20%;
 }
 .tab_1_space table tr td{
   padding: 10px;
@@ -911,9 +945,9 @@
                 <text class="margin-10-top">注册资本：{{registered_capital}}</text>
               </div>
             </div>
-            <div class="third_4_left_1_detail_2_1 margin-10-top">
+            <div class="third_4_left_1_detail_2_1 margin-10-top" @click="toggleClamp">
               <text class="third_4_left_1_detail_2_1_1">经营范围：</text>
-              <text class="third_4_left_1_detail_2_1_2">{{business_scope}}</text>
+              <text class="third_4_left_1_detail_2_1_2 clamp-text" ref="clampTextRef" :class="{'expanded': isExpanded}">{{business_scope}}</text>
             </div>
           </div>
         </div>
@@ -1069,7 +1103,17 @@
       <div class="tab_3_space_middle">
         <div class="tab_3_space_1">
           <text>全部评价（{{commentStore.getCommentsCount}}）</text>
-          <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="评论" :company-name="company_name" feedback-type="comment">
+          <AddForm v-if="userInfoStore.getUserId()*1 > 0"
+                   :index="0"
+                   :reply-index="0"
+                   :company-info-id="Number(query.id)"
+                   :reply-user-id="0"
+                   :reply-user="company_name"
+                   :main-id="0"
+                   :main-reply-id="0"
+                   title-box="评论"
+                   feedback-type="comment"
+          >
             <!-- 定义插槽内容 -->
             <template #trigger>
               <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1082,9 +1126,8 @@
             </template>
           </LoginPopup>
         </div>
-        <NoDetail v-if="commentStore.getCommentsCount < 0"></NoDetail>
-        <div class="tab_3_space_2" v-else>
-          <CommentList></CommentList>
+        <div class="tab_3_space_2">
+          <CommentList :company-info-id="Number(query.id)"></CommentList>
         </div>
       </div>
       <div class="tab_3_space_right">
@@ -1176,7 +1219,17 @@
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
           <text>全部问答（{{questionStore.getQuestionCount}}）</text>
-          <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="提问" :company-name="company_name" feedback-type="question">
+          <AddForm v-if="userInfoStore.getUserId()*1 > 0"
+                   :index="0"
+                   :reply-index="0"
+                   :company-info-id="Number(query.id)"
+                   :reply-user-id="0"
+                   :reply-user="company_name"
+                   :main-id="0"
+                   :main-reply-id="0"
+                   title-box="提问"
+                   feedback-type="question"
+          >
             <!-- 定义插槽内容 -->
             <template #trigger>
               <Tag tag="我要提问" number="41" color="orange_linear"></Tag>
@@ -1190,7 +1243,7 @@
         </div>
         <NoDetail tag="我要提问" text="没有问答" v-if="questionStore.getQuestionCount < 0"></NoDetail>
         <div class="tab_4_space_2" v-else>
-          <QuestionList></QuestionList>
+          <QuestionList :company-info-id="Number(query.id)"></QuestionList>
         </div>
       </div>
       <div class="tab_4_space_right">
@@ -1242,7 +1295,7 @@
     <div class="tab_5_space" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9">
       <div class="tab_5_space_left"></div>
       <div class="tab_5_space_middle">
-        <ComplaintList :company-name="company_name"></ComplaintList>
+        <ComplaintList :company-info-id="Number(query.id)" :company-name="company_name"></ComplaintList>
       </div>
       <div class="tab_5_space_right">
         <div class="tab_5_space_3">
@@ -1470,9 +1523,19 @@
       </div>
     </div>
     <!--    口碑界面评论开始-->
-    <CommentListMobile :is-mobile-appraise="true" :is-show-reply="false" :company-id="Number(query.id)" v-if="tabItemStore.tabItem*1 === 3"></CommentListMobile>
+    <CommentListMobile :is-mobile-appraise="true" :is-show-reply="false" :company-info-id="Number(query.id)" v-if="tabItemStore.tabItem*1 === 3"></CommentListMobile>
     <template v-if="tabItemStore.tabItem*1 === 3">
-      <AddFormMobile title-box="评论" :company-name="company_name" feedback-type="comment" v-if="userInfoStore.getUserId()*1 > 0">
+      <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
+                     :index="0"
+                     :reply-index="0"
+                     :company-info-id="Number(query.id)"
+                     :reply-user-id="0"
+                     :reply-user="company_name"
+                     :main-id="0"
+                     :main-reply-id="0"
+                     title-box="评论"
+                     feedback-type="comment"
+          >
         <!-- 定义插槽内容 -->
         <template #trigger>
           <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1533,7 +1596,17 @@
       </div>
     </div>
     <template v-if="tabItemStore.tabItem*1 === 3">
-      <AddFormMobile title-box="提问" :company-name="company_name" feedback-type="question" v-if="userInfoStore.getUserId()*1 > 0">
+      <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
+                     :index="0"
+                     :reply-index="0"
+                     :company-info-id="Number(query.id)"
+                     :reply-user-id="0"
+                     :reply-user="company_name"
+                     :main-id="0"
+                     :main-reply-id="0"
+                     title-box="提问"
+                     feedback-type="question"
+          >
         <!-- 定义插槽内容 -->
         <template #trigger>
           <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1555,9 +1628,20 @@
         <span>更多></span>
       </NuxtLink>
     </div>
-    <ComplaintListMobile :company-name="company_name" :is-show-reply="false" :company-id="Number(query.id)" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
+    <ComplaintListMobile :company-info-id="Number(query.id)" :company-name="company_name" :is-show-reply="false" :company-id="Number(query.id)" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
     <template v-if="tabItemStore.tabItem*1 === 3">
-      <AddFormMobile title-box="投诉" :company-name="company_name" feedback-type="complaint" class="margin-20-bottom" v-if="userInfoStore.getUserId()*1 > 0">
+      <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
+                     :index="0"
+                     :reply-index="0"
+                     :company-info-id="Number(query.id)"
+                     :reply-user-id="0"
+                     :reply-user="company_name"
+                     :main-id="0"
+                     :main-reply-id="0"
+                     title-box="投诉"
+                     feedback-type="complaint"
+                     class="margin-20-bottom"
+      >
         <!-- 定义插槽内容 -->
         <template #trigger>
           <!-- Tag组件，当点击时触发openCommentBox方法 -->
@@ -1579,7 +1663,8 @@
         <div class="second_2_left_1">
           <text class="second_2_left_1_left">{{company_name}}口碑</text>
         </div>
-        <template v-for="(comment,index) in commentStore.comments">
+        <NoDetail v-if="commentStore.getCommentsCount <= 0" class="margin-10-top"></NoDetail>
+        <template v-for="(comment,index) in commentStore.comments" v-else>
         <div class="second_2_left_item" v-if="index <= 1" :key="index">
           <div class="second_2_left_2">
             <img class="second_2_left_2_left" :src="comment.avatar" alt="头像"/>
@@ -1588,29 +1673,30 @@
             </div>
           </div>
           <text class="margin-10-top over_limit_3">{{comment.content}}</text>
-<!--          <el-row :gutter="3" v-if="comment.image.length" class="row-image-box margin-10-top">-->
-<!--            <el-col-->
-<!--                v-for="(itemImage, indexImage) in comment.image"-->
-<!--                :key="indexImage"-->
-<!--                :span="3"-->
-<!--                :md="3"-->
-<!--            >-->
-<!--              <el-image-->
-<!--                  :hide-on-click-modal=true-->
-<!--                  :src="itemImage"-->
-<!--                  class="min_image_list"-->
-<!--                  fit="cover"-->
-<!--                  :zoom-rate="1.2"-->
-<!--                  :preview-src-list="comment.image"-->
-<!--                  :initial-index="Number(indexImage)"-->
-<!--                  lazy />-->
-<!--            </el-col>-->
-<!--          </el-row>-->
           <div class="comment_item_3 margin-10-top">
             <text class="time grey-color">{{comment.time}}</text>
             <div class="comment_item_4">
-              <LikeSwitch :index="index" feedbackType="comment"></LikeSwitch>
-              <AddForm v-if="userInfoStore.getUserId()*1 > 0" :index="index"  title-box="回复" :company-name="comment.user" feedbackType="commentReply" :company-id="id" :reply-user-id="comment.user_id" :reply_user="comment.user" :isPcAppraise="true">
+              <LikeSwitch
+                  :index="Number(index)"
+                  :reply-index="0"
+                  feedbackType="comment"
+                  :company-info-id="Number(query.id)"
+                  :main-id="comment.id"
+                  :main-reply-id="0"
+              ></LikeSwitch>
+              <AddForm v-if="userInfoStore.getUserId()*1 > 0"
+                       :index="Number(index)"
+                       :reply-index="0"
+                       :company-info-id="Number(query.id)"
+                       :reply-user-id="comment.user_id"
+                       :reply_user="comment.user"
+                       :main-id="comment.id"
+                       :main-reply-id="0"
+                       title-box="回复"
+                       :company-name="comment.user"
+                       feedbackType="commentReply"
+                       :isPcAppraise="true"
+              >
                 <!-- 定义插槽内容 -->
                 <template #trigger>
                   <text class="margin-20-left grey-color">回复</text>
@@ -1626,7 +1712,17 @@
         </div>
         </template>
         <div class="margin-10-top right_display">
-          <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="评论" :company-name="company_name" feedback-type="comment">
+          <AddForm v-if="userInfoStore.getUserId()*1 > 0"
+                   :index="0"
+                   :reply-index="0"
+                   :company-info-id="Number(query.id)"
+                   :reply-user-id="0"
+                   :reply-user="company_name"
+                   :main-id="0"
+                   :main-reply-id="0"
+                   title-box="评论"
+                   feedback-type="comment"
+          >
             <!-- 定义插槽内容 -->
             <template #trigger>
               <Tag tag="我要点评" number="41" color="orange"></Tag>
@@ -1665,7 +1761,17 @@
         </div>
         </template>
         <div class="margin-10-top right_display">
-          <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="提问" :company-name="company_name" feedback-type="question">
+          <AddForm v-if="userInfoStore.getUserId()*1 > 0"
+                   :index="0"
+                   :reply-index="0"
+                   :company-info-id="Number(query.id)"
+                   :reply-user-id="0"
+                   :reply-user="company_name"
+                   :main-id="0"
+                   :main-reply-id="0"
+                   title-box="提问"
+                   feedback-type="question"
+          >
             <!-- 定义插槽内容 -->
             <template #trigger>
               <Tag tag="我要提问" number="41" color="orange"></Tag>
@@ -1737,9 +1843,7 @@ const toggleMoreCategory = (key: CategoryKeys) => {
   dynamicCategoriesStore.toggleMoreCategory(key);
 }
 const toggleMoreTypes = () => {
-  console.log('切换');
   dynamicCategoriesStore.toggleMoreTypes();
-  console.log(dynamicCategoriesStore.moreTriangleUpOrDown);
 }
 const selectSubCategory = (sub: string) => {
   dynamicCategoriesStore.selectSubCategory(sub);
@@ -1766,10 +1870,6 @@ const pcFilteredDynamics = computed(() => {
 })
 // 计算属性
 const filteredDynamics = computed(() => {
-  console.log(dynamicCategoriesStore.selectedMoreCategory);
-  console.log(dynamicCategoriesStore.selectedCategory);
-  console.log(dynamicCategoriesStore.selectedSubCategory);
-  console.log(dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedMoreCategory]);
   if(dynamicCategoriesStore.selectedCategory === 'MORE'){
     return dynamicStore.getDynamicsByCategoryAndSubCategory(
         dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedMoreCategory],
@@ -1798,9 +1898,7 @@ import LikeSwitch from "~/components/LikeSwitch.vue";
 
 const route = useRoute();
 const query = route.query;
-console.log(query);
 const id = query.id as number|string;
-console.log(id);
 const shopDetails = useShopDetails(id);
 const {
   address,
@@ -1828,18 +1926,13 @@ const {
   fetchShopDetails,
 } = shopDetails;
 import { serviceContainer } from '~/pinia/feedback/FeedbackServiceContainer';
-console.log(serviceContainer.getHandler('comment'));
-console.log(serviceContainer.getHandler('commentReply'));
 watch(() => route.query.id, (newProps) => {
   if (!newProps) return;
   window.location.reload()
-  console.log(serviceContainer.getHandler('comment'));
-  console.log(serviceContainer.getHandler('commentReply'));
 })
 
 onMounted(() => {
    fetchShopDetails();
-   console.log(tabItemStore.tabItem);
 });
 const clampTextRef =  ref<HTMLElement | null>(null);
 const isExpanded = ref(false);
@@ -1847,15 +1940,12 @@ const isExpanded = ref(false);
 const toggleClamp = () => {
   if (!clampTextRef.value) return;  // add this line
 
-  console.log(clampTextRef.value.scrollHeight);
-  console.log(clampTextRef.value.clientHeight);
   if (isExpanded.value || clampTextRef.value.scrollHeight > clampTextRef.value.clientHeight) {
     isExpanded.value = !isExpanded.value;
   }
 }
 const switchTab = (item :number) => {
   tabItemStore.tabItem = item;
-  console.log(tabItemStore.tabItem);
 }
 const getClass = (level:string) => {
   switch (level) {

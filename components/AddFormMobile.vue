@@ -122,28 +122,32 @@ import {onMounted, ref} from "vue";
 // 接收父组件传递的show属性
 const props = defineProps({
   index: {
-    type: [Number,String],
-    default: 0,
+    type: Number,
+    required: true,
   },
   replyIndex: {
     type: Number,
-    default: 0,
+    required: true
   },
-  isReplyReply: {
-    type: Boolean,
-    default: false
+  companyInfoId:{
+    type: Number,
+    required: true
   },
   replyUserId:{
     type: Number,
-    default: 0,
+    required: true
   },
   replyUser: {
     type: String,
-    default: '',
+    required: true
   },
-  companyName: {
-    type: String,
-    default: '张姗姗木材加工厂',
+  mainId: {
+    type: Number,
+    required: true,
+  },
+  mainReplyId: {
+    type: Number,
+    required: true,
   },
   titleBox: {
     type: String,
@@ -158,10 +162,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  companyId:{
-    type: Number,
-    default: 0,
-  }
+  isReplyReply: {
+    type: Boolean,
+    default: false
+  },
 });
 const placeholderText = ref('');
 onMounted(()=>{

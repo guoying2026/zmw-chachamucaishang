@@ -1,4 +1,5 @@
 // types/complaintType.d.ts
+import {Reaction} from "~/types/feedback";
 
 // 单个回复的类型定义
 export interface Reply {

@@ -66,6 +66,9 @@ export function addFormLogic(props: any) {
                 isReplyReply: props.isReplyReply,
                 replyUserId: props.replyUserId,
                 replyUser: props.replyUser,
+                companyInfoId: props.companyInfoId,
+                mainId: props.mainId,
+                mainReplyId: props.mainReplyId,
             };
             const mergedObj = {...obj,...state.value};
             console.log(mergedObj);
@@ -78,7 +81,7 @@ export function addFormLogic(props: any) {
                 router.push({
                     path:'/mobileAppraise',
                     query:{
-                        id: props.companyId,
+                        id: props.companyInfoId,
                         tab: 7
                     }
                 });
@@ -86,7 +89,7 @@ export function addFormLogic(props: any) {
                 router.push({
                     path:'/mobileAppraise',
                     query:{
-                        id: props.companyId,
+                        id: props.companyInfoId,
                         tab: 9
                     }
                 });

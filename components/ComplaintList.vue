@@ -42,7 +42,17 @@
     <div class="text-container">
       <div class="text text-click">
         <text>点击</text>
-        <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="投诉" :company-name="companyName" feedback-type="complaint">
+        <AddForm v-if="userInfoStore.getUserId()*1 > 0"
+                 :index="0"
+                 :reply-index="0"
+                 :company-info-id="companyInfoId"
+                 :reply-user-id="0"
+                 :reply-user="companyName"
+                 :main-id="0"
+                 :main-reply-id="0"
+                 title-box="投诉"
+                 feedback-type="complaint"
+        >
           <!-- 定义插槽内容 -->
           <template #trigger>
             <text class="gradient-background margin-10-left">我要投诉</text>
@@ -63,9 +73,9 @@
   <div class="comment complaint" v-else>
     <div class="comment_item blue_item_bg" v-for="(complaint, index) in complaintStore.complaints">
       <div class="comment_item_1">
-        <img class="avatar-name__img" :src="complaint.avatar" width="32" height="32" :alt="complaint.user">
+        <img class="avatar-name__img" :src="complaint.avatar" width="32" height="32" :alt="complaint.name">
         <div class="avatar-name__name margin-10-left">
-          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{complaint.user}}</strong>
+          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{complaint.name}}</strong>
         </div>
       </div>
       <div class="comment_item_2">
@@ -91,8 +101,25 @@
         <div class="comment_item_3">
           <text class=" time grey-color">{{complaint.time}}</text>
           <div class="comment_item_4">
-            <LikeSwitch :index="index" feedbackType="complaint"></LikeSwitch>
-            <AddForm  v-if="userInfoStore.getUserId()*1 > 0" :index="index" title-box="回复" :company-name="complaint.user" feedback-type="complaintReply" :reply-user-id="complaint.user_id" :reply-user="complaint.user">
+            <LikeSwitch
+                :index="Number(index)"
+                :reply-index="0"
+                feedbackType="complaint"
+                :company-info-id="companyInfoId"
+                :main-id="complaint.id"
+                :main-reply-id="0"
+            ></LikeSwitch>
+            <AddForm  v-if="userInfoStore.getUserId()*1 > 0"
+                      :index="Number(index)"
+                      :reply-index="0"
+                      :company-info-id="companyInfoId"
+                      :reply-user-id="complaint.user_id"
+                      :reply-user="complaint.name"
+                      :main-id="complaint.id"
+                      :main-reply-id="0"
+                      title-box="回复"
+                      feedback-type="complaintReply"
+            >
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left grey-color">回复</text>
@@ -111,8 +138,8 @@
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
             <div class="avatar-name__name margin-10-left">
-              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-if="reply.replyUserId === complaint.user_id">{{reply.user}}</strong>
-              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-else>{{reply.user}} 回复 {{reply.replyUser}}</strong>
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-if="reply.replyUserId === complaint.user_id">{{reply.name}}</strong>
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-else>{{reply.name}} 回复 {{reply.replyUser}}</strong>
             </div>
           </div>
           <div class="reply_item_2">
@@ -138,8 +165,26 @@
             <div class="reply_item_3">
               <text class=" time grey-color">{{reply.time}}</text>
               <div class="reply_item_4">
-                <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="complaintReply"></LikeSwitch>
-                <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="回复" :reply-index="Number(replyIndex)" :index="index" :isReplyReply="true" :company-name="reply.user" feedback-type="complaintReply" :reply-user-id="reply.user_id" :reply-user="reply.user">
+                <LikeSwitch
+                    :index="Number(index)"
+                    :replyIndex="Number(replyIndex)"
+                    feedbackType="complaintReply"
+                    :company-info-id="companyInfoId"
+                    :main-id="complaint.id"
+                    :main-reply-id="reply.id"
+                ></LikeSwitch>
+                <AddForm v-if="userInfoStore.getUserId()*1 > 0"
+                         :index="Number(index)"
+                         :reply-index="Number(replyIndex)"
+                         :company-info-id="companyInfoId"
+                         :reply-user-id="reply.user_id"
+                         :reply-user="reply.name"
+                         :main-id="complaint.id"
+                         :main-reply-id="reply.id"
+                         title-box="回复"
+                         feedback-type="complaintReply"
+                         :isReplyReply="true"
+                >
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left grey-color">回复</text>
@@ -175,6 +220,10 @@ const props = defineProps({
   companyName:{
     type: String,
     default: '',
+  },
+  companyInfoId:{
+    type: Number,
+    required: true,
   }
 });
 </script>

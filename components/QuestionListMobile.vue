@@ -3,11 +3,11 @@
     <div class="question_item blue_comment" v-for="(question, index) in questionStore.questions">
       <div class="question_item_1">
         <div class="avatar-wrapper">
-          <img class="avatar-name__img avatar" :src="question.avatar" width="32" height="32" :alt="question.user">
+          <img class="avatar-name__img avatar" :src="question.avatar" width="32" height="32" :alt="question.name">
           <span class="question-icon orange-bg">问</span>
         </div>
         <div class="avatar-name__name margin-10-left">
-          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{question.user}}</strong>
+          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{question.name}}</strong>
         </div>
       </div>
       <div class="question_item_2">
@@ -33,8 +33,24 @@
         <div class="question_item_3">
           <text class=" time blue-color">{{question.time}}</text>
           <div class="question_item_4">
-            <LikeSwitch :index="index" feedbackType="question"></LikeSwitch>
-            <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0" :index="index" title-box="回答" company-name="张姗姗木材加工厂" feedback-type="answer">
+            <LikeSwitch
+                :index="Number(index)"
+                :reply-index="0"
+                feedbackType="question"
+                :company-info-id="companyInfoId"
+                :main-id="question.id"
+                :main-reply-id="0"></LikeSwitch>
+            <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
+                           :index="Number(index)"
+                           :reply-index="0"
+                           :company-info-id="companyInfoId"
+                           :reply-user-id="question.name_id"
+                           :reply-user="question.name"
+                           :main-id="question.id"
+                           :main-reply-id="0"
+                           title-box="回答"
+                           feedback-type="answer"
+            >
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left blue-color">回答</text>
@@ -53,11 +69,11 @@
         <div class="answer_item" v-for="(answer,answerIndex) in question.answer_list">
           <div class="answer_item_1">
             <div class="avatar-wrapper">
-              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Treder">
+              <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="answer.name">
               <span class="question-icon blue-bg">答</span>
             </div>
             <div class="avatar-name__name margin-10-left">
-              <strong class="text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
+              <strong class="text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{answer.name}}</strong>
             </div>
           </div>
           <div class="answer_item_2">
@@ -83,7 +99,13 @@
             <div class="answer_item_3">
               <text class=" time blue-color">{{answer.time}}</text>
               <div class="answer_item_4">
-                <LikeSwitch :index="index" :reply-index="answerIndex" feedbackType="answer"></LikeSwitch>
+                <LikeSwitch
+                    :index="Number(index)"
+                    :reply-index="Number(answerIndex)"
+                    feedbackType="answer"
+                    :company-info-id="companyInfoId"
+                    :main-id="question.id"
+                    :main-reply-id="answer.id"></LikeSwitch>
               </div>
             </div>
           </div>
@@ -102,4 +124,10 @@ import {useUserInfoStore} from "~/pinia/userInfo";
 
 const questionStore:QuestionStore = useQuestionStore();
 const userInfoStore = useUserInfoStore();
+const props = defineProps({
+  companyInfoId:{
+    type: Number,
+    required: true,
+  }
+});
 </script>

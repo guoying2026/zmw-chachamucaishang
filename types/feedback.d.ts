@@ -3,7 +3,7 @@ export interface FeedbackHandler {
     addFeedback(data: FeedbackData): void;
     // 可能还有其他的方法，根据你的需求来。
 }
-export type Reaction = 'none' | 'liked' | 'disliked';
+export type Reaction = 0 | 1 | 2;
 
 export interface FeedbackData {
     textareaValue: string;           // 反馈的文本内容
@@ -15,4 +15,7 @@ export interface FeedbackData {
     isReplyReply: boolean;
     replyUserId: number;
     replyUser: string,
+    companyInfoId: number;
+    mainId: number;
+    mainReplyId: number;
 }

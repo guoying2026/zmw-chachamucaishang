@@ -11,7 +11,7 @@
         <h1>我要{{titleBox}}</h1>
         <!-- 文本域用于输入评论 -->
         <div class="add-box-2">
-          <text>{{titleBox}}：{{companyName}}</text>
+          <text>{{titleBox}}：{{replyUser}}</text>
           <el-checkbox v-model="state.anonymity">匿名{{titleBox}}</el-checkbox>
         </div>
         <Textarea
@@ -36,41 +36,49 @@ import {ref} from "vue";
 // 接收父组件传递的show属性
 const props = defineProps({
   index: {
-    type: [Number,String],
-    default: 0,
+    type: Number,
+    required: true,
   },
   replyIndex: {
     type: Number,
-    default: 0,
+    required: true,
   },
-  isReplyReply: {
-    type: Boolean,
-    default: false
+  companyInfoId:{
+    type: Number,
+    required: true,
   },
   replyUserId:{
     type: Number,
-    default: 0,
+    required: true,
   },
   replyUser: {
     type: String,
-    default: '',
+    required: true,
   },
-  companyName: {
-    type: String,
-    default: '张姗姗木材加工厂',
+  mainId:{
+    type: Number,
+    required: true,
+  },
+  mainReplyId: {
+    type: Number,
+    required: true,
   },
   titleBox: {
     type: String,
     required: true,
   },
-  isPcAppraise:{
-    type: Boolean,
-    default: false,
-  },
   feedbackType: {
     type: String,
     required: true,
     validator: (value: string) => ['comment', 'commentReply', 'question', 'answer', 'complaint','complaintReply'].includes(value)
+  },
+  isReplyReply: {
+    type: Boolean,
+    default: false
+  },
+  isPcAppraise:{
+    type: Boolean,
+    default: false,
   },
 });
 const placeholderText = ref('我们鼓励真实有帮助的' + props.titleBox);
