@@ -60,7 +60,19 @@
                 <text class="margin-20-left grey-color">回复</text>
               </template>
             </LoginPopup>
-            <text class="margin-20-left grey-color" v-if="comment.user_id*1 === userInfoStore.getUserId()*1" @click="commentStore.deleteComment(Number(index))">删除</text>
+            <DeleteListItem
+                :main-reply-id="0"
+                :main-id="comment.id"
+                :company-info-id="companyInfoId"
+                feedback-type="comment"
+                :reply-index="0"
+                :index="Number(index)"
+                v-if="comment.user_id*1 === userInfoStore.getUserId()*1"
+            >
+              <template #trigger>
+                <text class="margin-20-left grey-color">删除</text>
+              </template>
+            </DeleteListItem>
           </div>
         </div>
       </div>
@@ -126,7 +138,19 @@
                     <text class="margin-20-left grey-color">回复</text>
                   </template>
                 </LoginPopup>
-                <text class="margin-20-left grey-color" v-if="reply.user_id*1 === userInfoStore.getUserId()*1" @click="commentStore.deleteCommentReply(Number(index),Number(replyIndex))">删除</text>
+                <DeleteListItem
+                    :main-reply-id="reply.id"
+                    :main-id="comment.id"
+                    :company-info-id="companyInfoId"
+                    feedback-type="commentReply"
+                    :reply-index="Number(replyIndex)"
+                    :index="Number(index)"
+                    v-if="reply.user_id*1 === userInfoStore.getUserId()*1"
+                >
+                  <template #trigger>
+                    <text class="margin-20-left grey-color">删除</text>
+                  </template>
+                </DeleteListItem>
               </div>
             </div>
           </div>
@@ -143,6 +167,7 @@ import {useCommentStore} from "~/pinia/commentStore";
 import {useUserInfoStore} from "~/pinia/userInfo";
 import NoDetail from "~/components/NoDetail.vue";
 import {setComments} from "~/composables/comment";
+import DeleteListItem from "~/components/DeleteListItem.vue";
 
 const commentStore:CommentStore = useCommentStore();
 const userInfoStore = useUserInfoStore();

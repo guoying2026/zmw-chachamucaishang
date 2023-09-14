@@ -31,7 +31,7 @@ export const commentReplyFeedbackHandler: FeedbackHandler & ReplyFeedbackHandler
         const commentStore= useCommentStore();
         return commentStore.getReply(index,replyIndex);
     },
-    deleteReply(index: number, replyIndex: number,companyInfoId: number,id:number): any {
+    deleteReply(index: number, replyIndex: number,companyInfoId: number,mainId: number,id:number): any {
         const commentStore = useCommentStore();
         commentStore.deleteCommentReply(index,replyIndex);
         const userInfoStore = useUserInfoStore();
