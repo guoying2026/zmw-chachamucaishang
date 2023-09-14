@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="comment_item_2">
-        <p class="margin-10-top ">{{complaint.content}}</p>
+        <p class="margin-10-top ">{{complaint.complaint}}</p>
         <el-row :gutter="8" v-if="complaint.image.length" class="margin-10-bottom row-image-box">
           <el-col
               v-for="(itemImage, indexImage) in complaint.image"
@@ -97,7 +97,7 @@
           </el-col>
         </el-row>
         <div class="comment_item_3">
-          <text class=" time blue-color">{{complaint.time}}</text>
+          <text class=" time blue-color">{{complaint.created_time}}</text>
           <div class="comment_item_4">
             <LikeSwitch
                 :index="Number(index)"
@@ -128,6 +128,19 @@
                 <text class="margin-20-left blue-color">回复</text>
               </template>
             </LoginPopup>
+            <DeleteListItem
+                :main-reply-id="0"
+                :main-id="complaint.id"
+                :company-info-id="companyInfoId"
+                feedback-type="complaint"
+                :reply-index="0"
+                :index="Number(index)"
+                v-if="complaint.user_id*1 === userInfoStore.getUserId()*1"
+            >
+              <template #trigger>
+                <text class="margin-20-left blue-color">删除</text>
+              </template>
+            </DeleteListItem>
           </div>
         </div>
       </div>
@@ -141,7 +154,7 @@
             </div>
           </div>
           <div class="reply_item_2">
-            <p class="margin-10-top">{{reply.content}}</p>
+            <p class="margin-10-top">{{reply.complaint}}</p>
             <el-row :gutter="8" v-if="reply.image" class="margin-10-bottom row-image-box">
               <el-col
                   v-for="(itemReplyImage, indexReplyImage) in reply.image"
@@ -161,7 +174,7 @@
               </el-col>
             </el-row>
             <div class="reply_item_3">
-              <text class=" time blue-color">{{reply.time}}</text>
+              <text class=" time blue-color">{{reply.created_time}}</text>
               <div class="reply_item_4">
                 <LikeSwitch
                     :index="Number(index)"
@@ -194,6 +207,19 @@
                     <text class="margin-20-left blue-color">回复</text>
                   </template>
                 </LoginPopup>
+                <DeleteListItem
+                    :main-reply-id="reply.id"
+                    :main-id="complaint.id"
+                    :company-info-id="companyInfoId"
+                    feedback-type="complaintReply"
+                    :reply-index="Number(replyIndex)"
+                    :index="Number(index)"
+                    v-if="reply.user_id*1 === userInfoStore.getUserId()*1"
+                >
+                  <template #trigger>
+                    <text class="margin-20-left blue-color">删除</text>
+                  </template>
+                </DeleteListItem>
               </div>
             </div>
           </div>
@@ -207,6 +233,8 @@ import LikeSwitch from "~/components/LikeSwitch.vue";
 import NoDetail from "~/components/NoDetail.vue";
 import {useComplaintStore} from "~/pinia/complaintStore";
 import {useUserInfoStore} from "~/pinia/userInfo";
+import {setComplaints} from "~/composables/complaint";
+import DeleteListItem from "~/components/DeleteListItem.vue";
 
 const complaintStore = useComplaintStore();
 const userInfoStore = useUserInfoStore();
@@ -224,4 +252,9 @@ const props = defineProps({
     required: true,
   }
 });
+const { fetchComplaints } = setComplaints(props.companyInfoId, userInfoStore.getUserId());
+// 在组件挂载时加载评论
+watch([() => props.companyInfoId, userInfoStore.getUserId], () => {
+  fetchComplaints();
+}, { immediate: true });
 </script>
