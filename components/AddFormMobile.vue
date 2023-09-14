@@ -8,10 +8,10 @@
     <div class="overlay" v-if="show">
       <div class="first">
         <img class="left-box" @click="closeCommentBox" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_ce4aa947-e622-42d0-b414-d36f7091cdf5.png" alt=""/>
-        <text>{{titleBox}}{{companyName}}</text>
+        <text>{{titleBox}}：{{replyUser}}</text>
         <img class="close-box" @click="closeCommentBox" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_807d33b5-bef1-44b0-b79d-cab4a897057c.png" alt="关闭按钮">
       </div>
-      <text class="title">{{titleBox}}{{companyName}}</text>
+      <text class="title">{{titleBox}}：{{replyUser}}</text>
         <!-- 文本域用于输入评论 -->
         <TextareaMobile
             :placeholderText="placeholderText"

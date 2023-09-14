@@ -59,7 +59,19 @@
                 <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">回复</text>
               </template>
             </LoginPopup>
-<!--            <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'" v-else>删除</text>-->
+            <DeleteListItem
+                :main-reply-id="0"
+                :main-id="comment.id"
+                :company-info-id="companyInfoId"
+                feedback-type="comment"
+                :reply-index="0"
+                :index="Number(index)"
+                v-if="comment.user_id*1 === userInfoStore.getUserId()*1"
+            >
+              <template #trigger>
+                <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">删除</text>
+              </template>
+            </DeleteListItem>
           </div>
         </div>
       </div>
@@ -68,13 +80,13 @@
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
             <div class="avatar-name__name margin-10-left">
-              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-if="reply.replyUserId === comment.user_id">{{reply.name}}</strong>
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-if="reply.reply_user_id*1 === comment.user_id*1 || reply.company_comment_reply_id*1 === 0 || comment.user_id*1 === userInfoStore.getUserId()*1">{{reply.name}}</strong>
               <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-else>{{reply.name}} 回复 {{reply.replyUser}}</strong>
             </div>
           </div>
           <div class="reply_item_2">
             <p class="margin-10-top">{{reply.comment}}</p>
-            <el-row :gutter="8" v-if="reply.image.length" class="margin-10-bottom row-image-box">
+            <el-row :gutter="8" v-if="reply.image" class="margin-10-bottom row-image-box">
               <el-col
                   v-for="(itemReplyImage, indexReplyImage) in reply.image"
                   :key="indexReplyImage"
@@ -126,7 +138,19 @@
                     <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">回复</text>
                   </template>
                 </LoginPopup>
-<!--                <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'" v-else>删除</text>-->
+                <DeleteListItem
+                    :main-reply-id="reply.id"
+                    :main-id="comment.id"
+                    :company-info-id="companyInfoId"
+                    feedback-type="commentReply"
+                    :reply-index="Number(replyIndex)"
+                    :index="Number(index)"
+                    v-if="reply.user_id*1 === userInfoStore.getUserId()*1"
+                >
+                  <template #trigger>
+                    <text class="margin-20-left" :class="isMobileAppraise?'grey-color': 'blue-color'">删除</text>
+                  </template>
+                </DeleteListItem>
               </div>
             </div>
           </div>
@@ -142,6 +166,8 @@ import {CommentStore} from "~/types/commentStore";
 import {useCommentStore} from "~/pinia/commentStore";
 import {useUserInfoStore} from "~/pinia/userInfo";
 import Tag from "~/components/Tag.vue";
+import {setComments} from "~/composables/comment";
+import DeleteListItem from "~/components/DeleteListItem.vue";
 
 const commentStore:CommentStore = useCommentStore();
 const userInfoStore = useUserInfoStore();
@@ -160,4 +186,9 @@ const props = defineProps({
     default: 0,
   }
 });
+const { fetchComments } = setComments(props.companyInfoId, userInfoStore.getUserId());
+// 在组件挂载时加载评论
+watch([() => props.companyInfoId, userInfoStore.getUserId], () => {
+  fetchComments();
+}, { immediate: true });
 </script>
