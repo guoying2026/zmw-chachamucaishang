@@ -110,7 +110,11 @@ export const publishCommentApi = async({companyInfoId, comment,commentScore, ima
     formData.append('company_info_id', companyInfoId.toString());
     formData.append('comment', comment);
     formData.append('comment_score',commentScore.toString());
-    formData.append('image', JSON.stringify(image)); // 假设你需要将image数组转换为JSON字符串
+    for (let imgObj of image) {
+        for (let url of Object.values(imgObj)) {
+            formData.append('image[]', url);
+        }
+    }
     formData.append('user_id', userId.toString());
     formData.append('name', name);
     formData.append('avatar',avatar);
@@ -155,7 +159,11 @@ export const publishCommentReplyApi = async({companyInfoId,comment,image,userId,
     formData.append('company_comment_id',commentId.toString());
     formData.append('company_comment_reply_id',commentReplyId.toString());
     formData.append('comment', comment);
-    formData.append('image', JSON.stringify(image)); // 假设你需要将image数组转换为JSON字符串
+    for (let imgObj of image) {
+        for (let url of Object.values(imgObj)) {
+            formData.append('image[]', url);
+        }
+    }
     formData.append('user_id', userId.toString());
     formData.append('name', name);
     formData.append('avatar',avatar);
