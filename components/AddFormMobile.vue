@@ -49,7 +49,7 @@
   align-items: center;
   font-size: 18px;
 }
-.add-box-2 >>> .el-checkbox__label{
+.add-box-2 :deep(.el-checkbox__label){
   color: #fff;
   width: 100%;
 }
@@ -80,7 +80,7 @@
   background-size: cover;
   background-position: center;
 }
-.overlay >>> .el-textarea__inner{
+.overlay :deep(.el-textarea__inner){
   color: #fff;
 }
 .overlay {
@@ -106,11 +106,11 @@ textarea {
   margin-bottom: 10px;
 }
 
-.overlay >>> .el-checkbox__inner {
+.overlay :deep(.el-checkbox__inner){
   border-radius: 10px;
   color: #fff;
 }
-.overlay >>> .el-upload-list--picture-card {
+.overlay :deep(.el-upload-list--picture-card){
   --el-upload-list-picture-card-size: 80px;
 }
 </style>

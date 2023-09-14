@@ -156,7 +156,7 @@ textarea {
   margin-bottom: 10px;
 }
 
-.overlay >>> .el-checkbox__inner {
+.overlay:deep(.el-checkbox__inner) {
   border-radius: 10px;
 }
 </style>
