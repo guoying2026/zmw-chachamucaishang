@@ -50,7 +50,7 @@ export const complaintReplyFeedbackHandler: FeedbackHandler & ReplyFeedbackHandl
         complaintStore.deleteComplaintReply(index,replyIndex);
         const userInfoStore = useUserInfoStore();
         const setComplaint = setComplaints(companyInfoId, userInfoStore.getUserId());
-        setComplaint.deleteComplaintReply(id).then((res) => {
+        setComplaint.deleteComplaintReply(id,mainId).then((res) => {
             console.log(res);
         })
     },

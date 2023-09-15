@@ -42,9 +42,10 @@ export const deleteCommentApi = async({id}:{id:number;}) => {
 
     return response.json();
 }
-export const deleteCommentReplyApi = async({id}:{id:number;}) => {
+export const deleteCommentReplyApi = async({id,company_comment_id}:{id:number;company_comment_id:number}) => {
     const formData = new URLSearchParams();
     formData.append('id',id.toString());
+    formData.append('company_comment_id',company_comment_id.toString());
     const response = await fetch(`${BASE_URL}/Pc/CompanyComment/deleteCommentReply`, {
         method: 'POST',
         headers: {

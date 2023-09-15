@@ -1218,7 +1218,7 @@
       <div class="tab_4_space_left"></div>
       <div class="tab_4_space_middle">
         <div class="tab_4_space_1">
-          <text>全部问答（{{questionStore.getQuestionCount}}）</text>
+          <text>全部问答（{{questionStore.getQuestionsCount}}）</text>
           <AddForm v-if="userInfoStore.getUserId()*1 > 0"
                    :index="0"
                    :reply-index="0"

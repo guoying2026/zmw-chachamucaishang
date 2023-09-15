@@ -31,7 +31,7 @@
           </el-col>
         </el-row>
         <div class="question_item_3">
-          <text class=" time blue-color">{{question.time}}</text>
+          <text class=" time blue-color">{{question.created_time}}</text>
           <div class="question_item_4">
             <LikeSwitch
                 :index="Number(index)"
@@ -78,7 +78,7 @@
           </div>
           <div class="answer_item_2">
             <p class="margin-10-top">{{answer.answer}}</p>
-            <el-row :gutter="8" v-if="answer.image.length" class="margin-10-bottom row-image-box">
+            <el-row :gutter="8" v-if="answer.image" class="margin-10-bottom row-image-box">
               <el-col
                   v-for="(itemReplyImage, indexReplyImage) in answer.image"
                   :key="indexReplyImage"
@@ -97,7 +97,7 @@
               </el-col>
             </el-row>
             <div class="answer_item_3">
-              <text class=" time blue-color">{{answer.time}}</text>
+              <text class=" time blue-color">{{answer.created_time}}</text>
               <div class="answer_item_4">
                 <LikeSwitch
                     :index="Number(index)"
@@ -121,6 +121,7 @@ import {useQuestionStore} from "~/pinia/questionStore";
 import {QuestionStore} from "~/types/questionStore";
 import LikeSwitch from "~/components/LikeSwitch.vue";
 import {useUserInfoStore} from "~/pinia/userInfo";
+import {setQuestions} from "~/composables/question";
 
 const questionStore:QuestionStore = useQuestionStore();
 const userInfoStore = useUserInfoStore();
@@ -130,4 +131,9 @@ const props = defineProps({
     required: true,
   }
 });
+const { fetchQuestions } = setQuestions(props.companyInfoId, userInfoStore.getUserId());
+// 在组件挂载时加载评论
+watch([() => props.companyInfoId, userInfoStore.getUserId], () => {
+  fetchQuestions();
+}, { immediate: true });
 </script>

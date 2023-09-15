@@ -38,10 +38,11 @@ export const setComments = (companyInfoId: number, userId: number) => {
             console.error("Error liking the comment:", error);
         }
     }
-    const deleteCommentReply = async (id: number) => {
+    const deleteCommentReply = async (id: number,company_comment_id: number) => {
         try {
             return await deleteCommentReplyApi({
                 id: id,
+                company_comment_id: company_comment_id,
             });
             // 处理结果
         } catch (error) {

@@ -38,10 +38,11 @@ export const setComplaints = (companyInfoId: number, userId: number) => {
             console.error("Error liking the complaint:", error);
         }
     }
-    const deleteComplaintReply = async (id: number) => {
+    const deleteComplaintReply = async (id: number,company_complaint_id:number) => {
         try {
             return await deleteComplaintReplyApi({
                 id: id,
+                company_complaint_id,
             });
             // 处理结果
         } catch (error) {
