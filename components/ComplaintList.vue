@@ -151,7 +151,7 @@
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
             <div class="avatar-name__name margin-10-left">
-              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-if="reply.replyUserId === complaint.user_id">{{reply.name}}</strong>
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-if="reply.reply_user_id*1 === complaint.user_id*1 || reply.company_complaint_reply_id*1 === 0 || complaint.user_id*1 === userInfoStore.getUserId()*1">{{reply.name}}</strong>
               <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-else>{{reply.name}} 回复 {{reply.replyUser}}</strong>
             </div>
           </div>
