@@ -1,6 +1,7 @@
 <template>
   <div class="comment">
-    <template v-for="(comment, index) in commentStore.comments" :key="index">
+    <NoDetail class="margin-20-bottom" :is-height350="false" v-if="commentStore.getCommentsCount <= 0"></NoDetail>
+    <template v-for="(comment, index) in commentStore.comments" :key="index" v-else>
       <div class="comment_item" :class="isMobileAppraise?'brown_item_bg': 'blue_comment'" v-if="index < effectiveLimit">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="comment.avatar" width="32" height="32" :alt="comment.name">
@@ -168,6 +169,7 @@ import {useCommentStore} from "~/pinia/commentStore";
 import {useUserInfoStore} from "~/pinia/userInfo";
 import {setComments} from "~/composables/comment";
 import DeleteListItem from "~/components/DeleteListItem.vue";
+import NoDetail from "~/components/NoDetail.vue";
 
 const commentStore = useCommentStore();
 const userInfoStore = useUserInfoStore();

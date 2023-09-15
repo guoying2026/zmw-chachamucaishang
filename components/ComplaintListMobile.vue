@@ -66,9 +66,9 @@
       <div class="text">展示投诉内容</div>
     </div>
   </div>
-  <NoDetail :is-blue="true" tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
-  <div class="comment complaint" v-else>
-    <template v-for="(complaint, index) in complaintStore.complaints" :key="index">
+  <div class="comment complaint">
+    <NoDetail class="margin-20-bottom" :is-blue="true" text="没有相关投诉" :is-height350="false" v-if="complaintStore.getComplaintsCount <= 0"></NoDetail>
+    <template v-for="(complaint, index) in complaintStore.complaints" :key="index" v-else>
     <div class="comment_item blue_comment" v-if="index < effectiveLimit">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="complaint.avatar" width="32" height="32" :alt="complaint.name">

@@ -1572,7 +1572,8 @@
 <!--          <span>更多></span>-->
 <!--        </NuxtLink>-->
       </div>
-      <template v-for="(question, index) in questionStore.questions">
+      <NoDetail class="margin-20-bottom margin-10-top" :is-blue="true" text="没有相关问答" :is-height350="false" v-if="questionStore.getQuestionsCount <= 0"></NoDetail>
+      <template v-for="(question, index) in questionStore.questions" v-else>
         <div class="question_mobile margin-10-top" v-if="index <= 1">
           <div class="avatar-wrapper">
             <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
@@ -1659,7 +1660,7 @@
         <div class="second_2_left_1">
           <text class="second_2_left_1_left">{{company_name}}口碑</text>
         </div>
-        <NoDetail v-if="commentStore.getCommentsCount <= 0" class="margin-10-top"></NoDetail>
+        <NoDetail :is-blue="true" :isHeight350="false" v-if="commentStore.getCommentsCount <= 0" class="margin-10-top"></NoDetail>
         <template v-for="(comment,index) in commentStore.comments" v-else>
         <div class="second_2_left_item" v-if="index <= 1" :key="index">
           <div class="second_2_left_2">
@@ -1734,7 +1735,8 @@
         <div class="second_2_left_1 second_2_left_1_margin">
           <text class="second_2_left_1_left">{{company_name}}相关回答</text>
         </div>
-        <template v-for="(question, index) in questionStore.questions">
+        <NoDetail class="margin-10-top" :is-blue="true" :isHeight350="false" text="没有相关问答" v-if="questionStore.getQuestionsCount <= 0"></NoDetail>
+        <template v-for="(question, index) in questionStore.questions" v-else>
         <div class="question_item_display" v-if="index <= 1" @click="switchTab(5)">
           <div class="question_item_1_display">
             <div class="avatar-wrapper">

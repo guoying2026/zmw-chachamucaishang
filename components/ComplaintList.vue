@@ -68,8 +68,7 @@
       <div class="text">展示投诉内容</div>
     </div>
   </div>
-  <NoDetail tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
-
+  <NoDetail text="没有相关投诉" v-if="complaintStore.getComplaintsCount <= 0"></NoDetail>
   <div class="comment complaint" v-else>
     <div class="comment_item blue_item_bg" v-for="(complaint, index) in complaintStore.complaints">
       <div class="comment_item_1">
