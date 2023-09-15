@@ -1,5 +1,5 @@
 <template>
-  <NoDetail class="margin-20-top" v-if="questionStore.getQuestionsCount <= 0"></NoDetail>
+  <NoDetail text="没有相关问答" class="margin-20-top" v-if="questionStore.getQuestionsCount <= 0"></NoDetail>
   <div class="question" v-else>
     <div class="question_item" v-for="(question, index) in questionStore.questions">
       <div class="question_item_1">
@@ -62,6 +62,19 @@
                 <text class="margin-20-left grey-color">回答</text>
               </template>
             </LoginPopup>
+            <DeleteListItem
+                :main-reply-id="0"
+                :main-id="question.id"
+                :company-info-id="companyInfoId"
+                feedback-type="question"
+                :reply-index="0"
+                :index="Number(index)"
+                v-if="question.user_id*1 === userInfoStore.getUserId()*1"
+            >
+              <template #trigger>
+                <text class="margin-20-left grey-color">删除</text>
+              </template>
+            </DeleteListItem>
           </div>
         </div>
       </div>
@@ -107,6 +120,19 @@
                     :company-info-id="companyInfoId"
                     :main-id="question.id"
                     :main-reply-id="answer.id"></LikeSwitch>
+                <DeleteListItem
+                    :main-reply-id="answer.id"
+                    :main-id="question.id"
+                    :company-info-id="companyInfoId"
+                    feedback-type="answer"
+                    :reply-index="Number(answerIndex)"
+                    :index="Number(index)"
+                    v-if="answer.user_id*1 === userInfoStore.getUserId()*1"
+                >
+                  <template #trigger>
+                    <text class="margin-20-left grey-color">删除</text>
+                  </template>
+                </DeleteListItem>
               </div>
             </div>
           </div>
@@ -124,6 +150,7 @@ import LikeSwitch from "~/components/LikeSwitch.vue";
 import {useUserInfoStore} from "~/pinia/userInfo";
 import {setQuestions} from "~/composables/question";
 import NoDetail from "~/components/NoDetail.vue";
+import DeleteListItem from "~/components/DeleteListItem.vue";
 
 const questionStore:QuestionStore = useQuestionStore();
 const userInfoStore = useUserInfoStore();

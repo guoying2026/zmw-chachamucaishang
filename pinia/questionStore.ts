@@ -82,7 +82,8 @@ export const useQuestionStore = defineStore('questionStore', {
 
             if (replyToUpdate) {
                 // 更新回复对象的用户点赞状态和数量
-                switch(replyToUpdate.currentUserReaction) {
+                let current = replyToUpdate.currentUserReaction*1;
+                switch(current) {
                     case 1:
                         if (newReaction*1 === 1) {
                             replyToUpdate.currentUserReaction = 0;
