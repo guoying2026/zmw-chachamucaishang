@@ -1568,9 +1568,6 @@
         <NuxtLink :to="'/mobileAppraise?id='+Number(query.id)+'&tab=8'">
           <span>更多></span>
         </NuxtLink>
-<!--        <NuxtLink to="/mobileAppraise">-->
-<!--          <span>更多></span>-->
-<!--        </NuxtLink>-->
       </div>
       <NoDetail class="margin-20-bottom margin-10-top" :is-blue="true" text="没有相关问答" :is-height350="false" v-if="questionStore.getQuestionsCount <= 0"></NoDetail>
       <template v-for="(question, index) in questionStore.questions" v-else>
