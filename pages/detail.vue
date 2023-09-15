@@ -1572,34 +1572,24 @@
 <!--          <span>更多></span>-->
 <!--        </NuxtLink>-->
       </div>
-      <div class="question_mobile margin-10-top">
+      <template v-for="(question, index) in questionStore.questions">
+        <div class="question_mobile margin-10-top" v-if="index <= 1">
           <div class="avatar-wrapper">
             <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
             <span class="question-icon orange-bg">问</span>
           </div>
-          <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
-      </div>
-      <div class="answer_mobile margin-10-top margin-10-bottom">
+          <text class="margin-10-left">{{question.question}}</text>
+        </div>
+        <template v-for="(answer, answerIndex) in question.answer_list">
+        <div class="answer_mobile margin-10-top margin-10-bottom" v-if="answerIndex*1 <= 1">
           <div class="avatar-wrapper">
             <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
             <span class="question-icon red-bg">答</span>
           </div>
-          <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
-      </div>
-      <div class="question_mobile margin-10-top">
-        <div class="avatar-wrapper">
-          <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
-          <span class="question-icon orange-bg">问</span>
+          <text class="margin-10-left">{{answer.answer}}</text>
         </div>
-        <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
-      </div>
-      <div class="answer_mobile margin-10-top margin-10-bottom">
-        <div class="avatar-wrapper">
-          <img class="avatar-name__img avatar" src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg" width="32" height="32" alt="Marcin Tireder">
-          <span class="question-icon red-bg">答</span>
-        </div>
-        <text class="margin-10-left">商品质量怎么样，有没有买过的，说说看</text>
-      </div>
+        </template>
+      </template>
     </div>
     <template v-if="tabItemStore.tabItem*1 === 3">
       <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
@@ -1675,12 +1665,12 @@
           <div class="second_2_left_2">
             <img class="second_2_left_2_left" :src="comment.avatar" alt="头像"/>
             <div class="second_2_left_2_right">
-              <text class="second_2_left_2_right_1">{{comment.user}}</text>
+              <text class="second_2_left_2_right_1">{{comment.name}}</text>
             </div>
           </div>
-          <text class="margin-10-top over_limit_3">{{comment.content}}</text>
+          <text class="margin-10-top over_limit_3">{{comment.comment}}</text>
           <div class="comment_item_3 margin-10-top">
-            <text class="time grey-color">{{comment.time}}</text>
+            <text class="time grey-color">{{comment.created_time}}</text>
             <div class="comment_item_4">
               <LikeSwitch
                   :index="Number(index)"
@@ -1931,7 +1921,6 @@ const {
     district,
   fetchShopDetails,
 } = shopDetails;
-import { serviceContainer } from '~/pinia/feedback/FeedbackServiceContainer';
 watch(() => route.query.id, (newProps) => {
   if (!newProps) return;
   window.location.reload()
