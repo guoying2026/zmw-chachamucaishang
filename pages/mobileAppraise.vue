@@ -4,7 +4,7 @@
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
   <div class="third dark_third_bg">
-    <ShopFace :companyName="company_name" :companyId="Number(query.id)" :creditScore="credit_score"></ShopFace>
+    <ShopFace :companyName="company_name" :companyId="Number(query.id)" :creditScore="Number(credit_score)"></ShopFace>
     <div class="third_2">
       <client-only>
         <div class="third_2_space blue-tab">
@@ -14,7 +14,10 @@
         </div>
       </client-only>
     </div>
-    <CommentListMobile v-if="tab === 7" :company-info-id="Number(query.id)"></CommentListMobile>
+    <CommentListMobile
+        v-if="tab === 7"
+        :company-info-id="Number(query.id)"
+    ></CommentListMobile>
     <template v-if="tab === 7">
       <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
                      :index="0"

@@ -39,15 +39,15 @@
                 :reply-index="0"
                 feedbackType="question"
                 :company-info-id="companyInfoId"
-                :main-id="question.id"
+                :main-id="Number(question.id)"
                 :main-reply-id="0"></LikeSwitch>
             <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
                            :index="Number(index)"
                            :reply-index="0"
                            :company-info-id="companyInfoId"
-                           :reply-user-id="question.name_id"
+                           :reply-user-id="Number(question.name_id)"
                            :reply-user="question.name"
-                           :main-id="question.id"
+                           :main-id="Number(question.id)"
                            :main-reply-id="0"
                            title-box="回答"
                            feedback-type="answer"
@@ -64,7 +64,7 @@
             </LoginPopup>
             <DeleteListItem
                 :main-reply-id="0"
-                :main-id="question.id"
+                :main-id="Number(question.id)"
                 :company-info-id="companyInfoId"
                 feedback-type="question"
                 :reply-index="0"
@@ -118,11 +118,11 @@
                     :reply-index="Number(answerIndex)"
                     feedbackType="answer"
                     :company-info-id="companyInfoId"
-                    :main-id="question.id"
+                    :main-id="Number(question.id)"
                     :main-reply-id="answer.id"></LikeSwitch>
                 <DeleteListItem
                     :main-reply-id="answer.id"
-                    :main-id="question.id"
+                    :main-id="Number(question.id)"
                     :company-info-id="companyInfoId"
                     feedback-type="answer"
                     :reply-index="Number(answerIndex)"

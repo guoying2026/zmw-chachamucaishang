@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-    <div class="comment_item" :class="isMobileAppraise?'brown_item_bg': 'blue_comment'" v-for="(comment, index) in commentStore.comments">
+    <div class="comment_item" :class="isMobileAppraise?'brown_item_bg': 'blue_comment'" v-for="(comment, index) in commentStore.comments" :key="index">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="comment.avatar" width="32" height="32" :alt="comment.name">
         <div class="avatar-name__name margin-10-left">
@@ -35,15 +35,15 @@
                 :reply-index="0"
                 feedbackType="comment"
                 :company-info-id="companyInfoId"
-                :main-id="comment.id"
+                :main-id="Number(comment.id)"
                 :main-reply-id="0"></LikeSwitch>
             <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
                            :index="Number(index)"
                            :reply-index="0"
                            :company-info-id="companyInfoId"
-                           :reply-user-id="comment.user_id"
+                           :reply-user-id="Number(comment.user_id)"
                            :reply-user="comment.user"
-                           :main-id="comment.id"
+                           :main-id="Number(comment.id)"
                            :main-reply-id="0"
                            title-box="回复"
                            feedbackType="commentReply"
@@ -61,7 +61,7 @@
             </LoginPopup>
             <DeleteListItem
                 :main-reply-id="0"
-                :main-id="comment.id"
+                :main-id="Number(comment.id)"
                 :company-info-id="companyInfoId"
                 feedback-type="comment"
                 :reply-index="0"
@@ -112,16 +112,16 @@
                     :replyIndex="Number(replyIndex)"
                     feedbackType="commentReply"
                     :company-info-id="companyInfoId"
-                    :main-id="comment.id"
+                    :main-id="Number(comment.id)"
                     :main-reply-id="reply.id"
                 ></LikeSwitch>
                 <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
                                :index="Number(index)"
                                :reply-index="Number(replyIndex)"
                                :company-info-id="companyInfoId"
-                               :reply-user-id="reply.user_id"
+                               :reply-user-id="Number(reply.user_id)"
                                :reply-user="reply.name"
-                               :main-id="comment.id"
+                               :main-id="Number(comment.id)"
                                :main-reply-id="reply.id"
                                title-box="回复"
                                feedbackType="commentReply"
@@ -140,7 +140,7 @@
                 </LoginPopup>
                 <DeleteListItem
                     :main-reply-id="reply.id"
-                    :main-id="comment.id"
+                    :main-id="Number(comment.id)"
                     :company-info-id="companyInfoId"
                     feedback-type="commentReply"
                     :reply-index="Number(replyIndex)"
@@ -183,8 +183,8 @@ const props = defineProps({
   },
   companyInfoId:{
     type: Number,
-    default: 0,
-  }
+    required: true,
+  },
 });
 const { fetchComments } = setComments(props.companyInfoId, userInfoStore.getUserId());
 // 在组件挂载时加载评论
