@@ -12,17 +12,17 @@ import {Reaction} from "~/types/feedback";
 
 export const setQuestions = (companyInfoId: number, userId: number) => {
     const fetchQuestions = async () => {
-        console.log('fetchQuestions');
+        
         try {
-            console.log('aaa');
+            
             const response = await questionListApi({ company_info_id: companyInfoId, user_id: userId });
-            console.log('bbb')
-            console.log(response);
+            
+            
             const questionStore = useQuestionStore();
             questionStore.setQuestions(response.data);
-            console.log(response.data);
-            console.log('设置了问答离诶包');
-            console.log(questionStore.questions);
+            
+            
+            
         } catch (error) {
             console.error("Error fetching questions:", error);
             // 这里你可以处理错误，比如显示一个通知或其他 UI 反馈

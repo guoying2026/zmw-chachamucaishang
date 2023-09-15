@@ -67,11 +67,11 @@ function clearSearchValue() {
 function searchInputFocusAndBlurHandle() {
   if (searchTextRef.value) {
     searchTextRef.value.onfocus = () => {
-      console.log('input focus');
+
       emit('searchInputFocusChange', true)
     };
     searchTextRef.value.onblur = () => {
-      console.log('input blur');
+
       emit('searchInputFocusChange', false)
     };
   }

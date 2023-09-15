@@ -1,13 +1,13 @@
 // Base URL for the API
 import {Reaction} from "~/types/feedback";
 
-console.log(process.env.NODE_ENV);
+
 const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://api.jinrongwan.cn/' : 'https://zmwapi.jinrongwan.cn/';
 // const BASE_URL = "https://api.jinrongwan.cn/"; // 替换为你的后端URL
 
 // 获取评论的函数
 export const questionListApi = async ({ company_info_id, user_id }: QuestionListParams): Promise<QuestionListResponse> => {
-    console.log('进来');
+    
     // 构造查询字符串
     const queryString = new URLSearchParams({ company_info_id: String(company_info_id), user_id: String(user_id) }).toString();
 
@@ -22,7 +22,7 @@ export const questionListApi = async ({ company_info_id, user_id }: QuestionList
         throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    console.log('questionListApi', data);
+    
     return data;
 }
 export const deleteQuestionApi = async({id}:{id:number;}) => {

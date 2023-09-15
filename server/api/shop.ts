@@ -11,8 +11,8 @@ export const shopDetailApi = async (id: ShopDetailParams['company_info_id']) => 
         const errorData = await response.json();
         throw new Error(`Error fetching shop details: ${errorData.message || 'Unknown error'}`);
     }
-    console.log('shopDetail api');
+    
     const result = await response.json();
-    console.log(result);
+    
     return result;
 };

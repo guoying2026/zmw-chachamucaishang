@@ -26,8 +26,8 @@ export const useComplaintStore = defineStore('complaintStore', {
         },
         addComplaintReply(this: ComplaintStore,index: number, replyIndex: number, isReplyReply: boolean,complaintReply: Reply){
             if(!isReplyReply){
-                console.log('走到这一步');
-                console.log(index);
+
+
                 this.complaints[index].replies.unshift(complaintReply);
             } else {
                 this.complaints[index].replies.splice(replyIndex+1,0,complaintReply);
@@ -49,14 +49,14 @@ export const useComplaintStore = defineStore('complaintStore', {
         updateComplaintReaction(this: ComplaintStore,index: number | string, newReaction: Reaction) {
             // 获取特定索引处的评论对象
             const complaintToUpdate = this.complaints[index];
-            console.log(complaintToUpdate);
-            console.log(complaintToUpdate.currentUserReaction);
+
+
             if(complaintToUpdate.currentUserReaction === null){
                 complaintToUpdate.currentUserReaction = 0;
             }
-            console.log(newReaction);
+
             if (complaintToUpdate) {
-                console.log(complaintToUpdate);
+
                 // 更新评论对象的用户点赞状态和数量
                 if (complaintToUpdate.currentUserReaction*1 === 1 && newReaction*1 === 0) {
                     // 已点赞，切换为不点赞
@@ -86,7 +86,7 @@ export const useComplaintStore = defineStore('complaintStore', {
                     complaintToUpdate.dislike_count++;
                 }
             }
-            console.log('前端切换点赞状态完成');
+
         },
         updateReplyReaction(this: ComplaintStore, index: number | string,replyIndex: number | string, newReaction: Reaction) {
             // 获取特定索引处的回复对象
@@ -96,7 +96,7 @@ export const useComplaintStore = defineStore('complaintStore', {
                 let current = replyToUpdate.currentUserReaction*1;
                 switch(current) {
                     case 1:
-                        if (newReaction*1 === 1) {
+                        if (newReaction*1 === 0) {
                             replyToUpdate.currentUserReaction = 0;
                             replyToUpdate.like_count--;
                         } else if (newReaction*1 === 2) {
@@ -111,7 +111,7 @@ export const useComplaintStore = defineStore('complaintStore', {
                             replyToUpdate.currentUserReaction = 1;
                             replyToUpdate.like_count++;
                             replyToUpdate.dislike_count--;
-                        } else if (newReaction*1 === 2) {
+                        } else if (newReaction*1 === 0) {
                             replyToUpdate.currentUserReaction = 0;
                             replyToUpdate.dislike_count--;
                         }

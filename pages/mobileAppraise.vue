@@ -129,10 +129,10 @@ import Tag from "~/components/Tag.vue";
 import {useUserInfoStore} from "~/pinia/userInfo";
 const route = useRoute();
 const query = route.query;
-console.log(query);
+
 const id = Number(query.id);
 const tab = ref(Number(query.tab));
-console.log(id);
+
 const shopDetails = useShopDetails(id);
 const {
   company_name,
@@ -142,7 +142,7 @@ const {
 } = shopDetails;
 onMounted(() => {
   fetchShopDetails();
-  console.log(tab.value);
+
 });
 const switchTab = (item :number) => {
   tab.value = item;

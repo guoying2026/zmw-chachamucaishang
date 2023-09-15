@@ -66,8 +66,8 @@ export const useDynamicStore = defineStore('dynamicStore', {
         },
         // 根据分类和子分类筛选动态
         getDynamicsByCategoryAndSubCategory(category: string, subCategory: string,isMore: Boolean) {
-            console.log(category);
-            console.log(this.dynamics)
+            
+            
             if(category === '全部'){
                 return this.dynamics;
             } else if(category === '全部类型'){

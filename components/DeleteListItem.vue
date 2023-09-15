@@ -59,13 +59,13 @@ const currentHandler = computed(() => {
 
 
 const deleteItem = (newReaction: Reaction) => {
-  console.log('进来了');
+
   if (['commentReply', 'answer', 'complaintReply'].includes(props.feedbackType)) {
     // 使用unknown作为中间类型进行断言
     const replyHandler = currentHandler.value as unknown as ReplyFeedbackHandler;
 
     if ("updateReplyReaction" in replyHandler) {
-      console.log('开始找reply 点赞');
+
       replyHandler.deleteReply(props.index, props.replyIndex, props.companyInfoId, props.mainId, props.mainReplyId);
     } else {
       throw new Error("updateReplyReaction method is not available on the handler.");

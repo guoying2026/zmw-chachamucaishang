@@ -12,17 +12,17 @@ import {Reaction} from "~/types/feedback";
 
 export const setComplaints = (companyInfoId: number, userId: number) => {
     const fetchComplaints = async () => {
-        console.log('fetchComplaints');
+        
         try {
-            console.log('aaa');
+            
             const response = await complaintListApi({ company_info_id: companyInfoId, user_id: userId });
-            console.log('bbb')
-            console.log(response);
+            
+            
             const complaintStore = useComplaintStore();
             complaintStore.setComplaints(response.data);
-            console.log(response.data);
-            console.log('设置了评论');
-            console.log(complaintStore.complaints);
+            
+            
+            
         } catch (error) {
             console.error("Error fetching complaints:", error);
             // 这里你可以处理错误，比如显示一个通知或其他 UI 反馈

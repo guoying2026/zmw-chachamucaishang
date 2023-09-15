@@ -32,6 +32,6 @@ export const time = () => {
 // 格式化日期和时间
     const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
-    console.log(formattedDateTime); // 输出形如 "2023-08-21 15:25:30"
+    
     return formattedDateTime;
 }

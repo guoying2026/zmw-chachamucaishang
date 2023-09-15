@@ -85,7 +85,7 @@ export const useQuestionStore = defineStore('questionStore', {
                 let current = replyToUpdate.currentUserReaction*1;
                 switch(current) {
                     case 1:
-                        if (newReaction*1 === 1) {
+                        if (newReaction*1 === 0) {
                             replyToUpdate.currentUserReaction = 0;
                             replyToUpdate.like_count--;
                         } else if (newReaction*1 === 2) {
@@ -100,7 +100,7 @@ export const useQuestionStore = defineStore('questionStore', {
                             replyToUpdate.currentUserReaction = 1;
                             replyToUpdate.like_count++;
                             replyToUpdate.dislike_count--;
-                        } else if (newReaction*1 === 2) {
+                        } else if (newReaction*1 === 0) {
                             replyToUpdate.currentUserReaction = 0;
                             replyToUpdate.dislike_count--;
                         }

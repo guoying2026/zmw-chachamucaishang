@@ -62,7 +62,7 @@ export const useDynamicCategoriesStore = defineStore('dynamicCategoriesStore', {
             this.moreTriangleUpOrDown = 1;
         },
         toggleMoreTypes() { // 更多
-            console.log('toggleMoreTypes');
+            
             this.showMoreTypes = !this.showMoreTypes;
             if(this.showMoreTypes){
                 this.moreTriangleUpOrDown = 2;
@@ -77,7 +77,7 @@ export const useDynamicCategoriesStore = defineStore('dynamicCategoriesStore', {
         },
         // ... 其他方法
         selectSubCategory(subCategory: string) {
-            console.log(subCategory);
+            
             this.selectedSubCategory = subCategory;  // 选中子分类
             this.showMoreTypes = false; // 隐藏选择面板
             this.moreTriangleUpOrDown = 1;

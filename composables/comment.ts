@@ -12,17 +12,17 @@ import {Reaction} from "~/types/feedback";
 
 export const setComments = (companyInfoId: number, userId: number) => {
     const fetchComments = async () => {
-        console.log('fetchComments');
+        
         try {
-            console.log('aaa');
+            
             const response = await commentListApi({ company_info_id: companyInfoId, user_id: userId });
-           console.log('bbb')
-            console.log(response);
+           
+            
             const commentStore = useCommentStore();
             commentStore.setComments(response.data);
-            console.log(response.data);
-            console.log('设置了评论');
-            console.log(commentStore.comments);
+            
+            
+            
         } catch (error) {
             console.error("Error fetching comments:", error);
             // 这里你可以处理错误，比如显示一个通知或其他 UI 反馈

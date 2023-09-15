@@ -1,13 +1,13 @@
 // Base URL for the API
 import {Reaction} from "~/types/feedback";
 
-console.log(process.env.NODE_ENV);
+
 const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://api.jinrongwan.cn/' : 'https://zmwapi.jinrongwan.cn/';
 // const BASE_URL = "https://api.jinrongwan.cn/"; // 替换为你的后端URL
 
 // 获取评论的函数
 export const complaintListApi = async ({ company_info_id, user_id }: ComplaintListParams): Promise<ComplaintListResponse> => {
-    console.log('进来');
+    
     // 构造查询字符串
     const queryString = new URLSearchParams({ company_info_id: String(company_info_id), user_id: String(user_id) }).toString();
 
@@ -22,7 +22,7 @@ export const complaintListApi = async ({ company_info_id, user_id }: ComplaintLi
         throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    console.log('complaintListApi', data);
+    
     return data;
 }
 export const deleteComplaintApi = async({id}:{id:number;}) => {
@@ -134,7 +134,7 @@ export const publishComplaintApi = async({companyInfoId, complaint, image, userI
     return response.json();
 }
 export const addComplaintAllApi = async({companyInfoId,complaints}:{companyInfoId: number;complaints:{ complaint: string; name: string; complaint_score: number; created_time: string; }[]}) => {
-    console.log('批量导入评论');
+    
     const formData = new URLSearchParams();
     formData.append('company_info_id', companyInfoId.toString());
     formData.append('complaints',JSON.stringify(complaints));

@@ -10,13 +10,13 @@ import {setQuestions} from "~/composables/question";
 export const questionFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
     add(data: FeedbackData) {
         // 处理提交提问的逻辑
-        console.log('提交提问');
+        
         const questionStore = useQuestionStore();
         const userInfoStore = useUserInfoStore();
         const setQuestion = setQuestions(data.companyInfoId, userInfoStore.getUserId());
-        console.log(data.anonymity);
+        
         let name = handleAnonymity(data.anonymity, userInfoStore.getNickName());
-        console.log(name);
+        
         setQuestion.publishQuestion(data.textareaValue, 4,data.fileList,name,userInfoStore.getAvatar()).then((res) => {
             //查看评论提交结果
             if(res.id){
@@ -35,7 +35,7 @@ export const questionFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
                     "answer_list": []
                 };
                 questionStore.addQuestion(obj);
-                console.log('评论成功');
+                
             }
         });
     },
@@ -49,7 +49,7 @@ export const questionFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
         const userInfoStore = useUserInfoStore();
         const setQuestion = setQuestions(companyInfoId, userInfoStore.getUserId());
         setQuestion.deleteQuestion(id).then((res) => {
-            console.log(res);
+            
         })
     },
     updateReaction(index: number, newReaction: Reaction, companyInfoId: number, questionId: number){
@@ -58,9 +58,9 @@ export const questionFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
         const userInfoStore = useUserInfoStore();
         const setQuestion = setQuestions(companyInfoId, userInfoStore.getUserId());
         setQuestion.likeQuestion(questionId,newReaction).then((res) => {
-            console.log('likeQuestion');
-            console.log(res);
-            console.log('点赞完成，前端在这儿之前发生了变化已经');
+            
+            
+            
         })
     }
 }

@@ -13,9 +13,9 @@ export const complaintFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
         const complaintStore = useComplaintStore();
         const userInfoStore = useUserInfoStore();
         const setComplaint = setComplaints(data.companyInfoId, userInfoStore.getUserId());
-        console.log(data.anonymity);
+        
         let name = handleAnonymity(data.anonymity, userInfoStore.getNickName());
-        console.log(name);
+        
         setComplaint.publishComplaint(data.textareaValue,data.fileList,name,userInfoStore.getAvatar()).then((res) => {
             //查看评论提交结果
             if(res.id){
@@ -34,7 +34,7 @@ export const complaintFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
                     "replies": []
                 };
                 complaintStore.addComplaint(obj);
-                console.log('评论成功');
+                
             }
         });
     },
@@ -48,7 +48,7 @@ export const complaintFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
         const userInfoStore = useUserInfoStore();
         const setComplaint = setComplaints(companyInfoId, userInfoStore.getUserId());
         setComplaint.deleteComplaint(id).then((res) => {
-            console.log(res);
+            
         })
     },
     updateReaction(index: number, newReaction: Reaction, companyInfoId: number, complaintId: number){
@@ -57,9 +57,9 @@ export const complaintFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
         const userInfoStore = useUserInfoStore();
         const setComplaint = setComplaints(companyInfoId, userInfoStore.getUserId());
         setComplaint.likeComplaint(complaintId,newReaction).then((res) => {
-            console.log('likeComplaint');
-            console.log(res);
-            console.log('点赞完成，前端在这儿之前发生了变化已经');
+            
+            
+            
         })
     }
 }

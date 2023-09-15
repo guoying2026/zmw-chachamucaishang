@@ -14,7 +14,7 @@ export function addFormLogic(props: any) {
 
     const openCommentBox = () => show.value = true;
     const closeCommentBox = () => {
-        console.log('执行关闭');
+        
         show.value = false;
         resetState();
     }
@@ -59,7 +59,7 @@ export function addFormLogic(props: any) {
             });
             return;
         } else {
-            console.log(state.value);
+            
             let obj = {
                 index: props.index,
                 replyIndex: props.replyIndex,
@@ -71,11 +71,11 @@ export function addFormLogic(props: any) {
                 mainReplyId: props.mainReplyId,
             };
             const mergedObj = {...obj,...state.value};
-            console.log(mergedObj);
+            
             currentHandler.value.add(mergedObj);
             const router = useRouter();
-            console.log('aaaaaaaaaaaaaaaaaaaa')
-            console.log(props);
+            
+            
             closeCommentBox();
             if(props.feedbackType == 'commentReply' && props.isShowReply === false){
                 router.push({
@@ -94,7 +94,7 @@ export function addFormLogic(props: any) {
                     }
                 });
             } else if(props.feedbackType == 'commentReply' && props.isPcAppraise === true){
-                console.log('走到is pc');
+                
                 const tabItemStore = useTabItemStore();
                 tabItemStore.tabItem = 4;
             }

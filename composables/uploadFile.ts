@@ -19,8 +19,8 @@ export function useFileUploadLogic(emit: (eventName: string, value: any) => void
             post.host = handeSrcHttpsUtil(post.host);
             const fileKey = `${post.dir}_pc_image_${guidUtil()}.png`;
             const fileUrl = `${post.host}/${fileKey}`;
-            console.log('上传文件地址');
-            console.log(fileUrl);
+            
+            
             const fileRawUid = uploadFile.raw.uid;
             const formData = new FormData();
 
@@ -45,7 +45,7 @@ export function useFileUploadLogic(emit: (eventName: string, value: any) => void
     };
 
     const handleRemove = (file: any): void => {
-        console.log('执行文件删除了');
+        
         submitFileList.value = submitFileList.value.filter(item => !item[file.raw.uid]);
         emit('update:fileList', submitFileList.value);
     };

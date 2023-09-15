@@ -81,11 +81,11 @@ const ready = ({ BMap , map }: { BMap: any, map: any })=>{
   center.value.lng = props.lng;
   center.value.lat = props.lat;
   zoom.value = 12;
-  // console.log('mapRef');
-  // console.log(mapRef);
+  //
+  //
   // if (mapRef.value) {
   //   const mapDiv = mapRef.value.querySelector('div:first-child') as HTMLElement;
-  //   console.log(mapDiv);
+  //
   //   if (mapDiv) {
   //     mapDiv.style.borderRadius = '10px';
   //   }
