@@ -182,7 +182,7 @@
                     feedbackType="complaintReply"
                     :company-info-id="companyInfoId"
                     :main-id="Number(complaint.id)"
-                    :main-reply-id="reply.id"
+                    :main-reply-id="Number(reply.id)"
                 ></LikeSwitch>
                 <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
                                :index="Number(index)"
@@ -208,7 +208,7 @@
                   </template>
                 </LoginPopup>
                 <DeleteListItem
-                    :main-reply-id="reply.id"
+                    :main-reply-id="Number(reply.id)"
                     :main-id="Number(complaint.id)"
                     :company-info-id="companyInfoId"
                     feedback-type="complaintReply"

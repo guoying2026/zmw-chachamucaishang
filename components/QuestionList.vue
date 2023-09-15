@@ -119,9 +119,9 @@
                     feedbackType="answer"
                     :company-info-id="companyInfoId"
                     :main-id="Number(question.id)"
-                    :main-reply-id="answer.id"></LikeSwitch>
+                    :main-reply-id="Number(answer.id)"></LikeSwitch>
                 <DeleteListItem
-                    :main-reply-id="answer.id"
+                    :main-reply-id="Number(answer.id)"
                     :main-id="Number(question.id)"
                     :company-info-id="companyInfoId"
                     feedback-type="answer"

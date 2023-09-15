@@ -1528,6 +1528,7 @@
         :is-show-reply="false"
         :company-info-id="Number(query.id)"
         v-if="tabItemStore.tabItem*1 === 3"
+        :limit="2"
     ></CommentListMobile>
     <template v-if="tabItemStore.tabItem*1 === 3">
       <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"

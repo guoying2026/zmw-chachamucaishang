@@ -1,6 +1,7 @@
 <template>
   <div class="comment">
-    <div class="comment_item" :class="isMobileAppraise?'brown_item_bg': 'blue_comment'" v-for="(comment, index) in commentStore.comments" :key="index">
+    <template v-for="(comment, index) in commentStore.comments" :key="index">
+      <div class="comment_item" :class="isMobileAppraise?'brown_item_bg': 'blue_comment'" v-if="index < effectiveLimit">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="comment.avatar" width="32" height="32" :alt="comment.name">
         <div class="avatar-name__name margin-10-left">
@@ -113,7 +114,7 @@
                     feedbackType="commentReply"
                     :company-info-id="companyInfoId"
                     :main-id="Number(comment.id)"
-                    :main-reply-id="reply.id"
+                    :main-reply-id="Number(reply.id)"
                 ></LikeSwitch>
                 <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
                                :index="Number(index)"
@@ -122,7 +123,7 @@
                                :reply-user-id="Number(reply.user_id)"
                                :reply-user="reply.name"
                                :main-id="Number(comment.id)"
-                               :main-reply-id="reply.id"
+                               :main-reply-id="Number(reply.id)"
                                title-box="回复"
                                feedbackType="commentReply"
                                :isReplyReply="true"
@@ -139,7 +140,7 @@
                   </template>
                 </LoginPopup>
                 <DeleteListItem
-                    :main-reply-id="reply.id"
+                    :main-reply-id="Number(reply.id)"
                     :main-id="Number(comment.id)"
                     :company-info-id="companyInfoId"
                     feedback-type="commentReply"
@@ -157,19 +158,18 @@
         </div>
       </div>
     </div>
+    </template>
   </div>
 </template>
 <script lang="ts" setup>
 import 'assets/css/comment.scss'
 import LikeSwitch from "~/components/LikeSwitch.vue";
-import {CommentStore} from "~/types/commentStore";
 import {useCommentStore} from "~/pinia/commentStore";
 import {useUserInfoStore} from "~/pinia/userInfo";
-import Tag from "~/components/Tag.vue";
 import {setComments} from "~/composables/comment";
 import DeleteListItem from "~/components/DeleteListItem.vue";
 
-const commentStore:CommentStore = useCommentStore();
+const commentStore = useCommentStore();
 const userInfoStore = useUserInfoStore();
 const userId = userInfoStore.getUserId();
 const props = defineProps({
@@ -185,6 +185,11 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  limit:Number,
+});
+// If limit is not provided, it will default to the length of comments
+const effectiveLimit = computed(() => {
+  return props.limit !== undefined ? props.limit : commentStore.getCommentsCount;
 });
 const { fetchComments } = setComments(props.companyInfoId, userInfoStore.getUserId());
 // 在组件挂载时加载评论

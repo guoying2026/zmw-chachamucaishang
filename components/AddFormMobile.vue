@@ -139,7 +139,7 @@ const props = defineProps({
   },
   replyUser: {
     type: String,
-    required: true
+    required: true,
   },
   mainId: {
     type: Number,

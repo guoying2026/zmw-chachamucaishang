@@ -114,7 +114,7 @@
                     feedbackType="commentReply"
                     :company-info-id="companyInfoId"
                     :main-id="Number(comment.id)"
-                    :main-reply-id="reply.id"
+                    :main-reply-id="Number(reply.id)"
                 ></LikeSwitch>
                 <AddForm v-if="userInfoStore.getUserId()*1 > 0"
                          :index="Number(index)"
@@ -123,7 +123,7 @@
                          :reply-user-id="Number(reply.user_id)"
                          :reply-user="reply.name"
                          :main-id="Number(comment.id)"
-                         :main-reply-id="reply.id"
+                         :main-reply-id="Number(reply.id)"
                          title-box="回复"
                          feedbackType="commentReply"
                          :isReplyReply="true"
@@ -139,7 +139,7 @@
                   </template>
                 </LoginPopup>
                 <DeleteListItem
-                    :main-reply-id="reply.id"
+                    :main-reply-id="Number(reply.id)"
                     :main-id="Number(comment.id)"
                     :company-info-id="companyInfoId"
                     feedback-type="commentReply"

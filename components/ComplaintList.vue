@@ -184,7 +184,7 @@
                     feedbackType="complaintReply"
                     :company-info-id="companyInfoId"
                     :main-id="Number(complaint.id)"
-                    :main-reply-id="reply.id"
+                    :main-reply-id="Number(reply.id)"
                 ></LikeSwitch>
                 <AddForm v-if="userInfoStore.getUserId()*1 > 0"
                          :index="Number(index)"
@@ -193,7 +193,7 @@
                          :reply-user-id="Number(reply.user_id)"
                          :reply-user="reply.name"
                          :main-id="Number(complaint.id)"
-                         :main-reply-id="reply.id"
+                         :main-reply-id="Number(reply.id)"
                          title-box="回复"
                          feedback-type="complaintReply"
                          :isReplyReply="true"
@@ -209,7 +209,7 @@
                   </template>
                 </LoginPopup>
                 <DeleteListItem
-                    :main-reply-id="reply.id"
+                    :main-reply-id="Number(reply.id)"
                     :main-id="Number(complaint.id)"
                     :company-info-id="companyInfoId"
                     feedback-type="complaintReply"

@@ -1,5 +1,5 @@
 <template>
-  <NoDetail text="没有相关问答" v-if="questionStore.getQuestionsCount <= 0"></NoDetail>
+  <NoDetail :is-blue="true" text="没有相关问答" v-if="questionStore.getQuestionsCount <= 0"></NoDetail>
   <div class="question" v-else>
     <div class="question_item blue_comment" v-for="(question, index) in questionStore.questions">
       <div class="question_item_1">
@@ -45,7 +45,7 @@
                            :index="Number(index)"
                            :reply-index="0"
                            :company-info-id="companyInfoId"
-                           :reply-user-id="Number(question.name_id)"
+                           :reply-user-id="Number(question.user_id)"
                            :reply-user="question.name"
                            :main-id="Number(question.id)"
                            :main-reply-id="0"
@@ -119,9 +119,9 @@
                     feedbackType="answer"
                     :company-info-id="companyInfoId"
                     :main-id="Number(question.id)"
-                    :main-reply-id="answer.id"></LikeSwitch>
+                    :main-reply-id="Number(answer.id)"></LikeSwitch>
                 <DeleteListItem
-                    :main-reply-id="answer.id"
+                    :main-reply-id="Number(answer.id)"
                     :main-id="Number(question.id)"
                     :company-info-id="companyInfoId"
                     feedback-type="answer"
