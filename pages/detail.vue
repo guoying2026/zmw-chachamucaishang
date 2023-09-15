@@ -1634,7 +1634,7 @@
         <span>更多></span>
       </NuxtLink>
     </div>
-    <ComplaintListMobile :company-info-id="Number(query.id)" :company-name="company_name" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
+    <ComplaintListMobile :limit="2" :company-info-id="Number(query.id)" :company-name="company_name" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
     <template v-if="tabItemStore.tabItem*1 === 3">
       <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
                      :index="0"

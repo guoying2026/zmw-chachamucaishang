@@ -66,10 +66,10 @@
       <div class="text">展示投诉内容</div>
     </div>
   </div>
-  <NoDetail tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
-
+  <NoDetail :is-blue="true" tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
   <div class="comment complaint" v-else>
-    <div class="comment_item blue_comment" v-for="(complaint, index) in complaintStore.complaints">
+    <template v-for="(complaint, index) in complaintStore.complaints" :key="index">
+    <div class="comment_item blue_comment" v-if="index < effectiveLimit">
       <div class="comment_item_1">
         <img class="avatar-name__img" :src="complaint.avatar" width="32" height="32" :alt="complaint.name">
         <div class="avatar-name__name margin-10-left">
@@ -226,6 +226,7 @@
         </div>
       </div>
     </div>
+    </template>
   </div>
 </template>
 <script setup lang="ts">
@@ -250,7 +251,12 @@ const props = defineProps({
   companyInfoId:{
     type: Number,
     required: true,
-  }
+  },
+  limit:Number,
+});
+// If limit is not provided, it will default to the length of comments
+const effectiveLimit = computed(() => {
+  return props.limit !== undefined ? props.limit : complaintStore.getComplaintsCount;
 });
 const { fetchComplaints } = setComplaints(props.companyInfoId, userInfoStore.getUserId());
 // 在组件挂载时加载评论
