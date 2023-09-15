@@ -1893,6 +1893,7 @@ import {CategoryKeys} from "~/types/dynamicCategories";
 import ShopFace from "~/components/ShopFace.vue";
 import NearbyBusinessMap from "~/components/NearbyBusinessMap.vue";
 import LikeSwitch from "~/components/LikeSwitch.vue";
+import {useComplaintStore} from "~/pinia/complaintStore";
 
 const route = useRoute();
 const query = route.query;
@@ -1931,6 +1932,12 @@ watch(() => route.query.id, (newProps) => {
 onMounted(() => {
    fetchShopDetails();
 });
+const complaintStore = useComplaintStore();
+onBeforeUnmount(() => {
+  commentStore.$reset();
+  questionStore.$reset();
+  complaintStore.$reset();
+})
 const clampTextRef =  ref<HTMLElement | null>(null);
 const isExpanded = ref(false);
 
