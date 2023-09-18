@@ -44,7 +44,7 @@
                            :reply-index="0"
                            :company-info-id="companyInfoId"
                            :reply-user-id="Number(comment.user_id)"
-                           :reply-user="comment.user"
+                           :reply-user="comment.name"
                            :main-id="Number(comment.id)"
                            :main-reply-id="0"
                            title-box="回复"

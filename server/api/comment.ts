@@ -7,7 +7,7 @@ const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://api.jinrongwan.
 
 // 获取评论的函数
 export const commentListApi = async ({ company_info_id, user_id }: CommentListParams): Promise<CommentListResponse> => {
-    
+
     // 构造查询字符串
     const queryString = new URLSearchParams({ company_info_id: String(company_info_id), user_id: String(user_id) }).toString();
 
@@ -22,11 +22,12 @@ export const commentListApi = async ({ company_info_id, user_id }: CommentListPa
         throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    
+
     return data;
 }
-export const deleteCommentApi = async({id}:{id:number;}) => {
+export const deleteCommentApi = async({company_info_id,id}:{company_info_id:number;id:number;}) => {
     const formData = new URLSearchParams();
+    formData.append('company_info_id',company_info_id.toString());
     formData.append('id',id.toString());
     const response = await fetch(`${BASE_URL}/Pc/CompanyComment/deleteComment`, {
         method: 'POST',
@@ -42,9 +43,10 @@ export const deleteCommentApi = async({id}:{id:number;}) => {
 
     return response.json();
 }
-export const deleteCommentReplyApi = async({id,company_comment_id}:{id:number;company_comment_id:number}) => {
+export const deleteCommentReplyApi = async({id,company_info_id,company_comment_id}:{id:number;company_info_id:number;company_comment_id:number}) => {
     const formData = new URLSearchParams();
     formData.append('id',id.toString());
+    formData.append('company_info_id',company_info_id.toString());
     formData.append('company_comment_id',company_comment_id.toString());
     const response = await fetch(`${BASE_URL}/Pc/CompanyComment/deleteCommentReply`, {
         method: 'POST',
@@ -135,7 +137,7 @@ export const publishCommentApi = async({companyInfoId, comment,commentScore, ima
     return response.json();
 }
 export const addCommentAllApi = async({companyInfoId,comments}:{companyInfoId: number;comments:{ comment: string; name: string; comment_score: number; created_time: string; }[]}) => {
-    
+
     const formData = new URLSearchParams();
     formData.append('company_info_id', companyInfoId.toString());
     formData.append('comments',JSON.stringify(comments));

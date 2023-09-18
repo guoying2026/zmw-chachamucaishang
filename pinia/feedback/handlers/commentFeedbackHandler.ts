@@ -11,14 +11,14 @@ import {Comment} from "~/types/commentType";
 export const commentFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
     add(data: FeedbackData) {
         // 处理主评论提交的逻辑
-        
-        
+
+
         const commentStore = useCommentStore();
         const userInfoStore = useUserInfoStore();
         const setComment = setComments(data.companyInfoId, userInfoStore.getUserId());
-        
+
         let name = handleAnonymity(data.anonymity, userInfoStore.getNickName());
-        
+
         setComment.publishComment(data.textareaValue, 4,data.fileList,name,userInfoStore.getAvatar()).then((res) => {
             //查看评论提交结果
             if(res.id){
@@ -37,7 +37,7 @@ export const commentFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
                     "replies": []
                 };
                 commentStore.addComment(obj);
-                
+
             }
         });
     },
@@ -50,8 +50,8 @@ export const commentFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
         commentStore.deleteComment(index);
         const userInfoStore = useUserInfoStore();
         const setComment = setComments(companyInfoId, userInfoStore.getUserId());
-        setComment.deleteComment(id).then((res) => {
-            
+        setComment.deleteComment(companyInfoId,id).then((res) => {
+
         })
     },
     updateReaction(index: number, newReaction: Reaction, companyInfoId: number, commentId: number){
@@ -60,9 +60,9 @@ export const commentFeedbackHandler: FeedbackHandler & MainFeedbackHandler = {
         const userInfoStore = useUserInfoStore();
         const setComment = setComments(companyInfoId, userInfoStore.getUserId());
         setComment.likeComment(commentId,newReaction).then((res) => {
-            
-            
-            
+
+
+
         })
     }
 }

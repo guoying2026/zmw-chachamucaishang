@@ -11,17 +11,17 @@ import {Reply} from "~/types/commentType";
 export const commentReplyFeedbackHandler: FeedbackHandler & ReplyFeedbackHandler = {
     add(data: FeedbackData) {
         // 处理主评论提交的逻辑
-        
+
         const commentStore:CommentStore = useCommentStore();
         const userInfoStore = useUserInfoStore();
         const setComment = setComments(data.companyInfoId, userInfoStore.getUserId());
-        
+
         let name = handleAnonymity(data.anonymity, userInfoStore.getNickName());
-        
+
         setComment.publishCommentReply(data.textareaValue, data.fileList,name,userInfoStore.getAvatar(),data.mainId,data.mainReplyId).then((res) => {
             //查看评论提交结果
             if(res.id){
-                
+
                 let obj:Reply = {
                     "id": res.id,
                     "user_id": userInfoStore.getUserId() || 0,
@@ -50,18 +50,18 @@ export const commentReplyFeedbackHandler: FeedbackHandler & ReplyFeedbackHandler
         commentStore.deleteCommentReply(index,replyIndex);
         const userInfoStore = useUserInfoStore();
         const setComment = setComments(companyInfoId, userInfoStore.getUserId());
-        setComment.deleteCommentReply(id,mainId).then((res) => {
-            
+        setComment.deleteCommentReply(id,companyInfoId,mainId).then((res) => {
+
         })
     },
     updateReplyReaction(index: number,replyIndex: number, newReaction: Reaction, companyInfoId: number, commentId: number,commentReplyId: number){
-        
+
         const commentStore = useCommentStore();
         commentStore.updateReplyReaction(index,replyIndex,newReaction);
         const userInfoStore = useUserInfoStore();
         const setComment = setComments(companyInfoId, userInfoStore.getUserId());
         setComment.likeCommentReply(commentId,newReaction,commentReplyId).then((res) => {
-            
+
         })
     }
 }

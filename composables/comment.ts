@@ -12,25 +12,26 @@ import {Reaction} from "~/types/feedback";
 
 export const setComments = (companyInfoId: number, userId: number) => {
     const fetchComments = async () => {
-        
+
         try {
-            
+
             const response = await commentListApi({ company_info_id: companyInfoId, user_id: userId });
-           
-            
+
+
             const commentStore = useCommentStore();
             commentStore.setComments(response.data);
-            
-            
-            
+
+
+
         } catch (error) {
             console.error("Error fetching comments:", error);
             // 这里你可以处理错误，比如显示一个通知或其他 UI 反馈
         }
     }
-    const deleteComment = async (id: number) => {
+    const deleteComment = async (companyInfoId:number,id: number) => {
         try {
             return await deleteCommentApi({
+                company_info_id: companyInfoId,
                 id: id,
             });
             // 处理结果
@@ -38,10 +39,11 @@ export const setComments = (companyInfoId: number, userId: number) => {
             console.error("Error liking the comment:", error);
         }
     }
-    const deleteCommentReply = async (id: number,company_comment_id: number) => {
+    const deleteCommentReply = async (id: number,companyInfoId:number,company_comment_id: number) => {
         try {
             return await deleteCommentReplyApi({
                 id: id,
+                company_info_id: companyInfoId,
                 company_comment_id: company_comment_id,
             });
             // 处理结果
