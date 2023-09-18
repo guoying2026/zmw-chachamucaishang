@@ -7,7 +7,7 @@ const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://api.jinrongwan.
 
 // 获取评论的函数
 export const complaintListApi = async ({ company_info_id, user_id }: ComplaintListParams): Promise<ComplaintListResponse> => {
-    
+
     // 构造查询字符串
     const queryString = new URLSearchParams({ company_info_id: String(company_info_id), user_id: String(user_id) }).toString();
 
@@ -22,12 +22,13 @@ export const complaintListApi = async ({ company_info_id, user_id }: ComplaintLi
         throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    
+
     return data;
 }
-export const deleteComplaintApi = async({id}:{id:number;}) => {
+export const deleteComplaintApi = async({companyInfoId,id}:{companyInfoId:number;id:number;}) => {
     const formData = new URLSearchParams();
     formData.append('id',id.toString());
+    formData.append('company_info_id',companyInfoId.toString())
     const response = await fetch(`${BASE_URL}/Pc/CompanyComplaint/deleteComplaint`, {
         method: 'POST',
         headers: {
@@ -42,10 +43,11 @@ export const deleteComplaintApi = async({id}:{id:number;}) => {
 
     return response.json();
 }
-export const deleteComplaintReplyApi = async({id,company_complaint_id}:{id:number;company_complaint_id:number}) => {
+export const deleteComplaintReplyApi = async({id,company_complaint_id,companyInfoId}:{id:number;company_complaint_id:number;companyInfoId:number;}) => {
     const formData = new URLSearchParams();
     formData.append('id',id.toString());
     formData.append('company_complaint_id',company_complaint_id.toString());
+    formData.append('company_info_id',companyInfoId.toString());
     const response = await fetch(`${BASE_URL}/Pc/CompanyComplaint/deleteComplaintReply`, {
         method: 'POST',
         headers: {
@@ -134,7 +136,7 @@ export const publishComplaintApi = async({companyInfoId, complaint, image, userI
     return response.json();
 }
 export const addComplaintAllApi = async({companyInfoId,complaints}:{companyInfoId: number;complaints:{ complaint: string; name: string; complaint_score: number; created_time: string; }[]}) => {
-    
+
     const formData = new URLSearchParams();
     formData.append('company_info_id', companyInfoId.toString());
     formData.append('complaints',JSON.stringify(complaints));

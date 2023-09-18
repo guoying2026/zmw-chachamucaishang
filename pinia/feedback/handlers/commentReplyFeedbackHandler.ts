@@ -50,7 +50,7 @@ export const commentReplyFeedbackHandler: FeedbackHandler & ReplyFeedbackHandler
         commentStore.deleteCommentReply(index,replyIndex);
         const userInfoStore = useUserInfoStore();
         const setComment = setComments(companyInfoId, userInfoStore.getUserId());
-        setComment.deleteCommentReply(id,companyInfoId,mainId).then((res) => {
+        setComment.deleteCommentReply(id,mainId).then((res) => {
 
         })
     },

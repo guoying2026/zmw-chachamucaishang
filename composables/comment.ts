@@ -28,7 +28,7 @@ export const setComments = (companyInfoId: number, userId: number) => {
             // 这里你可以处理错误，比如显示一个通知或其他 UI 反馈
         }
     }
-    const deleteComment = async (companyInfoId:number,id: number) => {
+    const deleteComment = async (id: number) => {
         try {
             return await deleteCommentApi({
                 company_info_id: companyInfoId,
@@ -39,7 +39,7 @@ export const setComments = (companyInfoId: number, userId: number) => {
             console.error("Error liking the comment:", error);
         }
     }
-    const deleteCommentReply = async (id: number,companyInfoId:number,company_comment_id: number) => {
+    const deleteCommentReply = async (id: number,company_comment_id: number) => {
         try {
             return await deleteCommentReplyApi({
                 id: id,

@@ -12,17 +12,17 @@ import {Reaction} from "~/types/feedback";
 
 export const setComplaints = (companyInfoId: number, userId: number) => {
     const fetchComplaints = async () => {
-        
+
         try {
-            
+
             const response = await complaintListApi({ company_info_id: companyInfoId, user_id: userId });
-            
-            
+
+
             const complaintStore = useComplaintStore();
             complaintStore.setComplaints(response.data);
-            
-            
-            
+
+
+
         } catch (error) {
             console.error("Error fetching complaints:", error);
             // 这里你可以处理错误，比如显示一个通知或其他 UI 反馈
@@ -31,6 +31,7 @@ export const setComplaints = (companyInfoId: number, userId: number) => {
     const deleteComplaint = async (id: number) => {
         try {
             return await deleteComplaintApi({
+                companyInfoId,
                 id: id,
             });
             // 处理结果
@@ -43,6 +44,7 @@ export const setComplaints = (companyInfoId: number, userId: number) => {
             return await deleteComplaintReplyApi({
                 id: id,
                 company_complaint_id,
+                companyInfoId,
             });
             // 处理结果
         } catch (error) {

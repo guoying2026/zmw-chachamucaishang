@@ -12,17 +12,17 @@ import {Reaction} from "~/types/feedback";
 
 export const setQuestions = (companyInfoId: number, userId: number) => {
     const fetchQuestions = async () => {
-        
+
         try {
-            
+
             const response = await questionListApi({ company_info_id: companyInfoId, user_id: userId });
-            
-            
+
+
             const questionStore = useQuestionStore();
             questionStore.setQuestions(response.data);
-            
-            
-            
+
+
+
         } catch (error) {
             console.error("Error fetching questions:", error);
             // 这里你可以处理错误，比如显示一个通知或其他 UI 反馈
@@ -32,6 +32,7 @@ export const setQuestions = (companyInfoId: number, userId: number) => {
         try {
             return await deleteQuestionApi({
                 id: id,
+                companyInfoId,
             });
             // 处理结果
         } catch (error) {
@@ -42,7 +43,8 @@ export const setQuestions = (companyInfoId: number, userId: number) => {
         try {
             return await deleteAnswerApi({
                 id: id,
-                question_id: question_id
+                question_id: question_id,
+                companyInfoId
             });
             // 处理结果
         } catch (error) {

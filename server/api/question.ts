@@ -7,7 +7,7 @@ const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://api.jinrongwan.
 
 // 获取评论的函数
 export const questionListApi = async ({ company_info_id, user_id }: QuestionListParams): Promise<QuestionListResponse> => {
-    
+
     // 构造查询字符串
     const queryString = new URLSearchParams({ company_info_id: String(company_info_id), user_id: String(user_id) }).toString();
 
@@ -22,12 +22,13 @@ export const questionListApi = async ({ company_info_id, user_id }: QuestionList
         throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    
+
     return data;
 }
-export const deleteQuestionApi = async({id}:{id:number;}) => {
+export const deleteQuestionApi = async({id,companyInfoId}:{id:number;companyInfoId:number}) => {
     const formData = new URLSearchParams();
     formData.append('id',id.toString());
+    formData.append('companyInfoId',companyInfoId.toString());
     const response = await fetch(`${BASE_URL}/Pc/Question/deleteQuestion`, {
         method: 'POST',
         headers: {
@@ -42,10 +43,11 @@ export const deleteQuestionApi = async({id}:{id:number;}) => {
 
     return response.json();
 }
-export const deleteAnswerApi = async({id,question_id}:{id:number;question_id:number}) => {
+export const deleteAnswerApi = async({id,question_id,companyInfoId}:{id:number;question_id:number;companyInfoId:number}) => {
     const formData = new URLSearchParams();
     formData.append('id',id.toString());
-    formData.append('answer_question_id',question_id.toString())
+    formData.append('answer_question_id',question_id.toString());
+    formData.append('company_info_id',companyInfoId.toString());
     const response = await fetch(`${BASE_URL}/Pc/Question/deleteAnswer`, {
         method: 'POST',
         headers: {
