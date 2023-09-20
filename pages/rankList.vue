@@ -241,12 +241,12 @@ nuxtApp.hook('page:finish', () => {
       </NuxtLink>
     </div>
     <!-- pc端 -->
-    <div :class="'relative hidden md:block w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(((currentPage - 1) * pageSize) + index + 1)" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
+    <div :class="'relative hidden md:block w-11/12 mx-auto bg-no-repeat bg-contain bg-center first-of-type:mt-0 item'+changeRankNumToElClass(((currentPage - 1) * pageSize) + index + 1)" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
       <NuxtLink :to="'/detail?id=' + item.id" @click="recordClickItem(item)">
         <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
         <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
         <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(((currentPage - 1) * pageSize) + index + 1)">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
-        <div class="absolute inline-block text-sm md:text-base item-title">{{ item.company_name }}</div>
+        <div class="absolute inline-block text-sm md:text-base font-medium item-title">{{ item.company_name }}</div>
         <div class="absolute inline-flex flex-row justify-between items-center text-sm md:text-sm whitespace-nowrap pr-4 overflow-x-hidden text-ellipsis item-sec_line">
           <div class="relative">法人:{{ item.corporation }}</div>
           <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
@@ -336,9 +336,7 @@ nuxtApp.hook('page:finish', () => {
   align-items: unset;
   flex-direction: unset;
   width: 91.666667%;
-  background: initial;
   background-repeat: no-repeat;
-  background-size: cover;
   height: calc((var(--real-width) / 12 * 11) * 190 / 710);
   margin-top: calc(var(--real-width) / 750 * 20);
 }
@@ -614,7 +612,7 @@ nuxtApp.hook('page:finish', () => {
 }
 
   .item {
-    height: calc((var(--real-width) / 12 * 11) * 160 / 1258);
+    height: calc(100vw / 1920 * 160);
     margin-top: calc(var(--real-width) / 1920 * 19);
   }
 
@@ -635,25 +633,25 @@ nuxtApp.hook('page:finish', () => {
   }
 
   .item .medal {
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 83);
-    top: calc(var(--real-width) / 12 * 11 / 1258 * 29);
-    width: calc(var(--real-width) / 12 * 11 / 1258 * 146);
-    height: calc(var(--real-width) / 12 * 11 / 1258 * 103);
+    left: calc(100vw / 1920 * 83);
+    top: calc(100vw / 1920 * 32);
+    width: calc(100vw / 1920 * 146);
+    height: calc(100vw / 1920 * 103);
   }
 
   .item .score {
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 128);
-    top: calc((var(--real-width) / 12 * 11) / 1258 * 53);
-    width: calc((var(--real-width) / 12 * 11) / 1258 * 55);
-    height: calc((var(--real-width) / 12 * 11) / 1258 * 55);
-    font-size: max(12px, calc(100vw / 1920 * 40));
+    left: calc(100vw / 1920 * 128);
+    top: calc(100vw / 1920 * 53);
+    width: calc(100vw / 1920 * 55);
+    height: calc(100vw / 1920 * 55);
+    font-size: max(12px, calc(100vw / 1920 * 30));
   }
 
   .item .rank_num {
-    left: calc((var(--real-width) / 12 * 11) / 1258 * -1);
-    top: calc((var(--real-width) / 12 * 11) / 1258 * 102);
-    width: calc((var(--real-width) / 12 * 11) / 1258 * 315);
-    height: calc((var(--real-width) / 12 * 11) / 1258 * 28);
+    left: calc(100vw / 1920 * -1);
+    top: calc(100vw / 1920 * 105);
+    width: calc(100vw / 1920 * 315);
+    height: calc(100vw / 1920 * 28);
     font-size: max(12px, calc(100vw / 1920 * 20));
   }
 
@@ -675,18 +673,18 @@ nuxtApp.hook('page:finish', () => {
   }
 
   .item-title {
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
-    top: calc((var(--real-width) / 12 * 11) / 1258 * 27);
-    width: calc((var(--real-width) / 12 * 11) / 1258 * 532);
-    height: calc((var(--real-width) / 12 * 11) / 1258 * 46);
-    line-height: calc(100vw / 1920 * 68);
+    left: calc(100vw / 1920 * 373);
+    top: calc(100vw / 1920 * 27);
+    width: calc(100vw / 1920 * 532);
+    height: calc(100vw / 1920 * 46);
+    line-height: calc(100vw / 1920 * 46);
     font-size: max(12px, calc(100vw / 1920 * 28));
   }
 
   .item .item-sec_line {
-    top: calc((var(--real-width) / 12 * 11) / 1258 * 90);
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
-    width: calc((var(--real-width) / 12 * 11) / 1258 * 500);
+    top: calc(100vw / 1920 * 81);
+    left: calc(100vw / 1920 * 373);
+    width: calc(100vw / 1920 * 850);
     font-size: max(12px, calc(100vw / 1920 * 18));
     line-height: calc(100vw / 1920 * 36);
   }
@@ -696,11 +694,16 @@ nuxtApp.hook('page:finish', () => {
   }
 
   .item .item-third_line {
-    top: calc((var(--real-width) / 12 * 11) / 1258 * 121);
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
-    width: calc((var(--real-width) / 12 * 11) / 1258 * 460);
+    top: calc(100vw / 1920 * 117);
+    left: calc(100vw / 1920 * 373);
+    width: calc(100vw / 1920 * 850);
     font-size: max(12px, calc(100vw / 1920 * 18));
     line-height: calc(100vw / 1920 * 36);
+  }
+
+  .item .item-sec_line,
+  .item .item-third_line {
+    letter-spacing: 2px;
   }
 
   .pagination {
