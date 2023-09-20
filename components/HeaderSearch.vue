@@ -216,6 +216,7 @@ nuxtApp.hook('page:finish', () => {
     line-height: calc(100vw / 1920 * 20);
   }
   .search-button {
+    width: calc(100vw / 1920 * 100);
     height: calc(100vw / 1920 * 42);
     font-size: max(12px, calc(100vw / 1920 * 20));
     line-height: calc(100vw / 1920 * 20);
