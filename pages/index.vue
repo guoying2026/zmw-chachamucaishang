@@ -174,7 +174,7 @@ nuxtApp.hook('page:finish', () => {
     <div class="hidden md:inline-flex justify-between w-11/12 lg:w-4/5 xl:w-2/3 mt-14 p-4 bottom-bg bottom-bg-pc">
       <!-- 信用排行榜 -->
       <NuxtLink class="inline-flex flex-col items-center justify-center w-1/5" to="/rankList">
-        <img class="w-full h-full object-contain" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagebc0fc650b7b2855011cd4f677ff84d18.png" />
+        <img class="w-full h-fit object-contain" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagebc0fc650b7b2855011cd4f677ff84d18.png" />
       </NuxtLink>
       <!-- 问答 -->
       <div class="inline-flex flex-col items-center justify-center w-1/5">
@@ -343,7 +343,7 @@ nuxtApp.hook('page:finish', () => {
 
 .bottom-bg-pc {
   width: calc(100vw / 1920 * 1256);
-  height: calc(100vw / 1920 * 293);
+  height: calc(100vw / 1920 * 260);
   margin-top: calc(100vw / 1920 * 140);
   margin-bottom: calc(100vw / 1920 * 116);
 }
@@ -358,7 +358,7 @@ nuxtApp.hook('page:finish', () => {
   right: -1em;
   display: inline-block;
   width: 0px;
-  height: 100%;
+  height: 80%;
   border-right: 2px solid #2E2E3B;
 }
 
