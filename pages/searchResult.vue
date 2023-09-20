@@ -967,9 +967,9 @@ nuxtApp.hook('page:finish', () => {
   <!-- pc端筛选 -->
   <ClientOnly>
   <div class="hidden md:flex flex-col w-full lg:w-3/4 lg:mx-auto py-4 rounded-lg select-none select-box-pc">
-    <div class="px-4 text-lg pb-4 mb-3 border-b border-solid border-gray-950">筛选条件</div>
+    <div class="px-4 text-lg pb-4 mb-3 border-b-2 border-solid select-box-pc-title">筛选条件</div>
     <!-- 已选条件 -->
-    <div :class="'relative inline-flex flex-row justify-start ' + (isCanMultiSelectProvince?'items-start':'items-center') + ' w-full text-sm px-4 pb-3 mb-3 border-b border-solid border-gray-950 transition-all'">
+    <div :class="'relative inline-flex flex-row justify-start ' + (isCanMultiSelectProvince?'items-start':'items-center') + ' w-full text-sm px-4 pb-3 mb-3 border-b-2 border-solid transition-all select-box-pc-selected'">
       <div :class="'inline-flex py-0.5 whitespace-nowrap select-item-title' + (areaList.filter(item=>item.is_selected).length>0?' font-orange':'') + ' transition-all'">已选条件</div>
       <!-- 多选地区条件下 -->
       <div v-if="isCanMultiSelectProvince" class="relative inline-flex flex-row w-full h-auto">
@@ -1396,6 +1396,11 @@ nuxtApp.hook('page:finish', () => {
 
 .select-box-pc {
   background-color: rgb(45,45,45);
+}
+
+.select-box-pc-title,
+.select-box-pc-selected {
+  border-color: #282828;
 }
 
 .area-search-text:hover,
