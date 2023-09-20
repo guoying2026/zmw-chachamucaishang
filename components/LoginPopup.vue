@@ -233,12 +233,12 @@ nuxtApp.hook('page:finish', () => {
       <div class="inline-flex flex-col items-center w-full h-auto bg-white text-black px-3 py-4 overflow-hidden login-pop-up-main">
         <h1 class="text-xl font-extrabold tracking-widest login-pop-up-main-title">手机号登录</h1>
         <div class="relative inline-flex flex-col w-11/12 md:w-full login-pop-up-main-input">
-          <input class="w-full h-11 px-2 py-1 mt-6 text-sm md:text-base login-pop-up-main-input-item" placeholder="请输入您的手机号" ref="phoneNumberInputRef" v-model="loginPhoneNumber" @input="phoneNumberInputInputHandle" />
+          <input class="w-full h-11 px-2 lg:px-4 py-1 mt-6 text-sm md:text-base login-pop-up-main-input-item" placeholder="请输入您的手机号" ref="phoneNumberInputRef" v-model="loginPhoneNumber" @input="phoneNumberInputInputHandle" />
           <span v-if="isShowPhoneFieldTips" class="absolute -bottom-5 left-3 text-xs login-poop-up-main-input-need-field-tips">{{ phoneFieldTipsContent }}</span>
         </div>
         <div class="relative inline-flex flex-col w-11/12 md:w-full login-pop-up-main-input">
           <div class="w-full h-11 mt-6 text-sm md:text-base login-pop-up-main-input-item">
-            <input class="w-6/12 md:w-7/12 px-2 py-1" placeholder="请输入验证码" ref="regCodeInputRef" v-model="loginRegCode" @input="regCodeInputInputHandle" />
+            <input class="w-6/12 md:w-7/12 px-2 lg:px-4 py-1" placeholder="请输入验证码" ref="regCodeInputRef" v-model="loginRegCode" @input="regCodeInputInputHandle" />
             <button @click.stop="sendRegCode" :class="'w-6/12 md:w-5/12 h-full login-pop-up-main-input-item-button'+(isGettingRegCode ? '-wait cursor-not-allowed' : '')"><template v-if="isGettingRegCode">重新发送({{ getRegCodeRemainSeconds }}s)</template><template v-else>获取验证码</template></button>
           </div>
           <span v-if="isShowRegCodeFieldTips" class="absolute -bottom-5 left-3 text-xs login-poop-up-main-input-need-field-tips">{{ regCodeFieldTipsContent }}</span>
@@ -266,7 +266,6 @@ nuxtApp.hook('page:finish', () => {
   left: calc((100vw - 310px) / 2);
   top: calc((100vh - 416.667px) / 2);
   width: 310px;
-  height: 416.667px;
   background: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagec18bc389a1f73824d4b5708fda749ffd.png");
   background-size: cover;
   background-repeat: no-repeat;
@@ -351,12 +350,32 @@ nuxtApp.hook('page:finish', () => {
   color: #bf795c;
 }
 
+@media (max-width: 769px) {
+  .login-pop-up {
+    padding-left: calc(100vw / 750 * 25);
+    padding-right: calc(100vw / 750 * 25);
+    padding-bottom: calc(100vw / 750 * 25);
+  }
+
+  .login-pop-up-main {
+    padding-left: calc(100vw / 750 * 45);
+    padding-right: calc(100vw / 750 * 45);
+  }
+}
+
 @media (min-width: 768px) {
   .login-pop-up {
     left: calc((100vw - 439px) / 2);
     top: calc((100vh - 416.667px) / 2);
     width: 439px;
     height: auto;
+    padding-left: calc(100vw / 1920 * 45);
+    padding-right: calc(100vw / 1920 * 45);
+  }
+
+  .login-pop-up-main {
+    padding-left: calc(100vw / 1920 * 66);
+    padding-right: calc(100vw / 1920 * 66);
   }
 
   .login-pop-up-main-login-button {
@@ -380,7 +399,7 @@ nuxtApp.hook('page:finish', () => {
     top: calc((100vh - (100vw / 1920 * 733)) / 2);
     width: calc(100vw / 1920 * 640);
     height: calc(100vw / 1920 * 733);
-    padding: calc(100vw / 1920 * 34) calc(100vw / 1920 * 20) calc(100vw / 1920 * 20);
+    padding: calc(100vw / 1920 * 34) calc(100vw / 1920 * 45) calc(100vw / 1920 * 20);
     font-family: Source Han Sans CN;
   }
   .login-pop-up-header {
@@ -397,13 +416,16 @@ nuxtApp.hook('page:finish', () => {
   }
   .login-pop-up-header-close-button,
   .login-pop-up-header-close-button svg {
-    width: calc(100vw / 1920 * 22);
-    height: calc(100vw / 1920 * 22);
+    right: calc(100vw / 1920 * -20);
+    width: calc(100vw / 1920 * 26);
+    height: calc(100vw / 1920 * 26);
   }
   .login-pop-up-main {
-    width: calc(100vw / 1920 * 600);
+    width: calc(100vw / 1920 * 550);
     height: calc(100vw / 1920 * 610);
     padding-top: calc(100vw / 1920 * 38);
+    padding-left: calc(100vw / 1920 * 66);
+    padding-right: calc(100vw / 1920 * 66);
     font-size: max(12px, calc(100vw / 1920 * 32));
     line-height: calc(100vw / 1920 * 32);
   }
