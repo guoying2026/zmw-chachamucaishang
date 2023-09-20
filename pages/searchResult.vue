@@ -1119,7 +1119,7 @@ nuxtApp.hook('page:finish', () => {
         <div class="inline-flex flex-row px-4">
           <img v-if="item.company_img && typeof item.company_img == 'string' && item.company_img.length > 0" class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md search-list-item-logo" :src="item.company_img" />
           <div v-else class="inline-flex justify-center items-center w-8 h-8 md:w-24 md:h-24 text-center rounded-md select-none whitespace-pre search-list-item-logo" :style="'min-width: 2rem;background-color: ' + item.word_logo_bg_color + ';'">
-            <span :class="'font-sans '+(item.short_name.length>1?'text-xs md:text-4xl word-logo-multi-words':'text-xl md:text-7xl word-logo-one-word')+' font-extrabold'">{{ item.short_name }}</span>
+            <span :class="'font-sans '+(item.short_name.length>1?'text-xs md:text-4xl word-logo-multi-words':'text-xl md:text-7xl word-logo-one-word')+' font-medium'">{{ item.short_name }}</span>
           </div>
           <div class="inline-flex flex-row items-center w-11/12 md:w-10/12 h-full pl-2 md:pl-4">
             <span class=" max-w-max text-base md:text-2xl md:font-bold whitespace-nowrap overflow-hidden text-ellipsis search-list-item-title">{{ item.company_name }}</span>
@@ -1158,7 +1158,7 @@ nuxtApp.hook('page:finish', () => {
             <span class="text-white whitespace-nowrap">{{ item.credit_code && item.credit_code.length > 0 ? item.credit_code : '-' }}</span>
           </div>
         </div>
-        <div class="hidden md:inline-flex flex-row justify-between w-3/4 mx-4 mt-2 pl-28">
+        <div class="hidden md:inline-flex flex-row justify-between w-3/4 mx-4 mt-0 pl-28">
           <div class="inline-flex flex-row">
             <span class="whitespace-nowrap">电话：</span>
             <div>
@@ -1172,9 +1172,9 @@ nuxtApp.hook('page:finish', () => {
           </div>
         </div>
         <!-- 搜索结果项 - 第三行 -->
-        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-t md:border-t-0 border-solid" style="border-color: #3c3c3c;">注册地址：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.address && item.address.length > 0 ? item.address : '-' }}</span></div>
+        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-0 md:mx-4 whitespace-nowrap overflow-hidden border-t md:border-t-0 border-solid" style="border-color: #3c3c3c;">注册地址：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.address && item.address.length > 0 ? item.address : '-' }}</span></div>
         <!-- 搜索结果项 - 第四行 -->
-        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-t md:border-t-0 border-solid" style="border-color: #3c3c3c;">经营范围：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.business_scope && item.business_scope.length > 0 ? item.business_scope : '-' }}</span></div>
+        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-0 md:mx-4 whitespace-nowrap overflow-hidden border-t md:border-t-0 border-solid" style="border-color: #3c3c3c;">经营范围：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.business_scope && item.business_scope.length > 0 ? item.business_scope : '-' }}</span></div>
         <div class="absolute">
           <div @click.stop.prevent="hidePhonePopupByPc" :class="'fixed ' + (item.is_show_phone_popup ? 'left-0 top-0 w-full h-full' : 'left-1/2 top-1/2 w-0 h-0') + ' overflow-hidden z-10 cursor-default transition-all'"></div>
           <div @click.stop.prevent="false" :class="'absolute left-32 top-24 inline-flex w-44 ' + (item.is_show_phone_popup ? 'max-h-screen p-2' : 'max-h-0 p-0') + ' bg-white overflow-hidden z-20 rounded-lg shadow shadow-black cursor-default transition-all'">
@@ -1578,12 +1578,13 @@ div:hover > .select-item-title.font-orange,
   }
 
   .word-logo-multi-words {
-    font-size: max(12px, calc(100vw / 1920 * 36));
+    font-size: max(12px, calc(100vw / 1920 * 28));
+    letter-spacing: calc(100vw / 1920 * 4);
     line-height: calc(100vw / 1920 * 40);
   }
 
   .search-list-item-title {
-    font-size: max(12px, calc(100vw / 1920 * 24));
+    font-size: max(12px, calc(100vw / 1920 * 30));
     line-height: calc(100vw / 1920 * 48);
   }
   .search-list-item-title + span {
