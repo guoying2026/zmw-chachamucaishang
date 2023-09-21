@@ -103,6 +103,8 @@ const isReloadSearchResultList = ref<boolean>(true)
 
 const isHasMoreSearchResultList = ref<boolean>(true)
 
+const paginationArr = ref<(number|string)[]>([1])
+
 const {
   pending: isSearchResultListPending,
   data: searchResultListData,
@@ -279,6 +281,12 @@ function searchResultListChangedHandle (newProps: any) {
     if (res1.result.current_page == res1.result.total_page) {
       isHasMoreSearchResultList.value = false
     }
+    paginationArr.value = generatePaginationArr({
+      totalPages: res1.result.total_page,
+      pageSize: res1.result.page_size,
+      currentPage: res1.result.current_page,
+      paginationSize: paginationSize.value,
+    })
   }
 }
 
@@ -856,6 +864,52 @@ function recordClickItem(item: SearchResultListItem) {
   })
 }
 
+function generatePaginationArr(data: {
+  totalPages: number;
+  pageSize: number;
+  currentPage: number;
+  paginationSize: number;
+}) {
+  let ret: (string|number)[] = []
+  if (data.totalPages <= data.paginationSize) {
+    let i = 0
+    while (i++ < data.paginationSize) {
+      ret.push(i)
+    }
+  } else if (data.currentPage <= data.paginationSize - 2 && data.totalPages >= data.paginationSize + 2) {
+    let i = 0
+    while (i++ < data.paginationSize - 1) {
+      ret.push(i)
+    }
+    ret.push('...')
+    ret.push(data.totalPages)
+  } else if (data.currentPage <= data.paginationSize - 2 && data.totalPages < data.paginationSize + 2) {
+    let i = 0
+    while (i++ < data.paginationSize - 1) {
+      ret.push(i)
+    }
+    ret.push('...')
+    ret.push(data.totalPages)
+  } else if (data.currentPage >= data.totalPages - data.paginationSize + 3) {
+    ret.push(1)
+    ret.push('...')
+    let i = data.totalPages - data.paginationSize + 1
+    while (i++ < data.totalPages) {
+      ret.push(i)
+    }
+  } else {
+    ret.push(1)
+    ret.push('...')
+    let i = data.currentPage - 2
+    while (i++ < data.currentPage + 1) {
+      ret.push(i)
+    }
+    ret.push('...')
+    ret.push(data.totalPages)
+  }
+  return ret
+}
+
 areaListDataChangedHandle(areaListData.value)
 
 watch(() => areaListData.value, areaListDataChangedHandle)
@@ -875,6 +929,12 @@ if (searchResultStore.getIsStore()) {
   areaList.value = searchResultStore.getArea()
   isCanMultiSelectProvince.value = searchResultStore.getIsCanMultiSelectProvince()
   isLeaveMeClosestDistance.value = searchResultStore.getIsLeaveMeClosestDistance()
+  paginationArr.value = generatePaginationArr({
+    totalPages: searchResultStore.getTotalPage(),
+    pageSize: searchResultStore.getPageSize(),
+    currentPage: searchResultStore.getCurrentPage(),
+    paginationSize: paginationSize.value,
+  })
   nextTick(() => {
     useHead({
       title: searchResultStore.getQuery() + ' - 搜索结果',
@@ -1196,48 +1256,21 @@ nuxtApp.hook('page:finish', () => {
   </ClientOnly>
   <ClientOnly>
   <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-8 pagination" :style="'--real-width:'+headerWidth+';'">
-    <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage > 1" @click="jumpToPrevPage">上一页</div>
-    <template v-if="totalPages <= paginationSize">
-      <template v-for="i in totalPages">
-        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
+    <template v-if="currentPage > 1">
+      <div class="inline-flex justify-center items-center mr-5 page-button" @click="jumpToPrevPage">上一页</div>
     </template>
-    <template v-else-if="currentPage <= paginationSize - 2 && totalPages >= paginationSize + 2">
-      <template v-for=" i in paginationSize - 1">
-        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
-    </template>
-    <template v-else-if="currentPage <= paginationSize - 2 && totalPages < paginationSize + 2">
-      <template v-for=" i in paginationSize - 1">
-        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
-    </template>
-    <template v-else-if="currentPage >= totalPages - paginationSize + 3">
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === 1 ? ' selected' : '')" @click="jumpToPage(1)">1</div>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <template v-for="i in totalPages">
-        <div v-if="i >= totalPages - paginationSize + 2" :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-    </template>
-    <template v-else>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === 1 ? ' selected' : '')" @click="jumpToPage(1)">1</div>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <template v-for="i in currentPage + 1">
-        <div v-if="i >= currentPage - 1" :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
+    <template v-for="i in paginationArr">
+      <div v-if="(typeof i === 'number')" :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="(currentPage === i ? function(){} : jumpToPage(i))">{{ i }}</div>
+      <div v-else class="inline-flex justify-center items-center mr-5 ellipsis">{{ i }}</div>
     </template>
     <div class="inline-flex justify-center items-center mr-5 jump-to">
       <span>跳到</span>
       <input class="w-16 mx-2 text-center" type="text" v-model="inputPage" @keyup.enter="jumpToInputPage" />
       <button @click="jumpToInputPage">确定</button>
     </div>
-    <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage < totalPages" @click="jumpToNextPage">下一页</div>
+    <template v-if="currentPage < totalPages">
+      <div class="inline-flex justify-center items-center mr-5 page-button" @click="jumpToNextPage">下一页</div>
+    </template>
   </div>
   </ClientOnly>
   <!-- 电话号码展示弹窗 -->
