@@ -311,7 +311,7 @@ nuxtApp.hook("page:finish", () => {
             <li @click.stop="isShowSearchHistoryListDelete?'':$emit('gotoDetail',item.id)" :class="'relative inline-flex flex-row items-center py-2' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
               <img v-if="item.logo&&item.logo.length>0" class="w-9 h-9 object-cover search-history-list-item-logo" :src="item.logo" />
               <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre search-history-list-item-logo" :style="'min-width: 2.25rem;background-color: ' + item.word_logo_bg_color + ';'">
-                <span :class="'font-sans '+(item.short_name.length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name }}</span>
+                <span :class="'font-sans '+(item.short_name.length>1?'text-xs':'text-xl')+' font-medium text-white'">{{ item.short_name }}</span>
               </div>
               <span class="text-sm md:text-base pl-1 search-history-list-item-name">{{ item.name }}</span>
               <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 md:w-5 h-3 md:h-5 p-0.5 transition-all clear-search-history-item-button">
@@ -354,7 +354,7 @@ nuxtApp.hook("page:finish", () => {
           <li @click.stop="$emit('gotoDetail',item.id)" class="relative inline-flex flex-row items-center py-2 cursor-pointer" v-for="item in relatedEnterpriseList">
             <img v-if="item.company_img&&item.company_img.length>0" class="w-9 h-9 object-cover related-enterprises-list-item-logo" :src="item.company_img" alt="" />
             <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre related-enterprises-list-item-logo" :style="'min-width: 2.25rem;background-color: ' + item.word_logo_bg_color + ' ;'">
-              <span :class="'font-sans '+(item.short_name.length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name }}</span>
+              <span :class="'font-sans '+(item.short_name.length>1?'text-xs':'text-xl')+' font-medium text-white'">{{ item.short_name }}</span>
             </div>
             <span class="text-xs md:text-base pl-1 transition-all related-enterprises-list-item-name">{{ item.company_name }}</span>
           </li>
@@ -524,6 +524,12 @@ nuxtApp.hook("page:finish", () => {
 .search-history-list-item-logo,
 .related-enterprises-list-item-logo {
   border-radius: 5px;
+}
+
+.search-history-list-item-logo span,
+.related-enterprises-list-item-logo span {
+  letter-spacing: calc(100vw / 1920 * 4);
+  margin-left: calc(100vw / 1920 * 4);
 }
 
 .search-history-list-item-name,

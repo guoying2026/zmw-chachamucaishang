@@ -1571,6 +1571,13 @@ div:hover > .select-item-title.font-orange,
   color: #ffb470;
 }
 
+@media (max-width: 768px) {
+  .search-list-item-logo span {
+    letter-spacing: calc(100vw / 750 * 2);
+    margin-left: calc(100vw / 750 * 2);
+  }
+}
+
 @media (min-width: 768px) {
   .area-select-box {
     margin-left: 25%;
@@ -1612,8 +1619,9 @@ div:hover > .select-item-title.font-orange,
 
   .word-logo-multi-words {
     font-size: max(12px, calc(100vw / 1920 * 28));
-    letter-spacing: calc(100vw / 1920 * 4);
+    letter-spacing: calc(100vw / 1920 * 6);
     line-height: calc(100vw / 1920 * 40);
+    margin-left: calc(100vw / 1920 * 6);
   }
 
   .search-list-item-title {
