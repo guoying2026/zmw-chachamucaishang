@@ -1195,7 +1195,7 @@ nuxtApp.hook('page:finish', () => {
   </div>
   </ClientOnly>
   <ClientOnly>
-  <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">
+  <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-8 pagination" :style="'--real-width:'+headerWidth+';'">
     <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage > 1" @click="jumpToPrevPage">上一页</div>
     <template v-if="totalPages <= paginationSize">
       <template v-for="i in totalPages">
