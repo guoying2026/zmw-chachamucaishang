@@ -1121,7 +1121,7 @@ nuxtApp.hook('page:finish', () => {
           <svg class="absolute left-1.5 top-0.5 inline-block w-4 h-6 transition-all" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
         </div>
         <div class="inline-flex flex-row w-full max-h-52 mt-4 border-t border-solid border-gray-800 rounded-b-lg" style="background-color: rgb(70,70,70);">
-          <div class="inline-flex flex-col w-1/2 h-auto overflow-y-scroll">
+          <div class="inline-flex flex-col w-1/2 h-auto overflow-y-scroll area-multi-select-bottom-left">
             <template v-for="(item, index) in areaList">
               <div v-if="index > 0" @click.stop="changeAreaFirstSelectedIndex(index)" :class="(item.is_show ? '' : 'hidden ') + 'relative inline-flex flex-row items-center mx-2 my-1 cursor-pointer transition-all select-area-list-item'">
                 <svg @click.stop="changeAreaFirstIsSelected(index)" class="w-4 h-4 transition-all font-orange" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1136,7 +1136,7 @@ nuxtApp.hook('page:finish', () => {
               </div>
             </template>
           </div>
-          <div class="inline-flex flex-col w-1/2 h-auto overflow-y-scroll">
+          <div class="inline-flex flex-col w-1/2 h-auto overflow-y-scroll area-multi-select-bottom-right">
             <template v-for="(item, index) in areaList[areaFirstSelectedIndex].childs">
               <div v-if="index > 0" @click.stop="changeAreaSecondIsSelected(index)" :class="(item.is_show ? '' : 'hidden ') + 'inline-flex flex-row items-center ml-2 my-1 cursor-pointer transition-all select-area-list-item'">
                 <svg class="w-4 h-4 transition-all font-orange" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1320,6 +1320,23 @@ nuxtApp.hook('page:finish', () => {
   height: 50vh;
   background-color: rgb(30,30,30);
   box-shadow: 0px 20px 20px 0px #151515;
+}
+
+/* 兼容firefox滚动条样式 */
+.area-multi-select-bottom-left,
+.area-multi-select-bottom-right {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) rgb(70, 70, 70);
+}
+
+.area-multi-select-bottom-left:hover,
+.area-multi-select-bottom-right:hover {
+  scrollbar-color: rgba(255,255,255,0.4) rgb(70, 70, 70);
+}
+
+.area-multi-select-bottom-left:active,
+.area-multi-select-bottom-right:active {
+  scrollbar-color: rgba(255,255,255,0.9) rgb(70, 70, 70);
 }
 
 ::-webkit-scrollbar {
