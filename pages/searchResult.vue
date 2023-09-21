@@ -1057,10 +1057,10 @@ nuxtApp.hook('page:finish', () => {
       <div @click.stop.prevent="hideMultiSelectProvincePopup" :class="'fixed '+ (isShowMultiSelectProvincePopup ? 'left-0 top-0 w-full h-full' : 'left-1/2 top-1/2 w-0 h-0') + ' z-10 transition-all'"></div>
       <div @click.stop.prevent="false" :class="'absolute left-20 top-5 w-96 ' + (isShowMultiSelectProvincePopup ? 'max-h-screen' : 'max-h-0') + ' ml-2 z-20 rounded-lg overflow-hidden transition-all'" style="background-color: rgb(70,70,70);">
         <div class="relative mt-4 ml-4 transition-all">
-          <input class="w-48 h-6 pl-6 py-3 ml-0 text-white bg-transparent border-2 border-solid border-neutral-700 rounded-md transition-all outline-none area-search-text" placeholder="输入地区名称搜索" v-model="areaSearchText" @keyup="filterAreaSearchHandle" />
+          <input class="w-48 h-6 pl-6 py-3 ml-0 text-white bg-transparent border border-solid border-neutral-800 rounded-md transition-all outline-none area-search-text" placeholder="输入地区名称搜索" v-model="areaSearchText" @keyup="filterAreaSearchHandle" />
           <svg class="absolute left-1.5 top-0.5 inline-block w-4 h-6 transition-all" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
         </div>
-        <div class="inline-flex flex-row w-full max-h-52 mt-4 border-t border-solid border-gray-950 rounded-b-lg" style="background-color: rgb(70,70,70);">
+        <div class="inline-flex flex-row w-full max-h-52 mt-4 border-t border-solid border-gray-800 rounded-b-lg" style="background-color: rgb(70,70,70);">
           <div class="inline-flex flex-col w-1/2 h-auto overflow-y-scroll">
             <template v-for="(item, index) in areaList">
               <div v-if="index > 0" @click.stop="changeAreaFirstSelectedIndex(index)" :class="(item.is_show ? '' : 'hidden ') + 'relative inline-flex flex-row items-center mx-2 my-1 cursor-pointer transition-all select-area-list-item'">
@@ -1300,7 +1300,7 @@ nuxtApp.hook('page:finish', () => {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  background-color: rgb(70, 70, 70);
   border-radius: 9999px;
 }
 
@@ -1405,7 +1405,7 @@ nuxtApp.hook('page:finish', () => {
 
 .area-search-text:hover,
 .area-search-text:focus-visible {
-  border-color: #333333;  
+  border-color: #000000;  
 }
 .area-search-text ~ svg {
   color: rgb(153,153,153);
