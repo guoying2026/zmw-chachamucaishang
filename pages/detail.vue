@@ -951,7 +951,7 @@
           <th>法定代表人</th>
           <td>{{corporation}}</td>
           <th>登记状态</th>
-          <td>-</td>
+          <td>{{ operation_state }}</td>
         </tr>
         <tr>
           <th>注册时间</th>
@@ -973,21 +973,21 @@
         </tr>
         <tr>
           <th>营业期限</th>
-          <td>-</td>
+          <td>{{ business_term }}</td>
           <th>纳税人资质</th>
-          <td>-</td>
+          <td>{{ taxpayer_qualification }}</td>
         </tr>
         <tr>
           <th>人员规模</th>
-          <td>-</td>
+          <td>{{ staff_size }}</td>
           <th>参保人数</th>
-          <td>-</td>
+          <td>{{ insured_num }}</td>
         </tr>
         <tr>
           <th>核准日期</th>
-          <td>-</td>
+          <td>{{ approval_date }}</td>
           <th>登记机关</th>
-          <td>-</td>
+          <td>{{ registration_authority }}</td>
         </tr>
         <tr>
           <th>联系电话</th>
@@ -1370,29 +1370,29 @@
       <table class="six_table left_width_3">
         <tr>
           <td>营业期限</td>
-          <td>2013-10-11至无固定期限</td>
+          <td>{{ business_term }}</td>
         </tr>
         <tr>
           <td>纳税人资质</td>
-          <td>-</td>
+          <td>{{ taxpayer_qualification }}</td>
         </tr>
         <tr>
           <td>人员规模</td>
-          <td>-</td>
+          <td>{{ staff_size }}</td>
         </tr>
         <tr>
           <td>参保人数</td>
-          <td>-</td>
+          <td>{{ insured_num }}</td>
         </tr>
         <tr>
           <td>核准日期</td>
-          <td>-</td>
+          <td>{{ approval_date }}</td>
         </tr><tr>
         <td>登记机关</td>
-        <td>-</td>
+        <td>{{ registration_authority }}</td>
       </tr><tr>
         <td>联系电话</td>
-        <td>-</td>
+        <td>{{ contact_phone }}</td>
       </tr><tr>
         <td>是否失信</td>
         <td>-</td>
@@ -1805,13 +1805,17 @@ const shopDetails = useShopDetails(id);
 const {
   address,
   company_name,
+  company_en_name,
+  former_name,
   business_scope,
   company_sort,
   contact_phone,
+  more_contact_phone,
   corporation,
   credit_code,
   credit_score,
   email,
+  more_email,
   foundation_date,
   geohash,
   industry,
@@ -1823,8 +1827,16 @@ const {
   registration_mark,
   taxpayer_id,
   province,
-    city,
-    district,
+  city,
+  district,
+  tax_level,
+  staff_size,
+  insured_num,
+  business_term,
+  taxpayer_qualification,
+  registration_status,
+  approval_date,
+  registration_authority,
   fetchShopDetails,
 } = shopDetails;
 import { serviceContainer } from '~/pinia/feedback/FeedbackServiceContainer';
