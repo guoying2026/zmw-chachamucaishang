@@ -873,7 +873,7 @@ function generatePaginationArr(data: {
   let ret: (string|number)[] = []
   if (data.totalPages <= data.paginationSize) {
     let i = 0
-    while (i++ < data.paginationSize) {
+    while (i++ < data.totalPages) {
       ret.push(i)
     }
   } else if (data.currentPage <= data.paginationSize - 2 && data.totalPages >= data.paginationSize + 2) {
@@ -1177,7 +1177,7 @@ nuxtApp.hook('page:finish', () => {
       <NuxtLink :to="'/detail?id=' + item.id" @click="recordClickItem(item)" class="relative inline-flex flex-col py-4 mt-4 first-of-type:mt-0 rounded-xl first-of-type:rounded-t-none md:first-of-type:rounded-t-xl transition-all search-list-item" v-for="(item, index) in searchResultList">
         <!-- 搜索结果项 - 第一行 -->
         <div class="inline-flex flex-row px-4">
-          <img v-if="item.company_img && typeof item.company_img == 'string' && item.company_img.length > 0" class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md search-list-item-logo" :src="item.company_img" />
+          <img v-if="item.company_img && typeof item.company_img == 'string' && item.company_img.length > 0" class="w-8 h-8 md:w-24 md:h-24 rounded-md search-list-item-logo" :src="item.company_img" />
           <div v-else class="inline-flex justify-center items-center w-8 h-8 md:w-24 md:h-24 text-center rounded-md select-none whitespace-pre search-list-item-logo" :style="'min-width: 2rem;background-color: ' + item.word_logo_bg_color + ';'">
             <span :class="'font-sans '+(item.short_name.length>1?'text-xs md:text-4xl word-logo-multi-words':'text-xl md:text-7xl word-logo-one-word')+' font-medium'">{{ item.short_name }}</span>
           </div>
@@ -1247,7 +1247,7 @@ nuxtApp.hook('page:finish', () => {
         <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-0 md:mx-4 whitespace-nowrap overflow-hidden border-t md:border-t-0 border-solid" style="border-color: #3c3c3c;">经营范围：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.business_scope && item.business_scope.length > 0 ? item.business_scope : '-' }}</span></div>
         <div class="absolute">
           <div @click.stop.prevent="hidePhonePopupByPc" :class="'fixed ' + (item.is_show_phone_popup ? 'left-0 top-0 w-full h-full' : 'left-1/2 top-1/2 w-0 h-0') + ' overflow-hidden z-10 cursor-default transition-all'"></div>
-          <div @click.stop.prevent="false" :class="'absolute left-32 top-24 inline-flex w-44 ' + (item.is_show_phone_popup ? 'max-h-screen p-2' : 'max-h-0 p-0') + ' bg-white overflow-hidden z-20 rounded-lg shadow shadow-black cursor-default transition-all'">
+          <div @click.stop.prevent="false" :class="'absolute left-32 top-20 inline-flex w-44 ' + (item.is_show_phone_popup ? 'max-h-screen p-2' : 'max-h-0 p-0') + ' bg-white overflow-hidden z-20 rounded-lg shadow shadow-black cursor-default transition-all'">
             <svg @click.stop.prevent="hidePhonePopupByPc" class="absolute right-1 top-1 w-4 h-4" style="color: rgb(153,153,153);cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
             <div class="inline-flex flex-col items-center h-full mt-1">
               <div class="inline-flex justify-start w-full h-full py-1 text-black" v-for="subitem in item.contact_phone">{{ subitem }}</div>
