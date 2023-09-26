@@ -74,10 +74,16 @@ export default defineEventHandler(async (e) => {
       } 
       item.short_name = generateCompanyShortName(item.company_name)
       item.word_logo_bg_color = wordLogoBgColors[index % wordLogoBgColors.length]
-      if (typeof item.contact_phone === 'object' && item.contact_phone instanceof Array && item.contact_phone.length > 1) {
+      if (typeof item.contact_phone === 'object' && item.contact_phone instanceof Array) {
         item.contact_phone = (item.contact_phone as string[]).map(subitem => {
           return encryptPhone(subitem)
         })
+      } else if (typeof item.contact_phone === 'object' && !(item.contact_phone instanceof Array)) {
+        let phones = []
+        for (let i in item.contact_phone) {
+          phones.push(encryptPhone(item.contact_phone[i]))
+        }
+        item.contact_phone = phones
       } else {
         item.contact_phone = encryptPhone(item.contact_phone)
       }
