@@ -47,6 +47,8 @@ watch(() => intersectionObserver.value, (newProps) => {
 
 const isHasMoreRankList = ref<boolean>(true)
 
+const paginationArr = ref<(number|string)[]>([1])
+
 const {
   pending: isRankListPending,
   data: rankListData,
@@ -99,6 +101,12 @@ function rankListChangedHandle (newProps: any) {
   if (res.result.current_page == res.result.total_page) {
     isHasMoreRankList.value = false
   }
+  paginationArr.value = generatePaginationArr({
+    totalPages: res.result.total_page,
+    pageSize: res.result.page_size,
+    currentPage: res.result.current_page,
+    paginationSize: paginationSize.value,
+  })
 }
 
 rankListChangedHandle(rankListData.value)
@@ -115,6 +123,12 @@ if (rankListStore.getIsStore()) {
   pageSize.value = rankListStore.getPageSize()
   totalPages.value = rankListStore.getTotalPage()
   list.value = rankListStore.getList()
+  paginationArr.value = generatePaginationArr({
+    totalPages: rankListStore.getTotalPage(),
+    pageSize: rankListStore.getPageSize(),
+    currentPage: rankListStore.getCurrentPage(),
+    paginationSize: paginationSize.value,
+  })
   nextTick(() => {
     window.scrollTo({
       top: rankListStore.getScrollTop(),
@@ -202,6 +216,52 @@ function recordClickItem(item: RankingListItem) {
   })
 }
 
+function generatePaginationArr(data: {
+    totalPages: number;
+    pageSize: number;
+    currentPage: number;
+    paginationSize: number;
+  }) {
+  let ret: (string|number)[] = []
+  if (data.totalPages <= data.paginationSize) {
+    let i = 0
+    while (i++ < data.paginationSize) {
+      ret.push(i)
+    }
+  } else if (data.currentPage <= data.paginationSize - 2 && data.totalPages >= data.paginationSize + 2) {
+    let i = 0
+    while (i++ < data.paginationSize - 1) {
+      ret.push(i)
+    }
+    ret.push('...')
+    ret.push(data.totalPages)
+  } else if (data.currentPage <= data.paginationSize - 2 && data.totalPages < data.paginationSize + 2) {
+    let i = 0
+    while (i++ < data.paginationSize - 1) {
+      ret.push(i)
+    }
+    ret.push('...')
+    ret.push(data.totalPages)
+  } else if (data.currentPage >= data.totalPages - data.paginationSize + 3) {
+    ret.push(1)
+    ret.push('...')
+    let i = data.totalPages - data.paginationSize + 1
+    while (i++ < data.totalPages) {
+      ret.push(i)
+    }
+  } else {
+    ret.push(1)
+    ret.push('...')
+    let i = data.currentPage - 2
+    while (i++ < data.currentPage + 1) {
+      ret.push(i)
+    }
+    ret.push('...')
+    ret.push(data.totalPages)
+  }
+  return ret
+}
+
 nuxtApp.hook('page:finish', () => {
   const intersectionObserverCallback = (entries: IntersectionObserverEntry[]) => {
     if (entries[0].intersectionRatio <= 0) return;
@@ -223,10 +283,12 @@ nuxtApp.hook('page:finish', () => {
 </script>
 
 <template>
+  <ClientOnly>
   <div class="inline-block w-full bg-no-repeat bg-cover header" :style="'--real-width:'+headerWidth+';'"></div>
   <div class="relative inline-block w-full list" :style="'--real-width:'+headerWidth+';'">
     <!-- 移动端 -->
-    <div :class="'relative block md:hidden w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(index + 1)" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
+    <template v-for="(item, index) in list">
+    <div :class="'relative block md:hidden w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(index + 1)" :style="'--real-width:'+headerWidth+';'">
       <NuxtLink :to="'/detail?id=' + item.id" @click="recordClickItem(item)">
         <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
         <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
@@ -241,12 +303,12 @@ nuxtApp.hook('page:finish', () => {
       </NuxtLink>
     </div>
     <!-- pc端 -->
-    <div :class="'relative hidden md:block w-11/12 mx-auto bg-no-repeat bg-cover first-of-type:mt-0 item'+changeRankNumToElClass(((currentPage - 1) * pageSize) + index + 1)" :style="'--real-width:'+headerWidth+';'" v-for="(item, index) in list">
+    <div :class="'relative hidden md:block w-11/12 mx-auto bg-no-repeat bg-contain bg-center first-of-type:mt-0 item'+changeRankNumToElClass(((currentPage - 1) * pageSize) + index + 1)" :style="'--real-width:'+headerWidth+';'">
       <NuxtLink :to="'/detail?id=' + item.id" @click="recordClickItem(item)">
         <div class="absolute inline-block bg-contain bg-no-repeat medal"></div>
         <div class="absolute inline-flex justify-center items-center text-xs sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold score">{{ item.score }}</div>
         <div :class="'absolute inline-flex justify-center items-center w-full h-full text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl 2xl:text-2xl font-bold rank_num' + changeRankDigitsToElClass(((currentPage - 1) * pageSize) + index + 1)">N0.{{ ((currentPage - 1) * pageSize) + index + 1 }}</div>
-        <div class="absolute inline-block text-sm md:text-base item-title">{{ item.company_name }}</div>
+        <div class="absolute inline-block text-sm md:text-base font-medium item-title">{{ item.company_name }}</div>
         <div class="absolute inline-flex flex-row justify-between items-center text-sm md:text-sm whitespace-nowrap pr-4 overflow-x-hidden text-ellipsis item-sec_line">
           <div class="relative">法人:{{ item.corporation }}</div>
           <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
@@ -258,58 +320,33 @@ nuxtApp.hook('page:finish', () => {
           <div class="hidden md:inline-flex justify-center items-center separator-wrap">|</div>
           <div class="relative hidden md:inline-block">投诉:{{ item.complaint_count }}</div>
         </div>
-        <div class="absolute hidden md:inline-block text-xs md:text-sm item-third_line">地址:{{ item.address }}</div>
+        <div class="absolute hidden md:inline-block text-xs md:text-sm font item-third_line">地址:{{ item.address }}</div>
       </NuxtLink>
     </div>
+    </template>
   </div>
   <div :class="'relative ' + (!isHasMoreRankList || currentPage > totalPages || isRankListPending ? 'hidden' : 'inline-flex') + ' md:hidden flex-row justify-center items-center w-full py-1 mt-4 load-more-tips'" style="color: rgb(151,151,151);">
     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg>
     <span>加载中...</span>
   </div>
   <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">
-    <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage > 1" @click="jumpToPrevPage">上一页</div>
-    <template v-if="totalPages <= paginationSize">
-      <template v-for="i in totalPages">
-        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
+    <template v-if="currentPage > 1">
+      <div class="inline-flex justify-center items-center mr-5 page-button" @click="jumpToPrevPage">上一页</div>
     </template>
-    <template v-else-if="currentPage <= paginationSize - 2 && totalPages >= paginationSize + 2">
-      <template v-for=" i in paginationSize - 1">
-        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
-    </template>
-    <template v-else-if="currentPage <= paginationSize - 2 && totalPages < paginationSize + 2">
-      <template v-for=" i in paginationSize - 1">
-        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
-    </template>
-    <template v-else-if="currentPage >= totalPages - paginationSize + 3">
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === 1 ? ' selected' : '')" @click="jumpToPage(1)">1</div>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <template v-for="i in totalPages">
-        <div v-if="i >= totalPages - paginationSize + 2" :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-    </template>
-    <template v-else>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === 1 ? ' selected' : '')" @click="jumpToPage(1)">1</div>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <template v-for="i in currentPage + 1">
-        <div v-if="i >= currentPage - 1" :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
+    <template v-for="i in paginationArr">
+      <div v-if="(typeof i === 'number')" :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="(currentPage === i ? function(){} : jumpToPage(i))">{{ i }}</div>
+      <div v-else class="inline-flex justify-center items-center mr-5 ellipsis">{{ i }}</div>
     </template>
     <div class="inline-flex justify-center items-center mr-5 jump-to">
       <span>跳到</span>
       <input class="w-16 mx-2 text-center" type="text" v-model="inputPage" @keyup.enter="jumpToInputPage" />
       <button @click="jumpToInputPage">确定</button>
     </div>
-    <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage < totalPages" @click="jumpToNextPage">下一页</div>
+    <template v-if="currentPage < totalPages">
+      <div class="inline-flex justify-center items-center mr-5 page-button" @click="jumpToNextPage">下一页</div>
+    </template>
   </div>
+  </ClientOnly>
 </template>
 
 <style scoped>
@@ -336,9 +373,7 @@ nuxtApp.hook('page:finish', () => {
   align-items: unset;
   flex-direction: unset;
   width: 91.666667%;
-  background: initial;
   background-repeat: no-repeat;
-  background-size: cover;
   height: calc((var(--real-width) / 12 * 11) * 190 / 710);
   margin-top: calc(var(--real-width) / 750 * 20);
 }
@@ -614,7 +649,7 @@ nuxtApp.hook('page:finish', () => {
 }
 
   .item {
-    height: calc((var(--real-width) / 12 * 11) * 160 / 1258);
+    height: calc(100vw / 1920 * 160);
     margin-top: calc(var(--real-width) / 1920 * 19);
   }
 
@@ -635,25 +670,25 @@ nuxtApp.hook('page:finish', () => {
   }
 
   .item .medal {
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 83);
-    top: calc(var(--real-width) / 12 * 11 / 1258 * 29);
-    width: calc(var(--real-width) / 12 * 11 / 1258 * 146);
-    height: calc(var(--real-width) / 12 * 11 / 1258 * 103);
+    left: calc(100vw / 1920 * 83);
+    top: calc(100vw / 1920 * 32);
+    width: calc(100vw / 1920 * 146);
+    height: calc(100vw / 1920 * 103);
   }
 
   .item .score {
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 128);
-    top: calc((var(--real-width) / 12 * 11) / 1258 * 53);
-    width: calc((var(--real-width) / 12 * 11) / 1258 * 55);
-    height: calc((var(--real-width) / 12 * 11) / 1258 * 55);
-    font-size: max(12px, calc(100vw / 1920 * 40));
+    left: calc(100vw / 1920 * 128);
+    top: calc(100vw / 1920 * 53);
+    width: calc(100vw / 1920 * 55);
+    height: calc(100vw / 1920 * 55);
+    font-size: max(12px, calc(100vw / 1920 * 30));
   }
 
   .item .rank_num {
-    left: calc((var(--real-width) / 12 * 11) / 1258 * -1);
-    top: calc((var(--real-width) / 12 * 11) / 1258 * 102);
-    width: calc((var(--real-width) / 12 * 11) / 1258 * 315);
-    height: calc((var(--real-width) / 12 * 11) / 1258 * 28);
+    left: calc(100vw / 1920 * -1);
+    top: calc(100vw / 1920 * 105);
+    width: calc(100vw / 1920 * 315);
+    height: calc(100vw / 1920 * 28);
     font-size: max(12px, calc(100vw / 1920 * 20));
   }
 
@@ -675,18 +710,18 @@ nuxtApp.hook('page:finish', () => {
   }
 
   .item-title {
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
-    top: calc((var(--real-width) / 12 * 11) / 1258 * 27);
-    width: calc((var(--real-width) / 12 * 11) / 1258 * 532);
-    height: calc((var(--real-width) / 12 * 11) / 1258 * 46);
-    line-height: calc(100vw / 1920 * 68);
+    left: calc(100vw / 1920 * 373);
+    top: calc(100vw / 1920 * 27);
+    width: calc(100vw / 1920 * 532);
+    height: calc(100vw / 1920 * 46);
+    line-height: calc(100vw / 1920 * 46);
     font-size: max(12px, calc(100vw / 1920 * 28));
   }
 
   .item .item-sec_line {
-    top: calc((var(--real-width) / 12 * 11) / 1258 * 90);
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
-    width: calc((var(--real-width) / 12 * 11) / 1258 * 500);
+    top: calc(100vw / 1920 * 81);
+    left: calc(100vw / 1920 * 373);
+    width: calc(100vw / 1920 * 850);
     font-size: max(12px, calc(100vw / 1920 * 18));
     line-height: calc(100vw / 1920 * 36);
   }
@@ -696,11 +731,16 @@ nuxtApp.hook('page:finish', () => {
   }
 
   .item .item-third_line {
-    top: calc((var(--real-width) / 12 * 11) / 1258 * 121);
-    left: calc((var(--real-width) / 12 * 11) / 1258 * 373);
-    width: calc((var(--real-width) / 12 * 11) / 1258 * 460);
+    top: calc(100vw / 1920 * 117);
+    left: calc(100vw / 1920 * 373);
+    width: calc(100vw / 1920 * 850);
     font-size: max(12px, calc(100vw / 1920 * 18));
     line-height: calc(100vw / 1920 * 36);
+  }
+
+  .item .item-sec_line,
+  .item .item-third_line {
+    letter-spacing: 2px;
   }
 
   .pagination {

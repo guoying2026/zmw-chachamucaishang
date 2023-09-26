@@ -282,7 +282,7 @@ nuxtApp.hook("page:finish", () => {
     </div>
 
     <!-- 已登录，未输入任何搜索内容、有搜索历史记录 -->
-    <div v-if="userInfoStore.isLoggedIn() && props.searchValue?.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-full px-2 py-1">
+    <div v-if="userInfoStore.isLoggedIn() && props.searchValue?.trim() === '' && (searchInputHistoryStore.getList().length > 0 || searchHistoryStore.getList().length > 0)" class="inline-flex flex-col w-full h-full px-2 xl:px-2.5 2xl:px-3 py-1">
       <!-- 输入历史记录 -->
       <template v-if="searchInputHistoryStore.getList().length > 0">
       <div class="inline-flex flex-row items-center justify-between w-full search-input-history-box">
@@ -311,7 +311,7 @@ nuxtApp.hook("page:finish", () => {
             <li @click.stop="isShowSearchHistoryListDelete?'':$emit('gotoDetail',item.id)" :class="'relative inline-flex flex-row items-center py-2' + (isShowSearchHistoryListDelete?'':' cursor-pointer')" v-for="item in searchHistoryStore.getList()">
               <img v-if="item.logo&&item.logo.length>0" class="w-9 h-9 object-cover search-history-list-item-logo" :src="item.logo" />
               <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre search-history-list-item-logo" :style="'min-width: 2.25rem;background-color: ' + item.word_logo_bg_color + ';'">
-                <span :class="'font-sans '+(item.short_name.length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name }}</span>
+                <span :class="'font-sans '+(item.short_name.length>1?'text-xs':'text-xl')+' font-medium text-white'">{{ item.short_name }}</span>
               </div>
               <span class="text-sm md:text-base pl-1 search-history-list-item-name">{{ item.name }}</span>
               <button v-if="isShowSearchHistoryListDelete" @click.stop="clearSearchHistoryItem(item.id)" class="absolute right-0 w-3 md:w-5 h-3 md:h-5 p-0.5 transition-all clear-search-history-item-button">
@@ -336,7 +336,7 @@ nuxtApp.hook("page:finish", () => {
     </div>
 
     <!-- 已输入任何搜索内容 或者 (已登录、未输入任何搜索内容，并且没有搜索历史记录) -->
-    <div v-if="props.searchValue?.trim() !== '' || (userInfoStore.isLoggedIn() && props.searchValue?.trim() == '' && searchInputHistoryStore.getList().length == 0 && searchHistoryStore.getList().length == 0)" class="inline-flex flex-col w-full h-full px-2 py-1 pb-2">
+    <div v-if="props.searchValue?.trim() !== '' || (userInfoStore.isLoggedIn() && props.searchValue?.trim() == '' && searchInputHistoryStore.getList().length == 0 && searchHistoryStore.getList().length == 0)" class="inline-flex flex-col w-full h-full px-2 xl:px-2.5 2xl:px-3 py-1 pb-2">
       <!-- 猜你想搜 -->
       <div class="relative inline-flex flex-row items-center justify-start w-full transition-all search-input-history-box">
         <h1 class="text-xs md:text-base pr-2 my-2 whitespace-nowrap transition-all guess-what-you-want-to-search-tips">猜你想搜</h1>
@@ -354,7 +354,7 @@ nuxtApp.hook("page:finish", () => {
           <li @click.stop="$emit('gotoDetail',item.id)" class="relative inline-flex flex-row items-center py-2 cursor-pointer" v-for="item in relatedEnterpriseList">
             <img v-if="item.company_img&&item.company_img.length>0" class="w-9 h-9 object-cover related-enterprises-list-item-logo" :src="item.company_img" alt="" />
             <div v-else class="inline-flex justify-center items-center w-9 h-9 text-center rounded-md select-none whitespace-pre related-enterprises-list-item-logo" :style="'min-width: 2.25rem;background-color: ' + item.word_logo_bg_color + ' ;'">
-              <span :class="'font-sans '+(item.short_name.length>1?'text-xs':'text-xl')+' font-extrabold text-white'">{{ item.short_name }}</span>
+              <span :class="'font-sans '+(item.short_name.length>1?'text-xs':'text-xl')+' font-medium text-white'">{{ item.short_name }}</span>
             </div>
             <span class="text-xs md:text-base pl-1 transition-all related-enterprises-list-item-name">{{ item.company_name }}</span>
           </li>
@@ -526,6 +526,12 @@ nuxtApp.hook("page:finish", () => {
   border-radius: 5px;
 }
 
+.search-history-list-item-logo span,
+.related-enterprises-list-item-logo span {
+  letter-spacing: calc(100vw / 1920 * 4);
+  margin-left: calc(100vw / 1920 * 4);
+}
+
 .search-history-list-item-name,
 .related-enterprises-list-item-name {
   color: rgb(51,51,51);
@@ -568,7 +574,13 @@ nuxtApp.hook("page:finish", () => {
 @media (min-width: 768px) {
   .search-tips-area {
     font-size: max(12px, calc(100vw / 1920 * 16));
+    border-color: #ebebeb;
   }
+  .search-text:focus-visible ~ .search-tips-area,
+.search-tips-area:hover,
+.search-tips-area.expanded {
+  border-top-width: 1.2px;
+}
   .search-tips-area.in-header {
     width: calc(100% - 4rem);
   }

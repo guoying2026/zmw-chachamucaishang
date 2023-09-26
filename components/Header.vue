@@ -319,7 +319,7 @@ nuxtApp.hook('page:finish', () => {
 
 @media (min-width: 768px) {
   .search-input {
-    border-color: rgba(44, 52, 61, 1);
+    border-color: rgba(87, 105, 126, 0.56);
   }
 
   .search-input:hover {

@@ -103,6 +103,8 @@ const isReloadSearchResultList = ref<boolean>(true)
 
 const isHasMoreSearchResultList = ref<boolean>(true)
 
+const paginationArr = ref<(number|string)[]>([1])
+
 const {
   pending: isSearchResultListPending,
   data: searchResultListData,
@@ -279,6 +281,12 @@ function searchResultListChangedHandle (newProps: any) {
     if (res1.result.current_page == res1.result.total_page) {
       isHasMoreSearchResultList.value = false
     }
+    paginationArr.value = generatePaginationArr({
+      totalPages: res1.result.total_page,
+      pageSize: res1.result.page_size,
+      currentPage: res1.result.current_page,
+      paginationSize: paginationSize.value,
+    })
   }
 }
 
@@ -856,6 +864,52 @@ function recordClickItem(item: SearchResultListItem) {
   })
 }
 
+function generatePaginationArr(data: {
+  totalPages: number;
+  pageSize: number;
+  currentPage: number;
+  paginationSize: number;
+}) {
+  let ret: (string|number)[] = []
+  if (data.totalPages <= data.paginationSize) {
+    let i = 0
+    while (i++ < data.paginationSize) {
+      ret.push(i)
+    }
+  } else if (data.currentPage <= data.paginationSize - 2 && data.totalPages >= data.paginationSize + 2) {
+    let i = 0
+    while (i++ < data.paginationSize - 1) {
+      ret.push(i)
+    }
+    ret.push('...')
+    ret.push(data.totalPages)
+  } else if (data.currentPage <= data.paginationSize - 2 && data.totalPages < data.paginationSize + 2) {
+    let i = 0
+    while (i++ < data.paginationSize - 1) {
+      ret.push(i)
+    }
+    ret.push('...')
+    ret.push(data.totalPages)
+  } else if (data.currentPage >= data.totalPages - data.paginationSize + 3) {
+    ret.push(1)
+    ret.push('...')
+    let i = data.totalPages - data.paginationSize + 1
+    while (i++ < data.totalPages) {
+      ret.push(i)
+    }
+  } else {
+    ret.push(1)
+    ret.push('...')
+    let i = data.currentPage - 2
+    while (i++ < data.currentPage + 1) {
+      ret.push(i)
+    }
+    ret.push('...')
+    ret.push(data.totalPages)
+  }
+  return ret
+}
+
 areaListDataChangedHandle(areaListData.value)
 
 watch(() => areaListData.value, areaListDataChangedHandle)
@@ -875,6 +929,12 @@ if (searchResultStore.getIsStore()) {
   areaList.value = searchResultStore.getArea()
   isCanMultiSelectProvince.value = searchResultStore.getIsCanMultiSelectProvince()
   isLeaveMeClosestDistance.value = searchResultStore.getIsLeaveMeClosestDistance()
+  paginationArr.value = generatePaginationArr({
+    totalPages: searchResultStore.getTotalPage(),
+    pageSize: searchResultStore.getPageSize(),
+    currentPage: searchResultStore.getCurrentPage(),
+    paginationSize: paginationSize.value,
+  })
   nextTick(() => {
     useHead({
       title: searchResultStore.getQuery() + ' - 搜索结果',
@@ -967,9 +1027,9 @@ nuxtApp.hook('page:finish', () => {
   <!-- pc端筛选 -->
   <ClientOnly>
   <div class="hidden md:flex flex-col w-full lg:w-3/4 lg:mx-auto py-4 rounded-lg select-none select-box-pc">
-    <div class="px-4 text-lg pb-4 mb-3 border-b border-solid border-gray-950">筛选条件</div>
+    <div class="px-4 text-lg pb-4 mb-3 border-b-2 border-solid select-box-pc-title">筛选条件</div>
     <!-- 已选条件 -->
-    <div :class="'relative inline-flex flex-row justify-start ' + (isCanMultiSelectProvince?'items-start':'items-center') + ' w-full text-sm px-4 pb-3 mb-3 border-b border-solid border-gray-950 transition-all'">
+    <div :class="'relative inline-flex flex-row justify-start ' + (isCanMultiSelectProvince?'items-start':'items-center') + ' w-full text-sm px-4 pb-3 mb-3 border-b-2 border-solid transition-all select-box-pc-selected'">
       <div :class="'inline-flex py-0.5 whitespace-nowrap select-item-title' + (areaList.filter(item=>item.is_selected).length>0?' font-orange':'') + ' transition-all'">已选条件</div>
       <!-- 多选地区条件下 -->
       <div v-if="isCanMultiSelectProvince" class="relative inline-flex flex-row w-full h-auto">
@@ -1057,11 +1117,11 @@ nuxtApp.hook('page:finish', () => {
       <div @click.stop.prevent="hideMultiSelectProvincePopup" :class="'fixed '+ (isShowMultiSelectProvincePopup ? 'left-0 top-0 w-full h-full' : 'left-1/2 top-1/2 w-0 h-0') + ' z-10 transition-all'"></div>
       <div @click.stop.prevent="false" :class="'absolute left-20 top-5 w-96 ' + (isShowMultiSelectProvincePopup ? 'max-h-screen' : 'max-h-0') + ' ml-2 z-20 rounded-lg overflow-hidden transition-all'" style="background-color: rgb(70,70,70);">
         <div class="relative mt-4 ml-4 transition-all">
-          <input class="w-48 h-6 pl-6 py-3 ml-0 text-white bg-transparent border-2 border-solid border-neutral-700 rounded-md transition-all outline-none area-search-text" placeholder="输入地区名称搜索" v-model="areaSearchText" @keyup="filterAreaSearchHandle" />
+          <input class="w-48 h-6 pl-6 py-3 ml-0 text-white bg-transparent border border-solid border-neutral-800 rounded-md transition-all outline-none area-search-text" placeholder="输入地区名称搜索" v-model="areaSearchText" @keyup="filterAreaSearchHandle" />
           <svg class="absolute left-1.5 top-0.5 inline-block w-4 h-6 transition-all" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="currentColor" d="M1014.64 969.04L703.71 656.207c57.952-69.408 92.88-158.704 92.88-256.208c0-220.912-179.088-400-400-400s-400 179.088-400 400s179.088 400 400 400c100.368 0 192.048-37.056 262.288-98.144l310.496 312.448c12.496 12.497 32.769 12.497 45.265 0c12.48-12.496 12.48-32.752 0-45.263zM396.59 736.527c-185.856 0-336.528-150.672-336.528-336.528S210.734 63.471 396.59 63.471c185.856 0 336.528 150.672 336.528 336.528S582.446 736.527 396.59 736.527z"/></svg>
         </div>
-        <div class="inline-flex flex-row w-full max-h-52 mt-4 border-t border-solid border-gray-950 rounded-b-lg" style="background-color: rgb(70,70,70);">
-          <div class="inline-flex flex-col w-1/2 h-auto overflow-y-scroll">
+        <div class="inline-flex flex-row w-full max-h-52 mt-4 border-t border-solid border-gray-800 rounded-b-lg" style="background-color: rgb(70,70,70);">
+          <div class="inline-flex flex-col w-1/2 h-auto overflow-y-scroll area-multi-select-bottom-left">
             <template v-for="(item, index) in areaList">
               <div v-if="index > 0" @click.stop="changeAreaFirstSelectedIndex(index)" :class="(item.is_show ? '' : 'hidden ') + 'relative inline-flex flex-row items-center mx-2 my-1 cursor-pointer transition-all select-area-list-item'">
                 <svg @click.stop="changeAreaFirstIsSelected(index)" class="w-4 h-4 transition-all font-orange" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1076,7 +1136,7 @@ nuxtApp.hook('page:finish', () => {
               </div>
             </template>
           </div>
-          <div class="inline-flex flex-col w-1/2 h-auto overflow-y-scroll">
+          <div class="inline-flex flex-col w-1/2 h-auto overflow-y-scroll area-multi-select-bottom-right">
             <template v-for="(item, index) in areaList[areaFirstSelectedIndex].childs">
               <div v-if="index > 0" @click.stop="changeAreaSecondIsSelected(index)" :class="(item.is_show ? '' : 'hidden ') + 'inline-flex flex-row items-center ml-2 my-1 cursor-pointer transition-all select-area-list-item'">
                 <svg class="w-4 h-4 transition-all font-orange" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1119,7 +1179,7 @@ nuxtApp.hook('page:finish', () => {
         <div class="inline-flex flex-row px-4">
           <img v-if="item.company_img && typeof item.company_img == 'string' && item.company_img.length > 0" class="w-8 h-8 md:w-24 md:h-24 rounded-md blur-md search-list-item-logo" :src="item.company_img" />
           <div v-else class="inline-flex justify-center items-center w-8 h-8 md:w-24 md:h-24 text-center rounded-md select-none whitespace-pre search-list-item-logo" :style="'min-width: 2rem;background-color: ' + item.word_logo_bg_color + ';'">
-            <span :class="'font-sans '+(item.short_name.length>1?'text-xs md:text-4xl word-logo-multi-words':'text-xl md:text-7xl word-logo-one-word')+' font-extrabold'">{{ item.short_name }}</span>
+            <span :class="'font-sans '+(item.short_name.length>1?'text-xs md:text-4xl word-logo-multi-words':'text-xl md:text-7xl word-logo-one-word')+' font-medium'">{{ item.short_name }}</span>
           </div>
           <div class="inline-flex flex-row items-center w-11/12 md:w-10/12 h-full pl-2 md:pl-4">
             <span class=" max-w-max text-base md:text-2xl md:font-bold whitespace-nowrap overflow-hidden text-ellipsis search-list-item-title">{{ item.company_name }}</span>
@@ -1158,7 +1218,7 @@ nuxtApp.hook('page:finish', () => {
             <span class="text-white whitespace-nowrap">{{ item.credit_code && item.credit_code.length > 0 ? item.credit_code : '-' }}</span>
           </div>
         </div>
-        <div class="hidden md:inline-flex flex-row justify-between w-3/4 mx-4 mt-2 pl-28">
+        <div class="hidden md:inline-flex flex-row justify-between w-3/4 mx-4 mt-0 pl-28">
           <div class="inline-flex flex-row">
             <span class="whitespace-nowrap">电话：</span>
             <div>
@@ -1172,9 +1232,9 @@ nuxtApp.hook('page:finish', () => {
           </div>
         </div>
         <!-- 搜索结果项 - 第三行 -->
-        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-t md:border-t-0 border-solid" style="border-color: #3c3c3c;">注册地址：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.address && item.address.length > 0 ? item.address : '-' }}</span></div>
+        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-0 md:mx-4 whitespace-nowrap overflow-hidden border-t md:border-t-0 border-solid" style="border-color: #3c3c3c;">注册地址：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.address && item.address.length > 0 ? item.address : '-' }}</span></div>
         <!-- 搜索结果项 - 第四行 -->
-        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-2 md:mx-4 whitespace-nowrap overflow-hidden border-t md:border-t-0 border-solid" style="border-color: #3c3c3c;">经营范围：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.business_scope && item.business_scope.length > 0 ? item.business_scope : '-' }}</span></div>
+        <div class="inline-flex w-full md:w-auto text-xs md:text-sm px-4 pt-4 md:pl-28 md:pt-0 mt-4 md:mt-0 md:mx-4 whitespace-nowrap overflow-hidden border-t md:border-t-0 border-solid" style="border-color: #3c3c3c;">经营范围：<span class="inline-block w-full text-xs md:text-sm text-white whitespace-nowrap text-ellipsis overflow-hidden">{{ item.business_scope && item.business_scope.length > 0 ? item.business_scope : '-' }}</span></div>
         <div class="absolute">
           <div @click.stop.prevent="hidePhonePopupByPc" :class="'fixed ' + (item.is_show_phone_popup ? 'left-0 top-0 w-full h-full' : 'left-1/2 top-1/2 w-0 h-0') + ' overflow-hidden z-10 cursor-default transition-all'"></div>
           <div @click.stop.prevent="false" :class="'absolute left-32 top-24 inline-flex w-44 ' + (item.is_show_phone_popup ? 'max-h-screen p-2' : 'max-h-0 p-0') + ' bg-white overflow-hidden z-20 rounded-lg shadow shadow-black cursor-default transition-all'">
@@ -1195,49 +1255,22 @@ nuxtApp.hook('page:finish', () => {
   </div>
   </ClientOnly>
   <ClientOnly>
-  <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-5 pagination" :style="'--real-width:'+headerWidth+';'">
-    <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage > 1" @click="jumpToPrevPage">上一页</div>
-    <template v-if="totalPages <= paginationSize">
-      <template v-for="i in totalPages">
-        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
+  <div class="relative hidden md:inline-flex justify-center items-center w-full text-xs my-8 pagination" :style="'--real-width:'+headerWidth+';'">
+    <template v-if="currentPage > 1">
+      <div class="inline-flex justify-center items-center mr-5 page-button" @click="jumpToPrevPage">上一页</div>
     </template>
-    <template v-else-if="currentPage <= paginationSize - 2 && totalPages >= paginationSize + 2">
-      <template v-for=" i in paginationSize - 1">
-        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
-    </template>
-    <template v-else-if="currentPage <= paginationSize - 2 && totalPages < paginationSize + 2">
-      <template v-for=" i in paginationSize - 1">
-        <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
-    </template>
-    <template v-else-if="currentPage >= totalPages - paginationSize + 3">
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === 1 ? ' selected' : '')" @click="jumpToPage(1)">1</div>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <template v-for="i in totalPages">
-        <div v-if="i >= totalPages - paginationSize + 2" :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-    </template>
-    <template v-else>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === 1 ? ' selected' : '')" @click="jumpToPage(1)">1</div>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <template v-for="i in currentPage + 1">
-        <div v-if="i >= currentPage - 1" :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="jumpToPage(i)">{{ i }}</div>
-      </template>
-      <div class="inline-flex justify-center items-center mr-5 ellipsis">...</div>
-      <div :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === totalPages ? ' selected' : '')" @click="jumpToPage(totalPages)">{{ totalPages }}</div>
+    <template v-for="i in paginationArr">
+      <div v-if="(typeof i === 'number')" :class="'inline-flex justify-center items-center mr-5 page-button'+(currentPage === i ? ' selected' : '')" @click="(currentPage === i ? function(){} : jumpToPage(i))">{{ i }}</div>
+      <div v-else class="inline-flex justify-center items-center mr-5 ellipsis">{{ i }}</div>
     </template>
     <div class="inline-flex justify-center items-center mr-5 jump-to">
       <span>跳到</span>
       <input class="w-16 mx-2 text-center" type="text" v-model="inputPage" @keyup.enter="jumpToInputPage" />
       <button @click="jumpToInputPage">确定</button>
     </div>
-    <div class="inline-flex justify-center items-center mr-5 page-button" v-if="currentPage < totalPages" @click="jumpToNextPage">下一页</div>
+    <template v-if="currentPage < totalPages">
+      <div class="inline-flex justify-center items-center mr-5 page-button" @click="jumpToNextPage">下一页</div>
+    </template>
   </div>
   </ClientOnly>
   <!-- 电话号码展示弹窗 -->
@@ -1289,6 +1322,23 @@ nuxtApp.hook('page:finish', () => {
   box-shadow: 0px 20px 20px 0px #151515;
 }
 
+/* 兼容firefox滚动条样式 */
+.area-multi-select-bottom-left,
+.area-multi-select-bottom-right {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) rgb(70, 70, 70);
+}
+
+.area-multi-select-bottom-left:hover,
+.area-multi-select-bottom-right:hover {
+  scrollbar-color: rgba(255,255,255,0.4) rgb(70, 70, 70);
+}
+
+.area-multi-select-bottom-left:active,
+.area-multi-select-bottom-right:active {
+  scrollbar-color: rgba(255,255,255,0.9) rgb(70, 70, 70);
+}
+
 ::-webkit-scrollbar {
   height: .5rem;
   width: .25rem;
@@ -1300,7 +1350,7 @@ nuxtApp.hook('page:finish', () => {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  background-color: rgb(70, 70, 70);
   border-radius: 9999px;
 }
 
@@ -1398,9 +1448,14 @@ nuxtApp.hook('page:finish', () => {
   background-color: rgb(45,45,45);
 }
 
+.select-box-pc-title,
+.select-box-pc-selected {
+  border-color: #282828;
+}
+
 .area-search-text:hover,
 .area-search-text:focus-visible {
-  border-color: #333333;  
+  border-color: #000000;  
 }
 .area-search-text ~ svg {
   color: rgb(153,153,153);
@@ -1533,6 +1588,13 @@ div:hover > .select-item-title.font-orange,
   color: #ffb470;
 }
 
+@media (max-width: 768px) {
+  .search-list-item-logo span {
+    letter-spacing: calc(100vw / 750 * 2);
+    margin-left: calc(100vw / 750 * 2);
+  }
+}
+
 @media (min-width: 768px) {
   .area-select-box {
     margin-left: 25%;
@@ -1573,12 +1635,14 @@ div:hover > .select-item-title.font-orange,
   }
 
   .word-logo-multi-words {
-    font-size: max(12px, calc(100vw / 1920 * 36));
+    font-size: max(12px, calc(100vw / 1920 * 28));
+    letter-spacing: calc(100vw / 1920 * 6);
     line-height: calc(100vw / 1920 * 40);
+    margin-left: calc(100vw / 1920 * 6);
   }
 
   .search-list-item-title {
-    font-size: max(12px, calc(100vw / 1920 * 24));
+    font-size: max(12px, calc(100vw / 1920 * 30));
     line-height: calc(100vw / 1920 * 48);
   }
   .search-list-item-title + span {

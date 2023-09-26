@@ -613,7 +613,7 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
     </ClientOnly>
     <ClientOnly>
       <div class="hidden md:inline-flex flex-row items-center w-full our-services">
-        <ul class="list-none inline-flex flex-row flex-nowrap justify-evenly items-center w-full text-center text-base lg:text-lg 2xl:text-xl">
+        <ul class="list-none inline-flex flex-row flex-nowrap justify-evenly items-center w-full text-center text-base lg:text-lg">
           <li class="transition-all" v-for="item in ourServiceList">
             <NuxtLink :to="item.url">{{ item.name }}</NuxtLink>
           </li>
@@ -677,7 +677,7 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
 }
 
 .footer .top *:not(.title) {
-  font-size: max(12px, calc(100vw / 1920 * 5));
+  font-size: max(12px, calc(100vw / 1920 * 16));
 }
 
 .footer .top .about-us ul {
@@ -706,6 +706,10 @@ const copyRightEndYear = ref<number>((new Date()).getFullYear())
   padding-left: calc(100vw / 1920* 95);
   padding-right: calc(100vw / 1920* 95);
   font-size: max(12px, calc(100vw / 1920 * 26));
+}
+
+.footer .our-services ul {
+  font-size: max(12px, calc(100vw / 1920 * 20));
 }
 
 .footer .bottom {
