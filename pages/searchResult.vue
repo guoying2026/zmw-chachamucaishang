@@ -873,7 +873,7 @@ function generatePaginationArr(data: {
   let ret: (string|number)[] = []
   if (data.totalPages <= data.paginationSize) {
     let i = 0
-    while (i++ < data.paginationSize) {
+    while (i++ < data.totalPages) {
       ret.push(i)
     }
   } else if (data.currentPage <= data.paginationSize - 2 && data.totalPages >= data.paginationSize + 2) {
