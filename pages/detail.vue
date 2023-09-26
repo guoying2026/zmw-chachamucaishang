@@ -1849,6 +1849,7 @@ import {useDynamicStore} from "~/pinia/dynamicStore";
 const dynamicStore = useDynamicStore();
 import {useDynamicCategoriesStore} from "~/pinia/dynamicCategoriesStore";
 import {useDynamic} from "~/composables/dynamic";
+import {Dynamic} from "~/types/dynamicType";
 const dynamicCategoriesStore = useDynamicCategoriesStore();
 const toggleCategory = (key: CategoryKeys) => {
   dynamicCategoriesStore.toggleCategory(key);
@@ -1872,19 +1873,23 @@ const filteredDynamics = computed(() => {
   console.log(subCategory);
   if (category === "ALL") {
     return dynamicStore.dynamics;
-  }
-  // if (!dynamicCategoriesStore.isMore) {
-  //   return dynamicStore.dynamics.filter(dynamic => dynamic.category === category);
-  // } else {
-
+  } else {
     if (subCategory === '全部') {
-      return dynamicStore.dynamics.filter(dynamic => dynamic.category === dynamicCategoriesStore.CATEGORIES[category]);
+      if(dynamicCategoriesStore.CATEGORIES[category] === "全部类型"){
+        return dynamicStore.dynamics;
+      } else {
+        let res = dynamicStore.dynamics.filter(dynamic => dynamic.category === dynamicCategoriesStore.CATEGORIES[category]);
+        console.log(res);
+        return res;
+      }
     } else {
-      return dynamicStore.dynamics.filter(dynamic =>
+      let res = dynamicStore.dynamics.filter(dynamic =>
           dynamic.category === dynamicCategoriesStore.CATEGORIES[category] && dynamic.subCategory === subCategory
       );
+      console.log(res);
+      return res;
     }
-  // }
+  }
 })
 // 计算属性
 // const mobileFilteredDynamics = () => {
@@ -1937,7 +1942,6 @@ const filteredDynamics = computed(() => {
     if (!newProps) return;
     window.location.reload()
   })
-
   onMounted(() => {
     fetchShopDetails();
     fetchDynamic();
