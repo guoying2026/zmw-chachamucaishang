@@ -4,8 +4,10 @@ export type DynamicParams = {
 };
 
 export interface Dynamic {
+    id: number,
     level: string,
-    type: string,
+    category: string,
+    subCategory: string,
     content: string,
     updateTime: string,
 }

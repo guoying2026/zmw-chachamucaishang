@@ -1,4 +1,10 @@
 <style scoped>
+.width-1{
+  width: 100px;
+}
+.width-2{
+  width: 150px;
+}
 .question_display_middle{
   flex:1;
 }
@@ -906,7 +912,7 @@
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
   <div class="third computer">
-    <ShopFace :companyName="company_name" :companyId="Number(query.id)" :creditScore="Number(credit_score)"></ShopFace>
+    <ShopFace :companyName="String(company_name)" :companyId="Number(query.id)" :creditScore="Number(credit_score)"></ShopFace>
     <div class="third_2">
       <client-only>
         <div class="third_2_space">
@@ -956,13 +962,13 @@
             <img class="third_4_left_4_1_left" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_395067ed-d2f0-4c5b-b2fc-cb322af9cc75.png" alt="商家地址图标"/>
             <text class="third_4_left_4_1_right">商家地址</text>
           </div>
-          <NearbyBusinessMap :lat="Number(lat)" :lng="Number(lng)" :address="address" :isNearBy="true" :company-name="company_name">
+          <NearbyBusinessMap :lat="Number(lat)" :lng="Number(lng)" :address="String(address)" :isNearBy="true" :company-name="String(company_name)">
             <template #trigger>
               <text class="third_4_left_4_2">附近商家 ></text>
             </template>
           </NearbyBusinessMap>
         </div>
-        <BusinessMap :lat="Number(lat)" :lng="Number(lng)" :address="address"></BusinessMap>
+        <BusinessMap :lat="Number(lat)" :lng="Number(lng)" :address="String(address)"></BusinessMap>
         <div class="map_address">
           <svg class="icon" viewBox="0 0 1024 1024" width="200" height="200"><path d="M513.8 63.4C327.2 63.4 173 221.2 173 414.9c0 186.5 304.9 520.2 319.3 534.5 3.6 7.2 14.3 10.8 21.5 10.8s17.9-3.6 21.5-10.8l104-125.6C779.2 644.5 851 508.2 851 414.9c3.6-193.7-150.7-351.5-337.2-351.5z m0 513c-86.1 0-154.3-71.7-154.3-161.4s68.2-161.4 154.3-161.4S668 325.3 668 414.9s-68.1 161.5-154.2 161.5z" fill="#ffffff"></path></svg>
           <text>{{address}}</text>
@@ -1053,18 +1059,18 @@
     </div>
     <div class="tab_2_space" v-if="tabItemStore.tabItem*1 === 2">
       <div class="tab_2_space_1">
-        <text>全部动态 5</text>
+        <text>全部动态 {{dynamicStore.dynamics.length}}</text>
         <div class="horizontal_line"></div>
         <div class="choose_item">
           <text class="choose_title">动态类型</text>
           <div class="choose_detail">
-            <text v-for="key in dynamicCategoriesStore.pcCategoryKeys" :key="key" :class="dynamicCategoriesStore.selectedCategory === key?'chose':''" @click="toggleCategory(key)">{{dynamicCategoriesStore.CATEGORIES[key]}}</text>
+            <text v-for="key in dynamicCategoriesStore.pcCategoryKeys" :key="key" :class="dynamicCategoriesStore.selectedCategory === key?'chose':''" @click.stop="toggleCategory(key)">{{dynamicCategoriesStore.CATEGORIES[key]}}</text>
           </div>
         </div>
         <div class="choose_item">
           <text class="choose_title"></text>
           <div class="choose_detail">
-            <text :class="sub === dynamicCategoriesStore.selectedSubCategory?'chose':''" v-for="(sub, key) in dynamicCategoriesStore.SUB_CATEGORIES[dynamicCategoriesStore.selectedCategory]" :key="key" @click="selectSubCategory(sub)">{{sub}}</text>
+            <text :class="sub === dynamicCategoriesStore.selectedSubCategory?'chose':''" v-for="(sub, key) in dynamicCategoriesStore.SUB_CATEGORIES[dynamicCategoriesStore.selectedCategory]" :key="key" @click.stop="selectSubCategory(sub)">{{sub}}</text>
           </div>
         </div>
 <!--        <div class="choose_item">-->
@@ -1077,19 +1083,19 @@
 <!--          </div>-->
 <!--        </div>-->
       </div>
-      <template v-if="pcFilteredDynamics.length < 1">
+      <template v-if="filteredDynamics.length < 1">
         <NoDetail v-if="dynamicCategoriesStore.selectedSubCategory === '全部'" class="margin-10-top" type="动态" :text="'暂无查询到该企业的'+dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory]+'动态'" :has-button="false"></NoDetail>
         <NoDetail v-else class="margin-10-top" type="动态" :text="'暂无查询到该企业的【 '+dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory] +' > '+dynamicCategoriesStore.selectedSubCategory +' 】动态'" :has-button="false"></NoDetail>
       </template>
       <table v-else>
         <tr class="table_title">
-          <th>动态等级</th>
-          <th>动态类型</th>
+          <th class="width-2">动态等级</th>
+          <th class="width-2">动态类型</th>
           <th class="wide-column">动态内容</th>
-          <th>更新时间</th>
-          <th>操作</th>
+          <th class="width-2">更新时间</th>
+          <th class="width-1">操作</th>
         </tr>
-        <tr class="table_detail" v-for="dynamic in pcFilteredDynamics" :key="dynamic.id">
+        <tr class="table_detail" v-for="dynamic in filteredDynamics" :key="dynamic.id">
           <td :class="getClass(dynamic.level)">{{dynamic.level}}</td>
           <td>{{dynamic.subCategory}}</td>
           <td class="wide-column" v-html="dynamic.content"></td>
@@ -1108,7 +1114,7 @@
                    :reply-index="0"
                    :company-info-id="Number(query.id)"
                    :reply-user-id="0"
-                   :reply-user="company_name"
+                   :reply-user="String(company_name)"
                    :main-id="0"
                    :main-reply-id="0"
                    title-box="评论"
@@ -1224,7 +1230,7 @@
                    :reply-index="0"
                    :company-info-id="Number(query.id)"
                    :reply-user-id="0"
-                   :reply-user="company_name"
+                   :reply-user="String(company_name)"
                    :main-id="0"
                    :main-reply-id="0"
                    title-box="提问"
@@ -1295,7 +1301,7 @@
     <div class="tab_5_space" v-if="tabItemStore.tabItem*1 === 6 || tabItemStore.tabItem*1 === 9">
       <div class="tab_5_space_left"></div>
       <div class="tab_5_space_middle">
-        <ComplaintList :company-info-id="Number(query.id)" :company-name="company_name"></ComplaintList>
+        <ComplaintList :company-info-id="Number(query.id)" :company-name="String(company_name)"></ComplaintList>
       </div>
       <div class="tab_5_space_right">
         <div class="tab_5_space_3">
@@ -1317,7 +1323,7 @@
     </div>
   </div>
   <div class="third mobile">
-    <ShopFace :companyName="company_name" :companyId="Number(query.id)" :creditScore="Number(credit_score)"></ShopFace>
+    <ShopFace :companyName="String(company_name)" :companyId="Number(query.id)" :creditScore="Number(credit_score)"></ShopFace>
     <div class="third_2">
       <client-only>
         <div class="third_2_space">
@@ -1536,7 +1542,7 @@
                      :reply-index="0"
                      :company-info-id="Number(query.id)"
                      :reply-user-id="0"
-                     :reply-user="company_name"
+                     :reply-user="String(company_name)"
                      :main-id="0"
                      :main-reply-id="0"
                      title-box="评论"
@@ -1595,7 +1601,7 @@
                      :reply-index="0"
                      :company-info-id="Number(query.id)"
                      :reply-user-id="0"
-                     :reply-user="company_name"
+                     :reply-user="String(company_name)"
                      :main-id="0"
                      :main-reply-id="0"
                      title-box="提问"
@@ -1622,14 +1628,14 @@
         <span>更多></span>
       </NuxtLink>
     </div>
-    <ComplaintListMobile :limit="2" :company-info-id="Number(query.id)" :company-name="company_name" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
+    <ComplaintListMobile :limit="2" :company-info-id="Number(query.id)" :company-name="String(company_name)" :is-show-reply="false" v-if="tabItemStore.tabItem*1 === 3"></ComplaintListMobile>
     <template v-if="tabItemStore.tabItem*1 === 3">
       <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
                      :index="0"
                      :reply-index="0"
                      :company-info-id="Number(query.id)"
                      :reply-user-id="0"
-                     :reply-user="company_name"
+                     :reply-user="String(company_name)"
                      :main-id="0"
                      :main-reply-id="0"
                      title-box="投诉"
@@ -1711,7 +1717,7 @@
                    :reply-index="0"
                    :company-info-id="Number(query.id)"
                    :reply-user-id="0"
-                   :reply-user="company_name"
+                   :reply-user="String(company_name)"
                    :main-id="0"
                    :main-reply-id="0"
                    title-box="评论"
@@ -1761,7 +1767,7 @@
                    :reply-index="0"
                    :company-info-id="Number(query.id)"
                    :reply-user-id="0"
-                   :reply-user="company_name"
+                   :reply-user="String(company_name)"
                    :main-id="0"
                    :main-reply-id="0"
                    title-box="提问"
@@ -1815,6 +1821,18 @@
   </client-only>
 </template>
 <script setup lang="ts">
+import Tag from "~/components/Tag.vue";
+import CommentList from "~/components/CommentList.vue";
+import NoDetail from "~/components/NoDetail.vue";
+import ComplaintList from "~/components/ComplaintList.vue";
+import {useShopDetails} from "~/composables/shop";
+import { useRoute } from 'vue-router';
+import CommentListMobile from "~/components/CommentListMobile.vue";
+import {CategoryKeys} from "~/types/dynamicCategories";
+import ShopFace from "~/components/ShopFace.vue";
+import NearbyBusinessMap from "~/components/NearbyBusinessMap.vue";
+import LikeSwitch from "~/components/LikeSwitch.vue";
+import {useComplaintStore} from "~/pinia/complaintStore";
 import {useUserInfoStore} from "~/pinia/userInfo";
 const userInfoStore = useUserInfoStore();
 import { ref, onMounted,nextTick } from 'vue';
@@ -1830,134 +1848,132 @@ const questionStore = useQuestionStore();
 import {useDynamicStore} from "~/pinia/dynamicStore";
 const dynamicStore = useDynamicStore();
 import {useDynamicCategoriesStore} from "~/pinia/dynamicCategoriesStore";
+import {useDynamic} from "~/composables/dynamic";
 const dynamicCategoriesStore = useDynamicCategoriesStore();
 const toggleCategory = (key: CategoryKeys) => {
   dynamicCategoriesStore.toggleCategory(key);
 }
 const toggleMoreCategory = (key: CategoryKeys) => {
   dynamicCategoriesStore.toggleMoreCategory(key);
+  // mobileFilteredDynamics();
 }
 const toggleMoreTypes = () => {
   dynamicCategoriesStore.toggleMoreTypes();
+  // mobileFilteredDynamics();
 }
 const selectSubCategory = (sub: string) => {
   dynamicCategoriesStore.selectSubCategory(sub);
-  // nextTick(scrollToSelected);
 }
-// const scrollContainer = ref<HTMLElement | null>(null);;
-// const scrollToSelected = () => {
-//   if(!scrollContainer.value){
-//     return;
-//   }
-//   const items = scrollContainer.value.children;
-//   for (let i = 0; i < items.length; i++) {
-//     if (items[i].classList.contains('selected_category')) {
-//       scrollContainer.value.scrollTop = (items[i] as HTMLElement).offsetTop;
-//       break;
-//     }
-//   }
-// }
-const pcFilteredDynamics = computed(() => {
-  return dynamicStore.getPcDynamicsByCategoryAndSubCategory(
-      dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory],
-      dynamicCategoriesStore.selectedSubCategory,
-  );
+const filteredDynamics = computed(() => {
+  const category = dynamicCategoriesStore.selectedCategory;
+  const subCategory = dynamicCategoriesStore.selectedSubCategory;
+  console.log(category);
+  console.log(dynamicCategoriesStore.CATEGORIES[category]);
+  console.log(subCategory);
+  if (category === "ALL") {
+    return dynamicStore.dynamics;
+  }
+  // if (!dynamicCategoriesStore.isMore) {
+  //   return dynamicStore.dynamics.filter(dynamic => dynamic.category === category);
+  // } else {
+
+    if (subCategory === '全部') {
+      return dynamicStore.dynamics.filter(dynamic => dynamic.category === dynamicCategoriesStore.CATEGORIES[category]);
+    } else {
+      return dynamicStore.dynamics.filter(dynamic =>
+          dynamic.category === dynamicCategoriesStore.CATEGORIES[category] && dynamic.subCategory === subCategory
+      );
+    }
+  // }
 })
 // 计算属性
-const filteredDynamics = computed(() => {
-  if(dynamicCategoriesStore.selectedCategory === 'MORE'){
-    return dynamicStore.getDynamicsByCategoryAndSubCategory(
-        dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedMoreCategory],
-        dynamicCategoriesStore.selectedSubCategory,
-        true,
-    )
-  }
-  return dynamicStore.getDynamicsByCategoryAndSubCategory(
-      dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory],
-      dynamicCategoriesStore.selectedSubCategory,
-      false,
-  );
+// const mobileFilteredDynamics = () => {
+//   if(dynamicCategoriesStore.selectedCategory === 'MORE'){
+//     return dynamicStore.getDynamicsByCategoryAndSubCategory(
+//         dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedMoreCategory],
+//         dynamicCategoriesStore.selectedSubCategory,
+//         true,
+//     )
+//   }
+//   return dynamicStore.getDynamicsByCategoryAndSubCategory(
+//       dynamicCategoriesStore.CATEGORIES[dynamicCategoriesStore.selectedCategory],
+//       dynamicCategoriesStore.selectedSubCategory,
+//       false,
+//   );
+// }
 
-});
-import Tag from "~/components/Tag.vue";
-import CommentList from "~/components/CommentList.vue";
-import NoDetail from "~/components/NoDetail.vue";
-import ComplaintList from "~/components/ComplaintList.vue";
-import {useShopDetails} from "~/composables/shop";
-import { useRoute } from 'vue-router';
-import CommentListMobile from "~/components/CommentListMobile.vue";
-import {CategoryKeys} from "~/types/dynamicCategories";
-import ShopFace from "~/components/ShopFace.vue";
-import NearbyBusinessMap from "~/components/NearbyBusinessMap.vue";
-import LikeSwitch from "~/components/LikeSwitch.vue";
-import {useComplaintStore} from "~/pinia/complaintStore";
-
-const route = useRoute();
-const query = route.query;
-const id = query.id as number|string;
-const shopDetails = useShopDetails(id);
-const {
-  address,
-  company_name,
-  business_scope,
-  company_sort,
-  contact_phone,
-  corporation,
-  credit_code,
-  credit_score,
-  email,
-  foundation_date,
-  geohash,
-  industry,
-  lat,
-  lng,
-  operation_state,
-  organisation_code,
-  registered_capital,
-  registration_mark,
-  taxpayer_id,
-  province,
+  const route = useRoute();
+  const query = route.query;
+  const id = query.id as number | string;
+  const shopDetails = useShopDetails(id);
+  const {
+    address,
+    company_name,
+    business_scope,
+    company_sort,
+    contact_phone,
+    corporation,
+    credit_code,
+    credit_score,
+    email,
+    foundation_date,
+    geohash,
+    industry,
+    lat,
+    lng,
+    operation_state,
+    organisation_code,
+    registered_capital,
+    registration_mark,
+    taxpayer_id,
+    province,
     city,
     district,
-  fetchShopDetails,
-} = shopDetails;
-watch(() => route.query.id, (newProps) => {
-  if (!newProps) return;
-  window.location.reload()
-})
+    fetchShopDetails,
+  } = shopDetails;
+  const dynamic = useDynamic(Number(id));
+  const {fetchDynamic} = dynamic;
+  watch(() => route.query.id, (newProps) => {
+    if (!newProps) return;
+    window.location.reload()
+  })
 
-onMounted(() => {
-   fetchShopDetails();
-});
-const complaintStore = useComplaintStore();
-onBeforeUnmount(() => {
-  commentStore.$reset();
-  questionStore.$reset();
-  complaintStore.$reset();
-})
-const clampTextRef =  ref<HTMLElement | null>(null);
-const isExpanded = ref(false);
+  onMounted(() => {
+    fetchShopDetails();
+    fetchDynamic();
+  });
+  const complaintStore = useComplaintStore();
+  onBeforeUnmount(() => {
+    commentStore.$reset();
+    questionStore.$reset();
+    complaintStore.$reset();
+  })
+  const clampTextRef = ref<HTMLElement | null>(null);
+  const isExpanded = ref(false);
 
-const toggleClamp = () => {
-  if (!clampTextRef.value) return;  // add this line
+  const toggleClamp = () => {
+    if (!clampTextRef.value) return;  // add this line
 
-  if (isExpanded.value || clampTextRef.value.scrollHeight > clampTextRef.value.clientHeight) {
-    isExpanded.value = !isExpanded.value;
+    if (isExpanded.value || clampTextRef.value.scrollHeight > clampTextRef.value.clientHeight) {
+      isExpanded.value = !isExpanded.value;
+    }
   }
-}
-const switchTab = (item :number) => {
-  tabItemStore.tabItem = item;
-}
-const getClass = (level:string) => {
-  switch (level) {
-    case "利好":
-      return "green_classify";
-    case "警示":
-      return "pink_classify";
-    case "提示":
-      return "blue_classify";
-    case "高风险":
-      return "red_classify";
+  const switchTab = (item: number) => {
+    tabItemStore.tabItem = item;
   }
-}
+  const getClass = (level: string) => {
+    switch (level) {
+      case "利好":
+        return "green_classify";
+      case "警示":
+        return "pink_classify";
+      case "提示":
+        return "blue_classify";
+      case "风险":
+        return "red_classify";
+      case "高风险":
+        return "red_classify";
+    }
+  }
+
 </script>
