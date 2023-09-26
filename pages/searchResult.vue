@@ -1199,8 +1199,13 @@ nuxtApp.hook('page:finish', () => {
           <div class="inline-flex flex-col items-center">
             <span>电话</span>
             <div class="inline-flex flex-row items-center mt-1">
-              <span>{{ item.contact_phone && item.contact_phone.length > 0 ? item.contact_phone : '-' }}</span>
-              <button v-if="typeof item.contact_phone === 'object' && item.contact_phone instanceof Array && item.contact_phone.length > 1" @click.stop.prevent="showAllPhone(index)" class="ml-1 font-orange">更多</button>
+              <template v-if="typeof item.contact_phone === 'object' && (item.contact_phone instanceof Array)">
+                <span>{{ item.contact_phone[0] ? item.contact_phone[0] : '-' }}</span>
+                <button v-if="item.contact_phone.length > 1" @click.stop.prevent="showAllPhone(index)" class="ml-1 font-orange">更多</button>
+              </template>
+              <template v-else>
+                <span>{{ item.contact_phone && item.contact_phone.length > 0 ? item.contact_phone : '-' }}</span>
+              </template>
             </div>
           </div>
         </div>
@@ -1222,8 +1227,13 @@ nuxtApp.hook('page:finish', () => {
           <div class="inline-flex flex-row">
             <span class="whitespace-nowrap">电话：</span>
             <div>
-              <span class="text-white whitespace-nowrap">{{ item.contact_phone && item.contact_phone.length > 0 ? item.contact_phone : '-' }}</span>
-              <button v-if="typeof item.contact_phone === 'object' && item.contact_phone instanceof Array && item.contact_phone.length > 1" @click.stop.prevent="showAllPhoneByPc(index)" class="ml-1 font-orange">更多</button>
+              <template v-if="typeof item.contact_phone === 'object' && (item.contact_phone instanceof Array)">
+                <span class="text-white whitespace-nowrap">{{ item.contact_phone[0] ? item.contact_phone[0] : '-' }}</span>
+                <button v-if="item.contact_phone.length > 1" @click.stop.prevent="showAllPhoneByPc(index)" class="ml-1 font-orange">更多</button>
+              </template>
+              <template v-else>
+                <span class="text-white whitespace-nowrap">{{ item.contact_phone ? item.contact_phone : '-' }}</span>
+              </template>
             </div>
           </div>
           <div class="inline-flex flex-row">
