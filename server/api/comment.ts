@@ -2,8 +2,8 @@
 import {Reaction} from "~/types/feedback";
 
 
-const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://api.jinrongwan.cn/' : 'https://zmwapi.jinrongwan.cn/';
-// const BASE_URL = "https://api.jinrongwan.cn/"; // 替换为你的后端URL
+// const BASE_URL = process.env.NODE_ENV == 'production' ? 'https://api.jinrongwan.cn/' : 'https://zmwapi.jinrongwan.cn/';
+const BASE_URL = "https://zmwapi.jinrongwan.cn/"; // 替换为你的后端URL
 
 // 获取评论的函数
 export const commentListApi = async ({ company_info_id, user_id }: CommentListParams): Promise<CommentListResponse> => {
