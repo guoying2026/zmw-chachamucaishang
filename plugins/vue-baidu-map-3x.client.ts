@@ -21,7 +21,7 @@ export default defineNuxtPlugin({
     hooks: {
         'app:created'() {
             const nuxtApp = useNuxtApp()
-            console.log('插件被注册')
+            
             // 在此可以进行一些当应用被创建时的操作，如果有需要的话
             serviceContainer.registerHandler('question', questionFeedbackHandler);
             serviceContainer.registerHandler('commentReply', commentReplyFeedbackHandler);
@@ -29,8 +29,8 @@ export default defineNuxtPlugin({
             serviceContainer.registerHandler('answer', answerFeedbackHandler);
             serviceContainer.registerHandler('complaint', complaintFeedbackHandler);
             serviceContainer.registerHandler('complaintReply', complaintReplyFeedbackHandler);
-            console.log(serviceContainer);
-            console.log(`Handler for 'comment' registered successfully.`);
+            
+            
         }
     }
 })

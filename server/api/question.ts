@@ -6,12 +6,12 @@ import {Reaction} from "~/types/feedback";
 const BASE_URL = "https://zmwapi.jinrongwan.cn/"; // 替换为你的后端URL
 
 // 获取评论的函数
-export const commentListApi = async ({ company_info_id, user_id }: CommentListParams): Promise<CommentListResponse> => {
+export const questionListApi = async ({ company_info_id, user_id }: QuestionListParams): Promise<QuestionListResponse> => {
 
     // 构造查询字符串
     const queryString = new URLSearchParams({ company_info_id: String(company_info_id), user_id: String(user_id) }).toString();
 
-    const response = await fetch(`${BASE_URL}/Pc/CompanyComment/companyCommentList?${queryString}`, {
+    const response = await fetch(`${BASE_URL}/Pc/Question/questionList?${queryString}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -25,11 +25,11 @@ export const commentListApi = async ({ company_info_id, user_id }: CommentListPa
 
     return data;
 }
-export const deleteCommentApi = async({company_info_id,id}:{company_info_id:number;id:number;}) => {
+export const deleteQuestionApi = async({id,companyInfoId}:{id:number;companyInfoId:number}) => {
     const formData = new URLSearchParams();
-    formData.append('company_info_id',company_info_id.toString());
     formData.append('id',id.toString());
-    const response = await fetch(`${BASE_URL}/Pc/CompanyComment/deleteComment`, {
+    formData.append('companyInfoId',companyInfoId.toString());
+    const response = await fetch(`${BASE_URL}/Pc/Question/deleteQuestion`, {
         method: 'POST',
         headers: {
             "Content-Type": 'application/x-www-form-urlencoded'
@@ -43,12 +43,12 @@ export const deleteCommentApi = async({company_info_id,id}:{company_info_id:numb
 
     return response.json();
 }
-export const deleteCommentReplyApi = async({id,company_info_id,company_comment_id}:{id:number;company_info_id:number;company_comment_id:number}) => {
+export const deleteAnswerApi = async({id,question_id,companyInfoId}:{id:number;question_id:number;companyInfoId:number}) => {
     const formData = new URLSearchParams();
     formData.append('id',id.toString());
-    formData.append('company_info_id',company_info_id.toString());
-    formData.append('company_comment_id',company_comment_id.toString());
-    const response = await fetch(`${BASE_URL}/Pc/CompanyComment/deleteCommentReply`, {
+    formData.append('answer_question_id',question_id.toString());
+    formData.append('company_info_id',companyInfoId.toString());
+    const response = await fetch(`${BASE_URL}/Pc/Question/deleteAnswer`, {
         method: 'POST',
         headers: {
             "Content-Type": 'application/x-www-form-urlencoded'
@@ -62,15 +62,15 @@ export const deleteCommentReplyApi = async({id,company_info_id,company_comment_i
 
     return response.json();
 }
-export const likedCommentApi = async ({companyInfoId, comment_id, userId, newReaction}: { companyInfoId: number; comment_id: number; userId: number;newReaction: Reaction }) => {
+export const likedQuestionApi = async ({companyInfoId, question_id, userId, newReaction}: { companyInfoId: number; question_id: number; userId: number;newReaction: Reaction }) => {
 
     const formData = new URLSearchParams();
     formData.append('company_info_id', companyInfoId.toString());
-    formData.append('company_comment_id', comment_id.toString());
+    formData.append('answer_question_id', question_id.toString());
     formData.append('user_id', userId.toString());
     formData.append('is_liked', newReaction.toString());
 
-    const response = await fetch(`${BASE_URL}/Pc/CompanyComment/likedComment`, {
+    const response = await fetch(`${BASE_URL}/Pc/Question/likeQuestion`, {
         method: 'POST',
         headers: {
             "Content-Type": 'application/x-www-form-urlencoded'
@@ -84,16 +84,16 @@ export const likedCommentApi = async ({companyInfoId, comment_id, userId, newRea
 
     return response.json();
 }
-export const likedCommentReplyApi = async ({companyInfoId, comment_id, comment_reply_id,userId, newReaction}: { companyInfoId: number; comment_id: number; comment_reply_id: number;userId: number;newReaction: Reaction;}) => {
+export const likedAnswerApi = async ({companyInfoId, question_id, question_reply_id,userId, newReaction}: { companyInfoId: number; question_id: number; question_reply_id: number;userId: number;newReaction: Reaction;}) => {
 
     const formData = new URLSearchParams();
     formData.append('company_info_id', companyInfoId.toString());
-    formData.append('company_comment_id', comment_id.toString());
-    formData.append('company_comment_reply_id',comment_reply_id.toString());
+    formData.append('answer_question_id', question_id.toString());
+    formData.append('answer_id',question_reply_id.toString());
     formData.append('user_id', userId.toString());
     formData.append('is_liked', newReaction.toString());
 
-    const response = await fetch(`${BASE_URL}/Pc/CompanyComment/likedCommentReply`, {
+    const response = await fetch(`${BASE_URL}/Pc/Question/likeAnswer`, {
         method: 'POST',
         headers: {
             "Content-Type": 'application/x-www-form-urlencoded'
@@ -107,12 +107,11 @@ export const likedCommentReplyApi = async ({companyInfoId, comment_id, comment_r
 
     return response.json();
 }
-export const publishCommentApi = async({companyInfoId, comment,commentScore, image, userId, name, avatar}: {companyInfoId: number; comment: string; commentScore: number;image: string[]; userId: number;name: string; avatar: string;}) => {
+export const publishQuestionApi = async({companyInfoId, question,questionScore, image, userId, name, avatar}: {companyInfoId: number; question: string; questionScore: number;image: string[]; userId: number;name: string; avatar: string;}) => {
 
     const formData = new URLSearchParams();
     formData.append('company_info_id', companyInfoId.toString());
-    formData.append('comment', comment);
-    formData.append('comment_score',commentScore.toString());
+    formData.append('question', question);
     for (let imgObj of image) {
         for (let url of Object.values(imgObj)) {
             formData.append('image[]', url);
@@ -122,7 +121,7 @@ export const publishCommentApi = async({companyInfoId, comment,commentScore, ima
     formData.append('name', name);
     formData.append('avatar',avatar);
 
-    const response = await fetch(`${BASE_URL}/Pc/CompanyComment/publishComment`, {
+    const response = await fetch(`${BASE_URL}/Pc/Question/publishQuestion`, {
         method: 'POST',
         headers: {
             "Content-Type": 'application/x-www-form-urlencoded'
@@ -136,32 +135,11 @@ export const publishCommentApi = async({companyInfoId, comment,commentScore, ima
 
     return response.json();
 }
-export const addCommentAllApi = async({companyInfoId,comments}:{companyInfoId: number;comments:{ comment: string; name: string; comment_score: number; created_time: string; }[]}) => {
-
+export const publishAnswerApi = async({companyInfoId,answer,image,userId, name, avatar,questionId}:{companyInfoId: number; answer: string;image: string[], userId: number;name: string; avatar: string;questionId: number;}) => {
     const formData = new URLSearchParams();
     formData.append('company_info_id', companyInfoId.toString());
-    formData.append('comments',JSON.stringify(comments));
-
-    const response = await fetch(`${BASE_URL}/Pc/CompanyComment/addCompanyCommentAll`, {
-        method: 'POST',
-        headers: {
-            "Content-Type": 'application/x-www-form-urlencoded'
-        },
-        body: formData
-    });
-
-    if (!response.ok) {
-        throw new Error("Network response was not ok");
-    }
-
-    return response.json();
-}
-export const publishCommentReplyApi = async({companyInfoId,comment,image,userId, name, avatar,commentId,commentReplyId}:{companyInfoId: number; comment: string;image: string[], userId: number;name: string; avatar: string;commentId: number;commentReplyId: number;}) => {
-    const formData = new URLSearchParams();
-    formData.append('company_info_id', companyInfoId.toString());
-    formData.append('company_comment_id',commentId.toString());
-    formData.append('company_comment_reply_id',commentReplyId.toString());
-    formData.append('comment', comment);
+    formData.append('answer_question_id',questionId.toString());
+    formData.append('answer', answer);
     for (let imgObj of image) {
         for (let url of Object.values(imgObj)) {
             formData.append('image[]', url);
@@ -171,7 +149,7 @@ export const publishCommentReplyApi = async({companyInfoId,comment,image,userId,
     formData.append('name', name);
     formData.append('avatar',avatar);
 
-    const response = await fetch(`${BASE_URL}/Pc/CompanyComment/publishCommentReply`, {
+    const response = await fetch(`${BASE_URL}/Pc/Question/publishAnswer`, {
         method: 'POST',
         headers: {
             "Content-Type": 'application/x-www-form-urlencoded'

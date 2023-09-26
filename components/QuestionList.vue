@@ -1,13 +1,14 @@
 <template>
-  <div class="question">
+  <NoDetail text="没有相关问答" class="margin-20-top" v-if="questionStore.getQuestionsCount <= 0"></NoDetail>
+  <div class="question" v-else>
     <div class="question_item" v-for="(question, index) in questionStore.questions">
       <div class="question_item_1">
         <div class="avatar-wrapper">
-          <img class="avatar-name__img avatar" :src="question.avatar" width="32" height="32" :alt="question.user">
+          <img class="avatar-name__img avatar" :src="question.avatar" width="32" height="32" :alt="question.name">
           <span class="question-icon orange-bg">问</span>
         </div>
         <div class="avatar-name__name margin-10-left">
-          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{question.user}}</strong>
+          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{question.name}}</strong>
         </div>
       </div>
       <div class="question_item_2">
@@ -31,10 +32,26 @@
           </el-col>
         </el-row>
         <div class="question_item_3">
-          <text class=" time grey-color">{{question.time}}</text>
+          <text class=" time grey-color">{{question.created_time}}</text>
           <div class="question_item_4">
-            <LikeSwitch :index="index" feedbackType="question"></LikeSwitch>
-            <AddForm v-if="userInfoStore.getUserId()*1 > 0" :index="index" title-box="回答" company-name="张姗姗木材加工厂" feedback-type="answer">
+            <LikeSwitch
+                :index="Number(index)"
+                :reply-index="0"
+                feedbackType="question"
+                :company-info-id="companyInfoId"
+                :main-id="Number(question.id)"
+                :main-reply-id="0"></LikeSwitch>
+            <AddForm v-if="userInfoStore.getUserId()*1 > 0"
+                     :index="Number(index)"
+                     :reply-index="0"
+                     :company-info-id="companyInfoId"
+                     :reply-user-id="Number(question.user_id)"
+                     :reply-user="question.name"
+                     :main-id="Number(question.id)"
+                     :main-reply-id="0"
+                     title-box="回答"
+                     feedback-type="answer"
+            >
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left grey-color">回答</text>
@@ -45,6 +62,19 @@
                 <text class="margin-20-left grey-color">回答</text>
               </template>
             </LoginPopup>
+            <DeleteListItem
+                :main-reply-id="0"
+                :main-id="Number(question.id)"
+                :company-info-id="companyInfoId"
+                feedback-type="question"
+                :reply-index="0"
+                :index="Number(index)"
+                v-if="question.user_id*1 === userInfoStore.getUserId()*1"
+            >
+              <template #trigger>
+                <text class="margin-20-left grey-color">删除</text>
+              </template>
+            </DeleteListItem>
           </div>
         </div>
       </div>
@@ -53,16 +83,16 @@
         <div class="answer_item" v-for="(answer,answerIndex) in question.answer_list">
           <div class="answer_item_1">
             <div class="avatar-wrapper">
-              <img class="avatar-name__img avatar" :src="answer.avatar" width="32" height="32" :alt="answer.user">
+              <img class="avatar-name__img avatar" :src="answer.avatar" width="32" height="32" :alt="answer.name">
               <span class="question-icon blue-bg">答</span>
             </div>
             <div class="avatar-name__name margin-10-left">
-              <strong class="text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{answer.user}}</strong>
+              <strong class="text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{answer.name}}</strong>
             </div>
           </div>
           <div class="answer_item_2">
             <p class="margin-10-top">{{answer.answer}}</p>
-            <el-row :gutter="8" v-if="answer.image.length" class="margin-10-bottom row-image-box">
+            <el-row :gutter="8" v-if="answer.image" class="margin-10-bottom row-image-box">
               <el-col
                   v-for="(itemReplyImage, indexReplyImage) in answer.image"
                   :key="indexReplyImage"
@@ -81,9 +111,28 @@
               </el-col>
             </el-row>
             <div class="answer_item_3">
-              <text class=" time grey-color">{{answer.time}}</text>
+              <text class=" time grey-color">{{answer.created_time}}</text>
               <div class="answer_item_4">
-                <LikeSwitch :index="index" :reply-index="answerIndex" feedbackType="answer"></LikeSwitch>
+                <LikeSwitch
+                    :index="Number(index)"
+                    :reply-index="Number(answerIndex)"
+                    feedbackType="answer"
+                    :company-info-id="companyInfoId"
+                    :main-id="Number(question.id)"
+                    :main-reply-id="Number(answer.id)"></LikeSwitch>
+                <DeleteListItem
+                    :main-reply-id="Number(answer.id)"
+                    :main-id="Number(question.id)"
+                    :company-info-id="companyInfoId"
+                    feedback-type="answer"
+                    :reply-index="Number(answerIndex)"
+                    :index="Number(index)"
+                    v-if="answer.user_id*1 === userInfoStore.getUserId()*1"
+                >
+                  <template #trigger>
+                    <text class="margin-20-left grey-color">删除</text>
+                  </template>
+                </DeleteListItem>
               </div>
             </div>
           </div>
@@ -99,7 +148,22 @@ import {useQuestionStore} from "~/pinia/questionStore";
 import {QuestionStore} from "~/types/questionStore";
 import LikeSwitch from "~/components/LikeSwitch.vue";
 import {useUserInfoStore} from "~/pinia/userInfo";
+import {setQuestions} from "~/composables/question";
+import NoDetail from "~/components/NoDetail.vue";
+import DeleteListItem from "~/components/DeleteListItem.vue";
 
 const questionStore:QuestionStore = useQuestionStore();
 const userInfoStore = useUserInfoStore();
+
+const props = defineProps({
+  companyInfoId:{
+    type: Number,
+    required: true,
+  }
+});
+const { fetchQuestions } = setQuestions(props.companyInfoId, userInfoStore.getUserId());
+// 在组件挂载时加载评论
+watch([() => props.companyInfoId, userInfoStore.getUserId], () => {
+  fetchQuestions();
+}, { immediate: true });
 </script>

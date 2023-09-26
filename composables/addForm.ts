@@ -14,7 +14,7 @@ export function addFormLogic(props: any) {
 
     const openCommentBox = () => show.value = true;
     const closeCommentBox = () => {
-        console.log('执行关闭');
+        
         show.value = false;
         resetState();
     }
@@ -59,26 +59,29 @@ export function addFormLogic(props: any) {
             });
             return;
         } else {
-            console.log(state.value);
+            
             let obj = {
                 index: props.index,
                 replyIndex: props.replyIndex,
                 isReplyReply: props.isReplyReply,
                 replyUserId: props.replyUserId,
                 replyUser: props.replyUser,
+                companyInfoId: props.companyInfoId,
+                mainId: props.mainId,
+                mainReplyId: props.mainReplyId,
             };
             const mergedObj = {...obj,...state.value};
-            console.log(mergedObj);
+            
             currentHandler.value.add(mergedObj);
             const router = useRouter();
-            console.log('aaaaaaaaaaaaaaaaaaaa')
-            console.log(props);
+            
+            
             closeCommentBox();
             if(props.feedbackType == 'commentReply' && props.isShowReply === false){
                 router.push({
                     path:'/mobileAppraise',
                     query:{
-                        id: props.companyId,
+                        id: props.companyInfoId,
                         tab: 7
                     }
                 });
@@ -86,12 +89,12 @@ export function addFormLogic(props: any) {
                 router.push({
                     path:'/mobileAppraise',
                     query:{
-                        id: props.companyId,
+                        id: props.companyInfoId,
                         tab: 9
                     }
                 });
             } else if(props.feedbackType == 'commentReply' && props.isPcAppraise === true){
-                console.log('走到is pc');
+                
                 const tabItemStore = useTabItemStore();
                 tabItemStore.tabItem = 4;
             }

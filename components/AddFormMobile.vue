@@ -8,10 +8,10 @@
     <div class="overlay" v-if="show">
       <div class="first">
         <img class="left-box" @click="closeCommentBox" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_ce4aa947-e622-42d0-b414-d36f7091cdf5.png" alt=""/>
-        <text>{{titleBox}}{{companyName}}</text>
+        <text>{{titleBox}}：{{replyUser}}</text>
         <img class="close-box" @click="closeCommentBox" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_807d33b5-bef1-44b0-b79d-cab4a897057c.png" alt="关闭按钮">
       </div>
-      <text class="title">{{titleBox}}{{companyName}}</text>
+      <text class="title">{{titleBox}}：{{replyUser}}</text>
         <!-- 文本域用于输入评论 -->
         <TextareaMobile
             :placeholderText="placeholderText"
@@ -49,7 +49,7 @@
   align-items: center;
   font-size: 18px;
 }
-.add-box-2 >>> .el-checkbox__label{
+.add-box-2 :deep(.el-checkbox__label){
   color: #fff;
   width: 100%;
 }
@@ -80,7 +80,7 @@
   background-size: cover;
   background-position: center;
 }
-.overlay >>> .el-textarea__inner{
+.overlay :deep(.el-textarea__inner){
   color: #fff;
 }
 .overlay {
@@ -106,11 +106,11 @@ textarea {
   margin-bottom: 10px;
 }
 
-.overlay >>> .el-checkbox__inner {
+.overlay :deep(.el-checkbox__inner){
   border-radius: 10px;
   color: #fff;
 }
-.overlay >>> .el-upload-list--picture-card {
+.overlay :deep(.el-upload-list--picture-card){
   --el-upload-list-picture-card-size: 80px;
 }
 </style>
@@ -122,28 +122,32 @@ import {onMounted, ref} from "vue";
 // 接收父组件传递的show属性
 const props = defineProps({
   index: {
-    type: [Number,String],
-    default: 0,
+    type: Number,
+    required: true,
   },
   replyIndex: {
     type: Number,
-    default: 0,
+    required: true
   },
-  isReplyReply: {
-    type: Boolean,
-    default: false
+  companyInfoId:{
+    type: Number,
+    required: true
   },
   replyUserId:{
     type: Number,
-    default: 0,
+    required: true
   },
   replyUser: {
     type: String,
-    default: '',
+    required: true,
   },
-  companyName: {
-    type: String,
-    default: '张姗姗木材加工厂',
+  mainId: {
+    type: Number,
+    required: true,
+  },
+  mainReplyId: {
+    type: Number,
+    required: true,
   },
   titleBox: {
     type: String,
@@ -158,10 +162,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  companyId:{
-    type: Number,
-    default: 0,
-  }
+  isReplyReply: {
+    type: Boolean,
+    default: false
+  },
 });
 const placeholderText = ref('');
 onMounted(()=>{

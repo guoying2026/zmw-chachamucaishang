@@ -1,14 +1,17 @@
 // types/commentType.d.ts
 
 // 单个回复的类型定义
+import {Reaction} from "~/types/feedback";
+
 export interface Reply {
+    id: number;
     user_id: number;
-    user: string;
+    name: string;
     avatar: string;
-    content: string;
-    time: string;
-    likes: number;
-    dislikes: number;
+    comment: string;
+    created_time: string;
+    like_count: number;
+    dislike_count: number;
     currentUser: number;
     currentUserReaction: Reaction;
     image: String[];
@@ -18,13 +21,14 @@ export interface Reply {
 
 // 单个评论的类型定义
 export interface Comment {
+    id: number;
     user_id: number;
-    user: string;
+    name: string;
     avatar: string;
-    content: string;
-    time: string;
-    likes: number;
-    dislikes: number;
+    comment: string;
+    created_time: string;
+    like_count: number;
+    dislike_count: number;
     currentUser: number;
     currentUserReaction: Reaction;
     image: String[];

@@ -1,6 +1,7 @@
+//dynamicCategoriesStore
 import { defineStore } from 'pinia';
 import {CategoryKeys} from "~/types/dynamicCategories";
-import {ComputedRef} from "vue";
+import {useDynamicStore} from "~/pinia/dynamicStore";
 
 export const useDynamicCategoriesStore = defineStore('dynamicCategoriesStore', {
     state: () => ({
@@ -50,6 +51,8 @@ export const useDynamicCategoriesStore = defineStore('dynamicCategoriesStore', {
         // 任何与分类相关的操作或方法
         // 这里只是基于你提供的代码进行修改
         toggleCategory(category: CategoryKeys) {
+            console.log('toggleCategory');
+
             if (this.selectedCategory === category) {
                 this.selectedCategory = 'ALL';  // 若已选择该分类，则切换回全部
             } else if(this.selectedCategory === 'MORE'){
@@ -60,9 +63,15 @@ export const useDynamicCategoriesStore = defineStore('dynamicCategoriesStore', {
             }
             this.selectedSubCategory = '全部';
             this.moreTriangleUpOrDown = 1;
+            // const dynamicStore = useDynamicStore();
+            // return dynamicStore.getPcDynamicsByCategoryAndSubCategory(
+            //     this.CATEGORIES[this.selectedCategory],
+            //     this.selectedSubCategory,
+            // );
         },
         toggleMoreTypes() { // 更多
             console.log('toggleMoreTypes');
+
             this.showMoreTypes = !this.showMoreTypes;
             if(this.showMoreTypes){
                 this.moreTriangleUpOrDown = 2;
@@ -70,17 +79,50 @@ export const useDynamicCategoriesStore = defineStore('dynamicCategoriesStore', {
                 this.moreTriangleUpOrDown = 1;
             }
             this.selectedCategory = 'MORE';
+            // const dynamicStore = useDynamicStore();
+            // if(this.selectedCategory === 'MORE'){
+            //     return dynamicStore.getDynamicsByCategoryAndSubCategory(
+            //         this.CATEGORIES[this.selectedMoreCategory],
+            //         this.selectedSubCategory,
+            //         true,
+            //     )
+            // }
+            // return dynamicStore.getDynamicsByCategoryAndSubCategory(
+            //     this.CATEGORIES[this.selectedCategory],
+            //     this.selectedSubCategory,
+            //     false,
+            // );
         },
         toggleMoreCategory(category: CategoryKeys){
+            console.log('toggleMoreCategory');
+
             this.selectedMoreCategory = category;
             this.moreTriangleUpOrDown = 1;
+            // const dynamicStore = useDynamicStore();
+            // if(this.selectedCategory === 'MORE'){
+            //     return dynamicStore.getDynamicsByCategoryAndSubCategory(
+            //         this.CATEGORIES[this.selectedMoreCategory],
+            //         this.selectedSubCategory,
+            //         true,
+            //     )
+            // }
+            // return dynamicStore.getDynamicsByCategoryAndSubCategory(
+            //     this.CATEGORIES[this.selectedCategory],
+            //     this.selectedSubCategory,
+            //     false,
+            // );
         },
         // ... 其他方法
         selectSubCategory(subCategory: string) {
-            console.log(subCategory);
+            console.log('selectSubCategory');
             this.selectedSubCategory = subCategory;  // 选中子分类
             this.showMoreTypes = false; // 隐藏选择面板
             this.moreTriangleUpOrDown = 1;
+            // const dynamicStore = useDynamicStore();
+            // dynamicStore.getPcDynamicsByCategoryAndSubCategory(
+            //     this.CATEGORIES[this.selectedCategory],
+            //     this.selectedSubCategory,
+            // );
         },
     }
 });

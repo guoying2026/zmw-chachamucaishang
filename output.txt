@@ -32,7 +32,7 @@ export const sharedActions = (store: any) => ({
         store.fileBeingUploaded = false;
     },
 });
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addComplaint.ts =====
 import { defineStore } from 'pinia';
@@ -49,7 +49,7 @@ export const useAddComplaintStore = defineStore('addComplaintStore', {
         // ... Add other actions specific to AddCommentStore
     }
 });
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addQuestion.ts =====
 import { defineStore } from 'pinia';
@@ -66,7 +66,7 @@ export const useAddQuestionStore = defineStore('addQuestionStore', {
         // ... Add other actions specific to AddCommentStore
     }
 });
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addComplaintReply.ts =====
 import { defineStore } from 'pinia';
@@ -83,7 +83,7 @@ export const useAddComplaintReplyStore = defineStore('addComplaintReplyStore', {
         // ... Add other actions specific to AddCommentStore
     }
 });
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addCommentReply.ts =====
 import { defineStore } from 'pinia';
@@ -100,7 +100,7 @@ export const useAddCommentReplyStore = defineStore('addCommentReplyStore', {
         // ... Add other actions specific to AddCommentStore
     }
 });
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addComment.ts =====
 import { defineStore } from 'pinia';
@@ -117,7 +117,7 @@ export const useAddCommentStore = defineStore('addCommentStore', {
         // ... Add other actions specific to AddCommentStore
     }
 });
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/pinia/add/addAnswer.ts =====
 import { defineStore } from 'pinia';
@@ -134,7 +134,7 @@ export const useAddAnswerStore = defineStore('addAnswerStore', {
         // ... Add other actions specific to AddCommentStore
     }
 });
--e 
+-e
 
 /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Comment
 ├── AddComment.vue
@@ -209,8 +209,8 @@ watch(internalShow, (newVal) => {
 const addCommentStore = useAddCommentStore();
 
 const submitComment = () => {
-  console.log("提交评论");
-  // console.log(uploadingStatus.value);
+
+  //
   // if (uploadingStatus.value) {
   if(addCommentStore.fileBeingUploaded){
     ElMessage({
@@ -220,8 +220,8 @@ const submitComment = () => {
     })
     return;  // 如果文件正在上传，不继续执行
   } else {
-    console.log(addCommentStore.$state);
-    console.log('提交评论');
+
+
     // addCommentStore.clearAll();  // 清理状态
   }
 };
@@ -298,10 +298,10 @@ textarea {
   border-radius: 10px;
 }
 </style>
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Comment/AddCommentReply.vue =====
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Comment/CommentList.vue =====
 <template>
@@ -413,7 +413,7 @@ textarea {
 <script>
 import 'assets/css/comment.scss'
 </script>
--e 
+-e
 
 /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Complaint
 ├── AddComplaint.vue
@@ -422,16 +422,16 @@ import 'assets/css/comment.scss'
 
 1 directory, 3 files
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Complaint/AddComplaintReply.vue =====
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Complaint/AddComplaint.vue =====
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Complaint/ComplaintList.vue =====
 <template>
   <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f83d6988-3896-4443-b09f-0aa1ddbfbf26.png"/>
 </template>
--e 
+-e
 
 /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Question
 ├── AddAnswer.vue
@@ -440,7 +440,7 @@ import 'assets/css/comment.scss'
 
 1 directory, 3 files
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Question/AddQuestion.vue =====
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Question/QuestionList.vue =====
 <template>
@@ -622,10 +622,10 @@ import 'assets/css/comment.scss'
 <script>
 import 'assets/css/question.scss'
 </script>
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Question/AddAnswer.vue =====
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/FileUpload.vue =====
 <template>
@@ -685,28 +685,28 @@ const dialogVisible = ref(false);
 
 
 const handleSuccess = (): void => {
-  console.log('在执行handleSuccess');
+
 };
 
 const handleChange = async (uploadFile: any, uploadFiles: any) => {
-  console.log('在执行handleChange');
-  console.log(uploadFile);
-  console.log(uploadFiles);
+
+
+
   if (uploadFile.status == 'ready') {
     props.onFileBeingUploadedChange(true);
     // addCommentStore.setFileBeingUploaded(true);
   }
 
   const res = await getAnswerOssSignatureApi({type: 'sell_img'});
-  console.log(res);
+
   if (res.status === 1000) {
     const post = res.data;
-    console.log(post);
+
     post.host = handeSrcHttpsUtil(post.host);
     const fileKey = `${post.dir}_pc_image_${guidUtil()}.png`;
     const fileUrl = `${post.host}/${fileKey}`;
-    console.log('上传文件地址');
-    console.log(fileUrl);
+
+
     const fileRawUid = uploadFile.raw.uid;
     const formData = new FormData();
 
@@ -770,7 +770,7 @@ const handlePictureCardPreview = (file: any): void => {
   font-size: 14px;
 }
 </style>
--e 
+-e
 
 ===== FILE: /Users/guoying/zhenmuwang/zmw-chachamucaishang/components/Textarea.vue =====
 <template>
@@ -834,5 +834,5 @@ const handleTextareaChange = (newValue: string) => {
   align-items: center;
 }
 </style>
--e 
+-e
 

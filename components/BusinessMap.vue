@@ -1,7 +1,7 @@
 <template>
   <client-only>
     <!-- 圆形表示半径为50公里的范围 -->
-    <baidu-map ref="mapRef" class="map" :mapStyle="mapStyle" :center="center" :zoom="zoom" @ready="ready" :scroll-wheel-zoom="false" min-zoom="3" max-zoom="20">
+    <baidu-map ref="mapRef" class="map" :mapStyle="mapStyle" :center="center" :zoom="zoom" @ready="ready" :scroll-wheel-zoom="false" :min-zoom="3" :max-zoom="20">
 <!--      radius的单位是m，半径为15km的商家-->
       <bm-circle :center="center" :radius="15000" :fill-color="'#D1E8F9'" :stroke-color="'#6FC3F8'" :stroke-opacity="0" strokeWeight="1" strokeStyle="solid" :fill-opacity="0.2" v-if="isNearBy">
       </bm-circle>
@@ -81,11 +81,11 @@ const ready = ({ BMap , map }: { BMap: any, map: any })=>{
   center.value.lng = props.lng;
   center.value.lat = props.lat;
   zoom.value = 12;
-  // console.log('mapRef');
-  // console.log(mapRef);
+  //
+  //
   // if (mapRef.value) {
   //   const mapDiv = mapRef.value.querySelector('div:first-child') as HTMLElement;
-  //   console.log(mapDiv);
+  //
   //   if (mapDiv) {
   //     mapDiv.style.borderRadius = '10px';
   //   }

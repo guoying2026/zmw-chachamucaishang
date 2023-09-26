@@ -7,77 +7,7 @@ import {Comment, Reply} from "~/types/commentType";
 export const useCommentStore = defineStore('commentStore', {
     state: () => {
         return {
-            comments: [
-                {
-                    // "id": 1,
-                    "user_id": 1,
-                    "user": "Marcin Tireder",
-                    "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
-                    "content": "我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。",
-                    "time": "2020-08-09 12:12:30",
-                    "likes": 12,
-                    "dislikes": 12,
-                    "currentUser": 1,
-                    "currentUserReaction": 'none',
-                    "image":[
-                        "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                        'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-                        'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
-                    ],
-                    "replies": [
-                        {
-                            // "id": 1,
-                            "user_id": 2,
-                            "user": "guo guo",
-                            "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
-                            "content": "我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。",
-                            "time": "2020-08-09 12:12:30",
-                            "likes": 12,
-                            "dislikes": 12,
-                            "currentUser": 1,
-                            "currentUserReaction": 'liked',
-                            // "replyId": 1,
-                            "replyUserId": 1,
-                            "replyUser": 'Marcin Tireder',
-                            "image":[
-                                'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
-                                'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
-                                'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg',
-                            ],
-                        },
-                        {
-                            // "id": 2,
-                            "user_id": 3,
-                            "user": "Ran ran",
-                            "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
-                            "content": "我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。",
-                            "time": "2020-08-09 12:12:30",
-                            "likes": 12,
-                            "dislikes": 12,
-                            "currentUser": 1,
-                            "currentUserReaction": 'disliked',
-                            // "replyId": 1,
-                            "replyUserId": 2,
-                            "replyUser": 'guo guo',
-                            "image":[],
-                        }
-                    ]
-                },
-                {
-                    // "id": 2,
-                    "user_id": 1,
-                    "user": "最初的梦想",
-                    "avatar": "https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/672913/5c1186f93e195.jpg",
-                    "content": "上个周末，我搬家具的时候，没想到沙发从手里滑出，砸在了我那美丽的枫木地板上。当时我真的气坏了，地板上出现了一道明显的划痕，让我觉得心疼不已。原本觉得枫木地板很美观耐用，但现在看来，这种地板在耐磨和抗冲击方面还是有待提高。我真心希望商家能重视这个问题，优化地板的制作工艺，让它在遇到类似意外时能更好地抵抗划痕。毕竟，我们花了不少钱购买这样的地板，自然希望能长时间保持美观。而且，生活中类似的意外难免会发生，如果地板能提高耐磨性和抗冲击性，那我们在享受枫木地板美观舒适的同时，也会更加放心。",
-                    "time": "2020-08-09 12:12:30",
-                    "likes": 12,
-                    "dislikes": 12,
-                    "currentUser": 1,
-                    "currentUserReaction": 'liked',
-                    "image":[],
-                    "replies": []
-                }
-            ],
+            comments: [],
         }
     },
     getters:{
@@ -94,13 +24,10 @@ export const useCommentStore = defineStore('commentStore', {
         addComment(this: CommentStore, comment: Comment) {
             this.comments.unshift(comment);
         },
-        // deleteComment(this: CommentStore,index: number){
-        //     return this.comments.splice(index,1);
-        // },
-        addCommentReply(this: CommentStore, index: number | string, replyIndex: number, isReplyReply: boolean,commentReply: Reply){
+        addCommentReply(this: CommentStore,index: number, replyIndex: number, isReplyReply: boolean,commentReply: Reply){
             if(!isReplyReply){
-                console.log('走到这一步');
-                console.log(index);
+
+
                 this.comments[index].replies.unshift(commentReply);
             } else {
                 this.comments[index].replies.splice(replyIndex+1,0,commentReply);
@@ -112,77 +39,91 @@ export const useCommentStore = defineStore('commentStore', {
         getReply(this: CommentStore, index: number | string, replyIndex: number | string){
             return this.comments[index].replies[replyIndex];
         },
+        deleteComment(this: CommentStore,index: number){
+            return this.comments.splice(index,1);
+        },
+        deleteCommentReply(this: CommentStore,index: number,replyIndex: number){
+            return this.comments[index].replies.splice(replyIndex,1);
+        },
         // 更新评论的点赞状态和当前用户
         updateCommentReaction(this: CommentStore,index: number | string, newReaction: Reaction) {
             // 获取特定索引处的评论对象
             const commentToUpdate = this.comments[index];
+
+
+            if(commentToUpdate.currentUserReaction === null){
+                commentToUpdate.currentUserReaction = 0;
+            }
+
             if (commentToUpdate) {
+
                 // 更新评论对象的用户点赞状态和数量
-                if (commentToUpdate.currentUserReaction === 'liked' && newReaction === 'liked') {
+                if (commentToUpdate.currentUserReaction*1 === 1 && newReaction*1 === 0) {
                     // 已点赞，切换为不点赞
-                    commentToUpdate.currentUserReaction = 'none';
-                    commentToUpdate.likes--;
-                } else if (commentToUpdate.currentUserReaction === 'liked' && newReaction === 'disliked') {
+                    commentToUpdate.currentUserReaction = 0;
+                    commentToUpdate.like_count--;
+                } else if (commentToUpdate.currentUserReaction*1 === 1 && newReaction*1 === 2) {
                     // 已点赞，切换为倒赞
-                    commentToUpdate.currentUserReaction = 'disliked';
-                    commentToUpdate.likes--;
-                    commentToUpdate.dislikes++;
-                } else if (commentToUpdate.currentUserReaction === 'disliked' && newReaction === 'disliked') {
+                    commentToUpdate.currentUserReaction = 2;
+                    commentToUpdate.like_count--;
+                    commentToUpdate.dislike_count++;
+                } else if (commentToUpdate.currentUserReaction*1 === 2 && newReaction*1 === 0) {
                     // 已倒赞，切换为不点赞
-                    commentToUpdate.currentUserReaction = 'none';
-                    commentToUpdate.dislikes--;
-                } else if (commentToUpdate.currentUserReaction === 'disliked' && newReaction === 'liked') {
+                    commentToUpdate.currentUserReaction = 0;
+                    commentToUpdate.dislike_count--;
+                } else if (commentToUpdate.currentUserReaction*1 === 2 && newReaction*1 === 1) {
                     // 已倒赞，切换为点赞
-                    commentToUpdate.currentUserReaction = 'liked';
-                    commentToUpdate.likes++;
-                    commentToUpdate.dislikes--;
-                } else if (commentToUpdate.currentUserReaction === 'none' && newReaction === 'liked') {
+                    commentToUpdate.currentUserReaction = 1;
+                    commentToUpdate.like_count++;
+                    commentToUpdate.dislike_count--;
+                } else if (commentToUpdate.currentUserReaction*1 === 0 && newReaction*1 === 1) {
                     // 未点赞，切换为点赞
-                    commentToUpdate.currentUserReaction = 'liked';
-                    commentToUpdate.likes++;
-                } else if (commentToUpdate.currentUserReaction === 'none' && newReaction === 'disliked') {
+                    commentToUpdate.currentUserReaction = 1;
+                    commentToUpdate.like_count++;
+                } else if (commentToUpdate.currentUserReaction*1 === 0 && newReaction*1 === 2) {
                     // 未点赞，切换为倒赞
-                    commentToUpdate.currentUserReaction = 'disliked';
-                    commentToUpdate.dislikes++;
+                    commentToUpdate.currentUserReaction = 2;
+                    commentToUpdate.dislike_count++;
                 }
             }
+
         },
         updateReplyReaction(this: CommentStore, index: number | string,replyIndex: number | string, newReaction: Reaction) {
             // 获取特定索引处的回复对象
             const replyToUpdate = this.comments[index].replies[replyIndex];
-
             if (replyToUpdate) {
                 // 更新回复对象的用户点赞状态和数量
-                switch(replyToUpdate.currentUserReaction) {
-                    case 'liked':
-                        if (newReaction === 'liked') {
-                            replyToUpdate.currentUserReaction = 'none';
-                            replyToUpdate.likes--;
-                        } else if (newReaction === 'disliked') {
-                            replyToUpdate.currentUserReaction = 'disliked';
-                            replyToUpdate.likes--;
-                            replyToUpdate.dislikes++;
+                let current = replyToUpdate.currentUserReaction*1;
+                switch(current) {
+                    case 1:
+                        if (newReaction*1 === 0) {
+                            replyToUpdate.currentUserReaction = 0;
+                            replyToUpdate.like_count--;
+                        } else if (newReaction*1 === 2) {
+                            replyToUpdate.currentUserReaction = 2;
+                            replyToUpdate.like_count--;
+                            replyToUpdate.dislike_count++;
                         }
                         break;
 
-                    case 'disliked':
-                        if (newReaction === 'liked') {
-                            replyToUpdate.currentUserReaction = 'liked';
-                            replyToUpdate.likes++;
-                            replyToUpdate.dislikes--;
-                        } else if (newReaction === 'disliked') {
-                            replyToUpdate.currentUserReaction = 'none';
-                            replyToUpdate.dislikes--;
+                    case 2:
+                        if (newReaction*1 === 1) {
+                            replyToUpdate.currentUserReaction = 1;
+                            replyToUpdate.like_count++;
+                            replyToUpdate.dislike_count--;
+                        } else if (newReaction*1 === 0) {
+                            replyToUpdate.currentUserReaction = 0;
+                            replyToUpdate.dislike_count--;
                         }
                         break;
 
-                    case 'none':
-                        if (newReaction === 'liked') {
-                            replyToUpdate.currentUserReaction = 'liked';
-                            replyToUpdate.likes++;
-                        } else if (newReaction === 'disliked') {
-                            replyToUpdate.currentUserReaction = 'disliked';
-                            replyToUpdate.dislikes++;
+                    case 0:
+                        if (newReaction*1 === 1) {
+                            replyToUpdate.currentUserReaction = 1;
+                            replyToUpdate.like_count++;
+                        } else if (newReaction*1 === 2) {
+                            replyToUpdate.currentUserReaction = 2;
+                            replyToUpdate.dislike_count++;
                         }
                         break;
                 }

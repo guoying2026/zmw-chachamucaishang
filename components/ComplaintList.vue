@@ -42,7 +42,17 @@
     <div class="text-container">
       <div class="text text-click">
         <text>点击</text>
-        <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="投诉" :company-name="companyName" feedback-type="complaint">
+        <AddForm v-if="userInfoStore.getUserId()*1 > 0"
+                 :index="0"
+                 :reply-index="0"
+                 :company-info-id="companyInfoId"
+                 :reply-user-id="0"
+                 :reply-user="companyName"
+                 :main-id="0"
+                 :main-reply-id="0"
+                 title-box="投诉"
+                 feedback-type="complaint"
+        >
           <!-- 定义插槽内容 -->
           <template #trigger>
             <text class="gradient-background margin-10-left">我要投诉</text>
@@ -58,18 +68,17 @@
       <div class="text">展示投诉内容</div>
     </div>
   </div>
-  <NoDetail tag="我要投诉" text="没有投诉" v-if="complaintStore.complaints.length < 0"></NoDetail>
-
+  <NoDetail text="没有相关投诉" v-if="complaintStore.getComplaintsCount <= 0"></NoDetail>
   <div class="comment complaint" v-else>
     <div class="comment_item blue_item_bg" v-for="(complaint, index) in complaintStore.complaints">
       <div class="comment_item_1">
-        <img class="avatar-name__img" :src="complaint.avatar" width="32" height="32" :alt="complaint.user">
+        <img class="avatar-name__img" :src="complaint.avatar" width="32" height="32" :alt="complaint.name">
         <div class="avatar-name__name margin-10-left">
-          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{complaint.user}}</strong>
+          <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">{{complaint.name}}</strong>
         </div>
       </div>
       <div class="comment_item_2">
-        <p class="margin-10-top ">{{complaint.content}}</p>
+        <p class="margin-10-top ">{{complaint.complaint}}</p>
         <el-row :gutter="8" v-if="complaint.image.length" class="margin-10-bottom row-image-box">
           <el-col
               v-for="(itemImage, indexImage) in complaint.image"
@@ -89,10 +98,27 @@
           </el-col>
         </el-row>
         <div class="comment_item_3">
-          <text class=" time grey-color">{{complaint.time}}</text>
+          <text class=" time grey-color">{{complaint.created_time}}</text>
           <div class="comment_item_4">
-            <LikeSwitch :index="index" feedbackType="complaint"></LikeSwitch>
-            <AddForm  v-if="userInfoStore.getUserId()*1 > 0" :index="index" title-box="回复" :company-name="complaint.user" feedback-type="complaintReply" :reply-user-id="complaint.user_id" :reply-user="complaint.user">
+            <LikeSwitch
+                :index="Number(index)"
+                :reply-index="0"
+                feedbackType="complaint"
+                :company-info-id="companyInfoId"
+                :main-id="Number(complaint.id)"
+                :main-reply-id="0"
+            ></LikeSwitch>
+            <AddForm  v-if="userInfoStore.getUserId()*1 > 0"
+                      :index="Number(index)"
+                      :reply-index="0"
+                      :company-info-id="companyInfoId"
+                      :reply-user-id="Number(complaint.user_id)"
+                      :reply-user="complaint.name"
+                      :main-id="Number(complaint.id)"
+                      :main-reply-id="0"
+                      title-box="回复"
+                      feedback-type="complaintReply"
+            >
               <!-- 定义插槽内容 -->
               <template #trigger>
                 <text class="margin-20-left grey-color">回复</text>
@@ -103,6 +129,19 @@
                 <text class="margin-20-left grey-color">回复</text>
               </template>
             </LoginPopup>
+            <DeleteListItem
+                :main-reply-id="0"
+                :main-id="Number(complaint.id)"
+                :company-info-id="companyInfoId"
+                feedback-type="complaint"
+                :reply-index="0"
+                :index="Number(index)"
+                v-if="complaint.user_id*1 === userInfoStore.getUserId()*1"
+            >
+              <template #trigger>
+                <text class="margin-20-left grey-color">删除</text>
+              </template>
+            </DeleteListItem>
           </div>
         </div>
       </div>
@@ -111,13 +150,13 @@
           <div class="reply_item_1">
             <img class="avatar-name__img" :src="reply.avatar" width="32" height="32" :alt="reply.user">
             <div class="avatar-name__name margin-10-left">
-              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-if="reply.replyUserId === complaint.user_id">{{reply.user}}</strong>
-              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-else>{{reply.user}} 回复 {{reply.replyUser}}</strong>
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-if="reply.reply_user_id*1 === complaint.user_id*1 || reply.company_complaint_reply_id*1 === 0 || complaint.user_id*1 === userInfoStore.getUserId()*1">{{reply.name}}</strong>
+              <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false" v-else>{{reply.name}} 回复 {{reply.replyUser}}</strong>
             </div>
           </div>
           <div class="reply_item_2">
-            <p class="margin-10-top">{{reply.content}}</p>
-            <el-row :gutter="8" v-if="reply.image.length" class="margin-10-bottom row-image-box">
+            <p class="margin-10-top">{{reply.complaint}}</p>
+            <el-row :gutter="8" v-if="reply.image" class="margin-10-bottom row-image-box">
               <el-col
                   v-for="(itemReplyImage, indexReplyImage) in reply.image"
                   :key="indexReplyImage"
@@ -136,10 +175,28 @@
               </el-col>
             </el-row>
             <div class="reply_item_3">
-              <text class=" time grey-color">{{reply.time}}</text>
+              <text class=" time grey-color">{{reply.created_time}}</text>
               <div class="reply_item_4">
-                <LikeSwitch :index="index" :replyIndex="replyIndex" feedbackType="complaintReply"></LikeSwitch>
-                <AddForm v-if="userInfoStore.getUserId()*1 > 0" title-box="回复" :reply-index="Number(replyIndex)" :index="index" :isReplyReply="true" :company-name="reply.user" feedback-type="complaintReply" :reply-user-id="reply.user_id" :reply-user="reply.user">
+                <LikeSwitch
+                    :index="Number(index)"
+                    :replyIndex="Number(replyIndex)"
+                    feedbackType="complaintReply"
+                    :company-info-id="companyInfoId"
+                    :main-id="Number(complaint.id)"
+                    :main-reply-id="Number(reply.id)"
+                ></LikeSwitch>
+                <AddForm v-if="userInfoStore.getUserId()*1 > 0"
+                         :index="Number(index)"
+                         :reply-index="Number(replyIndex)"
+                         :company-info-id="companyInfoId"
+                         :reply-user-id="Number(reply.user_id)"
+                         :reply-user="reply.name"
+                         :main-id="Number(complaint.id)"
+                         :main-reply-id="Number(reply.id)"
+                         title-box="回复"
+                         feedback-type="complaintReply"
+                         :isReplyReply="true"
+                >
                   <!-- 定义插槽内容 -->
                   <template #trigger>
                     <text class="margin-20-left grey-color">回复</text>
@@ -150,6 +207,19 @@
                     <text class="margin-20-left grey-color">回复</text>
                   </template>
                 </LoginPopup>
+                <DeleteListItem
+                    :main-reply-id="Number(reply.id)"
+                    :main-id="Number(complaint.id)"
+                    :company-info-id="companyInfoId"
+                    feedback-type="complaintReply"
+                    :reply-index="Number(replyIndex)"
+                    :index="Number(index)"
+                    v-if="reply.user_id*1 === userInfoStore.getUserId()*1"
+                >
+                  <template #trigger>
+                    <text class="margin-20-left grey-color">删除</text>
+                  </template>
+                </DeleteListItem>
               </div>
             </div>
           </div>
@@ -164,6 +234,8 @@ import NoDetail from "~/components/NoDetail.vue";
 import {ComplaintStore} from "~/types/complaintStore";
 import {useComplaintStore} from "~/pinia/complaintStore";
 import {useUserInfoStore} from "~/pinia/userInfo";
+import {setComplaints} from "~/composables/complaint";
+import DeleteListItem from "~/components/DeleteListItem.vue";
 
 const complaintStore:ComplaintStore = useComplaintStore();
 const userInfoStore = useUserInfoStore();
@@ -175,6 +247,15 @@ const props = defineProps({
   companyName:{
     type: String,
     default: '',
+  },
+  companyInfoId:{
+    type: Number,
+    required: true,
   }
 });
+const { fetchComplaints } = setComplaints(props.companyInfoId, userInfoStore.getUserId());
+// 在组件挂载时加载评论
+watch([() => props.companyInfoId, userInfoStore.getUserId], () => {
+  fetchComplaints();
+}, { immediate: true });
 </script>

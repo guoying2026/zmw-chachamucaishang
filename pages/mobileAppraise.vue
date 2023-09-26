@@ -4,7 +4,7 @@
     <img class="first_2" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__pc_image_52ee4cb2-2ecf-4107-b71f-2d524663d765.png" alt=""/>
   </div>
   <div class="third dark_third_bg">
-    <ShopFace :companyName="company_name" :companyId="Number(query.id)" :creditScore="credit_score"></ShopFace>
+    <ShopFace :companyName="company_name" :companyId="Number(query.id)" :creditScore="Number(credit_score)"></ShopFace>
     <div class="third_2">
       <client-only>
         <div class="third_2_space blue-tab">
@@ -14,9 +14,22 @@
         </div>
       </client-only>
     </div>
-    <CommentListMobile v-if="tab === 7"></CommentListMobile>
+    <CommentListMobile
+        v-if="tab === 7"
+        :company-info-id="Number(query.id)"
+    ></CommentListMobile>
     <template v-if="tab === 7">
-      <AddFormMobile title-box="评论" :company-name="company_name" feedback-type="comment" v-if="userInfoStore.getUserId()*1 > 0">
+      <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
+                     :index="0"
+                     :reply-index="0"
+                     :company-info-id="Number(query.id)"
+                     :reply-user-id="0"
+                     :reply-user="company_name"
+                     :main-id="0"
+                     :main-reply-id="0"
+                     title-box="评论"
+                     feedback-type="comment"
+      >
         <!-- 定义插槽内容 -->
         <template #trigger>
           <HoverButton>
@@ -39,8 +52,17 @@
     <!--移动端评论界面结束-->
     <!--      移动端提问界面开始-->
     <div class="nine" v-if="tab === 8">
-      <QuestionListMobile ></QuestionListMobile>
-      <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0" title-box="提问" :company-name="company_name" feedback-type="question">
+      <QuestionListMobile :company-info-id="Number(query.id)"></QuestionListMobile>
+      <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
+                     :index="0"
+                     :reply-index="0"
+                     :company-info-id="Number(query.id)"
+                     :reply-user-id="0"
+                     :reply-user="company_name"
+                     :main-id="0"
+                     :main-reply-id="0"
+                     title-box="提问"
+                     feedback-type="question">
         <!-- 定义插槽内容 -->
         <template #trigger>
           <!-- 当点击时触发openCommentBox方法 -->
@@ -64,8 +86,18 @@
     <!--    移动端提问界面结束-->
     <!--    移动端投诉界面开始-->
     <div class="nine" v-if="tab === 9">
-      <ComplaintListMobile :company-name="company_name"></ComplaintListMobile>
-      <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0" title-box="投诉" :company-name="company_name" feedback-type="complaint">
+      <ComplaintListMobile :company-info-id="Number(query.id)" :company-name="company_name"></ComplaintListMobile>
+      <AddFormMobile v-if="userInfoStore.getUserId()*1 > 0"
+                     :index="0"
+                     :reply-index="0"
+                     :company-info-id="Number(query.id)"
+                     :reply-user-id="0"
+                     :reply-user="company_name"
+                     :main-id="0"
+                     :main-reply-id="0"
+                     title-box="投诉"
+                     feedback-type="complaint"
+      >
         <!-- 定义插槽内容 -->
         <template #trigger>
           <HoverButton>
@@ -100,10 +132,10 @@ import Tag from "~/components/Tag.vue";
 import {useUserInfoStore} from "~/pinia/userInfo";
 const route = useRoute();
 const query = route.query;
-console.log(query);
+
 const id = Number(query.id);
 const tab = ref(Number(query.tab));
-console.log(id);
+
 const shopDetails = useShopDetails(id);
 const {
   company_name,
@@ -113,7 +145,7 @@ const {
 } = shopDetails;
 onMounted(() => {
   fetchShopDetails();
-  console.log(tab.value);
+
 });
 const switchTab = (item :number) => {
   tab.value = item;
