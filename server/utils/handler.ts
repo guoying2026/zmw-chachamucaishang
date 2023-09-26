@@ -9,7 +9,7 @@ export const encryptPhone = (phone: string | number | string[]) => {
   if (typeof phone === 'object' && phone instanceof Array) {
     phone = phone[0];
   }
-  if (typeof phone === 'number') {
+  if (typeof phone !== 'string') {
     phone = phone.toString();
   }
   let isEncrypted = false
